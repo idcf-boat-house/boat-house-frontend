@@ -1,0 +1,24 @@
+//======================================
+// Bootstrap Switch plugin
+//======================================
+@import '../init.scss';
+
+// General
+// -------------------------------------------
+.bootstrap-switch {
+  min-width: none;
+}
+.bootstrap-switch>div>span, .bootstrap-switch>div>label {
+  height: auto;
+  line-height: 1;
+  padding: 8px;
+}
+.bootstrap-switch > div > span.bootstrap-switch-primary {
+  background: $primary_colour; 
+}
+.bootstrap-switch.bootstrap-switch-focused {
+  border-color: $primary_colour;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}

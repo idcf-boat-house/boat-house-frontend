@@ -1,0 +1,22 @@
+// -------------------------------------------
+// Countdown
+// -------------------------------------------
+
+.countdown-cards {
+  @include flex-d-flex;
+  @include flex-justify-content-center;
+  
+  .count {
+    text-align: center;
+    display: block;
+    padding: 1.5em;
+    margin: 2px;
+    border-radius: 0.2rem;
+    flex: 1;
+    width: 100%;     
+    
+    .digit {
+      
+    }
+  }
+}

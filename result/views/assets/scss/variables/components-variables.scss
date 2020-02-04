@@ -1,0 +1,162 @@
+//	================================================================================================
+//	File Name: components-variables.scss
+//	Description: Custom theme specific variables and other content variations
+//	----------------------------------------------------------------------------------------------
+//	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+//	Version: 1.0
+//	Author: PIXINVENT
+//	Author URL: http://www.themeforest.net/user/pixinvent
+//	================================================================================================
+
+//  ================================================================================================
+//  Use this file to override modern variables
+//  You can use any modern variable from app-assets/scss/core/variables/components-variables.scss
+//  ================================================================================================
+
+$body-direction: ltr; // Default ltr, change it to rtl for Right To Left support.
+
+//	------------------------------
+//	  Colors
+//	------------------------------
+$content-bg: #F4F5FA; //#F2F5F8 //#F1F4F4
+$white:#FFFFFF;
+$black:#000000;
+$border-color: #E4E5EC;
+$transparent: transparent;
+
+//	------------------------------
+//	  Buttons
+//	------------------------------
+$btn-border-radius-square: 0;
+$btn-border-radius-round: 2rem;
+
+//	------------------------------
+//	  Navbar
+//	------------------------------
+$navbar-height:5rem;
+$navbar-light-bg: $white;
+$navbar-dark-bg: #2C303B;
+$navbar-header-width : 260px;
+
+//	------------------------------
+//	  Main Menu
+//	------------------------------
+
+
+//main menu light
+$menu-light-bg: $white;
+$menu-light-color: $gray-600;
+
+//main menu dark
+$menu-dark-bg: #2C303B;
+$menu-dark-color: #dcdcdc;
+
+$menu-padding : 12px 30px 12px 18px;
+$menu-second-level-padding : 8px 18px 8px 54px;
+$menu-third-level-padding : 8px 18px 8px 64px;
+$menu-forth-level-padding : 8px 18px 8px 74px;
+
+// vertical menu
+$menu-expanded-width: 260px;
+$menu-collapsed-width: 60px;
+
+// vertical overlay menu
+$overlay-menu-width: 260px;
+
+// vertical compact menu
+$compact-menu-width: 130px;
+
+// vertical mm menu
+$mm-expanded-width: 260px;
+$mm-collapsed-width: 260px;
+
+// vertical menu
+$content-menu-expanded-width: 260px;
+$content-menu-collapsed-width: 65px;
+
+// menu search
+$menu-search-height: 70px;
+
+//Main menu footer
+$menu-footer-height:        15px;
+$menu-footer-color:         $white;
+$menu-footer-color-bg:	   #2C303B;
+$menu-footer-link-bg:       rgb(33, 41, 46);
+$menu-footer-link-hover-bg: rgb(30, 36, 39);
+
+//Footer color
+$footer-color-light-bg:    $white;
+$footer-color-dark-bg :	   #2C303B;
+
+//	------------------------------
+//	  Sideber
+//	-------------------------------
+$sidebar-width:            300px;
+//	-------------------------------
+//	  Avatar
+//	-------------------------------
+
+$avatar-size:            30px;
+$avatar-status-size:     8px;
+
+$avatar-size-lg:        144px;
+$avatar-status-size-lg: 20px;
+
+$avatar-size-md:        40px;
+$avatar-status-size-md: 10px;
+
+$avatar-size-sm:        32px;
+$avatar-status-size-sm: 8px;
+
+$avatar-size-xs:        24px;
+$avatar-status-size-xs: 7px;
+
+$avatar-size-50:        50px;
+$avatar-status-size-50: 10px;
+
+$avatar-size-100:        100px;
+$avatar-status-size-100: 20px;
+
+$avatar-online-color:    $success;
+$avatar-off-color:       $gray-100;
+$avatar-busy-color:      $danger;
+$avatar-away-color:      $warning;
+
+//	-------------------------------
+//	Progress
+//	-------------------------------
+$progress-size-xl:        2rem;
+$progress-size-lg:        1.5rem;
+$progress-size-md:        1rem;
+$progress-size-sm:        0.5rem;
+$progress-size-xs:        0.25rem;
+
+//	-------------------------------
+//	Form
+//	-------------------------------
+
+// $input-height, $input-height-lg, $input-height-sm are in variables
+$font-size-xs:   .75rem;
+$font-size-xl: ($font-size-base + 0.50);
+$line-height-xl: 1.7 ;
+$line-height-xs: 1.5 ;
+$input-padding-y-xl: 0.5rem !default;
+$input-padding-x-xl: 0.5rem !default;
+
+$input-padding-y-xs: 0.2rem !default;
+$input-padding-x-xs: 0.275rem !default;
+
+$border-radius-xl: .35rem !default;
+$border-radius-xs: .12rem !default;
+$input-border-radius-xl: $border-radius-xl;
+$input-border-radius-xs: $border-radius-xs;
+
+$input-height-xl: (($font-size-xl * $line-height-xl) + ($input-padding-y-xl * 2)) !default;
+$input-height-xs: (($font-size-xs * $line-height-xs) + ($input-padding-y-xs * 2)) !default;
+$input-height-sm: (($font-size-sm * $line-height-sm) + ($input-padding-y-sm * 2)) !default;
+
+
+//	-------------------------------
+//	Table
+//	-------------------------------
+$table_border_color: #e3ebf3;

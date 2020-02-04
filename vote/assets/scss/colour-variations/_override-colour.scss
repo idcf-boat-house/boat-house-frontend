@@ -1,0 +1,55 @@
+// --------------------------------------------------
+//
+// Template for colour-*.scss files
+//
+// --------------------------------------------------
+
+
+/*---------------------------------------------------------------------------
+ // 
+ // Custom theme code styles
+ // Written by Themelize.me (http://themelize.me)
+ // 
+ // This is an empty starter template for overriding styles
+ // set by Bootstrap & the theme
+ // 
+ // ----------------------------------------------------
+ // 
+ // Remove unused code for better performances
+ // 
+ // ----------------------------------------------------
+ // 
+ // $see - Usefuls tools online for editing
+ // 1. http://charliepark.org/bootstrap_buttons/ - Button style generator
+ // 2. http://www.colorzilla.com/gradient-editor/ - CSS3 gradient maker
+ // 
+ // $note
+ // To ensure custom styles are picked up
+ // wrap definitions in body tag
+ // ie.
+ // body .navbar-inner {
+ //   background: #ff0000;
+ // }
+ // 
+ ---------------------------------------------------------------------------*/
+
+
+// Set primary colour & other variables
+// The $_primary_colour_* variables set set in each
+// colour-*.scss file
+// --------------------------------------------------
+$primary_colour: $_primary_colour;
+$primary_colour_light: $_primary_colour_light;
+$primary_colour_dark: $_primary_colour_dark;
+
+$link-color: $primary_colour;
+$link-hover-color: $primary_colour_dark;
+
+$btn-primary-color: #fff;
+$btn-primary-bg: $primary_colour;
+$btn-primary-border: darken($btn-primary-bg, 5%); 
+
+// Include colour overrides
+// --------------------------------------------------
+$standalone-colour: true; // renders extra CSS in the below file
+@import "../core/primary-colours.scss"; //used by core to set primary colour

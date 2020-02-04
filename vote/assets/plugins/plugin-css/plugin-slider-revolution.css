@@ -1,0 +1,66 @@
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+.tp-banner {
+  visibility: hidden;
+}
+
+.tp-banner {
+  width: 100%;
+  position: relative;
+}
+
+.slider-appstrap-theme .tp-bannertimer {
+  background: #55A79A;
+  height: 2px;
+}
+
+.slider-appstrap-theme .tp-bannertimer.tp-bottom {
+  bottom: -1px;
+}
+
+.slider-appstrap-theme .tparrows {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  height: 60px;
+  width: 60px;
+}
+
+.slider-appstrap-theme .tparrows:before {
+  font-size: 22px;
+  line-height: 60px;
+}
+
+.slider-appstrap-theme .tp-leftarrow {
+  left: -3% !important;
+}
+
+.slider-appstrap-theme .tp-rightarrow {
+  left: 103% !important;
+}
+
+.slider-appstrap-theme .revslider-initialised {
+  overflow: hidden;
+}
+
+.slider-appstrap-theme .revslider-initialised:hover .tparrows {
+  opacity: 1;
+}
+
+.slider-appstrap-theme .revslider-initialised:hover .tp-leftarrow {
+  left: 0 !important;
+}
+
+.slider-appstrap-theme .revslider-initialised:hover .tp-rightarrow {
+  left: 100% !important;
+}
+
+.slider-revolution-full-width-behind .slide-content .tp-caption {
+  margin: 0 !important;
+}

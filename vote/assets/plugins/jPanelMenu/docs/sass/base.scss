@@ -1,0 +1,171 @@
+html {
+	background: $bg;
+}
+
+body {
+	@include type-body;
+}
+
+h1, h2, h3, h4, h5, h6, dt {
+	@include type-heading;
+	margin: $vertical-space 0;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3, dt { font-size: 1.25em; }
+h4 { font-size: 1em; text-transform: uppercase; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: $text-color-light; }
+
+p {
+	margin: $vertical-space 0;
+
+	&.caption {
+		margin-bottom: $vertical-space-large;
+		color: $text-color-medium;
+	}
+}
+
+ul, ol {
+	list-style-position: inside;
+}
+
+strong {
+	@include type-medium;
+}
+
+pre, code {
+	@include type-pre;
+}
+
+pre {
+	@include border-radius(10px);
+	padding: $vertical-space $horizontal-space-large;
+	background: $black;
+	color: $white;
+}
+
+code {
+	@include border-radius(3px);
+	position: relative;
+	top: -1px;
+	margin: 0 3px;
+	padding: 6px 5px 4px;
+	background: #fff;
+	border: 1px solid mix($text-color-light,$white);
+	font-size: .9em;
+	white-space: nowrap;
+
+	a {
+		text-decoration: none;
+		&:hover, &:focus { text-decoration: underline; }
+	}
+}
+
+abbr {
+	cursor: help;
+}
+
+header.main, .content, footer.main {
+	width: 100% - ($horizontal-space-xl*2);
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 $horizontal-space-xl;
+}
+
+header.main, footer.main {
+	margin-top: $vertical-space;
+	margin-bottom: $vertical-space;
+}
+
+.logo {
+	$iconPosition: 5px;
+	margin: 0 0 $vertical-space-small;
+	font-size: 1.4em;
+	text-align: center;
+
+	a {
+		position: relative;
+		left: $iconPosition;
+		display: inline;
+		color: $text-color;
+		text-decoration: none;
+
+		&:hover, &:focus { color: $link-color; }
+	}
+
+	a:before {
+		display: block !important;
+		position: relative;
+		top: 2px;
+		left: -$iconPosition*2;
+		font-size: 80%;
+		color: $text-color-light;
+	}
+}
+
+.download {
+	@include clearfix;
+	@include border-radius(10px);
+	margin-top: $vertical-space-large;
+	padding: $vertical-space $vertical-space*1.25 $vertical-space-large;
+	border: 1px solid $text-color-lightest;
+	background: $bg-light;
+	
+	p {
+		text-align: center;
+	}
+
+	.button {
+		margin-bottom: $vertical-space-large;
+	}
+}
+
+.button {
+	@include border-radius(5px);
+	@include linear-gradient($green,mix($green,$green-dark,15%));
+	@include box-shadow(0,1px,2px,$white,true);
+	@include type-medium;
+	display: block;
+	max-width: 200px;
+	margin: 0 auto;
+	padding: $vertical-space $vertical-space-large;
+	border: 1px solid darken($green-dark,10%);
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px $black;
+	color: $white;
+
+	&:hover, &:focus {
+		@include linear-gradient(lighten($green,3%),mix($green,$green-dark,15%));
+		color: $white;
+	}
+
+	&:active {
+		@include linear-gradient(darken($green,3%),$green-dark);
+		@include box-shadow(0,1px,5px,darken($green-dark,3%),true);
+		padding-top: $vertical-space*1.1;
+		padding-bottom: $vertical-space*.9;
+		text-shadow: 0 1px 1px $black;
+		color: $white;
+	}
+
+	&:before {
+		position: relative;
+		top: 2px;
+		margin-right: 10px;
+	}
+
+	&.example {
+		margin-top: $vertical-space-large;
+
+		.ss-icon {
+			position: relative;
+			top: 3px;
+			margin-right: 5px;
+			font-size: 1.2em;
+		}
+	}
+}

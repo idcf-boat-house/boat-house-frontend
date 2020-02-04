@@ -1,0 +1,251 @@
+// -------------------------------------------
+// Header sticky variations coming in version 3.0.9
+// -------------------------------------------
+@import '../init.scss';
+
+.sticky {
+   
+}
+
+// Display utils on sticky
+// -------------------------------------------
+.is-sticky {
+  //overflow:hidden;
+  
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+      .sticky-d#{$infix}-none         { display: none !important; }
+      .sticky-d#{$infix}-inline       { display: inline !important; }
+      .sticky-d#{$infix}-inline-block { display: inline-block !important; }
+      .sticky-d#{$infix}-block        { display: block !important; }
+      .sticky-d#{$infix}-table        { display: table !important; }
+      .sticky-d#{$infix}-table-row    { display: table-row !important; }
+      .sticky-d#{$infix}-table-cell   { display: table-cell !important; }
+      .sticky-d#{$infix}-flex         { display: flex !important; }
+      .sticky-d#{$infix}-inline-flex  { display: inline-flex !important; }
+    }
+  }  
+}
+
+// Effects
+// -------------------------------------------
+[class^="sticky-effect-"],
+.sticky-nav-contract .navbar-nav > .nav-item > .nav-link,
+.sticky-nav-contract .navbar-nav > .nav-link {
+  @include transition($sticky-transition);
+}
+.sticky-nav-contract .navbar-nav > .nav-item > .nav-link,
+.sticky-nav-contract .navbar-nav > .nav-link {
+  
+}
+
+.sticky-effect-slide-down {
+  @include transition($sticky-transition);
+  transform: translateY(-100%);
+}
+.sticky-effect-fade-in {
+  @include opacity(0);
+  @include transition($sticky-transition);
+}
+.sticky-effect-fade-out {
+  @include opacity(1);
+}
+
+.sticky-effect-expand-w {
+  max-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+.sticky-effect-expand-h {
+  height: 0 !important;
+  overflow: hidden;
+}
+
+.sticky-effect-contract-w {
+  max-width: 3000px;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+.sticky-effect-contract-h {
+  max-height: 3000px;
+  overflow: hidden;
+}
+
+.is-sticky {
+  .sticky-effect-slide-down {
+    transform: translateY(0);
+  }
+  
+  .sticky-effect-fade-in {
+    @include opacity(1);
+  }
+  .sticky-effect-fade-out {
+    @include opacity(0);
+  }
+  
+  .sticky-effect-expand-w {
+    max-width: 3000px;
+    padding-left: inherit;
+    padding-right: inherit;
+  }
+  .sticky-effect-expand-h {
+    height: 100% !important;
+  }
+  
+  .sticky-effect-contract-w {
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }  
+  .sticky-effect-contract-h {
+    max-height: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }  
+}
+
+// Header sticky schemes (light/dark)
+// -------------------------------------------
+body .is-sticky {
+  .sticky-header-light.header {
+    @extend %header-light;
+    @extend %navbar-light;
+  }
+  .sticky-header-dark.header {
+    @extend %header-dark;
+    @extend %navbar-dark;
+  }
+  .sticky-header-primary.header {
+    @extend %header-primary;
+    @extend %navbar-light;
+  }
+}
+
+// Change background colour, opacity & text
+// -------------------------------------------
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+
+body .is-sticky {
+  // Nav contract
+  .sticky-nav-contract .navbar-nav {
+    > .nav-item > .nav-link,
+    > .nav-link {
+      padding-bottom: 24px !important;
+      padding-top: 24px !important;
+    }
+  }
+  
+  
+  @each $name, $value in $as-colours {
+    // backgrounds
+    .sticky-bg-#{$name} {
+      background-color: $value !important;
+    }
+    
+    @each $op_name, $op_value in $op {
+      .sticky-bg-#{$name}.sticky-bg-op-#{$op_name},
+      .bg-#{$name}.sticky-bg-op-#{$op_name} {
+        @include translucent_background($value, $op_value, 1);
+      }
+    }    
+    
+    // text
+    .sticky-text-#{$name} {
+      color: $value !important;
+    }
+    
+    // Borders
+    .sticky-border-#{$name} {
+      border: 1px solid transparent;
+      border-color: $value !important;
+    }
+    
+    @each $op_name, $op_value in $op {
+      .sticky-border-#{$name}.sticky-border-op-#{$op_name},
+      .border-#{$name}.sticky-border-op-#{$op_name} { // works with .border-* & .sticky-border-*
+        @include translucent_border($value, $op_value, 1);
+      }
+    }   
+  }
+  
+  // Opacity
+  @each $op_name, $op_value in $op {
+    .sticky-op-#{$op_name} {
+      @include opacity($op_value !important);
+    }
+    a.sticky-op-#{$op_name}:hover {
+      @include opacity(1 !important);
+    }  
+  }  
+}
+
+// Change spacing?
+// -------------------------------------------
+body .is-sticky {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      $suffix: neg;
+      
+      // Postive
+      @each $prop, $abbrev in (margin: m, padding: p) {
+        @each $size, $length in $spacers {
+  
+          .sticky-#{$abbrev}#{$infix}-#{$size}  { #{$prop}:        $length !important; }
+          .sticky-#{$abbrev}t#{$infix}-#{$size} { #{$prop}-top:    $length !important; }
+          .sticky-#{$abbrev}r#{$infix}-#{$size} { #{$prop}-right:  $length !important; }
+          .sticky-#{$abbrev}b#{$infix}-#{$size} { #{$prop}-bottom: $length !important; }
+          .sticky-#{$abbrev}l#{$infix}-#{$size} { #{$prop}-left:   $length !important; }
+          .sticky-#{$abbrev}x#{$infix}-#{$size} {
+            #{$prop}-right: $length !important;
+            #{$prop}-left:  $length !important;
+          }
+          .sticky-#{$abbrev}y#{$infix}-#{$size} {
+            #{$prop}-top:    $length !important;
+            #{$prop}-bottom: $length !important;
+          }
+          
+          // Negative margins
+          @if $size != 0 and $prop == margin {
+            .sticky-#{$abbrev}#{$infix}-#{$size}-#{$suffix}  { #{$prop}:        -$length !important; }
+            .sticky-#{$abbrev}t#{$infix}-#{$size}-#{$suffix} { #{$prop}-top:    -$length !important; }
+            .sticky-#{$abbrev}r#{$infix}-#{$size}-#{$suffix} { #{$prop}-right:  -$length !important; }
+            .sticky-#{$abbrev}b#{$infix}-#{$size}-#{$suffix} { #{$prop}-bottom: -$length !important; }
+            .sticky-#{$abbrev}l#{$infix}-#{$size}-#{$suffix} { #{$prop}-left:   -$length !important; }
+            .sticky-#{$abbrev}x#{$infix}-#{$size}-#{$suffix} {
+              #{$prop}-right: -$length !important;
+              #{$prop}-left:  -$length !important;
+            }
+            .sticky-#{$abbrev}y#{$infix}-#{$size}-#{$suffix} {
+              #{$prop}-top:    -$length !important;
+              #{$prop}-bottom: -$length !important;
+            }
+          }          
+        }
+      }
+  
+      // Some special margin utils
+      .sticky-m#{$infix}-auto  { margin:        auto !important; }
+      .sticky-mt#{$infix}-auto { margin-top:    auto !important; }
+      .sticky-mr#{$infix}-auto { margin-right:  auto !important; }
+      .sticky-mb#{$infix}-auto { margin-bottom: auto !important; }
+      .sticky-ml#{$infix}-auto { margin-left:   auto !important; }
+      .sticky-mx#{$infix}-auto {
+        margin-right: auto !important;
+        margin-left:  auto !important;
+      }
+      .sticky-my#{$infix}-auto {
+        margin-top:    auto !important;
+        margin-bottom: auto !important;
+      }
+    }
+  }
+}

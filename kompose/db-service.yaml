@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --file docker-stack-k8s.yml
+    kompose.version: 1.11.0 (39ad614)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: db
+  name: db
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    io.kompose.service: db
+status:
+  loadBalancer: {}

@@ -1,0 +1,138 @@
+// -------------------------------------------
+// Content dividers
+// -------------------------------------------
+// Colours: .divider-COLOUR
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+
+@each $name, $value in $as-colours {
+  .divider-#{$name} {
+    // Diagonals
+    &.divider-diagonal:before {
+      border-left-color: $value;
+    }
+    &.divider-diagonal-r:before {
+      border-right-color: $value;
+    }
+    
+    // Arrows
+    &.divider-arrow-b:before {
+      border-top-color: $value;   
+    }
+    &.divider-arrow-t:before {
+      border-bottom-color: $value;   
+    }
+    &.divider-arrow-l:before {
+      border-right-color: $value;    
+    }
+    &.divider-arrow-r:before {
+      border-left-color: $value;    
+    }
+  }    
+}
+
+// Opacity: .divider-op-(1-9)
+@each $name, $value in $op {
+  .divider-op-#{$name}:before {
+    @include opacity($value !important);
+  }
+}
+
+// Responsive: .divider-BREAKPOINT
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  .divider#{$infix}:before {
+    display: none;
+  }    
+  @include media-breakpoint-up($breakpoint) {
+    .divider#{$infix}:before {
+      display: block;
+    }      
+  }
+}   
+
+
+// Forwardslash /
+.divider-diagonal {
+  position: relative;
+  overflow: hidden; 
+  
+  // = \
+  &:before {
+    border-right-color: transparent;
+    border-left-width: 150px;
+    border-left-style: solid;
+    border-top: 750px solid transparent;
+    height: 750px;
+    margin-bottom: -750px;
+    display: block;
+    position:absolute;
+    left: 0;
+    top:0;
+    content: '';
+    z-index: 1;
+  }
+  // = /
+  &.divider-diagonal-r:before {
+    border-left-color: transparent;
+    border-right-width: 150px;
+    border-right-style: solid;
+    border-top: 750px solid transparent;
+    right: 0;
+    left: auto;
+  }
+}
+
+.divider-arrow {
+  position: relative;
+  
+  &:before {
+    left: 50%;
+    content: " ";
+    position: absolute;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+  }
+  
+  &.divider-arrow-b:before {
+    top: 100%;
+    margin-left: -20px;
+    border-width: 15px 20px 0 20px;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;   
+  }
+  &.divider-arrow-t:before {
+    top: -15px;
+    margin-left: -20px;
+    border-width: 0 20px 15px 20px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;     
+  }
+  &.divider-arrow-l:before {
+    top: 50%;
+    left: -19px;
+    margin-top: -15px;
+    border-width: 15px 20px 15px 0;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;     
+  }
+  &.divider-arrow-r:before {
+    top: 50%;
+    left: auto;
+    right: -19px;
+    margin-top: -15px;
+    border-width: 15px 0 15px 20px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;     
+  } 
+}

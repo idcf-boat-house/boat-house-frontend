@@ -1,0 +1,155 @@
+/*******************************************************
+ *
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Plugin Cube Portfolio specific CSS code
+ * Loaded ondemand via JS
+ * 
+ *******************************************************/
+@import '../init.scss';
+
+div[data-toggle="cbp"] {
+  @include transition(all 0.4s ease-out);
+  min-height: 300px;
+  min-width: 100%;
+}
+
+.cbp-popup-wrap {
+  z-index: 99999+2 !important;
+}
+.cbp-popup-lightbox {
+  @include transition(all 0.4s ease-out);
+  @include opacity(0);
+  
+  .cbp-popup-lightbox-figure {
+    @include transition(all 0.4s ease-out);
+    @include opacity(0);    
+  }
+  
+  &.cbp-popup-ready,
+  &.cbp-popup-ready .cbp-popup-lightbox-figure {
+    @include opacity(1);
+  }  
+}
+
+.cbp-popup-singlePageInline .cbp-popup-close {
+  top: 15px;
+  right: 15px;
+}
+.cbp-popup-singlePageInline-open {
+  .cbp-item {
+    opacity: 0.7 !important;
+  }
+  .cbp-singlePageInline-active {
+    opacity: 1 !important;
+    
+    .cbp-item-wrapper {
+      @include scale(1.05);
+    }
+  }
+  .cbp-slider-item {
+    opacity: 1 !important;
+  }
+}
+
+.cbp-popup-singlePage .cbp-popup-content {
+  max-width: none;
+  width: 100%;
+  margin-top: 80px;
+  padding: 15px;
+}
+.cbp-popup-singlePage .cbp-popup-navigation-wrap,
+.cbp-popup-singlePage-sticky .cbp-popup-navigation-wrap {
+  top: 0 !important;
+  height: 80px;
+  background: $brand-inverse;
+  width: 100% !important;
+}
+
+
+// Navigation
+.cbp-popup-close,
+.cbp-popup-next,
+.cbp-popup-prev {
+  background: transparent !important;
+  border: 1px solid white;
+  height: 32px;
+  width: 32px;
+  @include opacity(0.80);
+  @include border-radius(2px);
+  @include transition(all 0.25s ease);
+  
+  &:before {
+    @include fontawesome-bg(\00d7);
+    font-size: 22px;
+    line-height: 38px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &:hover {
+    @include opacity(1);
+    background: white !important;
+    
+    &:before {
+      color: $brand-inverse;
+    }
+  }
+}
+.cbp-popup-prev {
+  &:before {
+    content: '\f104';
+  }
+}
+.cbp-popup-next {
+  &:before {
+    content: '\f105';
+  }
+}
+.cbp-popup-singlePageInline {
+  .cbp-popup-close,
+  .cbp-popup-next,
+  .cbp-popup-prev {
+    border-color: $brand-inverse;
+    height: 26px;
+    width: 26px;
+    
+    &:before {
+      color: $brand-inverse;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    &:hover {
+      background: $brand-inverse !important;
+      
+      &:before {
+        color: white;
+      }
+    }    
+  }
+  
+  &.has-custom-close {
+    .cbp-popup-navigation {
+      display: none;
+    }
+  }
+}
+[data-cbp-close] {
+  cursor: pointer;
+  
+  &.cbp-popup-close-icon:hover {
+    @include scale(1.2);
+  }
+}
+
+.cbp-equalheights {
+  .cbp-wrapper,
+  .cbp-item-wrapper {
+    @extend %flex-d-flex;
+  }
+}

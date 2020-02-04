@@ -1,0 +1,378 @@
+// ==================================================
+// Contains variables used in the theme
+// 1) AppStrap specific variables
+// 2) Bootstrap overrides
+// 3) Custom Bootstrap extended variables
+// ==================================================
+
+// ==================================================
+// 1) AppStrap Variable
+// ==================================================
+
+// --------------------------------------------------
+// Custom colours
+// --------------------------------------------------
+$standalone-colour: false !default; // used in _primary-colours.scss
+
+// All AppStrap colours
+$as-theme-colours: () !default;
+$as-theme-colours-extended: () !default; // colours, brands & social brands
+$as-theme-colours-extended-options: false !default; // Adds social branding to theme colours.
+
+// Predefined colours
+// -------------------------
+$skinGreen: #55A79A !default;
+$skinRed: #BE3E1D !default;
+$skinPurple: #b771b0 !default;
+$skinPink: #CC164D !default;
+$skinOrange: #e67e22 !default;
+$skinBlue: #00ADBB !default;
+$skinPink: #c71c77 !default;
+$skinLime: #b1dc44 !default;
+$skinBlueDark: #34495e !default;
+$skinRedDark: #a10f2b !default;
+$skinBrown:  #91633c !default;
+$skinCyanDark:  #008b8b !default;
+$skinYellow:  #D4AC0D !default;
+$skinSlate:  #5D6D7E !default;
+$skinOlive:  #808000 !default;
+$skinTeal:  #008080 !default;
+$skinGreenBright:  #2ECC71 !default;
+$as-theme-colours-default: (
+  green: $skinGreen,
+  red: $skinRed,
+  blue: $skinBlue,
+  purple: $skinPurple,
+  pink: $skinPink,
+  orange: $skinOrange,
+  lime: $skinLime,
+  blue-dark: $skinBlueDark,
+  red-dark: $skinRedDark,
+  brown: $skinBrown,
+  cyan-dark: $skinCyanDark,
+  yellow: $skinYellow,
+  slate: $skinSlate,
+  olive: $skinOlive,
+  teal: $skinTeal,
+  green-bright: $skinGreenBright
+) !default;
+$as-theme-colours: map-merge($as-theme-colours-default, $as-theme-colours);
+
+// Primary colour
+// -------------------------
+// override this & recompile to change colour globally
+$primary_colour: $skinGreen !default; //#377CA8;
+$primary_colour_light: lighten($primary_colour, 5%) !default;
+$primary_colour_dark: #4c968a !default;
+
+// Brand colours extended
+// -------------------------
+$brand-faded:           $gray-100;
+$brand-grey:            $gray-200;
+$brand-grey-dark:       $gray-700;
+$brand-secondary:       white;
+$brand-primary:         $primary_colour;
+$brand-primary-dark:    darken($primary_colour, 20%);
+$brand-primary-faded:   rgba($primary_colour, 30%/100.0%);
+$as-theme-colours-brands: (
+  "light": $brand-faded,
+  "grey": $brand-grey,
+  "grey-dark": $brand-grey-dark,
+  "primary": $brand-primary,
+  "primary-dark": $brand-primary-dark,
+  "primary-faded": $brand-primary-faded,
+  "info": theme-color(info),
+  "success": theme-color(success),
+  "warning": theme-color(warning),
+  "danger": theme-color(danger),
+  "dark": theme-color(dark),
+  "secondary": theme-color(secondary),
+  "black": $black,
+  "white": #fff
+);
+$as-theme-colours: map-merge($as-theme-colours-brands, $as-theme-colours);
+$theme-colors: $as-theme-colours;
+
+// --------------------------------------------------
+// Social media branding
+// Credit to https://paulund.co.uk/social-media-colours
+// --------------------------------------------------
+$as-theme-colours-brand-colours: (
+  "facebook": #3b5998,
+  "twitter": #00aced,
+  "google": #dd4b39,
+  "google-plus": #dd4b39,
+  "linkedin": #007bb6,
+  "youtube": #bb0000,
+  "instagram": #517fa4,
+  "pinterest": #cb2027,
+  "flickr": #ff0084,
+  "tumblr": #32506d,
+  "foursquare": #0072b1,
+  "dribbble": #ea4c89,
+  "vine": #00bf8f,
+  "behance": #1769FF,
+  "github": #171516,
+  "skype": #00AFF0,
+  "snapchat": #FFFA37,
+  "whatsapp": #64D448
+);
+
+@function get-social-media-colour($colour) {
+  @if map-has-key($as-theme-colours-brand-colours, $colour) {
+    $colour: map-get($as-theme-colours-brand-colours, $colour);
+  } @else {
+    @if type-of($colour) != colour {
+      @error "Invalid colour name: `#{$colour}`.";
+    }
+  }
+
+  @return $colour;
+}
+
+// legacy
+$branding_twitter_colour: get-social-media-colour(twitter);
+$branding_facebook_colour: get-social-media-colour(facebook);
+$branding_linkedin_colour: get-social-media-colour(linkedin);
+$branding_google_colour: get-social-media-colour(google);
+
+// Extended AppStrap colours
+$as-theme-colours-extended: map-merge($as-theme-colours, $as-theme-colours-brand-colours);
+
+// --------------------------------------------------
+// Colour schemes
+// --------------------------------------------------
+$as-theme-colour-schemes: () !default;
+
+// --------------------------------------------------
+// Main menu
+// --------------------------------------------------
+$menu_item_has_submenu: '';
+$submenu_item_bullet: \f105;
+$submenu_item_has_submenu: \f0da;
+
+// --------------------------------------------------
+// Timelines
+// --------------------------------------------------
+$timeline-breaker-bg: #1b1b1b;
+$timeline-item-bg: #f6f6f6;
+$timeline-item-border-color: #f2f2f2;
+$timeline-item-margin: 30px;
+$timeline-item-padding: 15px;
+$timeline-marker-icon: \f140;
+
+
+// --------------------------------------------------
+// Navbar
+// @todo - break up into mobile & desktop config
+// --------------------------------------------------
+$navbar-bg: #292b2c;
+$zindex-navbar: 1000 !default;
+
+// --------------------------------------------------
+// Header
+// --------------------------------------------------
+$header-vpadding-top: 0;
+$header-vpadding-bottom: 0;
+
+
+// --------------------------------------------------
+// Overlays
+// --------------------------------------------------
+$overlay-zindex: 1040000;
+$overlay-opacity: 0.95;
+$overlay-transition-speed: 0.5s;
+$overlay-bg: #242424;
+$overlay-bg-light: #ffffff;
+$overlay-bg-primary: $primary_colour;
+$overlay-colour: #ffffff;
+$overlay-colour-light: #242424;
+$overlay-colour-primary: #ffffff;
+
+
+// --------------------------------------------------
+// Layout variations
+// --------------------------------------------------
+$layout-boxed-padding: 40px;
+$container-max-width-sm: map-get($container-max-widths, 'sm');
+$container-max-width-md: map-get($container-max-widths, 'md'); // was @screen-tablet
+$container-max-width-lg: map-get($container-max-widths, 'lg');
+$container-max-width-xl: map-get($container-max-widths, 'xl'); 
+
+// --------------------------------------------------
+// Opacity
+// --------------------------------------------------
+$op: 0 0, 1 0.1, 2 0.2, 3 0.3, 4 0.4, 5 0.5, 6 0.6, 7 0.7, 8 0.8, 9 0.9, 10 1;
+
+// --------------------------------------------------
+// Sticky effects/variations
+// --------------------------------------------------
+$sticky-transition: all 0.5s ease-out;
+
+// --------------------------------------------------
+// Font size utils
+// @todo 
+// --------------------------------------------------
+$font-sizes: (
+  1: 1rem,
+  2: 2rem,
+  3: 3rem,
+  4: 4rem,
+  5: 5rem,
+  6: 6rem,
+  7: 7rem,
+  8: 8rem,
+  9: 9rem,
+  10: 10rem
+);
+
+// --------------------------------------------------
+// Square utils
+// --------------------------------------------------
+$square-sizes: (
+  'sm': 50,
+  'md': 75,
+  'lg': 100,
+  'xl': 150,
+);
+
+// ==================================================
+// 2) Bootstrap Variable Overrides
+// ==================================================
+
+// --------------------------------------------------
+// Colours
+// --------------------------------------------------
+
+// grays
+$gray-dark:              #333;
+$gray:                   #1b1b1b;
+$gray-light:             rgba($gray, 80%/100.0%);
+$gray-lighter:           #E6E6E6;
+$gray-lightest:          #f7f7f9;
+
+// Brands
+$brand-success:         #5cb85c;
+$brand-warning:         #f0ad4e;
+$brand-danger:          #d9534f;
+$brand-info:            #5bc0de;
+$brand-inverse:         #292b2c;
+
+// Body
+$body-bg:               darken(#fff, 1%);
+$body-color:            $gray-dark;
+
+// Links
+$link-color:            $primary_colour;
+$link-hover-color:      $primary_colour_dark;
+
+
+// --------------------------------------------------
+// Fonts
+// --------------------------------------------------
+$font-family-sans-serif:  "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+$font-family-base:       $font-family-sans-serif;
+
+
+// --------------------------------------------------
+// Buttons
+// --------------------------------------------------
+$btn-secondary-color:             #4B4B4B;
+$btn-secondary-bg:                #F5F5F5;
+$btn-secondary-border:            #E5E5E5;
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $primary_colour;
+$btn-primary-border:             darken($btn-primary-bg, 5%);
+
+$btn-padding-x-sm:               .5rem !default;
+$btn-padding-y-sm:               .25rem !default;
+$btn-padding-x-lg:               1.25rem;
+$btn-padding-y-lg:               .55rem;
+
+// --------------------------------------------------
+// Navbar
+// --------------------------------------------------
+$navbar-dark-color:                 rgba($white, .75);
+$navbar-dark-hover-color:           rgba($white, .90);
+$navbar-dark-active-color:          $white;
+$navbar-dark-disabled-color:        rgba($white, .25);
+$navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23");
+$navbar-dark-toggler-border-color:  rgba($white, .1);
+
+$navbar-light-color:                rgba($black, 70%/100.0%);
+$navbar-light-hover-color:          rgba($black, .7);
+$navbar-light-active-color:         rgba($black, .9);
+$navbar-light-disabled-color:       rgba($black, .3);
+$navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23");
+$navbar-light-toggler-border-color: rgba($black, .1);
+
+
+// --------------------------------------------------
+// Spacing
+// --------------------------------------------------
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+  6: ($spacer * 4.5),
+  7: ($spacer * 6),
+  8: ($spacer * 7.5),
+  9: ($spacer * 9),
+  10: ($spacer * 10.5)
+);
+
+
+// --------------------------------------------------
+// Sizing
+// --------------------------------------------------
+$sizes: (
+  5: 5%,
+  10: 10%,
+  15: 15%,
+  20: 20%,
+  25: 25%,
+  30: 30%,
+  35: 35%,
+  40: 40%,
+  45: 45%,
+  50: 50%,
+  55: 55%,
+  60: 60%,
+  65: 65%,
+  70: 70%,
+  75: 75%,
+  80: 80%,
+  85: 85%,
+  90: 90%,
+  95: 95%,
+  100: 100%
+);
+
+
+// --------------------------------------------------
+// Features
+// --------------------------------------------------
+$enable-shadows: true;
+
+$transition-base: all 0.4s ease-out;
+
+// ==================================================
+// 3) Bootstrap extender vars
+// ==================================================
+
+// --------------------------------------------------
+// Spacers
+// --------------------------------------------------
+// Extend Bootstrap default (0-5) up to 10
+$spacers_extended: (
+  6: ($spacer * 4.5),
+  7: ($spacer * 6),
+  8: ($spacer * 7.5),
+  9: ($spacer * 9),
+  10: ($spacer * 10.5),
+);

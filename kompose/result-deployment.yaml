@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --file docker-stack-k8s.yml
+    kompose.version: 1.11.0 (39ad614)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: result
+  name: result
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: result
+    spec:
+      containers:
+      - image: docker-server/docker-org/result:image-version
+        name: result
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
+status: {}

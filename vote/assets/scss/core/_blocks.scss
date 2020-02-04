@@ -1,0 +1,158 @@
+//======================================
+// Blocks/sections
+//======================================
+
+// Video blocks plugin
+// -------------------------------------
+.bg-video {
+  > * {
+    z-index: 1;
+    position: relative;
+  }
+}
+
+.bg-video-video {
+  z-index: 0 !important;
+}
+
+.bg-img,
+.bg-img-cover {
+  background-size: cover;
+}
+.bg-img-contain {
+  background-size: contain !important;
+}
+
+
+// Google maps
+// -------------------------------------
+.google-map {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 30%;
+  }
+}
+.google-map iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+// Misc. blocks
+// -------------------------------------
+.code-block {
+  position: relative;
+  
+  .btn-clipboard {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: $gray-600;
+    color: white;
+    padding: 0.2em;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+}
+
+.code-block-link {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  
+  &:before {
+    @include fontawesome-bg(\f121);
+    padding-right: 5px;
+  }
+}
+
+.focus-box {
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 5px solid #e3e3e3;
+}
+
+.stat {
+  font-size: 24px;
+  text-align: center;
+  color: $white;
+  margin-bottom: 10px;
+  
+  .stat-header {
+    background: $primary_colour;
+    @include gradient_radial(lighten($primary_colour_dark, 10%), $primary_colour_dark);
+    padding: 20px;
+    @include border-radius(6px);
+    position: relative;
+    margin: 0 15px;
+    min-height: 40px;
+    line-height: 40px;
+
+    &:after, 
+    &:before  {
+      top: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+     
+    &:after  {
+      border-top-color: $primary_colour;
+      border-width: 5px;
+      left: 50%;
+      margin-left: -5px;
+    }
+     
+    &:before {
+      border-top-color: rgba(0,0,0,0.01);
+      border-width: 6px;
+      left: 50%;
+      margin-left: -6px;
+    }
+  }
+  
+  small {
+    text-shadow: none;
+    font-size: 12px;
+    display: block;
+    color: #494949; //IE fallback
+    color: rgba($gray-light, 80%/100.0%);
+    margin: 10px 0 0 0;
+    text-transform: uppercase;
+  }
+}
+
+// Browser: @see: https://codepen.io/adrienjarthon/pen/ogjjoj
+.browser-mockup {
+  border-top: 2em solid rgba(230, 230, 230, 0.99);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 3px 3px 0 0
+}
+
+.browser-mockup:before {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.25em;
+  left: 1em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: #f44;
+  box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}

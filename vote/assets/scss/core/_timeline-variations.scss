@@ -1,0 +1,350 @@
+//======================================
+// Timeline variations
+// 1. Left
+// 2. Right
+//
+// NOTE: stacked & markers down are in
+// timeline.scss
+//======================================
+
+
+// Timeline - left
+//======================================
+.timeline.timeline-left,
+.timeline-left {
+  background-position: left top;
+  margin-left: 20px;
+  padding-bottom: 0;
+  text-align: left;
+  //can't align background specifically right so be consistent we use
+  
+  // breakers
+  .timeline-marker {
+    margin-left: -5px;
+    margin-right: 0;
+    
+    &:after,
+    &:before {
+      margin-left: 0;
+    }
+  }  
+  .timeline-breaker {
+    //move arrow to left & pull over timeline
+    margin-left: -20px;
+     
+    &:after  {
+      left: 20px;
+    }
+     
+    &:before {
+      left: 20px;
+    }    
+  }
+  
+  // Items
+  .timeline-item,
+  .timeline-item.even,
+  .timeline-item.right {
+    float: none;
+    clear: both;
+    width: 92%;
+    margin-left: 25px;
+    margin-right: 0;
+    margin-top: 40px;
+    left: auto;
+    right: auto;
+    
+    //arrows & marker
+    &:after, 
+    &:before  {
+      right: auto;
+      left: -($timeline-item-margin - 10);
+      margin-left: 0;
+      top: 20px;
+    }
+    &:before {
+      //arrow
+      @include fontawesome-bg(\F0D9);
+    }
+    &:after {
+      //marker
+      left: -($timeline-item-margin+10);
+    }    
+  }
+  
+  .pagination {
+    background: transparent;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  
+  .timeline-breaker {
+    &.timeline-breaker-middle,
+    &.timeline-breaker-bottom {
+      top: auto;
+      margin-bottom: 0;
+    }
+  }  
+}
+
+// Timeline - right
+//======================================
+.timeline.timeline-right,
+.timeline-right {
+  background-position: right top;
+  margin-right: 20px;
+  text-align: right;
+  //can't align background specifically right so be consistent we use
+  
+  // breakers
+  .timeline-marker {
+    margin-left: 0;
+    margin-right: -5px;
+    float: right;
+  }
+  .timeline-breaker {
+    //move arrow to left & pull over timeline
+    margin-left: 0;
+    margin-right: -20px;
+    float: right;
+     
+    &:after  {
+      right: 12px;
+      left: auto;
+    }
+     
+    &:before {
+      right: 12px;
+      left: auto;
+    }    
+  }
+  
+  // Items
+  .timeline-item,
+  .timeline-item.even,
+  .timeline-item.right {
+    float: right;
+    clear: both;
+    width: 92%;
+    margin-left: 0;
+    margin-right: 25px;
+    margin-top: 40px;
+    left: auto;
+    right: 0;
+    
+    //arrows & marker
+    &:after, 
+    &:before  {
+      left: auto;
+      right: -($timeline-item-margin - 10);
+      margin-right: 0;
+      top: 20px;
+    }
+    &:before {
+      //arrow
+      @include fontawesome-bg(\F0DA);
+    }
+    &:after {
+      //marker
+      right: -($timeline-item-margin+10);
+      left: auto;
+    }    
+  }
+  
+  .pagination {
+    background: transparent;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  
+  .timeline-breaker {
+    &.timeline-breaker-middle,
+    &.timeline-breaker-bottom {
+      top: auto;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Timeline - mini
+//======================================
+.timeline-mini {
+  .timeline-item {
+    padding: 0.5em !important;
+    margin-top: 50px !important;
+  }
+}
+
+
+// $responsive
+//======================================
+@include media-breakpoint-up(sm) {
+  .timeline.timeline-left,
+  .timeline.timeline-right {
+    .timeline-item,
+    .timeline-item.even,
+    .timeline-item.right {
+      width: 96%;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+ 
+}
+
+// Carousel timeline
+.carousel-timeline-nav {
+  .owl-nav div {
+    margin-top: -2px;
+  }
+  
+  .owl-stage-outer {
+    padding-bottom: 27px;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    
+    &:after {
+      height: 2px;
+      width: 500%;
+      background: $brand-inverse;
+      left: -200%;
+      right: 0;
+      top: auto;
+      bottom: 12px;
+      position: absolute;
+      content: '';
+      z-index: -1;
+    }
+  }
+  
+  &.owl-nav-over .owl-stage-outer {
+    margin-left: 30px;
+    margin-right: 30px;    
+  }
+  
+  &.owl-nav-over-lg {
+    .owl-stage-outer {
+      margin-left: 60px;
+      margin-right: 60px;      
+    }
+    .owl-nav div {
+      margin-top: -20px !important;
+    }
+  }
+  
+  .owl-item {
+    text-align: center;
+  }  
+  .owl-thumb {
+    position: relative;
+    display: block;
+    @include opacity(0.9);
+    @include transition(all 0.3s ease-in);
+    
+    &.active {
+      @include opacity(1);
+    }
+  }
+  
+  .owl-thumb:before {
+    background: white;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    position: absolute;
+    content: '';
+    margin-left: auto;
+    margin-right: auto;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    bottom: -20px;
+    border: 2px solid $brand-inverse;
+    z-index: 2;
+    @include opacity(1);
+  }
+  .active.owl-thumb:before {
+    background: $brand-inverse;    
+  }
+}
+
+// Timeline list
+.list-timeline {
+  margin: 0;
+  padding: 5px 0;
+  position: relative;
+  
+  &:before {
+    width: 1px;
+    background: #ccc;
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    content: '';
+  }
+  
+  .list-timeline-item {
+    margin: 0;
+    padding: 0;
+    padding-left: 24px !important;
+    position: relative;
+    
+    &:before {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: 2px solid #ccc;
+      position: absolute;
+      left: 0;
+      top: 4px;
+      content: '';
+      @include border-radius(100%);
+      @include transition(all 0.3 ease-in-out);
+    }
+    
+    &[data-toggle="collapse"] {
+      cursor: pointer;
+    }
+    
+    &.active:before,
+    &.show:before {
+      background: #ccc;
+    }
+    
+    &.list-timeline-item-marker-middle {
+      &:before {
+        top: 50%;
+        margin-top: -6px;
+      }
+    }
+  }
+
+
+  $as-colours: $as-theme-colours;
+  @if $as-theme-colours-extended-options == true {
+    // Include social brands
+    $as-colours: $as-theme-colours-extended;
+  }
+  
+  @each $name, $value in $as-colours {
+    &.list-timeline-#{$name} {
+      &:before {
+        background: #{$value};
+      }
+      .list-timeline-item {
+        &:before {
+          border-color: #{$value};
+        }
+        &.active:before,
+        &.show:before {
+          background: #{$value};
+        }        
+      }        
+    }
+  }
+}

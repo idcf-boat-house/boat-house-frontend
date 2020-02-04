@@ -1,0 +1,232 @@
+//======================================
+// Mobile menu using:
+// - jPanel Menu OR
+// - BS collapse plugin
+// 
+//======================================
+
+// Schemes
+// -----------------
+.navbar,
+.navbar-light {
+  @extend %navbar-light;
+}
+.navbar-dark {
+  @extend %navbar-dark;
+} 
+
+//$option: default BS mobile menu
+// -----------------
+.navbar-main {
+  margin: 0;
+  padding: 0;
+  background-color: $navbar-bg;
+  position: relative;
+}
+
+//$option: jPanel menu mobile menu
+// -----------------
+.navbar-offcanvas {
+  background-color: $navbar-bg;
+  padding: 0;
+  max-height: none;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  position: fixed !important;
+  //@include opacity(0);
+  @include transition(all 0.2s ease-in-out);
+  
+  //make sure not collapsed menu in jPanel Menu
+  .navbar-main, //bs 3.0,
+  .navbar-main.collapse,
+  .navbar-main.in,
+  &.navbar-main, //bs 3.0,
+  &.navbar-main.collapse,
+  &.navbar-main.in{
+    padding: 0;
+    margin: 0;
+    height: 100% !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  //jPanel menu menu specifics
+  > .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .navbar-main .navbar-nav,
+  &.navbar-main .navbar-nav {
+    @include main-menu-mobile;
+  }   
+}
+
+
+//using default .navbar-fixed-top class $todo - move somewhere else
+// -----------------
+.navbar-main {
+  &.in {
+    overflow-y: auto;
+  }
+}
+
+// $responsive
+// -----------------
+@include media-breakpoint-up(sm) {  
+  .has-navbar-fixed-top {
+    #content {
+      padding-top: 160px;
+    }
+  }  
+}
+
+
+// Toggleables
+// -----------------
+@mixin navbar-expand-resets(){  
+  &.navbar-expand-collapse {
+    @include flex-newline();
+    top: 7.5px;
+    position: relative !important;
+    clear: both;
+    display: block;
+  }
+  
+  .navbar-main .navbar-nav {
+    @include main-menu-mobile;
+  }  
+  
+  .nav .nav-item,
+  .nav .nav-link {
+    display: block;
+  }
+  
+  &.navbar-main .navbar-nav,
+  .navbar-main .navbar-nav {
+    margin-bottom: 0;
+    margin-top: 0;
+    display: block;
+  }
+  &.navbar-main .navbar-nav .dropdown-menu,
+  &.navbar-main .navbar-nav .mega-menu,
+  &.navbar-main .navbar-nav .dropdown-menu.mega-menu,
+  .navbar-main .navbar-nav .dropdown-menu,
+  .navbar-main .navbar-nav .mega-menu,
+  .navbar-main .navbar-nav .dropdown-menu.mega-menu{
+    padding: 0;
+    position: static !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+  
+  // Effects reset
+  // -----------------
+  &.navbar-main .dropdown-effect-fade,
+  &.navbar-main .dropdown-effect-fadeup,
+  &.navbar-main .dropdown-effect-fadedown,
+  .navbar-main .dropdown-effect-fade,
+  .navbar-main .dropdown-effect-fadeup,
+  .navbar-main .dropdown-effect-fadedown  {
+    .dropdown-menu,
+    &.open > .dropdown-menu,
+    .open > .dropdown-menu {
+      display: none !important;
+      @include opacity(1);
+      @include transition(all 0.4s ease-out);
+      visibility: visible;
+    }
+    
+    &.show > .dropdown-menu,
+    .show > .dropdown-menu {
+      @include opacity(1);
+      display: block !important;
+      visibility: visible !important;
+    }
+  }
+  
+  .collapse .dropdown-menu .dropdown.open {
+    border-bottom: none;  
+  }
+  
+  .dropdown-mega-menu .dropdown-menu {
+    min-width: 0;
+  }
+}
+.navbar-offcanvas {
+  @include navbar-expand-resets();
+}
+
+.navbar-expand {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        @include navbar-expand-resets();
+      }
+  
+      @include media-breakpoint-up($next) {
+        &.navbar-main,
+        .navbar-main {
+          @include main-menu;
+        }       
+      }
+    }
+  }
+}
+
+
+.navbar-border-bottom-effect {
+  .nav-link {
+    position: relative;
+    overflow: hidden;
+    &:after {
+      height: 2px;
+      width: 100%;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -100%;
+      right: 0; 
+      background-color: transparent;
+      @include transition(all .3s ease-in-out);
+    }
+    &:hover, &:active, &:focus, &.active {
+      &:after {
+        left:0; 
+        background:$primary_colour; 
+      }
+    }
+  }
+}
+
+.hover-scaleIn {
+  @include transform(scale(0));
+  @include transition(all .3s);
+}
+
+.hover-scaleIn-parent {
+  &:hover {
+    .hover-scaleIn {
+      @include transform(scale(2));
+    }
+    .track-counter {
+      opacity: 0;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

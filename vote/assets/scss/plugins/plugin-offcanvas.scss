@@ -1,0 +1,55 @@
+//======================================
+// Off canvas plugin
+// See: core/_off-canvas.scss
+//======================================
+@import '../init.scss';
+
+// General
+// -------------------------------------------
+.c-offcanvas-content-wrap {
+  overflow: auto;
+  backface-visibility: unset !important;
+  transform: none !important;
+}
+
+// Widths
+@mixin off-canvas-width($width: 20em) {
+  .c-offcanvas--left {
+    width: $width !important;
+    transform: translate3d(-$width, 0, 0) !important;
+  }
+  .c-offcanvas--right {
+    width: $width !important;
+    transform: translate3d($width, 0, 0) !important;
+  }
+  .c-offcanvas-content-wrap--reveal.c-offcanvas-content-wrap--left.is-open {
+    transform: translate3d($width, 0, 0) !important;
+  }
+  .c-offcanvas-content-wrap--reveal.c-offcanvas-content-wrap--right.is-open {
+    transform: translate3d(-$width, 0, 0) !important;
+  }
+  .c-offcanvas-bg.c-offcanvas-bg--reveal.c-offcanvas-bg--left.is-open {
+    transform: translate3d($width, 0, 0) !important;
+  }
+  .c-offcanvas-bg.c-offcanvas-bg--reveal.c-offcanvas-bg--right.is-open {
+    transform: translate3d(-$width, 0, 0) !important;
+  }
+  .c-offcanvas-content-wrap--push.c-offcanvas-content-wrap--left.is-open {
+    transform: translate3d($width, 0, 0) !important;
+  }
+  .c-offcanvas-content-wrap--push.c-offcanvas-content-wrap--right.is-open {
+    transform: translate3d(-$width, 0, 0) !important;
+  }
+  .c-offcanvas-bg.c-offcanvas-bg--push.c-offcanvas-bg--left.is-open {
+    transform: translate3d($width, 0, 0) !important;
+  }
+  .c-offcanvas-bg.c-offcanvas-bg--push.c-offcanvas-bg--right.is-open {
+    transform: translate3d(-$width, 0, 0) !important;
+  }
+  .c-offcanvas.is-open,
+  .c-offcanvas--reveal {
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+@include off-canvas-width();

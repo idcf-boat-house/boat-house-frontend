@@ -1,0 +1,38 @@
+//======================================
+// Bootstrap Select plugin
+//======================================
+@import '../init.scss';
+
+// Rounded
+// -------------------------------------------
+.bootstrap-select .dropdown-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+.bootstrap-select {
+  &.form-control {
+    background: transparent; 
+  }
+  
+  > .dropdown-menu {
+    border-radius: $border-radius-sm;
+    margin-top: 2px !important;
+    padding: 8px;
+  }
+  &.dropup,
+  &[x-placement="top-start"]{
+    > .dropdown-menu {
+      
+    }
+  }
+}
+.bootstrap-select.form-control-rounded {
+  > .dropdown-menu {
+    border-radius: 20px;
+    
+    .dropdown-item {
+      border-radius: 15px;
+      margin-bottom: 2px;
+    }    
+  }
+}

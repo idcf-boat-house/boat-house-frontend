@@ -1,0 +1,1 @@
+All files within this directory are specific to given plugins and are loaded via the script.js file only when the plugin is loaded.

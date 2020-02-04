@@ -1,0 +1,218 @@
+/*******************************************************
+ *
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Shop specific CSS code
+ * 
+ *******************************************************/
+
+// -------------------------------------------
+// Include Bootstrap & AppStrap variables & mixins
+// REQUIRED: Variables & Mixins
+// -------------------------------------------
+@import "init.scss";
+
+// Header
+// -------------------------------------------
+.header {
+  .header-slogan,
+  .header-brand-text,
+  .header-brand-text h1 {
+    font-family: 'Roboto Slab', serif !important;
+    text-transform: uppercase;
+  }
+  .header-brand-text h1 {
+    font-weight: 700;
+    font-size: 32px !important;
+    
+    @include media-breakpoint-down(sm) {
+      font-size: 26px !important;
+    }
+  }
+  .header-btn,
+  .cart-link {
+    @include media-breakpoint-down(sm) {
+      width: auto;
+      margin-left: 12px;
+    }
+  }
+}
+.header-compact .header .header-brand-text h1,
+.header-compact-sticky .header.is-sticky .header-brand-text h1,
+.header-compact-sticky .is-sticky .header .header-brand-text h1 {
+   font-size: 28px !important; 
+}
+
+// Products lists
+// -------------------------------------------
+.product-price-badge {
+  font-size: 95%;
+  padding: .5em;
+}
+.product-card {
+  .persist {
+    z-index: 10;
+  }    
+    
+  .card-footer {
+    background: white;
+  }
+}
+
+// Cart display
+// -------------------------------------------
+.cart-img {
+  max-width: 100px;
+}
+
+// Cart dropdown
+// -------------------------------------------
+.cart-link,
+.cart-link-lg {
+    
+  .cart-link-icon {  
+    position: relative;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .cart-link-count {
+    position: absolute;
+    top: 3px;
+    right: -6px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 9px;
+    @include border-radius(100%);
+    height: 15px;
+    line-height: 15px;
+    width: 15px;
+    padding: 0;
+    text-align: center;
+    border: 1px solid white;
+    display: inline-block;
+  }
+  
+  .cart-link-subtotal {
+    display: inline-block;
+  }
+}
+
+.cart-remove {
+  float: none;
+  font-size: 15px;
+}
+.cart-img {
+   border: 1px solid $gray-lighter;
+   @include border-radius(2px);
+   padding: 1px;
+   background: white;
+}
+
+.cart-dropdown-menu {
+  min-width: 16rem !important;
+  border: 3px solid $gray-lighter;
+  @include border-radius(3px); 
+  background: white;
+  z-index: 10001;
+  
+  @include media-breakpoint-up(sm) {
+    min-width: 300px !important;
+    max-width: 400px;
+  }
+  
+  .cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0 5px;
+    
+    .cart-items-item {
+      position: relative;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid $brand-faded;
+      margin-left: 0;
+      margin-right: 0;
+      @include clearfix;
+      
+      &:last-child,
+      &.last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+      }
+    }
+    
+    .cart-img {
+       max-width: 60px !important;
+    }
+    .cart-remove {
+      font-size: 13px;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+    }
+  }
+}
+.cart-content-footer {
+  padding: 15px 0;
+}
+.cart-content-totals {
+  margin-bottom: 15px;
+}
+.cart-table {
+  td,
+  th {
+    vertical-align: middle;
+  }
+  
+  .input-group-quantity {
+    max-width: 150px;
+  }
+}
+.cart-table-summary {
+  font-size: 95%;
+  
+  .cart-img {
+    max-width: 100px;
+  }
+  
+  &.cart-table-summary-sm {
+    .cart-img {
+      max-width: 60px;
+    }
+  }
+}
+
+// Product countdown - todo move
+.product-offer-countdown {
+  .countdown {
+    @extend %flex-d-flex;
+
+    
+    .count {
+      background: $gray-lighter;
+      color: $gray-light;
+      padding: .25em .85em;
+      font-size: 65%;
+      text-align: center;
+      margin-right: 1px;
+      text-transform: uppercase;
+      min-width: 46px;
+      
+      &:first-child {
+        @include border-radius(.25em 0 0 .25em);
+      }
+      &:last-child {
+        @include border-radius(0 .25em .25em 0);
+      }
+    }
+    .digit {
+      font-size: 160%;
+      font-weight: 400;
+      display: block;
+      text-transform: none;
+      font-family: 'Roboto Slab', serif;
+    }
+  }
+}

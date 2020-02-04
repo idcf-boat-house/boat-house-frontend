@@ -1,0 +1,47 @@
+// -------------------------------------------
+// Footer region 
+// -------------------------------------------
+
+#footer {
+  background: $brand-inverse;
+  padding: 60px 0 30px;
+  color: #A2A2A2; //IE fallback
+  color: rgba($white, 80%/100.0%);
+  border-top: 2px solid $primary_colour;
+  
+  .footer-link,
+  .footer-links a {
+    color: #CCCCCC; //IE fallback
+    color: rgba($white, 90%/100.0%);
+    
+    &:hover {
+      color: white;
+    }
+  }
+  
+  &.footer-light {
+    color: rgba($brand-inverse, 80%/100.0%);
+    background: $brand-faded;
+    
+    .footer-link,
+    .footer-links a {
+      color: rgba($brand-inverse, 90%/100.0%);
+      
+      &:hover {
+        color: $brand-inverse;
+      }
+    }    
+  }
+  
+  .container {
+    position: relative;
+  }
+  
+  &.sticky {
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    left: 0;
+    right: 0;
+  }
+}

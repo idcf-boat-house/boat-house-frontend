@@ -1,0 +1,97 @@
+//===========================================
+// Colour switcher
+//===========================================
+
+// 
+// -------------------------------------------
+.colour-switcher {
+  position: fixed !important;
+  width: 180px;
+  left: -180px;
+  top: 120px;
+  background: white;
+  padding: 15px;
+  @include transition(all 0.3s ease);
+  border: 2px solid $gray-lighter;
+  @include border-radius(0 0 3px 0);
+  z-index: $zindex-modal-backdrop - 1;
+  
+  @include media-breakpoint-down(sm) {
+    top: 50%;
+  }
+  
+  &.show {
+    left: 0;
+  }
+  
+  small {
+    font-size: 12px;
+    line-height: 12px;
+  }
+  
+  .colour-switcher-toggle {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 20px;
+    background: white;
+    @include border-radius(0 3px 3px 0);
+    border: 2px solid $gray-lighter;
+    border-left: none;
+    position: absolute;
+    top: -2px;
+    right: -40px;
+    color: $gray-light;
+    
+    &:hover,
+    &:active,
+    &.active {
+      color: $gray;
+    }
+  }
+}
+  
+.theme-colours {
+  @extend %flex-d-flex;
+  @extend %flex-wrap;
+  @extend %flex-justify-content-center;
+  text-align: center;
+  
+  a {
+    text-indent: -10000px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #cccccc; //IE fallback
+    border: 3px solid rgba($white, 50%/100.0%);
+    margin: 2px;
+    
+    &:hover,
+    &.active {
+      border: 3px solid $gray-light;      
+    }
+    
+    @each $name, $value in $as-theme-colours-default {
+      &.#{$name} {
+        background-color: $value;
+        border: 3px solid white;
+        
+        &.active,
+        &:hover,
+        &:focus {
+          border: 3px solid lighten($value, 20%);
+        }
+      }  
+    }
+  }  
+  
+  
+  &.theme-colours-lg {
+    a {
+      width: 105px;
+      height: 105px;      
+    }
+  }
+}

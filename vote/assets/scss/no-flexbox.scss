@@ -1,0 +1,510 @@
+
+/*******************************************************
+ *
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Removes flexbox support from Bootstrap
+ * 
+ *******************************************************/
+
+// -------------------------------------------
+// REQUIRED: Variables & Mixins
+// Variables, mixins & general
+// Bootstrap variables & mixins are imported
+// so they can be used in the theme
+// -------------------------------------------
+@import "init.scss";
+
+// -------------------------------------------
+// Mixins for this file only
+// -------------------------------------------
+
+@mixin make-gutters($gutters: $grid-gutter-width) {
+  @each $breakpoint in map-keys($gutters) {
+    @include media-breakpoint-up($breakpoint) {
+      $gutter: map-get($gutters, $breakpoint);
+      padding-right: ($gutter / 2);
+      padding-left:  ($gutter / 2);
+    }
+  }
+}
+
+@mixin make-row($gutters: $grid-gutter-width) {
+  @include clearfix();
+  display: block;
+}
+
+
+@mixin make-col($size, $columns: $grid-columns) {
+  float: left;
+  width: percentage($size / $columns);
+}
+
+@mixin make-col-offset($size, $columns: $grid-columns) {
+  margin-left: percentage($size / $columns);
+}
+
+@mixin make-col-push($size, $columns: $grid-columns) {
+  left: if($size > 0, percentage($size / $columns), auto);
+}
+
+@mixin make-col-pull($size, $columns: $grid-columns) {
+  right: if($size > 0, percentage($size / $columns), auto);
+}
+
+@mixin make-col-modifier($type, $size, $columns) {
+  // Work around the lack of dynamic mixin @include support (https://github.com/sass/sass/issues/626)
+  @if $type == push {
+    @include make-col-push($size, $columns);
+  } @else if $type == pull {
+    @include make-col-pull($size, $columns);
+  } @else if $type == offset {
+    @include make-col-offset($size, $columns);
+  }
+}
+
+// Grid framework
+// ------------------------------
+@mixin make-grid-columns($columns: $grid-columns, $gutters: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  // col-1|2|3|etc 
+  @for $i from 1 through $columns {
+    .col-#{$i} {
+      @include make-col($i, $columns);
+    }    
+  }
+
+  $breakpoint-counter: 0;
+  @each $breakpoint in map-keys($breakpoints) {
+    $breakpoint-counter: ($breakpoint-counter + 1);
+
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      .col#{$breakpoint} {
+        width: auto;
+      }
+      .col#{$breakpoint}-auto {
+        width: auto;
+      }      
+      
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+      @for $i from 1 through $columns {
+        .col-#{$breakpoint}-#{$i} {
+          @include make-col($i, $columns);
+        }
+      }
+
+      @each $modifier in (pull, push) {
+        @for $i from 0 through $columns {
+          .#{$modifier}-#{$breakpoint}-#{$i} {
+            @include make-col-modifier($modifier, $i, $columns)
+          }
+        }
+      }
+
+      // `$columns - 1` because offsetting by the width of an entire row isn't possible
+      @for $i from 0 through ($columns - 1) {
+        @if $breakpoint-counter != 1 or $i != 0 { // Avoid emitting useless .offset-xs-0
+          .offset-#{$breakpoint}-#{$i} {
+            @include make-col-modifier(offset, $i, $columns)
+          }
+        }
+      }
+    }
+  }
+}
+
+/*******************************************************
+ * General Bootstrap flexbox overrides
+ *******************************************************/
+// Media
+.media {
+  display: block;
+}
+.media,
+.media-body {
+  overflow: hidden;
+}
+.media-body {
+  width: 10000px;
+}
+.media-left,
+.media-right,
+.media-body {
+  display: table-cell;
+  vertical-align: top;
+}
+.media-middle {
+  vertical-align: middle;
+}
+.media-bottom {
+  vertical-align: bottom;
+}
+
+// Utilities
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .d#{$infix}-flex         { display: block !important; }
+    .d#{$infix}-inline-flex  { display: inline-block !important; }
+  }
+}
+
+// Navbar
+.navbar {
+  @include clearfix;
+}
+.navbar,
+.navbar-nav {
+  display: block;
+}
+.navbar-brand,
+.navbar-divider {
+  float: none;
+}
+.navbar-toggleable {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-up($next) {
+        > .container {
+          display: block;
+        }
+        .navbar-collapse {
+          display: block !important;
+        }
+        .navbar-nav {
+          .nav-item {
+            float: left;
+          }
+        }
+        .navbar-brand,
+        .navbar-divider {
+          float: left;
+        }        
+      }
+    }
+  }
+}
+
+// Card
+.card {
+  display: block;
+}
+@include media-breakpoint-up(sm) {
+  .card-deck,
+  .card-group {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    .card {
+      display: table-cell;
+      margin-bottom: 0; // Margin balancing
+      vertical-align: top;
+    }
+  }
+}
+
+// Carousel
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-indicators,
+.carousel-control-prev,
+.carousel-control-next {
+  display: block; 
+}
+.carousel-control-next,
+.carousel-control-prev {
+  background-color: #333;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  top: 0;
+  bottom: 0;
+  height: 100%;  
+}
+.carousel-indicators {
+  text-align: center;
+  
+  li {
+    display: inline-block;
+    width: 30px;
+  }
+}
+
+// Modal
+.modal-content,
+.modal-header,
+.modal-header {
+  display: block; 
+}
+
+// Nav
+.nav {
+  display: block; 
+}
+.nav-link {
+  display: inline-block;
+}
+.nav-inline {
+  .nav-item {
+    display: inline-block;
+  }
+}
+.nav-tabs,
+.nav-pill {
+  @include clearfix();
+  
+  .nav-item {
+    float: left;
+  }
+}
+.nav-fill {
+  // @todo 
+}
+.nav-justified {
+  // @todo 
+}
+
+// Button groups, @file: scss/_btn_groups.scss 
+.btn-group,
+.btn-group-vertical {
+  display: inline-block;
+}
+.btn-toolbar {
+  margin-left: -5px; // Offset the first child's margin
+  @include clearfix();
+
+  .btn-group,
+  .input-group {
+    float: left;
+  }
+
+  > .btn,
+  > .btn-group,
+  > .input-group {
+    margin-left: 5px;
+  }
+}
+
+// Progress bars, @file: scss/_progress.scss 
+.progress {
+  display: block;
+}
+
+// Forms, @file: scss/_forms.scss
+.form-inline {
+  display: block;
+
+  // Kick in the inline
+  @include media-breakpoint-up(sm) {
+    label,
+    .form-group,
+    .form-check,
+    .custom-control {
+      display: inline-block;
+    }
+  }
+}
+
+// Input groups, @file: scss/_input-group.scss
+.input-group {
+  display: table;
+  
+  .form-control {
+    float: left;
+    width: 100%;
+  }
+}
+.input-group-addon,
+.input-group-btn,
+.input-group .form-control {
+  display: table-cell;  
+}
+.input-group-addon,
+.input-group-btn {
+  width: 1%;
+}
+
+// List group, @file: scss/_list-group.scss
+.list-group,
+.list-group-item {
+  display: block;
+}
+
+// Pagniation, @file: scss/_pagination.scss
+.pagination {
+  display: block;
+}
+
+// Custom forms, @file: scss/_custom-forms.scss
+.custom-control {
+  display: inline-block;
+}
+.custom-controls-stacked {
+  display: block;
+}
+
+// Grid
+@if $enable-grid-classes {
+  .container {
+    @include make-container();
+    @include make-container-max-widths();
+  }
+  .container-fluid {
+    @include make-container();
+  }
+  .row {
+    @include make-row();
+  }
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  @include make-grid-columns();
+}
+
+
+.col {
+  float: left;
+  width: auto;
+}
+
+.flex-first {
+  float: left !important;
+}
+.flex-last {
+  float: right !important;
+}
+
+.modal-header {
+  @include clearfix;
+  
+  .modal-title {
+    float: left;
+  }
+}
+
+.nav {
+  .nav-item {
+    display: inline-block;
+  }
+}
+
+.nav-justified,
+.nav-fill {
+  display: table;
+  table-layout: fixed;
+  
+  .nav-item,
+  .nav-link {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-item .nav-link {
+    display: block;
+    width: auto;
+  }
+}
+
+.pagination {
+  .page-item {
+    display: inline-block;
+    margin-right: -4px;
+  }
+}
+
+/*******************************************************
+ * Custom AppStrap elements
+ *******************************************************/
+// header elements
+.header-inner {
+  display: block;
+  @include clearfix;
+
+  .header-block-flex {
+    > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  
+  @include media-breakpoint-up(md) {
+    .header-brand,
+    .header-block {
+      float: left;
+      display: table;
+      table-layout: fixed;
+    }
+    .header-block {
+      float: right;
+    }
+    .header-brand,
+    .header-block,
+    .header-block-flex {
+      > * {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .header-divider {
+        
+        &:after {
+          top: 0;
+          position: relative;
+        }
+      }      
+    }
+    
+    .header-brand {
+      margin-top: 8px;
+    }
+  }
+  
+  .header-btn {
+    margin-top: 8px;
+    
+    &.btn-lg {
+      margin-top: 5px;
+    }
+    &.btn-sm {
+      margin-top: 14px;
+    }
+  }  
+}
+
+// Navs
+.nav-steps.flex-row {
+  .nav-item,
+  .nav-link {
+    display: inline-block;
+  }
+}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .nav-steps.flex-sm-row {
+      .nav-item,
+      .nav-link {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+
+// Main nav
+.navbar-offcanvas {
+  .nav .nav-item,
+  .nav .nav-link {
+    display: block;
+  }
+}

@@ -1,0 +1,377 @@
+//======================================
+// Overlay menu & inline functionality
+// 
+//======================================
+
+// 
+// -----------------
+.overlay-open {
+  // force body to full page
+  overflow: hidden;
+  position: relative;
+}
+
+.overlay-content,
+.overlay-hover-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @include opacity(0);
+  padding: 2em 1em;
+  text-align: center;
+  @include transition(all 0.3s ease);
+  color: white;
+  display: block;
+  z-index: 3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;    
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;    
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  
+  &:after {
+    background: $black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    @include opacity(0.8);
+    content: '';
+    z-index: 2;
+  }
+  
+  > * {
+    z-index: 4;
+    position: relative;
+  }
+  
+  // Effect: slide up/down
+  &.overlay-slide-down,
+  &.overlay-slide-up {
+    visibility: visible;
+    height: 0;
+    @include opacity(100);
+    top: -50%;
+  }
+  &.overlay-slide-up {
+    bottom: -50%;
+    top: auto;
+  }    
+}
+
+.overlay {
+  position: relative;
+  
+  // Full page
+  &.overlay-fp {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $overlay-zindex;
+    overflow: hidden;
+    @include opacity(0);
+    @include transition(all $overlay-transition-speed);
+    visibility: hidden;
+    color: $overlay-colour;    
+  }
+  
+  .overlay-link {
+    color: $overlay-colour;
+    
+    &:hover {
+      color: rgba($overlay-colour, 80%/100.0%);
+      text-decoration: none;
+    }
+  }
+  
+  // Actual background
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    @include opacity($overlay-opacity);
+    display: block !important;
+    background: $overlay-bg;
+  } 
+  
+  > * {
+    z-index: 4;
+    position: relative;
+  }  
+  
+  // Effects, default is fade
+  // --------------------
+  &.slide-down,
+  &.slide-up {
+    visibility: visible;
+    height: 0;
+    @include opacity(1);
+  }
+  &.slide-up {
+    bottom: 0;
+    top: auto;
+  }
+  
+  // Active/Open
+  // --------------------
+  &.overlay-active {
+    @include opacity(1);
+    visibility: visible;
+    
+    .overlay-content,
+    .overlay-hover-content {
+      @include opacity(1);
+      
+      &:after {
+        display: none;
+      }
+    }
+    
+    &.slide-down,
+    &.slide-up {
+      height: 100%;
+      visibility: visible;
+    }
+  }
+  
+  &.rounded:after {
+    border-radius: .25rem;
+  }
+}
+
+// Overlay inner content
+// --------------------
+.overlay-content {
+  z-index: $overlay-zindex + 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding: 5% 10%;
+  overflow-y: scroll;
+  
+  .overlay-header:after,
+  .overlay-footer:before {
+    content: '';
+    height: 1px;
+    width: 40%;
+    margin: 30px auto;
+    background: $overlay-colour;
+    display: block;
+    @include opacity(0.2);
+  }
+}
+
+// Overlay elements
+// --------------------
+.overlay-trigger {
+  cursor: pointer;
+}
+
+// Dismiss links in overlay
+.overlay .close {
+  color: $overlay-colour;
+  font-size: 42px;
+  line-height: 1;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  z-index: $overlay-zindex + 2;
+  @include opacity(0.7);
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  
+  &:hover {
+    @include opacity(1);
+  }
+}
+
+.nav-overlay {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;  
+  
+  .nav-link {
+    padding: 10px 0;
+    margin: 10px 0;
+    font-size: 2.4rem;
+    display: block;
+    font-weight: 700;
+  }
+}
+
+.overlay-footer {
+  font-size: 90%;
+}
+
+// Overlay elements inline on hover
+// -------------------------------------------
+.overlay-hover {
+  position: relative;
+  display: block;
+  z-index: 1;
+  
+  // $todo
+  // - overlays on by default, off on hover
+  // - effect: slide up/down
+  // - effect: flip
+  // - natural height
+  // 
+  
+  &.card {
+    .overlay-hover-content:after {
+      @include border-radius(2px);
+    }
+  }
+
+  
+  // Active/Open
+  // --------------------
+  &:hover,
+  &.overlay-active {
+    .overlay-hover-content {
+      @include opacity(1);
+    }
+    
+    .overlay-slide-down,
+    .overlay-slide-up {
+      height: 100%;
+      visibility: visible;
+      top: auto;
+      bottom: auto;
+    }
+  }
+  
+  &.rounded:after {
+    border-radius: .25rem;
+  }  
+}
+
+
+
+// Overlay persistent
+// -------------------------------------------
+.overlay-persist {
+  position: relative;
+}
+
+// -------------------------------------------
+// VARIATIONS
+// -------------------------------------------
+@mixin overlay-colour($overlay-colour, $overlay-bg) {
+  .overlay-content {
+    color: $overlay-colour;
+  }
+  
+  &:after {
+    background: $overlay-bg;
+  }
+  &.overlay-gradient:after {
+    @include gradient-y(transparent, $overlay-bg);
+  }
+  &.overlay-gradient-flip:after {
+    @include gradient-y($overlay-bg, transparent);
+  }
+  
+  .overlay-item,
+  .overlay-link,
+  .overlay-close,
+  .close {
+    color: $overlay-colour;
+  }
+  
+  .overlay-header:after,
+  .overlay-footer:before {
+    background: darken($overlay-colour, 60%);
+  }  
+}
+
+// Overlay styles
+// --------------------
+.overlay,
+.overlay-hover-content {  
+  &.overlay-gradient:after {
+    background: transparent;
+    @include gradient-y(transparent, $overlay-bg);
+  }
+  &.overlay-gradient-flip:after {
+    background: transparent;
+    @include gradient-y($overlay-bg, transparent);
+  }
+  
+  // Additional colours
+  $overlay-colors: $as-theme-colours;
+  @if $as-theme-colours-extended-options == true {
+    $overlay-colors: $as-theme-colours-extended;
+  }
+
+  @each $name, $hex in $overlay-colors {
+    &.overlay-#{$name} {
+      @include overlay-colour(white, $hex);
+    }
+  }
+  
+  &.overlay-white{
+    @include overlay-colour($overlay-colour-light, $overlay-bg-light);
+    
+    &.overlay-gradient:after {
+      background: transparent;
+      @include gradient-y(transparent, $overlay-bg-light);
+    }
+    &.overlay-gradient-flip:after {
+      background: transparent;
+      @include gradient-y($overlay-bg-light, transparent);
+    }    
+  }  
+}
+
+// Opacity
+// --------------------
+.overlay,
+.overlay-hover-content {
+  @each $name, $value in $op {
+    &.overlay-op-#{$name}:after {
+      @include opacity($value);
+      
+      @if $value == 0 {
+        visibility: hidden;
+        z-index: -1;        
+      }
+      @else {
+        visibility: visible;
+      }
+    }
+  }
+}

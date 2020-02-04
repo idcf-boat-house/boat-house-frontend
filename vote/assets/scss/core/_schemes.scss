@@ -1,0 +1,115 @@
+// --------------------------------------------------
+// Colour schemes (light/dark)
+// These are used through the theme to save repeating code
+// --------------------------------------------------
+
+
+// Navbar
+// --------------------------------------------------
+@mixin appstrap-navbar-scheme-variant($color: $navbar-light-color, $hover-color: $navbar-light-hover-color, $active-color: $navbar-light-active-color, $dropdown-open-color: $dropdown-link-color, $disabled-color: $navbar-light-disabled-color, $border-color: $navbar-light-toggler-border-color, $toggler-icon-bg: $navbar-light-toggler-icon-bg, $important: 0){
+  .navbar-brand {
+    color: $active-color;
+
+    @include hover-focus {
+      color: $active-color;
+    }
+  }
+
+  .navbar-nav {
+    > .nav-item > .nav-link,
+    > .nav-link {
+      color: $color;
+
+      @include hover-focus {
+        color: $hover-color;
+      }
+
+      &.disabled {
+        color: $disabled-color;
+      }
+    }
+
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $active-color;
+    }
+    
+    .open > .nav-link,
+    .show > .nav-link,
+    .open > .nav-link:hover,
+    .show > .nav-link:hover {
+      color: $dropdown-open-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: $color;
+    border-color: $border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: $toggler-icon-bg;
+  }
+
+  .navbar-text {
+    color: $color;
+    a {
+      color: $active-color;
+
+      @include hover-focus {
+        color: $active-color;
+      }
+    }
+  }
+}
+
+// Reuseable extenders ie. @extend %navbar-light
+%navbar-light {
+  @include appstrap-navbar-scheme-variant();
+}
+%navbar-dark {
+  @include appstrap-navbar-scheme-variant($navbar-dark-color, $navbar-dark-hover-color, $navbar-dark-active-color, $dropdown-link-color, $navbar-dark-disabled-color, $navbar-dark-toggler-border-color, $navbar-dark-toggler-icon-bg);
+}
+
+// Headers
+// --------------------------------------------------
+@mixin appstrap-header-scheme-variant($background, $color, $brand_color, $brand_color_alt, $slogan_color, $divider, $border: transparent, $important: 0){
+  $i: unquote("");
+  @if $important == 1 {
+    $i: unquote("!important");
+  }
+  
+  background-color: $background$i;
+  border-bottom: 1px solid $border;
+  color: $color;
+  
+  .header-inner .header-divider:after {
+    background-color: $divider;
+  }
+  
+  .header-brand-text,
+  .header-brand-text h1 {
+    color: $brand_color;  
+  }
+  .header-brand-text-alt {
+    color: $brand_color_alt;
+  }
+  .header-slogan {
+    color: $slogan_color;
+  }
+}
+
+%header-light {
+  @include appstrap-header-scheme-variant(#fff, $gray, $primary_colour, $gray, #888, $gray-400, rgba($primary_colour, 60%/100.0%));
+}
+%header-dark {
+  @include appstrap-header-scheme-variant($brand-inverse, darken(#fff, 6%), darken(#fff, 2%), #fff, darken(#fff, 6%), darken(#f3f3f3, 15%), lighten($brand-inverse, 20%));
+  @extend %navbar-dark;
+}
+%header-primary {
+  @include appstrap-header-scheme-variant($primary_colour, darken(#f3f3f3, 11%), darken(#f3f3f3, 11%), darken(#f3f3f3, 11%), #dbedea, lighten($primary_colour, 15%), lighten($primary_colour, 15%)); 
+}
+
+// Dropdowns
+// --------------------------------------------------

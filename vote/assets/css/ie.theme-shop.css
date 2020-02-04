@@ -1,0 +1,223 @@
+/*******************************************************
+ *
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Shop specific CSS code
+ * 
+ *******************************************************/
+
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+.product-offer-countdown .countdown {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header .header-slogan,
+.header .header-brand-text,
+.header .header-brand-text h1 {
+  font-family: 'Roboto Slab', serif !important;
+  text-transform: uppercase;
+}
+
+.header .header-brand-text h1 {
+  font-weight: 700;
+  font-size: 32px !important;
+}
+
+@media (max-width: 767.98px) {
+  .header .header-brand-text h1 {
+    font-size: 26px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .header .header-btn,
+  .header .cart-link {
+    width: auto;
+    margin-left: 12px;
+  }
+}
+
+.header-compact .header .header-brand-text h1,
+.header-compact-sticky .header.is-sticky .header-brand-text h1,
+.header-compact-sticky .is-sticky .header .header-brand-text h1 {
+  font-size: 28px !important;
+}
+
+.product-price-badge {
+  font-size: 95%;
+  padding: .5em;
+}
+
+.product-card .persist {
+  z-index: 10;
+}
+
+.product-card .card-footer {
+  background: white;
+}
+
+.cart-img {
+  max-width: 100px;
+}
+
+.cart-link .cart-link-icon,
+.cart-link-lg .cart-link-icon {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.cart-link .cart-link-count,
+.cart-link-lg .cart-link-count {
+  position: absolute;
+  top: 3px;
+  right: -6px;
+  margin: 0;
+  font-weight: bold;
+  font-size: 9px;
+  border-radius: 100%;
+  height: 15px;
+  line-height: 15px;
+  width: 15px;
+  padding: 0;
+  text-align: center;
+  border: 1px solid white;
+  display: inline-block;
+}
+
+.cart-link .cart-link-subtotal,
+.cart-link-lg .cart-link-subtotal {
+  display: inline-block;
+}
+
+.cart-remove {
+  float: none;
+  font-size: 15px;
+}
+
+.cart-img {
+  border: 1px solid #E6E6E6;
+  border-radius: 2px;
+  padding: 1px;
+  background: white;
+}
+
+.cart-dropdown-menu {
+  min-width: 16rem !important;
+  border: 3px solid #E6E6E6;
+  border-radius: 3px;
+  background: white;
+  z-index: 10001;
+}
+
+@media (min-width: 576px) {
+  .cart-dropdown-menu {
+    min-width: 300px !important;
+    max-width: 400px;
+  }
+}
+
+.cart-dropdown-menu .cart-items {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0 5px;
+}
+
+.cart-dropdown-menu .cart-items .cart-items-item {
+  position: relative;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #f8f9fa;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cart-dropdown-menu .cart-items .cart-items-item::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.cart-dropdown-menu .cart-items .cart-items-item:last-child,
+.cart-dropdown-menu .cart-items .cart-items-item.last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.cart-dropdown-menu .cart-items .cart-img {
+  max-width: 60px !important;
+}
+
+.cart-dropdown-menu .cart-items .cart-remove {
+  font-size: 13px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+.cart-content-footer {
+  padding: 15px 0;
+}
+
+.cart-content-totals {
+  margin-bottom: 15px;
+}
+
+.cart-table td,
+.cart-table th {
+  vertical-align: middle;
+}
+
+.cart-table .input-group-quantity {
+  max-width: 150px;
+}
+
+.cart-table-summary {
+  font-size: 95%;
+}
+
+.cart-table-summary .cart-img {
+  max-width: 100px;
+}
+
+.cart-table-summary.cart-table-summary-sm .cart-img {
+  max-width: 60px;
+}
+
+.product-offer-countdown .countdown .count {
+  background: #E6E6E6;
+  color: rgba(27, 27, 27, 0.8);
+  padding: .25em .85em;
+  font-size: 65%;
+  text-align: center;
+  margin-right: 1px;
+  text-transform: uppercase;
+  min-width: 46px;
+}
+
+.product-offer-countdown .countdown .count:first-child {
+  border-radius: 0.25em 0 0 0.25em;
+}
+
+.product-offer-countdown .countdown .count:last-child {
+  border-radius: 0 0.25em 0.25em 0;
+}
+
+.product-offer-countdown .countdown .digit {
+  font-size: 160%;
+  font-weight: 400;
+  display: block;
+  text-transform: none;
+  font-family: 'Roboto Slab', serif;
+}

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --file docker-stack-k8s.yml
+    kompose.version: 1.11.0 (39ad614)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: redis
+    spec:
+      containers:
+      - image: docker-server/docker-org/redis:alpine
+        name: redis
+        ports:
+        - containerPort: 6379
+        resources: {}
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,89 @@
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * This example shows you how to strip out non-core files
+ * No header variations or utils
+ *
+ * You can copy & paste this into the theme-stye.scss file
+ * or change the css file in the <head> from:
+ * theme-style.min.css
+ * to
+ * example-core-only.css
+ *******************************************************/
+
+// -------------------------------------------
+// REQUIRED: Variables & Mixins
+// -------------------------------------------
+@import "init.scss";
+
+
+// -------------------------------------------
+// REQUIRED: Core AppStrap (do not remove)
+// -------------------------------------------
+@import "core/primary-colours.scss"; // Contains all primary colour setting, used in colour-COLOUR.scss files too
+@import "core/typography.scss";
+@import "core/region-header.scss";
+@import "core/main-menu.scss";
+@import "core/dropdown-menus.scss";
+@import "core/region-content.scss";
+@import "core/region-footer.scss";
+
+
+// -------------------------------------------
+// SEMI-OPTIONAL: Core AppStrap (pick & choose)
+// -------------------------------------------
+@import "core/page-loading.scss"; // Can remove if not using page loading functionality
+
+
+// -------------------------------------------
+// SEMI-OPTIONAL: Bootstrap component overrides/enhancements (pick & choose)
+// -------------------------------------------
+@import "core/alerts.scss";
+@import "core/buttons.scss";
+@import "core/navs.scss";
+@import "core/modals.scss";
+@import "core/list-groups.scss";
+@import "core/card.scss";
+@import "core/spacing.scss";
+@import "core/progress.scss";
+@import "core/forms.scss";
+@import "core/tables.scss";
+@import "core/popover.scss";
+
+
+// -------------------------------------------
+// SEMI-OPTIONAL: Theme specifics components (pick & choose)
+// -------------------------------------------
+@import "core/animation.scss";
+@import "core/sliders.scss"; // Common slider style, remove if you don't use sliders
+@import "core/sizing.scss"; // extended width & height classes (ie. w-*)
+@import "core/overlay.scss"; 
+@import "core/timeline.scss";
+@import "core/timeline-variations.scss";
+@import "core/icons.scss";
+@import "core/blocks.scss";
+@import "core/card-effects.scss";
+@import "core/social-media.scss";
+@import "core/pricing.scss";
+
+
+// -------------------------------------------
+// Page specific (page- file prefix)
+// If you don't use a page remove or comment it out (//)
+// -------------------------------------------
+@import "core/page-blog.scss";
+@import "core/page-customers.scss";
+@import "core/page-misc.scss";
+@import "core/page-team.scss";
+@import "core/page-customers.scss";
+
+
+// -------------------------------------------
+// Your custom style
+// -------------------------------------------
+// use the core/_custom-style.scss file to
+// add you custom CSS code or include new files
+// below.
+// -------------------------------------------
+@import "custom/custom-style.scss";

@@ -1,0 +1,53 @@
+// -------------------------------------------
+// Colour utils
+// -------------------------------------------
+
+// Text/links
+// -------------------------------------------
+// See loop below since AppStrap 3.0.9
+
+// Background specials
+// -------------------------------------------
+.bg-transparent  {
+  background: transparent !important;
+}
+.bg-shadow {
+  @include box-shadow(1px 1px 6px $gray-300);
+}
+.bg-gradient {
+  @include gradient-y($white, $gray-100);
+}
+.bg-gradient-flip {
+  @include gradient-y($gray-100, $white);
+}
+
+// Theme colours
+// -------------------------------------------
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+
+@each $name, $value in $as-colours {
+  .bg-#{$name} {
+    background-color: $value !important;
+  }
+  .text-#{$name} {
+    color: $value !important;
+  }
+  
+  // Hover states
+  .text-hover-#{$name}:hover {
+    color: $value !important;
+  }
+  .bg-hover-#{$name}:hover {
+    background-color: $value !important;
+  }
+  a.bg-hover-#{$name},
+  button.bg-hover-#{$name} {
+    @include hover-focus {
+      background-color: $value !important;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+// Animation delays for use with animate.css
+// -------------------------------------------
+
+// data-animate
+body.animates-pending *[data-animate] {
+  @include opacity(0);
+  
+  &.animated,
+  &.animated-done {
+    @include opacity(1);
+  }
+}
+.animate-pending {
+  @include opacity(0);
+}
+
+//durations
+.dur-fast {
+  -webkit-animation-duration: 0.5s;
+     -moz-animation-duration: 0.5s;
+       -o-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}    
+.dur-slow {
+  //.transition(all 2s ease-out);
+  -webkit-animation-duration: 2s;
+     -moz-animation-duration: 2s;
+       -o-animation-duration: 2s;
+          animation-duration: 2s;  
+}
+.dur-x-slow {
+  //.transition(all 3s ease-out);
+  -webkit-animation-duration: 3s;
+     -moz-animation-duration: 3s;
+       -o-animation-duration: 3s;
+          animation-duration: 3s;   
+}
+
+//delays
+@for $i from 1 through 20 {
+  .de-#{$i} {
+    -webkit-animation-delay: (#{$i*0.1s}); 
+    animation-delay: (#{$i*0.1s});
+    transition-delay: (#{$i*0.1s}); 
+  }
+}
+
+
+// Transitions
+.transition-base {
+  @include transition($transition-base);
+}
+.fade {
+  visibility: hidden;
+  @include opacity(0);
+  @include transition($transition-fade);
+  
+  &.modal {
+    @include transition($transition-base);
+  }
+  
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes loading-rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading {
+  min-height: 34px;
+  min-width: 100%;
+  opacity: 1;
+  @include transition($transition-base);
+  position: relative;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    -webkit-animation: loading-rotation .8s infinite linear;
+    animation: loading-rotation .8s infinite linear;
+    border-left: 3px solid rgba(114, 144, 182, 0.15);
+    border-right: 3px solid rgba(114, 144, 182, 0.15);
+    border-bottom: 3px solid rgba(114, 144, 182, 0.15);
+    border-top: 3px solid rgba(114, 144, 182, 0.8);
+    border-radius: 100%;     
+  }
+  
+  &.loaded {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    min-height: 0;
+  }  
+}

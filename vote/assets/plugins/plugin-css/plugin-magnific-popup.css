@@ -1,0 +1,62 @@
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+.mfp-bg {
+  z-index: 100002 !important;
+}
+
+.mfp-wrap {
+  z-index: 100003 !important;
+}
+
+.mfp-close:focus,
+.mfp-arrow:focus {
+  outline: none;
+}
+
+.mfp-title {
+  font-size: 80%;
+}
+
+.mfp-bg {
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  opacity: 0;
+}
+
+.mfp-bg.mfp-ready {
+  opacity: 0.8;
+}
+
+.mfp-fade-zoom .mfp-image-holder .mfp-content {
+  -webkit-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
+  opacity: 0;
+  -webkit-transform: scale(0.85);
+  transform: scale(0.85);
+}
+
+.mfp-fade-zoom.mfp-image-in .mfp-image-holder .mfp-content {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.mfp-fade .mfp-image-holder .mfp-content {
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+}
+
+.mfp-fade.mfp-image-in .mfp-image-holder .mfp-content {
+  opacity: 1;
+}
+
+.mfp-zoom-out-cur #header {
+  z-index: 10;
+}

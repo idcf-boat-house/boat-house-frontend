@@ -1,0 +1,676 @@
+//
+// All primary colour overrides in one place
+// This is used by core and the colour-*.scss files
+// --------------------------------------------------
+
+// Standalone colour override ie colour-*.scss
+// ----------------------------
+@if $standalone-colour {  
+  body {
+    a {
+      color: $link-color;
+      text-decoration: none;
+    } 
+    a:hover {
+      color: $link-hover-color;
+      text-decoration: underline;
+    }
+     
+    
+    #header-hidden-link a.show-hide,
+    .flexslider-wrapper .flex-control-nav li a.flex-active, .static-banner .flex-control-nav li a.flex-active {
+      background: $primary_colour_dark;/* primary colour */
+    }
+    .flex-direction-nav a,
+    .flex-direction-nav a:before {
+      color: $primary_colour !important;
+    }
+  
+    // v2.5 navigation
+    .header {
+      border-bottom-color: $primary_colour;/* primary colour */
+  
+      .navbar-brand {
+        color: $primary_colour;/* primary colour */
+      }     
+    }
+  
+    //about
+    .stats {
+      .stat-header {
+        background: $primary_colour;
+        @include gradient_radial(lighten($primary_colour_dark, 10%), $primary_colour_dark);
+        
+        &:after  {
+          border-top-color: $primary_colour;/* primary colour */
+        }
+      } 
+    } 
+  }  
+  
+  // Sliders
+  .slider-appstrap-theme .tp-bullets,
+  .slider-appstrap-theme .tp-bullets.round,
+  .slider-appstrap-theme .tp-bullets.simplebullets.round,
+  .flex-control-nav {  
+    li a,
+    .bullet {    
+      &:hover,
+      &.flex-active,
+      &.selected {
+        background: $primary_colour; 
+      }
+    }
+  }
+  .slider-appstrap-theme  {
+    .tp-bannertimer {
+      background: $primary_colour;
+    }
+  }
+  
+  // Toggle buttons
+  .bootstrap-switch > div > span.bootstrap-switch-primary {
+    background: $primary_colour; 
+  }
+  
+  .bootstrap-switch.bootstrap-switch-focused {
+    border-color: $primary_colour;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+  
+  // Dropdown variations
+  .dropdown-menu-primary {
+    border-bottom-color: $primary_colour !important;
+    
+    a:hover:before {
+      color: $primary_colour !important;
+    }  
+  }
+  
+  // Timelines
+  .timeline-item {
+    border-bottom-color: $primary_colour;
+  }
+  .timeline-item.tag-featured:after, .timeline-item.marker-highlight:after, .timeline-item.highlight:after {
+    color: $primary_colour;
+  }
+  
+  // carousel
+  .owl-controls.clickable .owl-buttons div:hover,
+  .owl-controls .owl-page.active span, .owl-controls.clickable .owl-page:hover span {
+    background: $primary_colour;
+  }
+  
+  .navbar-border-bottom-effect .nav-link:hover:after,
+  .navbar-border-bottom-effect .nav-link:active:after,
+  .navbar-border-bottom-effect .nav-link:focus:after,
+  .navbar-border-bottom-effect .nav-link.active:after {
+    background: $primary_colour;
+  }
+  
+  // Sticky
+  body .is-sticky {
+    // backgrounds
+    .sticky-bg-primary {
+      background-color: $primary_colour !important;
+    }
+    
+    @each $op_name, $op_value in $op {
+      .sticky-bg-primary.sticky-bg-op-#{$op_name},
+      .bg-primary.sticky-bg-op-#{$op_name} {
+        @include translucent_background($primary_colour, $op_value, 1);
+      }
+    }    
+    
+    // text
+    .sticky-text-primary {
+      color: $primary_colour !important;
+    }
+    
+    // Borders
+    .sticky-border-primary {
+      border: 1px solid transparent;
+      border-color: $primary_colour !important;
+    }
+    
+    @each $op_name, $op_value in $op {
+      .sticky-border-primary.sticky-border-op-#{$op_name},
+      .border-primary.sticky-border-op-#{$op_name} { // works with .border-* & .sticky-border-*
+        @include translucent_border($primary_colour, $op_value, 1);
+      }
+    }     
+  }  
+}// if standalone-colour
+
+// Cards
+// ----------------------
+.card-primary {
+  border-color: $primary_colour;
+  background-color: $primary_colour;
+}
+.card-outline-primary {
+  border-color: $primary_colour;   
+}
+.card.clickable-element:hover {
+  border: 1px solid $primary_colour; 
+}
+
+// Tags
+// ----------------------
+.tag-primary,
+.badge-primary,
+.bg-primary {
+  background-color: $primary_colour !important; 
+}
+.bg-primary-bright {
+  background-color: saturate($primary_colour, 40%) !important;
+}
+
+// Buttons/links/navs
+// ----------------------
+.btn-link,
+.btn-link:hover {
+  color: $primary_colour; 
+}
+.text-primary,
+a.text-primary:hover,
+a.text-primary:focus {
+  color: $primary_colour !important; 
+}
+.btn-primary {
+  @include appstrap-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  color: white;
+}
+.btn-outline-primary,
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: $primary_colour;
+  border-color: $primary_colour;
+  
+  &:hover,
+  &:focus {
+    color: white;
+  }
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary.focus,
+.btn-outline-primary.active,
+.btn-outline-primary:active,
+.btn-outline-primary.active:focus,
+.btn-outline-primary:active:focus,
+.show > .btn-outline-primary.dropdown-toggle,
+.open > .btn-outline-primary.dropdown-toggle {
+  background-color: $primary_colour;
+  border-color: $primary_colour;
+}
+
+.nav-pills .nav-item.show .nav-link,
+.nav-pills .nav-item.show .nav-link:focus,
+.nav-pills .nav-item.show .nav-link:hover,
+.nav-pills .nav-item.open .nav-link,
+.nav-pills .nav-item.open .nav-link:focus,
+.nav-pills .nav-item.open .nav-link:hover,
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:focus, .nav-pills .nav-link.active:hover {
+  background-color: $primary_colour;
+  color: white;
+}
+
+.nav-pills-border-bottom .nav-link.active:after,
+.nav-pills-border-bottom-inside .nav-link.active:after {
+  background-color: $primary_colour;
+}
+.nav-pills.nav-pills-border-bottom .nav-link:hover,
+.nav-pills.nav-pills-border-bottom .nav-link.active,
+.nav-pills.nav-pills-border-bottom-inside .nav-link.active,
+.nav-tabs-flat .nav-link:hover {
+  &,
+  &:focus {
+    color: $primary_colour !important;
+  }
+}
+.nav-tabs-flat .nav-link.active:hover  {
+  color: white !important;
+}
+
+.list-group-item-primary,
+a.list-group-item-primary,
+button.list-group-item-primary {
+  background-color: rgba($brand-primary, 25%/100.0%);
+  color: darken($brand-primary, 20%);
+}
+a.list-group-item-primary,
+button.list-group-item-primary {
+  &:hover,
+  &:focus {
+    color: darken($brand-primary, 20%);
+    background-color: rgba($brand-primary, 45%/100.0%);
+  }
+}
+
+.nav-section-menu .nav .nav-link:hover i,
+.nav-section-menu.nav .nav-link:hover i,
+.nav-section-menu .nav .nav-link.active i,
+.nav-section-menu.nav .nav-link.active i,
+.nav-section-menu .nav .nav-link.active:hover i,
+.nav-section-menu.nav .nav-link.active:hover i,
+.nav-section-menu .nav .active .nav-link i,
+.nav-section-menu.nav .active .nav-link i,
+.nav-section-menu .nav .active .nav-link:hover i,
+.nav-section-menu.nav .active .nav-link:hover i {
+  color: $primary_colour !important;
+}
+.nav-section-menu .nav .nav-link.active,
+.nav-section-menu.nav .nav-link.active,
+.nav-section-menu .nav .nav-link.active:hover,
+.nav-section-menu.nav .nav-link.active:hover,
+.nav-section-menu .nav .active .nav-link,
+.nav-section-menu.nav .active .nav-link,
+.nav-section-menu .nav .active .nav-link:hover,
+.nav-section-menu.nav .active .nav-link:hover {
+  border-left-color: $primary_colour;
+  color: $primary_colour;
+}
+.nav-section-menu.nav-section-menu-right .nav .nav-link.active,
+.nav-section-menu.nav-section-menu-right.nav .nav-link.active,
+.nav-section-menu.nav-section-menu-right .nav .nav-link.active:hover,
+.nav-section-menu.nav-section-menu-right.nav .nav-link.active:hover,
+.nav-section-menu.nav-section-menu-right .nav .active .nav-link,
+.nav-section-menu.nav-section-menu-right.nav .active .nav-link,
+.nav-section-menu.nav-section-menu-right .nav .active .nav-link:hover,
+.nav-section-menu.nav-section-menu-right.nav .active .nav-link:hover {
+  @media (min-width: 768px) {
+    border-right-color: $primary_colour;
+  }
+}
+
+.nav-tabs.nav-stacked .active > .nav-link i,
+.nav-tabs.nav-stacked .active > .nav-link:hover i,
+.nav-tabs.nav-stacked .nav-link.active i,
+.nav-tabs.nav-stacked .nav-link.active:hover i,
+.nav-tabs .active > .nav-link,
+.nav-tabs .active > .nav-link:hover,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:hover {
+  color: $primary_colour;
+}
+.nav-tabs .active > .nav-link,
+.nav-tabs .nav-link.active {
+  &:before {
+    background: $primary_colour;
+  }
+}
+
+.page-link,
+.page-link:hover {
+  color: $primary_colour;
+}
+.page-item.active .page-link, .page-item.active .page-link:focus, .page-item.active .page-link:hover {
+  background: $primary_colour;
+  border-color: $primary_colour;
+}
+
+.nav-steps .nav-link.active, .nav-steps .nav-link.active:hover {
+  background: $primary_colour;
+  border-color: $primary_colour;  
+}
+
+.link-effect-underline:after {
+  background-color: $link-color;
+}
+.link-effect-slideup .nav-link-inner:after {
+  color: $primary_colour;
+}
+
+// Progress bars
+// Must be separate definitions
+// ----------------------
+.progress[value]::-webkit-progress-value {
+  background-color: $primary_colour;
+}
+.progress[value]::-ms-fill{
+  background-color: $primary_colour;
+}
+.progress[value]::-moz-progress-bar{
+  background-color: $primary_colour;
+}
+.progress-bar {
+  background-color: $primary_colour; 
+}
+
+// Alerts
+// --------------------
+.alert-primary {
+  background-color: rgba($primary_colour, 25%/100.0%);
+  border-color: rgba($primary_colour, 80%/100.0%);
+  color: darken($primary_colour, 20%);
+  
+  hr {
+    border-top-color: rgba($brand-primary, 85%/100.0%);
+  }
+  .alert-link {
+    color: darken($primary_colour, 20%);
+  }  
+}
+
+// List grous
+// --------------------
+.list-group-item.active,
+.list-group-item.active:focus,
+.list-group-item.active:hover {
+   background-color: $primary_colour;
+   border-color: $primary_colour;
+}
+.list-group-item.active .list-group-item-text,
+.list-group-item.active:focus .list-group-item-text,
+.list-group-item.active:hover .list-group-item-text {
+  color: rgba(white, 90%/100.0%);
+}
+
+// Tables
+// --------------------
+
+// Typography
+// --------------------
+.blockquote {
+  border-left-color: $primary_colour;
+}
+.blockquote-reverse {
+  border-right-color: $primary_colour;
+}
+
+.tag-cloud a.tag {
+  color: $primary_colour;
+}
+
+// Cards
+// --------------------
+.card-group .card + .card-outline-primary {
+  @media (min-width: 576px) {
+    border-left: 1px solid $primary_colour;
+  }
+}
+
+// Navbar & toggleables
+// --------------------
+@mixin bs-colour-overrides(){
+  &.collapse .dropdown-menu {
+    border-bottom-color: $primary_colour !important;
+    
+    .dropdown-submenu .dropdown-item:after {
+      border-bottom-color: $primary_colour !important; 
+    }
+      
+    .dropdown-item:hover,
+    .dropdown-item:focus, 
+    .dropdown-item.active:hover,
+    .dropdown-item.active,
+    .dropdown-item.active:focus,
+    .active > .dropdown-item,
+    .active > .dropdown-item:hover,
+    .active > .dropdown-item:focus,
+    .show > .dropdown-item,
+    .show > .dropdown-item:hover,
+    .show > .dropdown-item:focus,
+    .open > .dropdown-item,
+    .open > .dropdown-item:hover,
+    .open > .dropdown-item:focus {      
+      &:before {
+        color: $primary_colour !important;
+      }
+    }      
+  }
+  .navbar-nav .show > .dropdown-toggle,
+  .navbar-nav .show.active > .dropdown-toggle,
+  .navbar-nav .show > .dropdown-toggle,
+  .navbar-nav .show.active > .dropdown-toggle,
+  .navbar-nav .open > .dropdown-toggle,
+  .navbar-nav .open.active > .dropdown-toggle,
+  .navbar-nav .open > .dropdown-toggle,
+  .navbar-nav .open.active > .dropdown-toggle,
+  .nav-link-dd-effect:hover,
+  .nav-link-dd-effect.active {
+    border-top-color: $primary_colour !important;
+  }
+}
+
+.navbar-expand {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+    &#{$infix} {  
+      @include media-breakpoint-up($next) {
+        &.navbar-main,
+        .navbar-main {
+          @include bs-colour-overrides();
+        }      
+      }
+    }
+  }
+}
+
+.navbar-border-bottom-effect {
+  .nav-link {
+    &:hover, &:active, &:focus, &.active {
+      &:after { 
+        background:$primary_colour; 
+      }
+    }
+  }
+}
+
+// Forms
+// --------------------
+.form-control:focus,
+.form-control:focus:hover {
+  border-color: $primary_colour;
+}
+
+// Custom
+// --------------------
+.btn-primary.btn-invert {
+  background-color: darken($primary_colour, 10%);
+        
+  &:hover,
+  &:focus {
+    background-color: $primary_colour;
+  }  
+}
+
+.text-primary-faded {
+  color: rgba($primary_colour, 30%/100.0%) !important; 
+}
+.text-primary-darkend {
+  color: darken($primary_colour, 20%) !important; 
+}
+.bg-primary-faded {
+  background-color: rgba($primary_colour, 30%/100.0%) !important; 
+}
+.bg-primary-darkend {
+  background-color: darken($primary_colour, 20%) !important; 
+}
+
+.border-primary {
+  border-color: $primary_colour !important;
+}
+.border-primary-faded {
+  border-color: rgba($primary_colour, 30%/100.0%) !important; 
+}
+.border-primary-darkend {
+  border-color: darken($primary_colour, 20%) !important; 
+}
+
+@each $name, $value in $op {
+  .bg-op-#{$name} {
+    &.bg-primary {
+      @include translucent_background($primary_colour, $value, 1);
+    }
+    &.border-primary-faded {
+      @include translucent_background(rgba($primary_colour, 30%/100.0%), $value, 1);
+    }
+    &.border-primary-darkend {
+      @include translucent_background(darken($primary_colour, 20%), $value, 1);
+    }    
+  }
+  .border-op-#{$name} {
+    &.border-primary {
+      @include translucent_border($primary_colour, $value);
+    }
+    &.border-primary-faded {
+      @include translucent_border(rgba($primary_colour, 30%/100.0%), $value);
+    }
+    &.border-primary-darkend {
+      @include translucent_border(darken($primary_colour, 20%), $value);
+    }    
+  }
+}
+
+hr.hr-primary {
+  border-top-color: $primary_colour !important;
+}
+hr.hr-primary-faded {
+  border-top-color: rgba($primary_colour, 30%/100.0%) !important; 
+}
+hr.hr-primary-darkend {
+  border-top-color: darken($primary_colour, 20%) !important; 
+}
+
+.header .header-brand-text {
+  color: $primary_colour;  
+}
+.price-banner {
+  color: $primary_colour;
+}
+.focus-box {
+  border-bottom-color: $primary_colour !important;  
+}
+.blog-grid .blog-post {
+  border-bottom-color: $primary_colour !important;  
+}
+.page-loader {
+  background: $primary_colour !important;
+}
+.owl-nav div:hover,
+.owl-dots .owl-dot.active span,
+.owl-dots .owl-dot:hover span { 
+  background: $primary_colour !important;
+}
+
+.modal-progress {
+  background: $primary_colour !important;
+}
+
+.overlay,
+.overlay-hover-content {  
+  &.overlay-primary{    
+    &:after {
+      background: $primary_colour !important;
+    }
+    
+    .overlay-header:after,
+    .overlay-footer:before {
+      background: lighten($primary_colour, 60%) !important;
+    }    
+  }
+}
+
+.header-primary {
+  .header {
+    background: $primary_colour;
+
+    .header-inner .header-divider:after {
+      background-color: lighten($primary_colour, 15%);
+    }
+  } 
+}
+
+.header-transparent {
+  .header.is-sticky,
+  .is-sticky .header {
+    border-bottom-color: $primary_colour;
+  }
+  
+  // Colour schemes transparent
+  &.header-primary {
+    .header {
+      background: transparent;
+    }
+    
+    .header.is-sticky,
+    .is-sticky .header {
+      @include translucent_background($primary_colour, 0.98);
+      border-bottom-color: $brand-inverse;
+    }
+  }  
+}
+
+.header-translucent {
+  // Colour schemes transparent
+  &.header-dark {  
+    .header.is-sticky,
+    .is-sticky .header {
+      border-bottom-color: rgba($primary_colour, 40%/100.0%);
+    }
+  }
+  &.header-primary {
+    .header {
+      @include translucent_background($primary_colour, 0.20);
+      border-bottom-color: rgba($primary_colour, 60%/100.0%);
+    }    
+    
+    .header.is-sticky,
+    .is-sticky .header {
+      @include translucent_background($primary_colour, 0.95);
+      border-bottom-color: $brand-inverse;
+    }
+  }  
+}
+
+// Dividers
+// ----------------------------
+.divider-primary {
+  // Diagonals
+  &.divider-diagonal:before {
+    border-left-color: $primary_colour;
+  }
+  &.divider-diagonal-r:before {
+    border-right-color: $primary_colour;
+    border-left-color: transparent;
+  }
+  
+  // Arrows
+  &.divider-arrow-b:before {
+    border-top-color: $primary_colour;   
+  }
+  &.divider-arrow-t:before {
+    border-bottom-color: $primary_colour;   
+  }
+  &.divider-arrow-l:before {
+    border-right-color: $primary_colour;    
+  }
+  &.divider-arrow-r:before {
+    border-left-color: $primary_colour;    
+  }
+}
+
+// One pager
+// Main Nav
+// ----------------------------
+.list-timeline.list-timeline-primary {
+  &:before {
+    background: $primary_colour;
+  }
+  .list-timeline-item {
+    &:before {
+      border-color: $primary_colour;
+    }
+    &.active:before,
+    &.show:before {
+      background: $primary_colour;
+    }        
+  }        
+}

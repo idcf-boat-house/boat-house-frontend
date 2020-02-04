@@ -1,0 +1,146 @@
+  // -------------------------------------------
+// Theme utilities & helper class
+// -------------------------------------------
+
+// Typography helpers
+// -------------------------------------------
+.text-xs {
+  font-size: 70% !important;
+}
+.text-sm {
+  font-size: 90% !important;
+}
+
+// Fonts
+.text-slab,
+.text-font-slab {
+  font-family: 'Roboto Slab', serif !important;
+}
+.text-roboto,
+.text-alt,
+.text-font-alt {
+  font-family: "Roboto",Helvetica,Arial,sans-serif !important;
+}
+.text-font-base {
+  font-family: $font-family-base !important;
+}
+.text-rufina,
+.text-font-rufina {
+  font-family: 'Rufina', serif !important;
+}
+.text-shadow {
+  text-shadow: 1px 1px 1px lighten($gray-light, 80%);
+}
+
+// Letter spacing
+.text-letter-spacing {
+  letter-spacing: 2px;
+}
+.text-letter-spacing-sm {
+  letter-spacing: -2px;
+}
+.text-letter-spacing-xs {
+  letter-spacing: -4px;
+}
+.text-letter-spacing-normal {
+  letter-spacing: normal;
+}
+@include media-breakpoint-down(md) {
+  .text-letter-spacing-sm {
+    letter-spacing: 0;
+  }
+  .text-letter-spacing-xs {
+    letter-spacing: -2px;
+  }  
+}
+
+.text-normalcase {
+  text-transform: none !important;
+}
+
+.text-hover-no-underline:hover {
+  text-decoration: none;
+}
+
+.font-weight-bold {
+  font-weight: bold !important;
+}
+.font-weight-normal {
+  font-weight: normal !important;
+}
+.font-weight-light {
+  font-weight: 100 !important;
+}
+.font-weight-medium {
+  font-weight: 400 !important;
+}
+
+.img-padded {
+  background-color: #ffffff;
+  padding: .15rem;
+}
+
+// Line heights
+.text-lh-none {
+  line-height: 1 !important;
+}
+.text-lh-tight {
+  line-height: 1.25 !important;
+}
+.text-lh-normal {
+  line-height: 1.5 !important;
+}
+.text-lh-loose {
+  line-height: 2 !important;
+}
+
+// Font size helpers
+// @todo - redo these
+// -------------------------------------------
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $prop, $abbrev in (font-size: text) {
+    
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      @each $size, $length in $font-sizes {
+        .#{$abbrev}#{$infix}-x#{$size} {
+          #{$prop}: $length !important;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+}
+
+// Lists
+// -------------------------------------------
+ul.list-lg {
+  font-size: 110%;
+  
+  li {
+    padding: 0.6em;
+  }
+}
+
+ul.list-sm {
+  font-size: 80%;
+  
+  li {
+    padding: 0.25em;
+  }
+}
+
+.list-bordered {
+  padding: 0;
+  margin: 0;
+  
+  > li {
+    list-style: none;
+    margin: 0;
+    padding: 0.5em;
+    border-bottom: 1px solid rgba(#cccccc, 60%/100.0%);
+  }
+}
+
+// Links
+// -------------------------------------------

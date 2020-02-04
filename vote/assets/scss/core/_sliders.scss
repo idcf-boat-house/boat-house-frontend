@@ -1,0 +1,193 @@
+//======================================
+// Common Slider Styles
+//======================================
+// General
+// -------------------------------------------
+.slider-wrapper {
+  width:100%;
+  position:relative;
+  padding:0;
+}
+
+// Slide content/captions
+// -------------------------------------------
+.slide {
+  h1,h2,h3,h4,h5, p {
+    margin-top: 0;
+    font-weight: 400;
+  }
+}
+
+// Directional arrows
+// -------------------------------------------
+
+.flex-direction-nav a {
+  text-indent: 0;
+  font-size: 0;
+  text-align: center;
+  @include border-radius(0);
+  bottom: 0;
+  right: 0;
+  background: none;
+  color: transparent; //safari
+  width: 50px;
+  height: 100px;
+  line-height: 100px;
+  top: 50%;
+  font-weight: 100;
+  margin-top: -30px;
+  @include opacity(0);
+  @include transition(all 0.2s ease-out);
+  
+  &:hover {
+    @include opacity(1);
+  }
+  
+  &:before {
+    @include fontawesome-bg(\f105);
+    font-size: 60px;
+    font-weight: bold;
+    color: $primary_colour;
+  }
+  
+  &.tp-rightarrow,
+  &.flex-next {
+    right: 0;
+    text-align: center;
+    
+    &:before {
+      content: '\f105';
+    }      
+  }
+  
+  &.tp-leftarrow,
+  &.flex-prev{
+    left: 0;
+    right: auto;
+    
+    &:before {
+      content: '\f104';
+    }
+  }
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.slider-appstrap-theme .slider-wrapper:hover .tparrows,
+.slider-wrapper:hover .flex-direction-nav a {
+  @include opacity(70);
+  
+  &:hover {
+    @include opacity(100);
+  }
+}
+
+// Pager
+// -------------------------------------------
+.slider-appstrap-theme .tp-bullets,
+.slider-appstrap-theme .tp-bullets.round,
+.slider-appstrap-theme .tp-bullets.simplebullets.round,
+.flex-control-nav {
+  position: absolute;
+  bottom: 10px !important;
+  right: 10px !important;
+  left: auto !important;
+  text-align: center;
+  width: auto;
+  line-height:  1;
+  @include opacity(100);
+  z-index: 300;
+  
+  li {
+    margin: 0;
+  }
+  li a,
+  .bullet {
+    margin: 0 3px;
+    @include border-radius(2px);
+    height: 15px;
+    width: 15px;
+    background: lighten(#000, 73.5%);
+    
+    &:hover,
+    &.flex-active,
+    &.selected {
+      background: $primary_colour; 
+    }
+  }
+}
+.slider-mini-nav {
+  .slider-appstrap-theme .tp-bullets,
+  .slider-appstrap-theme .tp-bullets.round,
+  .slider-appstrap-theme .tp-bullets.simplebullets.round,
+  .flex-control-nav {
+    bottom: 5px !important;
+    right: 5px !important;
+    
+    li a,
+    .bullet {
+      margin: 0 2px;
+      height: 12px;
+      width: 12px;
+    }
+  }
+}
+
+// Slider variations
+// -------------------------------------------
+.slider-boxed,
+.slider-full-width,
+.slider-full-width-behind {
+  #highlighted {
+    background: transparent;
+    background-color: transparent;
+  }
+}
+
+.slider-boxed {
+  #highlighted {
+    border: none;
+  }
+  .navbar {
+    -webkit-border-bottom-right-radius: 0 !important;
+    -webkit-border-bottom-left-radius: 0 !important;
+    -moz-border-radius-bottomright: 0 !important;
+    -moz-border-radius-bottomleft: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  .slider-wrapper,
+  .flexslider-wrapper {
+    border: 1px solid rgba($gray, 15%/100.0%);
+    @include border-radius(0);
+    margin-top: 10px;
+    @include box-shadow(1px 1px 10px rgba($gray, 20%/100.0%));
+  }
+  .slide-content {
+    padding-top: 20px;
+  }
+}
+
+.slider-full-width {
+  //has full width navbar too
+  .slide-content {
+    padding: 2em 0 0 0;
+  }
+}
+
+// Backstretch
+// -------------------------------------------
+.has-backstretch {
+  .backstretch-overlay {
+    background: transparent;
+    @include translucent_background(white, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: -999998;    
+  }
+}
