@@ -3,15 +3,3 @@ version: "3"
 services:
   vote:
     build: ./vote
-
-  result:
-    build: ./result
-
-  worker:
-    build: ./worker
-
-  redis:
-    image: redis:alpine
-
-  db:
-    image: postgres:9.4
