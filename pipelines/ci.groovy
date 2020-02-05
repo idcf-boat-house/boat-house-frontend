@@ -8,7 +8,7 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']],
                             userRemoteConfigs: [[url: 'https://github.com/icdps/BoatHouse.git']]])
-                sh 'mvn --version'
+                sh 'docker-compose -f docker-compose.yml -f docker-compose-standalone.yml up -d'
             }
         }
         stage('Test') { 
