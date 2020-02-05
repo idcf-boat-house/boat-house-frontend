@@ -1,9 +1,12 @@
 pipeline {
-    agent any 
+    agent none 
     stages {
         stage('Build') { 
+            agent {
+                docker { image 'maven:3-alpine' }
+            }
             steps {
-                sh 'echo hello world! Build!'
+                sh 'mvn --version'
             }
         }
         stage('Test') { 
