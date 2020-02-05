@@ -1,11 +1,11 @@
 version: "3"
 
 services:
-  vote:
-    build: ./vote
+  client:
+    build: ./client/web
 
-  result:
-    build: ./result
+  management:
+    build: ./management
 
   worker:
     build: ./worker
