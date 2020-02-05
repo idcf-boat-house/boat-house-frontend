@@ -7,8 +7,8 @@ var express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server),
-    redis   = require('redis');
-
+    redis   = require('redis'),
+    guid=require('guid');
 
 var port =  4000;
 
@@ -27,9 +27,10 @@ app.get('/', function (req, res) {
 
 app.get("/product/vote",function(req,res){
   
+  var g=guid.create();
   var client  = redis.createClient('6379', 'localhost');
-  var data={'voter_id': "001", 'vote': "data01"};
-  client.rpush('test2',JSON.stringify(data),function(){
+  var data={"voter_id": g, "vote": "a"};
+  client.rpush('votes',JSON.stringify(data),function(){
     
   });
   res.statusCode=200;

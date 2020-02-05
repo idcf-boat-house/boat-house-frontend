@@ -12,6 +12,7 @@
     "async": "^3.1.1",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "guid": "0.0.12",
     "method-override": "^3.0.0",
     "pg": "^7.18.1",
     "redis": "^2.8.0",
