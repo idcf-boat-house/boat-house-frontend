@@ -1,11 +1,9 @@
 pipeline {
-    agent none 
+    agent vm-slave 
     stages {
         stage('Build') { 
-            agent {
-                docker { image 'maven:3-alpine' }
-            }
             steps {
+                checkout scm
                 sh 'mvn --version'
             }
         }
