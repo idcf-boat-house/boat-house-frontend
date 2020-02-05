@@ -1,22 +1,6 @@
 version: "3"
 services:
 
-    redis:
-        image: redis:alpine
-        ports:
-            - "6379"
-        networks:
-            - frontend
-
-    db:
-        image: postgres:9.4
-        volumes:
-            - db-data:/var/lib/postgresql/data
-        networks:
-            - backend
-        deploy:
-            placement:
-                constraints: [node.role == manager]
     client:
         image: boathouse_client:latest
         ports:
@@ -24,7 +8,7 @@ services:
         networks:
             - frontend
         depends_on:
-            - redis
+            - statistics_service_redis
 
     management:
         image: boathouse_management:latest
@@ -33,15 +17,30 @@ services:
         networks:
             - backend
         depends_on:
-            - db
+            - statistics_service_db
 
-    worker:
-        image: worker:latest
+    statistics_service_worker:
+        image: boathouse_statistics_service_worker:latest
         networks:
             - frontend
             - backend
 
+    statistics_service_redis:
+        image: redis:alpine
+        ports:
+            - "6379"
+        networks:
+            - frontend
 
+    statistics_service_db:
+        image: postgres:9.4
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            - backend
+        deploy:
+            placement:
+                constraints: [node.role == manager]
 networks:
     frontend:
     backend:
