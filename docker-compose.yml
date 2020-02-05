@@ -7,11 +7,11 @@ services:
   management:
     build: ./management
 
-  worker:
-    build: ./worker
+  statistics_service_worker:
+    build: ./statistics-service/worker
 
-  redis:
+  statistics_service_redis:
     image: redis:alpine
 
-  db:
+  statistics_service_db:
     image: postgres:9.4
