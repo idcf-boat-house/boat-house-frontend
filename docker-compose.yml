@@ -4,8 +4,8 @@ services:
   client:
     build: ./client/web
 
-  result:
-    build: ./result
+  management:
+    build: ./management
 
   worker:
     build: ./worker

@@ -26,8 +26,8 @@ services:
         depends_on:
             - redis
 
-    result:
-        image: result:latest
+    management:
+        image: boathouse_management:latest
         ports:
             - 5001:80
         networks:
