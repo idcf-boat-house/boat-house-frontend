@@ -6,12 +6,13 @@ var express = require('express'),
     methodOverride = require('method-override'),
     app = express(),
     server = require('http').Server(app),
-    io = require('socket.io')(server);
+    io = require('socket.io')(server),
+    redis   = require('redis');
 
-var port = process.env.PORT || 6000;
+
+var port =  4000;
 
 app.use(cookieParser());
-app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -23,6 +24,19 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
     res.send('Welcome BoatHouse Statistics Service!');
 });
+
+app.get("/product/vote",function(req,res){
+  
+  var client  = redis.createClient('6379', 'localhost');
+  var data={'voter_id': "001", 'vote': "data01"};
+  client.rpush('test2',JSON.stringify(data),function(){
+    
+  });
+  res.statusCode=200;
+  res.send();
+  
+
+})
 
 server.listen(port, function () {
   var port = server.address().port;

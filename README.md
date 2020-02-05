@@ -7,3 +7,5 @@
 `
 docker-compose -f docker-compose.yml -f docker-compose-standalone.yml up -d
 `
+
+docker exec -it 9baa65a75aaf redis-cli
