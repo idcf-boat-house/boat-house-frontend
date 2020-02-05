@@ -17,8 +17,8 @@ services:
         deploy:
             placement:
                 constraints: [node.role == manager]
-    vote:
-        image: boathouse_vote:latest
+    client:
+        image: boathouse_client:latest
         ports:
             - 5000:80
         networks:
