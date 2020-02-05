@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                            userRemoteConfigs: [[url: 'https://github.com/icdps/BoatHouse.git']]])
                 sh 'mvn --version'
             }
         }
