@@ -1,0 +1,142 @@
+/*/////////////////////////////////////////////////////////////////////
+ // 
+ // Custom theme code styles
+ // Written by Themelize.me (http://themelize.me)
+ // 
+ // This is an empty starter template for overriding styles
+ // set by Bootstrap & the theme
+ // 
+ // ----------------------------------------------------
+ // 
+ // Remove unused code for better performances
+ // 
+ // ----------------------------------------------------
+ // 
+ // $see - Usefuls tools online for editing
+ // 1. http://charliepark.org/bootstrap_buttons/ - Button style generator
+ // 2. http://www.colorzilla.com/gradient-editor/ - CSS3 gradient maker
+ // 
+ // $note
+ // To ensure custom styles are picked up
+ // wrap definitions in body tag
+ // ie.
+ // body .navbar-inner {
+ //   background: #ff0000;
+ // }
+ // 
+ /////////////////////////////////////////////////////////////////////*/
+
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+/*
+ * --------------------------------------------------
+ * 1. General Elements
+ *--------------------------------------------------
+ */
+
+#header {
+  /* 1. Header wrapper */
+}
+
+#highlighted {
+  /* 2. Highlighted (below header) wrapper */
+}
+
+#content {
+  /* 3. Content wrapper */
+}
+
+#content-below {
+  /* 4. Content Below wrapper */
+}
+
+#footer {
+  /* 5. Footer wrapper */
+}
+
+/*
+ * --------------------------------------------------
+ * 2. Colours
+ *-------------------------------------------------- 
+ */
+
+/*
+ * --------------------------------------------------
+ * 3. Responsiveness/media queries
+ *--------------------------------------------------
+ */
+
+/* Extra small devices (phones, less than 768px) */
+
+/* No media query since this is the default in Bootstrap */
+
+@media (min-width: 576px) {
+  /* Small devices (576px and up). Mixin: media-breakpoint-up(sm) */
+}
+
+@media (min-width: 768px) {
+  /* Medium devices (768px and up). Mixin: media-breakpoint-up(md) */
+}
+
+@media (min-width: 992px) {
+  /* Large devices (992px and up). Mixin: media-breakpoint-up(lg) */
+}
+
+@media (min-width: 1200px) {
+  /* X-Large devices (1200px and up). Mixin: media-breakpoint-up(xl) */
+}
+
+/* max-width */
+
+@media (max-width: 575.98px) {
+  /* Small devices (575px and down). Mixin: media-breakpoint-down(xs) */
+}
+
+@media (max-width: 767.98px) {
+  /* Medium devices (767px and down). Mixin: media-breakpoint-down(sm) */
+}
+
+@media (max-width: 991.98px) {
+  /* Large devices (992px and down). Mixin: media-breakpoint-down(md) */
+}
+
+@media (max-width: 1199.98px) {
+  /* X-Large devices (1200px and down). Mixin: media-breakpoint-down(lg) */
+}
+
+/* target one breakpoint */
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Small devices (between 576px and 767px). Mixin: media-breakpoint-only(sm) */
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Medium devices (tablets, between 768px and 991px). Mixin: media-breakpoint-only(md) */
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* Large devices (desktops, between 992px and 1199px). Mixin: media-breakpoint-only(lg) */
+}
+
+@media (min-width: 1200px) {
+  /* Extra large devices (large desktops, 1200px and up). Mixin: media-breakpoint-only(xl) */
+}
+
+/* span multiple screenwidths */
+
+@media (min-width: 768px) {
+  /* From medium to large (between 768px and 1199px). Mixin: media-breakpoint-between(md, xl)  */
+}
+
+/*
+ * --------------------------------------------------
+ * 4. Misc
+ * Other stuff
+ *--------------------------------------------------
+ */

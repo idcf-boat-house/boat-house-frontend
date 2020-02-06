@@ -1,0 +1,26 @@
+//======================================
+// fakeLoader.js plugin
+//======================================
+
+// General
+// -------------------------------------------
+.has-page-loader {
+  overflow: hidden;
+}
+.page-loader {
+  background: white;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 999999;
+  @include opacity(1);
+  
+  .fl {
+    left: 0 !important;
+    right: 0 !important;
+    width: 90px;
+    margin: 0 auto;
+  }
+}

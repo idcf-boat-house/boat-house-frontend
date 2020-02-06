@@ -1,0 +1,93 @@
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+.flexslider {
+  background: transparent;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.flexslider {
+  /* Hide the slides before the JS is loaded. Avoids image jumping */
+}
+
+.flexslider .slides>.slide,
+.flexslider .items>.item {
+  display: none;
+  -webkit-backface-visibility: hidden;
+}
+
+.slide {
+  overflow: hidden;
+  -webkit-transform: translateZ(0);
+}
+
+.slide .caption {
+  padding: 5%;
+  text-align: center;
+}
+
+.slide .caption .btn {
+  margin: 0;
+}
+
+.slide .caption .inverse {
+  background: #1b1b1b;
+  color: #fff;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 1px;
+}
+
+.slide .caption .inverse a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.flexslider .slide img {
+  width: auto;
+  display: inline;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.slide-bg {
+  background-position: center center;
+  background-repeat: repeat;
+}
+
+@media (min-width: 576px) {
+  .slide .caption {
+    text-align: left;
+  }
+}
+
+@media (max-width: 860px) {
+  .flex-direction-nav {
+    display: none;
+  }
+  .flex-control-nav {
+    bottom: 0;
+  }
+  .flexslider {
+    padding-bottom: 0;
+  }
+  .flexslider .flex-control-nav {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .slide .caption {
+    padding: 5% 0;
+  }
+}

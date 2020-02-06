@@ -1,0 +1,397 @@
+//======================================
+// Timeline section
+//======================================
+%timeline-list-reset {    
+  @include clearfix;
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Timeline - reuseble
+//======================================
+.timeline {
+  @extend %timeline-list-reset;
+  @include at2x('../img/misc/bg_timeline-line', 'png', 2px, auto);
+  background-repeat: repeat-y;
+  background-position: center top;
+  padding: 0;
+  margin: 2em 0;
+  text-align: center;
+  @include clearfix;
+}
+
+.timeline-marker {
+  clear: both;
+  background: white;
+  
+  h1, h2, h3, h4, h5 {
+    margin: 0 0 5px 0;
+  }
+  
+  &:after,
+  &:before {
+    width: 12px;
+    height: 12px;
+    background: $timeline-breaker-bg;
+    margin: 0 auto;
+    @include border-radius(100%);
+    display: block;
+    content: ' ';
+  }
+  
+  &:before {
+    display: none;
+  }
+  
+  &.timeline-marker-bottom {
+    h1, h2, h3, h4, h5 {
+      margin: 5px 0 0 0;
+    }
+    
+    &:before {
+      display: block;
+    }
+    &:after {
+      display: none;
+    }
+  }
+  
+  &.timeline-marker-middle {
+    margin-top: 20px;
+    margin-bottom: 20px;    
+  }
+}
+
+.timeline-breaker {
+  background: $timeline-breaker-bg;
+  color: $white;
+  font-weight: 600;
+  @include border-radius(2px);
+  margin: 0 auto 0 auto;
+  text-align: center;
+  padding: 0.6em;
+  line-height: 1;
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 15em;
+  @include clearfix;
+  clear: both;
+  
+  a {
+    color: #fff;
+    
+    &:hover {
+      color: #eeeeee;
+    }
+  }
+  
+  //down arrow
+  &:after, 
+  &:before  {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 1px;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+   
+  &:after  {
+    border-top-color: $timeline-breaker-bg;
+    border-width: 10px;
+    left: 50%;
+    margin-left: -10px;
+  }
+   
+  &:before {
+    border-top-color: rgba(0,0,0,0.01);
+    border-width: 11px;
+    left: 50%;
+    margin-left: -11px;
+  }
+  
+  &.timeline-breaker-middle,
+  &.timeline-breaker-bottom {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    clear: both !important;
+  }
+  
+  &.timeline-breaker-bottom {
+    margin-bottom: 0;
+    
+    &:after, 
+    &:before  {
+      top: -10px;
+      border-top: none;
+    }
+     
+    &:after  {
+      border-bottom-color: $timeline-breaker-bg;
+    }
+     
+    &:before {
+      border-bottom-color: rgba(0,0,0,0.01);
+    }    
+  }
+}
+
+// Timeline items
+// ----------------------------
+@mixin timeline-item-default {
+  float: none;
+  left: auto;
+  right: auto;
+  width: 100%;
+  padding: $timeline-item-padding;
+  margin: 60px auto 0 auto;
+  background: $timeline-item-bg;
+  @include border-radius(2px);
+  @include clearfix;
+  position: relative;
+  border: 1px solid $timeline-item-border-color;
+  border-bottom: 3px solid $primary_colour;
+  text-align: left;
+  
+  //arrows & marker
+  &:after, 
+  &:before  {
+    top: -20px;
+    right: 50%;
+    left: 50%;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    font-size: 30px;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    margin-top: 0; //half the height
+    margin-left: -14px;
+  }
+  &:before {
+    //arrow
+    @include fontawesome-bg(\F0D8);
+    color: $timeline-item-bg;
+  }
+  &:after {
+    //marker
+    @include fontawesome-bg($timeline-marker-icon);
+    top: -39px;
+    background: white;
+  }
+  
+  // highlighted marker
+  &.tag-featured,
+  &.marker-highlight,
+  &.highlight {
+    &:after {
+      color: $primary_colour_light;
+    }
+  }
+  
+  // post type markers
+  //&.tag-video {
+  //  &:after {
+  //    // video marker
+  //    @include fontawesome-bg('\f144');
+  //  }
+  //}
+  
+  //spacers - only push for mobile
+  &.overlap-push-large {
+    margin-top: 120px;
+  }
+  &.overlap-push-medium {
+    margin-top: 60px;
+  } 
+  &.overlap-push-small {
+    margin-top: 30px;
+  }  
+}
+.timeline-item.timeline-item-first {
+  margin-top: 20px !important;
+}
+.timeline-item.timeline-item-last {
+  margin-bottom: 20px !important;
+}
+
+.timeline-item {
+  @include timeline-item-default;
+}
+
+// Marker variations
+// ----------------------------
+//downward markings = works with .timeline-stacked only
+@mixin timeline-stacked-down {
+  .timeline-item:first-child {
+    margin-top: 40px;
+  }
+  .timeline-item:last-child {
+    margin-bottom: 60px;
+  }    
+  
+  //makrers & arrows down
+  .timeline-item:after, 
+  .timeline-item:before  {
+    bottom: -20px;
+    top: auto;
+  }
+  .timeline-item:before {
+    //arrow
+    @include fontawesome-bg(\F0D7);
+  }
+  .timeline-item:after {
+    //marker
+    bottom: -40px;
+    top: auto;
+  }
+}
+.timeline-stacked-down {
+  @include timeline-stacked-down;
+}
+
+// Content
+// ----------------------------
+.timeline-item-date {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: lighten($body-color, 20%);
+}
+.timeline-item-title {
+  margin-top: 0;
+}
+
+
+// $responsive
+//======================================
+@include media-breakpoint-up(sm) {
+  // Common
+  //======================================
+  .timeline-breaker {
+    &.timeline-breaker-middle,
+    &.timeline-breaker-bottom {
+      top: 40px;
+    }
+  }  
+  
+  // default unstack timeline-items
+  //======================================
+  // timeline-items
+  // ----------------------------
+  .timeline-item {
+    float: left;
+    width: 48%;
+    padding: $timeline-item-padding;
+    margin-top: 40px;
+    right: $timeline-item-margin;
+    margin-left: 2%;
+    clear: left;
+  
+    //arrows & marker
+    &:after, 
+    &:before  {
+      top: 10%;
+      bottom: auto;
+      right: -($timeline-item-margin - 10);
+      left: auto;
+      position: absolute;
+      pointer-events: none;
+      margin: 0;
+      display: block;
+      font-size: 30px;
+      height: 30px;
+      line-height: 30px;
+      width: 30px;
+      text-align: center;
+    }
+    &:before {
+      //arrow
+      @include fontawesome-bg(\F0DA);
+    }
+    &:after {
+      //marker
+      right: -($timeline-item-margin+16);
+    }
+    
+    &.even,
+    &.right {
+      float: right;
+      clear: right;
+      left: $timeline-item-margin;
+      right: 0;
+      margin-right: 2%;
+      margin-left: 0;
+      margin-top: 100px;
+  
+      //arrows & marker
+      &:after, 
+      &:before  {
+        left: -($timeline-item-margin - 10);
+        top: 10%;
+      }
+      &:before {
+        @include fontawesome-bg(\F0D9);
+      }
+      &:after {
+        left: -($timeline-item-margin+16);
+      }    
+    }
+    
+    //spacers - enable pulls
+    &.overlap-off {
+      margin-top: 0;
+    }  
+    &.overlap-pull-large {
+      margin-top: -120px;
+    }
+    &.overlap-pull-small {
+      margin-top: -30px;
+    }     
+  }
+  
+  
+  // Stacked - default mobile display
+  //======================================
+  .timeline.timeline-stacked,
+  .timeline-stacked {
+    padding-left: 0;
+    padding-right: 0;
+    
+    .timeline-item,
+    .timeline-item.right,
+    .timeline-item.even {
+      @include timeline-item-default;
+      margin-top: 80px;
+    }
+    
+    &.timeline-stacked-down {
+      @include timeline-stacked-down;
+      
+      .timeline-item,
+      .timeline-item.right,
+      .timeline-item.even {
+        &.last {
+          margin-bottom: 40px;
+        }
+      }
+    }
+    
+    .timeline-breaker {
+      &.timeline-breaker-middle,
+      &.timeline-breaker-bottom {
+        //margin-top: 40px;
+        top: auto;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+ 
+}

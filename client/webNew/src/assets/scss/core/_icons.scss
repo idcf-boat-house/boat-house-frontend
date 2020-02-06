@@ -1,0 +1,134 @@
+// Misc.
+// -------------------------------------------
+.fa, .fab, .fal, .far, .fas, .lnr, .la, [class^="ion-"] {
+  vertical-align: middle;
+}
+
+.btn {
+  .fa, .fab, .fal, .far, .fas, .lnr, .la, [class^="ion-"] {
+    vertical-align: text-top;
+  }
+  
+  &.btn-icon {
+    .fa, .fab, .fal, .far, .fas, .lnr, .la, [class^="ion-"] {
+      vertical-align: middle;
+    }    
+  }
+}
+
+// Icon helpers
+// -------------------------------------------
+@mixin icon-fixed-size($size, $unit: 'em') {  
+  $wh: #{$size}#{$unit};
+  $line-height: $size;
+  width: #{$wh} !important;
+  height: #{$wh} !important;
+  min-width: #{$wh} !important;
+  min-height: #{$wh} !important;  
+  text-align: center !important;
+  display: inline-block;
+  line-height: #{$line-height}#{$unit} !important;
+     
+  &:before {
+    line-height: 1 !important;
+  }
+}
+
+// Sizes
+.icon-sq {// fixed size
+  @include icon-fixed-size(32, 'px');
+}
+.icon-1x {
+  font-size: 24px !important; // reset
+  
+  &.icon-sq {
+    @include icon-fixed-size(38, 'px');
+  }
+}
+
+
+$size: 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30;
+@each $value in $size {
+  .icon-#{$value}x {
+    font-size: #{$value}em !important;
+    
+    &.icon-sq {
+      $sq: $value*1.2;
+      @if $value > 2 {
+        $sq: $value*0.8;
+      }
+      @if $value == 4 {
+        $sq: $value*0.65;
+      }       
+      @if $value > 4 {
+        $sq: $value*1.2;
+      }
+      @include icon-fixed-size($sq);
+    }
+  }
+} 
+
+
+
+//rotates
+.icon-rotate-25 {
+  @include rotate(25deg);
+}
+.icon-rotate-45 {
+  @include rotate(45deg);
+}
+.icon-rotate-90 {
+  @include rotate(90deg);
+}
+.icon-rotate-180 {
+  @include rotate(180deg);
+}
+.icon-rotate-270 {
+  @include rotate(270deg);
+}
+.icon-flip-h {
+-webkit-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);  
+}
+.icon-flip-v {
+    -webkit-transform: scale(1, -1);
+    -ms-transform: scale(1, -1);
+    transform: scale(1, -1);  
+}
+
+// background icons
+.icon-bg {
+  position: absolute;
+  @include opacity(0.5);
+  top: 3%;
+  left: 3%;
+  right: 3%;
+  
+  &.icon-bg-r {
+    left: auto;
+    right: 3%;
+  }
+  &.icon-bg-b {
+    top: auto;
+    bottom: 3%;
+  }
+
+  &.icon-bg-r-ol {
+    left: auto;
+    right: -3%;
+  }
+  &.icon-bg-l-ol {
+    left: -3%;
+    right: auto;
+  }  
+  &.icon-bg-t-ol {
+    top: -3%;
+    bottom: 0;
+  }  
+  &.icon-bg-b-ol {
+    top: 0;
+    bottom: -3%;
+  }  
+}
+

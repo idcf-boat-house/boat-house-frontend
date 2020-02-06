@@ -1,0 +1,328 @@
+// -------------------------------------------
+// Header colour schemes
+// -------------------------------------------
+.header-light .header,
+.header.header-light {
+  @extend %header-light;
+}
+.header-dark .header,
+.header.header-dark {
+  @extend %header-dark;
+}
+.header-primary .header,
+.header.header-primary {
+  @extend %header-primary;
+}
+
+// Applying schemes on sticky example
+/*body .is-sticky {
+  .sticky-header-light.header {
+    @extend %header-light;
+  }
+  .sticky-header-dark.header {
+    @extend %header-dark;
+  }
+  .sticky-header-primary.header {
+    @extend %header-primary;
+  }
+}*/
+
+// -------------------------------------------
+// Header region 
+// -------------------------------------------
+#header {
+  @include clearfix;
+  z-index: $zindex-navbar;
+  position: relative;
+  color: $navbar-light-color;
+}
+
+// Header layout:
+// Use flexbox without important so cna be overridden
+.header-inner {
+  @extend %flex-d-flex;
+  @extend %flex-align-items-center;
+  @extend %flex-justify-content-start;
+  @extend %flex-wrap;
+
+  .header-brand {
+    margin-right: auto;
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+  .header-block-flex {    
+    @extend %flex-d-flex;
+    @extend %flex-row;
+    @extend %flex-align-items-center;
+    @extend %flex-justify-content-end;
+    @extend %flex-wrap;
+  }
+  .header-block,
+  .header-brand {    
+    @include media-breakpoint-up(md) {
+      @include flex-d-flex;
+      @include flex-row;
+      @include flex-align-items-center;
+      @include flex-justify-content-start;
+      @include flex-wrap;
+    }
+  }  
+  .header-divider {
+    width: 20px;
+    text-align: center;
+    line-height: 1;
+    height: 40px;
+    position: relative;
+    display: block;
+    
+    &.header-divider-sm {
+      height: 10px;
+      width: 15px;
+    }
+    &.header-divider-lg {
+      height: 60px;
+      width: 30px;
+    }    
+    
+    &:after {
+      content: '';
+      width: 1px;
+      height: 100%;
+      background: $gray-300;
+      display: inline-block;
+      position: absolute;
+      top: auto;
+      bottom: auto;
+      left: auto;
+      right: auto;
+    }
+  }    
+}
+
+
+// Header Upper
+// -------------------------------------------
+.header-upper {
+  background: $gray-700;
+  position: relative;
+  padding: 2.5px 0;
+  color: $gray-200;
+  
+  .nav-link {
+    color: $gray-200;
+    
+    &:hover {
+      color: $gray-100;
+    }
+  }
+  
+  .nav-link,
+  .nav-item {
+    line-height: 1;
+  }
+  
+  .nav-inline .nav-item+.nav-item,
+  .nav-inline .nav-link+.nav-link {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+}
+
+// Header Search
+// -------------------------------------------
+.header-search {
+  overflow: hidden;
+  background: #404040;
+  
+  form {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    position: relative;
+  
+    .btn {
+      position: absolute;
+      right: 50px;
+      top: 0;
+      bottom: 0;
+      padding: 5px 10px;
+      line-height: 1;
+      width: 50px;
+      outline: none;
+      background: transparent;
+      font-size: 36px;
+      color: white;
+      
+      &:focus,
+      &:active:focus,
+      &.active:focus {
+        outline: none;
+      }
+    }
+    .close-btn {
+      right: 0;
+      display: block;
+      font-size: 20px;
+    }
+    input {
+      padding: 0 150px 0 0;
+      background: transparent;
+      height: 50px;
+      border: none;
+      @include border-radius(0);
+      font-size: 30px;
+      font-weight: 100;
+      box-shadow: none;
+      margin: 0;
+      @include placeholder(white);
+      
+      &:focus {
+        color: white;
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+  }
+}
+
+// Header
+// -------------------------------------------
+.header {
+  background: white;
+  border-bottom: 1px solid $gray-300;
+  color: $gray-800;
+  height: auto;
+  padding: $header-vpadding-top 0 $header-vpadding-bottom 0;
+  @include transition(all 0.3s ease-in-out);
+  width: 100%;
+  right: 0;  
+  
+  @include media-breakpoint-down(sm) {
+    padding: 15px 0;
+  }
+  
+  .navbar {
+    position: static;
+  }
+  
+  //default
+  .header-brand-text {
+    font-weight: bold;
+    font-family: "Rambla", sans-serif;
+    padding: 0;
+    margin: 0;
+    display: block;
+    border: none;
+    text-shadow: none;
+    line-height: 1;
+    max-width: none;
+    text-align: left;
+    float: none;
+    height: auto;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+  
+    h1 {
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-family: "Rambla", sans-serif;
+     
+      span {
+        color: #464646; //IE fallback
+        font-weight: 700;
+      }
+    }
+    
+    &:hover {
+      text-decoration: none;
+    }
+    
+    h1 {
+      @include transition(all 0.3s ease-in-out);
+    }
+    
+    @include media-breakpoint-down(sm) {
+      margin-top: 0;
+      
+      h1 {
+        font-size: 28px;
+      }
+    }
+    
+    &.header-brand-text-sm h1 {
+      font-size: 28px !important;
+    }
+  }
+  .header-slogan {
+    color: #888;
+  } 
+  
+  // Align header elements
+  .header-nav {
+    
+  }
+  .header-btn {
+    margin-left: 3px;
+  }
+  .header-text {
+    color: #888;
+  }
+  .header-form {
+    
+  }
+  
+  .header-btn,
+  .cart-link {
+    @include media-breakpoint-down(sm) {
+      width: auto !important;
+      margin-left: 12px;
+    }
+  }  
+}
+.is-sticky .header,
+.header.is-sticky {
+  right: 0;
+  width: 100% !important;
+}
+
+
+// Navbar
+// -------------------------------------------
+.navbar {
+  color: $navbar-light-color;
+  margin-bottom: 0;
+  background: transparent;
+  @include border-radius(0);
+  padding: 0;
+  @include clearfix;
+}
+
+// Header Elements
+// -------------------------------------------
+
+//social media icons
+.social-media {  
+  a {
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 0;
+    color: #f4f4f4;
+    font-size: 24px;
+    line-height: 1;
+    
+    .fa {
+      vertical-align: top;
+      line-height: inherit;
+      display: block;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+

@@ -1,0 +1,102 @@
+//
+// Grid & Flexbox
+// --------------------------------------------------
+.container {
+  position: relative; // BS beta 1 fix
+}
+
+.grid-demo .row {
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+}
+.grid-demo .row > .col, .grid-demo .row > [class^=col-] {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+}
+
+// Flexbox classes
+// -----------------------------------
+.flex-ew,
+.flex-fullwidth {
+  flex: 1;
+  width: 100%; 
+}
+.flex-valign  {
+  @extend %flex-d-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;  
+}
+.flex-valign-b  {
+  @extend %flex-d-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;  
+}
+
+// Grid style classes
+// -----------------------------------
+.grid-inner-borders-dotted,
+.grid-inner-borders-solid,
+.grid-inner-equal-gutter {
+  overflow: hidden;
+  
+  > .col,
+  > [class*="col-"],
+  .grid-col {
+    padding: 15px;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      right: -1px;
+      border-right: 1px dashed $gray-200;      
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 0;
+      top: auto;
+      left: 0;
+      bottom: -1px;
+      border-bottom: 1px dashed $gray-200;      
+    }
+  }
+}
+.grid-inner-borders-solid {
+  > .col,
+  > [class*="col-"],
+  .grid-col {    
+    &:after {
+      border-right-style: solid;      
+    }
+    &:before {
+      border-bottom-style: solid;      
+    }
+  }  
+}
+
+.grid-inner-equal-gutter {
+  &:before,
+  &:after {
+    display: none;
+  }
+}

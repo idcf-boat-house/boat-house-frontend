@@ -1,0 +1,270 @@
+//======================================
+// Owl carousel plugin
+// $see: http://www.owlgraphic.com/owlcarousel/
+//======================================
+@import '../init.scss';
+
+// General
+// -------------------------------------------
+.owl-stage-outer {
+
+}
+.owl-carousel {
+  @include clearfix;
+}
+.owl-nav {
+  float: right;
+}
+.owl-dots {
+  float: left;
+}
+
+/* Styling Next and Prev buttons */
+
+.owl-nav div{
+  color: #FFF;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;/*IE7 life-saver */
+  margin: 0 1px;
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  background: $gray;
+  @include opacity(0.8);
+  @include border-radius(1px);
+  font-size: 0;
+
+  &:before {
+    @include fontawesome-bg(\f105);
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &.owl-prev {
+    left: 0;
+    
+    &:before {
+      content: '\f104';
+    }
+  }
+  &.owl-next {
+    right: 0;
+  }
+  
+  &.disabled {
+    @include opacity(0.4);
+  }
+}
+/* Clickable class fix problem with hover on touch devices */
+/* Use it for non-touch hover action */
+.owl-nav div:hover{
+  @include opacity(100);
+  text-decoration: none;
+  background: $primary_colour;
+}
+
+
+
+/* Styling Pagination*/
+.owl-dots .owl-dot {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;/*IE7 life-saver */
+}
+.owl-dots .owl-dot span{
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 0 3px;
+  background: $gray;
+  @include border-radius(1px);
+}
+
+.owl-dots .owl-dot.active span,
+.owl-dots .owl-dot:hover span{
+  @include opacity(100);
+  background: $primary_colour;
+}
+
+// Options
+// -------------------------------------------
+.owl-nav-over {
+  position: relative;
+  
+  .owl-nav div {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    
+    &.owl-prev {
+      left: -1px;
+    }
+    &.owl-next {
+      right: -1px;
+    }
+  }
+  
+  &.owl-nav-over-lg {
+    .owl-nav div {
+      margin-top: -40px;
+      height: 60px;
+      width: 60px;
+      line-height: 60px;
+      
+      &:before {
+        font-size: 30px;
+      }
+      &.owl-prev {
+        left: -1px;
+      }
+      &.owl-next {
+        right: -1px;
+      }
+    }    
+  }
+  
+  &.owl-nav-over-hover {
+    .owl-nav div {
+      @include opacity(0);
+      @include transition(all 0.3s ease-in);
+    }
+    
+    &:hover .owl-nav div {
+      @include opacity(1);
+      
+      &.disabled {
+        @include opacity(0.4);
+      }
+    }
+  }
+}
+
+.owl-nav-center {
+  .owl-nav {
+    float: none;
+    text-align: center;
+  }
+}
+
+.owl-dots-center {
+  .owl-dots {
+    float: none;
+    text-align: center;
+  }
+}
+.owl-dots-over {
+  position: relative;
+  
+  .owl-dots {
+    bottom: 10px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  
+  &.owl-dots-over-hover {
+    .owl-dots {
+      @include opacity(0);
+      @include transition(all 0.3s ease-in);      
+    }
+    &:hover .owl-dots {
+      @include opacity(1);
+    }
+  }
+}
+
+.owl-thumbs {
+  .owl-thumb {
+    display: inline-block;
+    max-width: 120px;
+    cursor: pointer;
+    @include opacity(0.4);
+    @include transition(all 0.3s ease-in);
+    
+    &:hover,
+    &.active {
+      @include opacity(1);
+    }
+  }
+  
+  &[data-toggle="owl-carousel"] {
+    .owl-thumb {
+      max-width: none;
+    }
+  }
+}
+
+.owl-nav-plain {
+  .owl-nav div{
+    background: transparent !important;
+  }
+}
+
+.owl-nav-text {
+  .owl-nav div{
+    color: $gray-500;
+    display: inline-block;
+    height: auto;
+    width: auto;
+    line-height: 1.2;
+    background: transparent !important;
+    @include opacity(0.8);
+    @include border-radius(0);
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+    &:before {
+      content: '';
+    }
+    
+    &:hover {
+      @include opacity(1);
+      background: transparent !important;
+      color: $gray-700;
+    }
+  }
+}
+
+// Display utils
+.owl-overflow {
+  .owl-stage-outer {
+    overflow: visible !important;
+  }
+}
+.owl-highlight-active {
+  .owl-item {
+    @include opacity(0.35);
+    @include scale(0.90);
+    @include transition(all 0.3s ease-in);
+    
+    &:hover {
+      @include opacity(0.8);
+      @include scale(0.91);
+    }
+    &.active {
+      @include opacity(1);
+      @include scale(1);
+    }    
+  }
+}
+.owl-equalheight {
+  .owl-stage-outer {
+    padding-left: 3px;
+  }
+  
+  &,
+  .owl-stage,
+  .owl-item {
+    @extend %flex-d-flex;
+  }
+}

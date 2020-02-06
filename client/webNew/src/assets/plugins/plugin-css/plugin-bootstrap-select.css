@@ -1,0 +1,32 @@
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+.bootstrap-select .dropdown-toggle:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.bootstrap-select.form-control {
+  background: transparent;
+}
+
+.bootstrap-select>.dropdown-menu {
+  border-radius: 0.2rem;
+  margin-top: 2px !important;
+  padding: 8px;
+}
+
+.bootstrap-select.form-control-rounded>.dropdown-menu {
+  border-radius: 20px;
+}
+
+.bootstrap-select.form-control-rounded>.dropdown-menu .dropdown-item {
+  border-radius: 15px;
+  margin-bottom: 2px;
+}

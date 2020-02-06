@@ -1,0 +1,176 @@
+//
+// Forms
+// --------------------------------------------------
+.form-control {
+  border-radius: 2px;
+  
+  &:hover {
+    border-color: $gray-lighter;
+  }
+}
+label {
+  margin-bottom: 2px;
+}
+
+input[type="color"].form-control {
+  -webkit-appearance: square-button;
+  width: 44px;
+  height: 44px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $gray-light;
+  border-image: initial;
+  padding: 1px 2px;  
+}
+
+input[type=range].form-control {
+  width: 100%;
+}
+
+
+.input-group-btn {
+  flex-direction: row;
+}
+
+.input-group-prepend,
+.input-group-append {
+  .btn {
+    align-self: stretch!important;
+  }
+}
+
+// Rounded
+// --------------------------------------------------
+.form-control-rounded {
+  @include border-radius(30px);
+}
+
+// Quantity widget
+// --------------------------------------------------
+.input-group-quantity {
+  min-width: 115px;
+  max-width: 200px;
+  
+  .quantity {
+    //max-width: 50px !important;
+    text-align: center;
+  }
+}
+
+
+//
+// Transparent form controls
+// --------------------------------------------------
+.form-control-transparent {
+  background: transparent;
+  border-color: transparent;
+  color: $brand-grey-dark;
+  
+  &:hover,
+  &:focus,
+  &:focus:hover {
+    border-color: transparent !important;
+    background: transparent !important;
+    color: darken($brand-grey-dark, 50%);
+  }
+  
+  @include placeholder($brand-grey-dark);
+  &:hover,
+  &:focus,
+  &:focus:hover {
+    @include placeholder(darken($brand-grey-dark, 50%));
+    box-shadow: none;
+  }  
+}
+
+.form-control-light {
+  // light background - default
+  color: $brand-grey-dark;
+}
+.form-control-dark {
+  // dark backgrounds
+  color: rgba(white, 50%/100.0%);
+  
+  &:hover,
+  &:focus,
+  &:focus:hover {
+    color: white;
+  }
+  
+  @include placeholder(rgba(white, 80%/100.0%));
+  &:hover,
+  &:focus,
+  &:focus:hover {
+    @include placeholder(white);
+  }
+}
+
+
+// Rounded
+// --------------------------------------------------
+.input-group-rounded {  
+  &.input-group .form-control,
+  .form-control {
+    &:first-child,
+    &.first-child {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+    &:last-child,
+    &.last-child {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }    
+  
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+  }
+  
+  .input-group-prepend {
+    > .input-group-text,
+    > .btn,
+    > .form-control {
+      border-radius: 30px 0 0 30px;
+    }
+  }
+  .input-group-append {
+    > .input-group-text,
+    > .btn,
+    > .form-control {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+  }  
+}
+
+// Misc. forms
+// --------------------------------------------------
+.outline-0:focus{
+  outline: none !important;
+  box-shadow: none !important;
+} 
+
+.form-wrapper {
+  margin: 0 auto;
+  border: 1px solid $gray-lighter;
+  padding: 20px;
+  border-radius: 2px;
+  @include box-shadow(1px 1px 10px rgba($gray-light, 20%/100.0%));
+  
+  &.form-narrow {
+    min-width: 200px;
+    max-width: 400px;
+  }
+  
+  &.form-medium {
+    min-width: 300px;
+    max-width: 500px;
+  }  
+  
+  h2.title-divider,
+  h3.title-divider {
+    margin-top: 0;
+  }
+}

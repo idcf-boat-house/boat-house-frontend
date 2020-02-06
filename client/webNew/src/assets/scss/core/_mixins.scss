@@ -1,0 +1,710 @@
+//////////////////////////////////////////////////////////////////
+// Mixins
+//////////////////////////////////////////////////////////////////
+
+// Functions
+// --------------------------------------------------
+@function alpha($color, $alpha) {
+  @return hsla(hue($color), saturation($color), lightness($color), $alpha)
+}
+
+@function mulitply($number, $by) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1) * $by;
+  }
+
+  @return $number * $by;
+}
+
+// General
+// --------------------------------------------------
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+}
+@mixin scale($value) {
+  -webkit-transform: scale($value);
+  -moz-transform: scale($value);
+  -ms-transform: scale($value);
+  transform: scale($value);
+}
+@mixin opacity($opacity) {
+  opacity: $opacity; 
+}
+@mixin transition($args) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+@mixin rotate($value){
+  -webkit-transform: rotate($value);
+  -ms-transform: rotate($value);
+  transform: rotate($value);
+}
+
+@mixin translucent_background($color: $white, $alpha: 1, $important: 0){
+  @if $important == 1 {
+    background-color: hsla(hue($color), saturation($color), lightness($color), $alpha) !important;
+  }
+  @else {
+    background-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
+  }
+}
+@mixin translucent_border($color: $white, $alpha: 1, $important: 1){
+  @if $important == 1 {
+    border-color: hsla(hue($color), saturation($color), lightness($color), $alpha) !important;
+  }
+  @else {
+    border-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
+  }
+}
+
+@mixin placeholder($color: $input-color-placeholder) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $color;  
+  }
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: $color;  
+  }
+  &:-ms-input-placeholder {  
+    color: $color;  
+  }  
+}
+
+// Helpers
+// --------------------------------------------------
+@mixin at2x($path, $ext: "jpg", $w: auto, $h: auto) {
+  $at1x_path: "#{$path}.#{$ext}";
+  $at2x_path: "#{$path}@2x.#{$ext}";
+
+  background-image: url("#{$at1x_path}");
+
+  @media all and (-webkit-min-device-pixel-ratio: 1.5),
+    all and (-o-min-device-pixel-ratio: 3/2),
+    all and (min--moz-device-pixel-ratio: 1.5),
+    all and (min-device-pixel-ratio: 1.5) {
+    background-image: url("#{$at2x_path}");
+    background-size: $w $h;        
+  }
+}
+
+@mixin fontawesome-bg($code){
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-style: normal;
+  speak: none;
+  display: inline-block;
+  content: unquote("\"#{ $code }\"");
+}
+
+// AppStrap specific
+// --------------------------------------------------
+
+
+@mixin appstrap-button-link-variant($color, $background, $border){
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  box-shadow: none !important;
+
+  &:focus, 
+  &.focus {
+    color: darken($color, 10%);
+  }
+  &:hover {
+    color: darken($color, 10%);
+  }
+  &:active,
+  &.active,
+  .show > .dropdown-toggle &,
+  .open > .dropdown-toggle & {
+    color: darken($color, 10%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: darken($color, 10%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle & {
+    background-image: none;
+  }
+  
+  &.disabled,
+  &[disabled],
+  &:disabled,
+  fieldset[disabled] & {
+      background-color: $background;
+          border-color: $border;
+    
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+@mixin appstrap-button-variant($color, $background, $border){
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 25%);
+  }
+  @include hover {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+  }
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+    background-image: none;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      border-color: darken($border, 25%);
+    }
+  }
+  
+  &.disabled,
+  &[disabled],
+  &:disabled,
+  fieldset[disabled] & {
+      background-color: $background;
+          border-color: $border;
+    
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Elements mixins
+// --------------------------------------------------
+@mixin dropdowns-desktop {  
+  .nav > .dropdown {
+    z-index: 1000;
+    
+    > a {
+      position: relative;
+      z-index: $zindex-dropdown + 1;
+    }
+  }
+  
+  //default dropdown menus (light)
+  &.collapse .dropdown-menu {
+    padding: 12px;
+    @include border-radius(0);
+    left: auto;
+    border: 1px solid $gray-200;
+    border-bottom: 2px solid $primary_colour;
+    min-width: 250px;
+    color: $gray-light;
+    background: $dropdown-bg;
+    position: absolute;
+    z-index: $zindex-dropdown;
+
+    .dropdown-item {
+      margin: 0;
+      padding: 8px 12px !important;
+      font-size: 12px;
+      @include border-radius(0);
+      background: white;
+      border-bottom: 1px solid $gray-lighter !important;
+      color: $gray;
+      
+      &:before {
+        display: none;
+      }
+      
+      .dropdown-icon {
+        color: $gray-400;
+      }
+    
+      &.dropdown-item-caret:before {
+        @include fontawesome-bg($submenu_item_bullet);
+        font-size: 12px;
+        color: $gray-400;
+        width: 20px;
+        height: 20px;
+        padding-right: 10px;
+        margin: 0 !important;
+        display: inline-block;
+      }      
+    }
+
+    
+    .dropdown-item:hover,
+    .dropdown-item:focus, 
+    .dropdown-item.active:hover,
+    .dropdown-item.active,
+    .dropdown-item.active:focus,
+    .active > .dropdown-item,
+    .active > .dropdown-item:hover,
+    .active > .dropdown-item:focus,
+    .show:not(.collapse) > .dropdown-item,
+    .show > .dropdown-item:hover,
+    .show > .dropdown-item:focus,
+    .open:not(.collapse) > .dropdown-item,
+    .open > .dropdown-item:hover,
+    .open > .dropdown-item:focus {
+      color: $gray-900;
+      background: $gray-100;
+      text-decoration: none;
+      
+      &.dropdown-item-caret:before,
+      .dropdown-icon {
+        color: $primary_colour;
+      }
+    }    
+  }
+  
+  //dropdown titles & footers
+  .dropdown-header,
+  .dropdown-footer {
+    font-weight: bold;
+    padding: 8px ;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid $gray-lighter !important;
+    display: block;
+    float: none;
+    color: $gray;
+  }
+  .dropdown-footer {
+    border: none;
+    border-top: 2px solid $gray-lighter;
+    font-weight: 100;
+    margin-bottom: 0;
+    font-size: 11px;
+    
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
+  
+  // Submenus desktop
+  // -----------------
+  &.collapse .dropdown-menu {
+    .dropdown-submenu {
+      position:relative;
+    }
+    .dropdown-submenu > .dropdown-menu {
+      top:0;
+      left: 100%;
+      margin-top: -5px;
+      margin-left: 10px;
+      padding: 8px;
+    }  
+    // pull DD right
+    .dropdown-submenu.dropdown-menu-right {
+      //parent
+    }
+    .dropdown-submenu.dropdown-menu-right > .dropdown-menu,  
+    .dropdown-submenu > .dropdown-menu.dropdown-menu-right {
+      top:0;
+      left:100%;
+    }
+    // DD left
+    .dropdown-submenu.dropdown-menu-left {
+      // Parent      
+    }
+    .dropdown-submenu.dropdown-menu-left > .dropdown-menu, 
+    .dropdown-submenu > .dropdown-menu.dropdown-menu-left {
+      top:0;
+      left: auto;
+      right: 100%;
+      margin-left: 0;
+      margin-right: 10px;
+    }
+    .dropdown-submenu {
+      .dropdown-item {
+        &:after{
+          border-color: transparent transparent $primary_colour transparent;
+        }
+      }
+      &.show,
+      &.open {
+        border-bottom: none;
+      }
+      
+      .dropdown-menu {
+        .dropdown-item {
+          padding: 8px 15px !important;
+        }
+      }
+    }
+  }
+  
+  // Mega menu variations
+  .nav {
+    //align to right edge - $todo - depreciate
+    > .dropdown-right {
+      position: relative;
+    }
+  }
+
+  .dropdown-mega-menu {
+    position: static;
+    
+    .dropdown-menu {
+      min-width: 550px;
+      max-width: 100%;
+      padding: 15px;
+      right: 0;
+      left: 0;      
+    }
+    
+    &.dropdown-mega-menu-75 .dropdown-menu,
+    &.dropdown-mega-menu-50 .dropdown-menu,
+    &.dropdown-mega-menu-25 .dropdown-menu {
+      right: auto;
+      left: auto;
+      
+      &.dropdown-menu-right {
+        right: 0;
+      }
+    }
+    &.dropdown-mega-menu-75 .dropdown-menu {
+      max-width: 75%;
+    }
+    &.dropdown-mega-menu-50 .dropdown-menu {
+      max-width: 50%;
+    }
+    &.dropdown-mega-menu-25 .dropdown-menu {
+      max-width: 25%;
+    }    
+  }  
+}
+
+%dropdowns-desktop {
+  @include dropdowns-desktop;
+}
+
+@mixin main-menu {
+  //float: right;
+  & {
+    display: block !important;
+    padding: 0;
+    margin: 0;
+    clear: none;
+    overflow-y: visible;
+    overflow-x: visible;
+    width: auto;
+    top: auto;
+    background: transparent;
+    position: static;
+  }
+  .navbar-nav {
+    margin-top: 0;
+  }
+  .navbar-nav.container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+    
+  @include dropdowns-desktop;
+  
+  .btn {
+    margin-top: 8px;
+    
+    &.btn-sm {
+      margin-top: 12px;
+    }
+    &.btn-lg {
+      margin-top: 4px;
+    }
+  }
+  
+  .nav-item {
+    float: left;
+    border: none;
+  }
+  
+  .navbar-nav {
+    // Styles
+    &.navbar-nav-stretch {
+      > .nav-item > .nav-link,
+      > .nav-link {
+        padding: 34px 14px;
+      }
+    }
+    
+    &.navbar-nav-simple {
+      > .nav-item > .nav-link,
+      > .nav-link {
+        padding: 34px 14px;
+        
+        &.dropdown-toggle:after {
+          display: none;
+        }
+      }
+      > .open > .dropdown-toggle,
+      > .open > .dropdown-toggle:hover,
+      > .open > .dropdown-toggle:focus {
+        border-color: transparent !important;
+        background: transparent !important;
+        color: $primary_colour;
+      }
+      
+      .dropdown-menu {
+        margin-top: 1px !important;
+      }
+    }
+    
+    > .nav-item > .nav-link,
+    > .nav-link {
+      @include border-radius(0);
+      @include transition(all 0.3s ease-out);
+      padding: 15px 10px;
+      margin: 0;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid transparent;
+      border-top: 3px solid transparent;
+      
+      .nav-link-icon {
+        font-size: 17px;
+        margin-top: -5px;
+      }
+    }
+    > .nav-item > .nav-link:hover,
+    > .active > .nav-link{     
+      .caret {
+        border-top-color: $white;
+      }
+    }
+    > .nav-item > .nav-link:focus {
+      background: transparent;
+    }
+    
+    > .show,
+    > .show.active,
+    > .open,
+    > .open.active {    
+      > .dropdown-toggle,
+      > .dropdown-toggle:hover,
+      > .dropdown-toggle:focus {
+        background: $dropdown-bg;
+        color: $gray;
+        border-color: #f3f3f3;
+        border-bottom-color: transparent;
+      }
+    }
+    
+    // Acts link dropdown
+    .nav-link-dd-effect:hover,
+    .nav-link-dd-effect.active {
+      background: $dropdown-bg;
+      color: $gray;
+      border-color: #f3f3f3;
+      border-bottom: 1px solid  #f3f3f3;
+    }
+  }
+  .navbar-nav-flush {
+    margin-left: -20px;
+  }
+  .navbar-nav-flush-right {
+    margin-right: -20px;
+  }
+}
+
+@mixin main-menu-schemes {
+
+}
+
+@mixin main-menu-mobile {
+  float: none;
+  margin: 0;
+  padding: 0;
+  @include border-radius(2px);
+  
+  .btn {
+    margin: 10px 20px;
+  }
+  
+  .nav-item+.nav-item {
+    margin: 0;
+  }
+  
+  > .nav-item {
+    float: none;
+    border-left: none;
+    border-right: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba($white, 10%/100.0%);
+    border-bottom: 1px solid #242424;
+  }
+  
+  > .nav-item > .nav-link,
+  > .nav-link {
+    padding: 15px 20px;
+    margin: 0;
+    font-weight: normal;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: rgba($white, 70%/100.0%);
+    
+      .nav-link-icon {
+        font-size: 18px;
+      }    
+  }
+    
+  > .nav-item > .nav-link:hover,
+  > .nav-item.active > .nav-link {
+    background: lighten($gray, 5%);
+    color: $white;
+  }
+  .nav-link:focus {
+    background: transparent;
+  }
+  .show > .dropdown-toggle,
+  .show.active > .dropdown-toggle {
+    background: lighten(#242424, 2%);
+    color: $white;            
+  }    
+}
+
+// Flexbox extenders/mixins
+// --------------------------------------------------
+@mixin flex-stacked{
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+@mixin flex-d-flex{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+@mixin flex-align-items-start{
+  -webkit-box-align: start;
+  -webkit-align-items: start;
+  -ms-flex-align: start;
+  align-items: flex-start; 
+}
+@mixin flex-align-items-center{
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;  
+}
+@mixin flex-align-items-stretch{
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+@mixin flex-justify-content-center{
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@mixin flex-justify-content-start {
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+@mixin flex-justify-content-end {
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+@mixin flex-wrap{
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+@mixin flex-row{
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;   
+}
+@mixin flex-newline {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+%flex-stacked{
+  @include flex-stacked;
+}
+%flex-d-flex{
+  @include flex-d-flex;
+}
+%flex-align-items-start{
+  @include flex-align-items-start;
+}
+%flex-align-items-center{
+  @include flex-align-items-center; 
+}
+%flex-align-items-stretch{
+  @include flex-align-items-stretch; 
+}
+%flex-justify-content-center{
+  @include flex-justify-content-center;
+}
+%flex-justify-content-end {
+  @include flex-justify-content-end;
+}
+%flex-justify-content-start {
+  @include flex-justify-content-start;
+}
+%flex-wrap{
+  @include flex-wrap;
+}
+%flex-row{
+  @include flex-row;
+}
+

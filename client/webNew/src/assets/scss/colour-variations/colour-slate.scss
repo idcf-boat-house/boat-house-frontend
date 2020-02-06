@@ -1,0 +1,14 @@
+// -------------------------------------------
+// REQUIRED: Variables & Mixins
+// -------------------------------------------
+@import "../init.scss";
+
+// Set primary colour & other variables 
+// --------------------------------------------------
+$_primary_colour: $skinSlate;
+$_primary_colour_light: lighten($_primary_colour, 10%);
+$_primary_colour_dark: darken($_primary_colour, 10%);
+
+// Include colour overrides
+// --------------------------------------------------
+@import "override-colour.scss";

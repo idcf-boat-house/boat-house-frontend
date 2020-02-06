@@ -1,0 +1,21 @@
+/* --------------------------------------------------
+ * Customers
+ *-------------------------------------------------- */
+
+
+
+
+// Customers Carousel
+// --------------------------------------------------
+.customers-carousel {
+  .owl-item {
+    width: 220px;
+    padding: 0 1em;
+    text-align: center;
+    
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}

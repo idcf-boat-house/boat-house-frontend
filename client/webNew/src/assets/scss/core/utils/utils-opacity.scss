@@ -1,0 +1,57 @@
+// -------------------------------------------
+// Opacity helpers
+// -------------------------------------------
+
+// ie. op-1 = opacity 0.1
+// -------------------------------------------
+@each $name, $value in $op {
+  .op-#{$name} {
+    @include opacity($value !important);
+  }
+  a.op-#{$name}:hover,
+  .op-auto {
+    opacity: 1 !important;
+  }  
+}
+
+// Loops based on colour schemes
+// -------------------------------------------
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+
+@each $name, $value in $op {
+  // Background colours
+  // -------------------------------------------
+  .bg-op-#{$name} {    
+    @each $colour_name, $colour_value in $as-colours {
+      &.bg-#{$colour_name} {
+        @include translucent_background($colour_value, $value, 1);
+      }
+    }
+    
+    // Specials
+    &.bg-gradient {
+      @include gradient-y($white, alpha(darken($white, 8%), $value));
+    }
+    &.bg-gradient-flip {
+      @include gradient-y(alpha(darken($white, 8%), $value), $white);
+    }
+  }
+  
+  // Borders
+  // -------------------------------------------
+  .border-op-#{$name} {
+    @each $colour_name, $colour_value in $as-colours {
+      &.border-#{$colour_name} {
+        @include translucent_border($colour_value, $value, 1);
+      }
+    }
+  }
+}
+
+
+// @todo - buttons
+// -------------------------------------------

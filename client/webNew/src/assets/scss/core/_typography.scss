@@ -1,0 +1,204 @@
+// -------------------------------------------
+// Typography
+// -------------------------------------------
+
+// Standard typography
+// -------------------------------------------
+body,
+html {
+  font-family: "Open Sans", Arial, serif;
+  background: $white;
+}
+body {
+  position: relative; // scrollspy
+  overflow-x: hidden;
+}
+a,
+a:hover {
+  color: $primary_colour;
+}
+
+a:hover {
+  img {
+    @include opacity(80);
+  }
+}
+a:focus {
+  outline: none;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+// Header tags
+// -------------------------------------------
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $headings-font-family;
+  font-weight: 700;
+  line-height: $headings-line-height;
+  
+  small {
+    font-weight: normal;
+    line-height: 1;
+    color: $gray-light;
+  }
+}
+h1, .h1 { font-size: $font-size-base * 2.45; } // ~38px
+h2, .h2 { font-size: $font-size-base * 2.15; } // ~32px
+h3, .h3 { font-size: $font-size-base * 1.75; } // ~24px
+h4, .h4 { font-size: $font-size-base * 1.25; } // ~18px
+h5, .h5 { font-size: $font-size-base; }
+h6, .h6 { font-size: $font-size-base * 0.85; } // ~12px
+ 
+h1 small,
+.h1 small { font-size: $font-size-base * 1.55; } // ~24px
+h2 small,
+.h2 small { font-size: $font-size-base * 1.05; } // ~18px
+h3 small,
+.h3 small { font-size: $font-size-base; }
+h4 small,
+.h4 small { font-size: $font-size-base; }
+
+
+// Blockquotes
+// -------------------------------------------
+.blockquote-bubble {
+  border: none;
+  padding: 0;
+  
+  @extend %flex-d-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 0%;
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  
+  .blockquote-bubble-content {
+    background: $gray-lighter;
+    padding: 20px;
+    @include border-radius(3px);
+    position: relative;
+    margin: 0 0 10px 0;
+    width: 100%;
+    
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;    
+
+    &:after {
+      top: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-top-color: $gray-lighter;
+      border-width: 10px;
+      left: 30px;
+      margin-left: -10px;
+    }
+    
+    &.bg-white:after {
+      border-top-color: white;
+    }
+  }
+  
+  small,
+  footer,
+  .blockquote-footer {
+    padding-left: 8px;
+    padding-right: 8px;
+    
+    img {
+      max-width: 50px;
+    }
+  }
+  
+  .blockquote-footer:before,
+  .blockquote-footer:after {
+    display: none;
+  }
+  
+  &.text-right {
+    .blockquote-bubble-content {   
+      &:after  {
+        left: auto;
+        margin-left: auto;
+        right: 30px;
+      }
+       
+      &:before {
+        border-top-color: rgba(0,0,0,0.01);
+        border-width: 11px;
+        left: 10%;
+        margin-left: -11px;
+      }
+    }
+  }
+  
+  &.text-center {
+    text-align: center;
+    
+    .blockquote-bubble-content {
+      text-align: center;
+      
+      &:after  {
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.blockquote-plain {
+  border-left: none;
+  border-right: none;
+  padding: 0;
+}
+
+// Special typography
+// -------------------------------------------
+.text-fancy,
+.fancy {
+  font-family: 'Calligraffitti', cursive;
+  text-transform: lowercase;
+  line-height: 10px;
+}
+.new-tag {
+  display: inline;
+  color: $brand-danger;
+  vertical-align: super;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+// Display headers on mobile
+// -------------------------------------------
+.display-1,
+.display-2,
+.display-3,
+.display-4 {
+  &:not(.no-resize) {
+    @include media-breakpoint-down(sm) {
+      font-size: 180%;
+    }
+  }
+}
+
+// Misc.
+// -------------------------------------------
+small {
+  img {
+    max-width: 50px;
+  }
+}

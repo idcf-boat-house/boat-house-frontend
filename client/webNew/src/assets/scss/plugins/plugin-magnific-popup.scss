@@ -1,0 +1,60 @@
+//======================================
+// magnific-popup plugin
+//======================================
+@import '../init.scss';
+
+// General
+// -------------------------------------------
+.mfp-bg {
+  z-index: 99999+3 !important;
+}
+.mfp-wrap {
+  z-index: 99999+4 !important;  
+}
+.mfp-close:focus,
+.mfp-arrow:focus {
+  outline: none;
+}
+.mfp-title {
+  font-size: 80%;
+}
+
+// Effects
+// -------------------------------------------
+.mfp-bg {
+  @include transition(all 0.5s ease-out);
+  @include opacity(0);
+  
+  &.mfp-ready {
+    @include opacity(0.8);
+  }
+}
+
+.mfp-fade-zoom .mfp-image-holder .mfp-content {
+  @include transition(all 0.35s ease-out);
+  @include opacity(0);
+  @include scale(0.85);
+}
+.mfp-fade-zoom.mfp-image-in {
+  .mfp-image-holder .mfp-content {
+    @include opacity(1);
+    @include scale(1);
+  }
+}
+
+.mfp-fade .mfp-image-holder .mfp-content {
+  @include transition(all 0.3s ease-out);
+  @include opacity(0);
+}
+.mfp-fade.mfp-image-in {
+  .mfp-image-holder .mfp-content {
+    @include opacity(1);
+  }
+}
+
+// IE
+.mfp-zoom-out-cur {
+  #header {
+    z-index: 10;
+  }
+}

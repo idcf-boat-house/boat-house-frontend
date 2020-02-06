@@ -1,0 +1,107 @@
+//
+// Spacers
+// --------------------------------------------------
+
+// Extends the default spacers (0-5) up to 10
+// --------------------------------------------------
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    
+    // Postive
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers_extended {
+
+        .#{$abbrev}#{$infix}-#{$size}  { #{$prop}:        $length !important; }
+        .#{$abbrev}t#{$infix}-#{$size} { #{$prop}-top:    $length !important; }
+        .#{$abbrev}r#{$infix}-#{$size} { #{$prop}-right:  $length !important; }
+        .#{$abbrev}b#{$infix}-#{$size} { #{$prop}-bottom: $length !important; }
+        .#{$abbrev}l#{$infix}-#{$size} { #{$prop}-left:   $length !important; }
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+          #{$prop}-left:  $length !important;
+        }
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-top:    $length !important;
+          #{$prop}-bottom: $length !important;
+        }
+      }
+    }
+
+    // Some special margin utils
+    .m#{$infix}-auto  { margin:        auto !important; }
+    .mt#{$infix}-auto { margin-top:    auto !important; }
+    .mr#{$infix}-auto { margin-right:  auto !important; }
+    .mb#{$infix}-auto { margin-bottom: auto !important; }
+    .ml#{$infix}-auto { margin-left:   auto !important; }
+    .mx#{$infix}-auto {
+      margin-right: auto !important;
+      margin-left:  auto !important;
+    }
+    .my#{$infix}-auto {
+      margin-top:    auto !important;
+      margin-bottom: auto !important;
+    }
+    
+    // Negative margins
+    
+  }
+}
+
+// Negative margins .mt-5-neg
+// --------------------------------------------------
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    $suffix: neg;
+    
+    @each $prop, $abbrev in (margin: m) {
+      @each $size, $length in $spacers {
+        @if $size != 0 {
+          .#{$abbrev}#{$infix}-#{$size}-#{$suffix}  { #{$prop}:        -$length !important; }
+          .#{$abbrev}t#{$infix}-#{$size}-#{$suffix} { #{$prop}-top:    -$length !important; }
+          .#{$abbrev}r#{$infix}-#{$size}-#{$suffix} { #{$prop}-right:  -$length !important; }
+          .#{$abbrev}b#{$infix}-#{$size}-#{$suffix} { #{$prop}-bottom: -$length !important; }
+          .#{$abbrev}l#{$infix}-#{$size}-#{$suffix} { #{$prop}-left:   -$length !important; }
+          .#{$abbrev}x#{$infix}-#{$size}-#{$suffix} {
+            #{$prop}-right: -$length !important;
+            #{$prop}-left:  -$length !important;
+          }
+          .#{$abbrev}y#{$infix}-#{$size}-#{$suffix} {
+            #{$prop}-top:    -$length !important;
+            #{$prop}-bottom: -$length !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// HR tags
+// --------------------------------------------------
+hr.hr-blank {
+  border-top: none;
+}
+hr.hr-lg {
+  border-top-width: 3px;
+}
+hr.hr-xl {
+  border-top-width: 5px;
+}
+hr.hr-white{
+  border-top-color: white !important;   
+}
+
+
+// Extra theme colours
+// -------------------------------------------
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+@each $name, $value in $as-colours {
+  hr.hr-#{$name} {
+    border-top-color: $value !important;
+  }  
+}

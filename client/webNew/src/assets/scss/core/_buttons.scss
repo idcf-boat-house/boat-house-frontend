@@ -1,0 +1,216 @@
+//
+// Buttons
+// --------------------------------------------------
+.btn {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+  border-radius: 2px;
+  border-width: 1px;
+  border-style: solid;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  
+  span.caret {
+    display: inline-block;
+  }
+  
+  &.font-weight-bold {
+    font-weight: bold;
+  }
+  &.font-weight-normal {
+    font-weight: normal;
+  }
+  
+  &.focus,
+  &:focus {
+    @include box-shadow(none);
+    outline: none;
+  }
+}
+
+.btn-icon.btn {
+  font-size: 20px;
+  text-align: center;
+  line-height: 1;
+  padding: 0;
+  height: 38px;
+  width: 38px;
+  line-height: 36px;
+  border-radius: 2px;
+  
+  &.btn-sm {
+    height: 30px;
+    width: 30px;
+    line-height: 26px;
+    font-size: 18px;
+    padding: 0;
+  }
+  &.btn-lg {
+    height: 46px;
+    width: 46px;
+    line-height: 38px;
+    font-size: 24px;
+    padding: 0;
+  }
+  &.btn-xlg {
+    height: 60px;
+    width: 60px;
+    line-height: 56px;
+    font-size: 28px;
+    padding: 0;
+  }
+  
+  &.btn-sm.btn-rounded {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+.input-group-rounded {
+  .btn-icon.btn {
+    line-height: 20px;
+  }  
+}
+
+// Button Sizes
+// --------------------------------------------------
+.btn-xlg,
+.btn-xl {
+  // line-height: ensure even-numbered height of button next to large input
+  @include button-size(15px, 45px, 16px, 1.4, 2px);
+  word-wrap: break-word;
+}
+.btn-sm {
+  font-size: 11px;
+  line-height: 1.5;
+  padding: $btn-padding-y-sm $btn-padding-x-sm;
+}
+.btn-lg {
+  font-size: 14px;
+  padding: $btn-padding-y-lg $btn-padding-x-lg;
+}
+
+// Button & Input Groups
+// --------------------------------------------------
+.btn-group-lg>.btn, .btn-lg,
+.btn-group-sm>.btn, .btn-sm,
+.input-group-addon,
+.input-group-addon.form-control-lg,
+.input-group-lg > .input-group-addon,
+.input-group-lg > .input-group-btn > .input-group-addon.btn,
+.form-control-lg,
+.input-group-lg>.form-control,
+.input-group-lg>.input-group-addon,
+.input-group-lg>.input-group-btn>.btn {
+  border-radius: 2px;
+}
+
+
+.input-group-lg > .input-group-btn > .btn-icon.btn {
+  height: 51px !important;
+  width: 51px !important;
+}
+
+.input-group-btn:not(:last-child) > .btn,
+.input-group-btn:not(:last-child) > .btn-group {
+  margin-right: -2px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;  
+}
+
+
+// Specials
+// --------------------------------------------------
+.btn-shadow {
+  box-shadow: $gray-400 0 10px 18px !important;
+}
+.btn-bold {
+  font-weight: bold;
+}
+.btn-floating {
+  box-shadow: 0 6px 3px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important;
+}
+
+
+// Rounded
+// --------------------------------------------------
+.btn.btn-rounded-sm {
+  @include border-radius(.25rem);
+}
+
+.btn.btn-rounded,
+.btn-group-lg > .btn.btn-rounded,
+.btn-group-sm > .btn.btn-rounded {
+  @include border-radius(30px);
+}
+.btn.btn-rounded.btn-icon {
+  @include border-radius(100%);
+}
+
+// Link btns
+// --------------------------------------------------
+.btn-link {
+  @include appstrap-button-link-variant(lighten($gray-light, 20%), transparent, transparent);
+  
+  &:focus,
+  &.focus,
+  &:hover {
+    color: $gray-light;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active,
+  .show > .dropdown-toggle &,
+  .open > .dropdown-toggle & {
+    color: $gray-light;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $gray-light;
+    }
+  }  
+}
+
+
+// Extra theme colours
+// -------------------------------------------
+$as-colours: $as-theme-colours;
+@if $as-theme-colours-extended-options == true {
+  // Include social brands
+  $as-colours: $as-theme-colours-extended;
+}
+
+@each $name, $value in $as-colours {
+  .btn-#{$name} {
+    @include button-variant($value, $value);
+  }
+  .btn-outline-#{$name} {
+    @if $name == 'light' {
+      @include button-outline-variant($value, $gray-700);
+    } @else {
+      @include button-outline-variant($value, white);
+    }
+  }
+  .btn-#{$name}.btn-invert {
+    background-color: darken($value, 10%);
+    
+    &:hover,
+    &:focus {
+      background-color: $value;
+    }
+  }
+  .btn-#{$name}.btn-link {
+    @include appstrap-button-variant($value, transparent, transparent); 
+  }  
+}
+
+// Hover effects
+
+
+// No shadow
+.btn-flat {
+  box-shadow: none;
+}

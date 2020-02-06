@@ -1,0 +1,185 @@
+// -------------------------------------------
+// Cards
+// -------------------------------------------
+
+.card {
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.card.clickable-element {
+  cursor: pointer;
+  
+  &:hover {
+    @include box-shadow(1px 1px 8px $gray-400);
+  }
+}
+.card.clickable-element.card-silent {
+  &:hover {
+    @include box-shadow(none);
+  }  
+}
+
+// Groups
+.card-group {
+  .card {
+    margin-bottom: 0;
+  }
+  
+  @include media-breakpoint-up(sm) {
+    .card+.card-outline-primary,
+    .card+.card-outline-secondary,
+    .card+.card-outline-success,
+    .card+.card-outline-info,
+    .card+.card-outline-warning,
+    .card+.card-outline-danger {
+      position: relative;
+      z-index: 1;
+      left: -1px;
+        
+      +.card-outline-primary {
+        border-left: none;
+      }
+    }
+    .card+.card-outline-primary {
+      // @see: _primary-colours.scss
+    }
+    .card+.card-outline-secondary {
+      border-left: 1px solid #ccc;
+    }
+    .card+.card-outline-success {
+      border-left: 1px solid $brand-success;
+    }
+    .card+.card-outline-info {
+      border-left: 1px solid $brand-info;
+    }
+    .card+.card-outline-warning {
+      border-left: 1px solid $brand-warning;
+    }
+    .card+.card-outline-danger {
+      border-left: 1px solid $brand-danger;
+    }    
+  }
+}
+
+
+// Custom helpers
+// -------------------------------------------
+// labels
+.card-ribbon {
+  width: 200px;
+  padding: 2px 5px;
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+  z-index: 1;
+}
+.card-ribbon-top    { top: 20px; }
+.card-ribbon-bottom { bottom: 20px; }
+.card-ribbon-left   { left: -70px; }
+.card-ribbon-right  { right: -70px; }
+
+.card-ribbon-top.card-ribbon-left,
+.card-ribbon-bottom.card-ribbon-right {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.card-ribbon-top.card-ribbon-right,
+.card-ribbon-bottom.card-ribbon-left {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+// Overlaps
+.card-block-overlap {
+  margin-left: -4px !important;
+  margin-right: -4px !important;
+}
+.card-grid-overlap {
+  @include media-breakpoint-up(sm) {
+    .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+    .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
+    .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+    .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9,
+    .col-xs, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .card {
+      margin-left: -1px;
+    }
+    .card-outline-primary,
+    .card-outline-secondary,
+    .card-outline-success,
+    .card-outline-info,
+    .card-outline-warning,
+    .card-outline-danger {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+
+// Accordions
+// -------------------------------------------
+.card-accordion {
+  .card-header a[data-toggle="collapse"] {
+    display: block;
+    padding: 15px;
+    
+    &:after {
+      @include fontawesome-bg(\f107);
+      float: right;
+      line-height: 1;
+      width: 22px;
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    &.collapsed {
+      &:after {
+        @include fontawesome-bg(\f105);
+      }
+    }
+    &:hover {
+      text-decoration: none;
+    }    
+  }
+  
+  // Icon left
+  &.card-accordion-icons-left .card-header a[data-toggle="collapse"] {
+    &:after {
+      float: left;
+      padding-right: 0.6em;
+    }
+  }
+  
+  // List style
+  &.card-accordion-list-style {
+    .card {
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      margin-bottom: -1px;
+    }
+    .card-header {
+      background: transparent;
+      border: none;
+    }
+    .card-header a[data-toggle="collapse"]{
+      padding: 8px 15px;
+      
+      &:after {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+

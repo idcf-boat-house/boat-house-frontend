@@ -1,0 +1,136 @@
+// Object of plugins to add to Globals.PLUGINS
+Globals.PLUGINS.themePluginJpanelMenu = function(context) {
+  // ----------------------------------------------------------------
+  // Plugin: jPanel Menu
+  // data-toggle=jpanel-menu must be present on .navbar-btn
+  // @todo - allow options to be passed via data- attr
+  // @see: http://jpanelmenu.com/
+  // ----------------------------------------------------------------
+  var $jpanelMenus = context.find('[data-toggle=jpanel-menu]');
+  if ($jpanelMenus.length > 0) {
+    var themePluginJpanelMenuInit = function() {
+      var jpmCloseLinks = function(jPM) {
+        var $menu = jPM.getMenu();
+        var $closeLinks = $menu.find('[data-dismiss="jpanel-menu"]') || null;
+        if ($closeLinks !== null) {
+          $closeLinks.on('click', function() {
+            jPM.close(true);
+          });
+        }        
+      };
+      var triggerActive = function($trigger) {
+        if ($trigger.css("display") === "block" || $trigger.css("display") === "inline-block") {
+          return true;
+        }
+        return false;
+      };
+      
+      $jpanelMenus.each(function() {
+        var $jpanelMenu = $(this);
+        var jpanelMenuTrigger = $jpanelMenu;
+        var jpanelMenuState = '';
+        var panelClass = jpanelMenuTrigger.data('panel-class') || null;
+        var menuClass = jpanelMenuTrigger.data('menu-class') || null;
+        var panelActiveClass = jpanelMenuTrigger.data('panel-active-class') || null;
+        var menuActiveClass = jpanelMenuTrigger.data('menu-active-class') || null;      
+        var direction = jpanelMenuTrigger.data('direction') || 'right';
+        var target = jpanelMenuTrigger.data('target');
+        var $target = $(target);
+        var $window = $(window);
+        var $headerSticky = context.find('#header .is-sticky');
+        var $html = $('html');
+  
+        $html.addClass('jpanel-menu-' + direction);
+        $target.hide();
+  
+        var jPM = $.jPanelMenu({
+          menu: target,
+          direction: direction,
+          trigger: '.' + jpanelMenuTrigger.attr('class'),
+          excludedPanelContent: '.jpanel-menu-exclude',
+          openPosition: '280px',
+          clone: true,
+          keepEventHandlers: true,
+          beforeOpen: function() {
+            // Active menu & panel class
+            if (panelActiveClass) {
+              var $panel = jPM.getPanel();
+              $panel.addClass(panelActiveClass);
+            }
+            if (menuActiveClass) {
+              var $menu = jPM.getMenu();
+              $menu.addClass(menuActiveClass);
+            }          
+          },
+          afterOpen: function() {
+            jpanelMenuTrigger.addClass('open');
+            $html.addClass('jpanel-menu-open');
+            $window.trigger('resize');
+          },
+          afterClose: function() {
+            // Active menu & panel class
+            if (panelActiveClass) {
+              var $panel = jPM.getPanel();
+              $panel.removeClass(panelActiveClass);
+            }
+            if (menuActiveClass) {
+              var $menu = jPM.getMenu();
+              $menu.removeClass(menuActiveClass);
+            }  
+            
+            jpanelMenuTrigger.removeClass('open');
+            $html.removeClass('jpanel-menu-open');
+            $window.trigger('resize');
+          },
+          afterOn: function() {
+            // Close link within panel
+            jpmCloseLinks(jPM);
+            
+            if (panelClass) {
+              var $panel = jPM.getPanel();
+              $panel.addClass(panelClass);
+            }
+            if (menuClass) {
+              var $menu = jPM.getMenu();
+              $menu.addClass(menuClass);
+            }           
+          }
+        });
+  
+        // Resize event trigger JPMenu on off based on trigger visibility
+        $window.on("debouncedresize", function() {
+          var triggerState = triggerActive(jpanelMenuTrigger);
+          if (triggerState === true && jpanelMenuState !== 'on') {
+            jPM.on();
+            var $menu = jPM.getMenu();
+            $menu.themeRefresh();
+            jpanelMenuState = 'on';
+  
+            // Internal click not working
+            jpanelMenuTrigger.on('click.jpm', function() {
+              jPM.trigger(true);
+              return false;
+            });
+          } else if (triggerState === false && jpanelMenuState !== 'off') {
+            jPM.off();
+            jpanelMenuTrigger.off('click.jpm');
+            jpanelMenuState = 'off';
+          }
+        });
+  
+        $window.trigger('resize');
+        
+        
+        // Close links outside
+        jpmCloseLinks(jPM);
+      });
+    };
+    $document.themeLoadPlugin(
+      ["jPanelMenu/jquery.jpanelmenu.js", "https://cdn.jsdelivr.net/jquery.smartresize/0.1/jquery.debouncedresize.js"],
+      [],
+      themePluginJpanelMenuInit
+    );
+  }
+};
+
+
