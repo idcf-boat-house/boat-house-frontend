@@ -1,7 +1,5 @@
 <template>
 
-
-
   <!-- ======== @Region: #content ======== -->
   <form id="choice" name='form' method="POST" action="/">
     <div id="content" class="p-0">
@@ -33,7 +31,7 @@
 
               </div>
               <div class="card-footer">
-                <a id="a"  name="vote" class="btn btn-primary btn-vote text-light" value="a"> ❤ 好吃</a>
+                <a id="a"  name="vote" class="btn btn-primary btn-vote text-light" value="a" v-on:click="likeProduct('a')"> ❤ 好吃</a>
               </div>
             </div>
             <!-- Product 2 -->
@@ -131,26 +129,31 @@
     </div>
   </form>
 
-
 </template>
 
 <script>
-  export default {
-    name: 'Products',
-    data () {
-      return {
-
-      }
-    },
-    created: function () {
-
-
-
-    },
-    methods: {
+export default {
+  name: 'Products',
+  data () {
+    return {
 
     }
+  },
+  created: function () {
+
+  },
+  methods: {
+    likeProduct: function (p) {
+      $('#vote-modal').modal('toggle')
+
+      this.axios.post('http://localhost:6001/products/vote', {product: p.value}).then(function (result) {
+        if (result.data === 'ok') {
+          $('#vote-modal').modal('toggle')
+        }
+      })
+    }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

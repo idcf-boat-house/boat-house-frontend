@@ -361,12 +361,12 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h4 class="modal-title">
-                      感谢:
+                      最受欢迎菜品:
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
                   </div>
-                  <div class="modal-body"> 感谢您选择我们的产品!</div>
+                  <div class="modal-body"> 感谢支持!</div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
