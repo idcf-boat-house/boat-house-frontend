@@ -15,8 +15,8 @@ lrange votes 0 -1
 
 ## 代码说明：
 
-| 文件夹  | 服务  | 技术架构
-| ------------ | ------------ |
+| 文件夹  | 服务  | 技术架构 |
+| ------------ | ------------ |------------ |
 | client/web  | 客户端，船屋餐饮官方网站  | Boatstrap 4 + Vue + Python|
 | client/mobile  | 移动端，船屋点餐系统  | 待确认 |
 | management  | 船屋餐饮后台管理系统  | Boatstrap 4 + Vue + NodeJs |
