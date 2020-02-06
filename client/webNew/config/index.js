@@ -5,6 +5,8 @@
 const path = require('path')
 
 module.exports = {
+  // options...
+
   dev: {
 
     // Paths

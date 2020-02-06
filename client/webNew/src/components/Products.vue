@@ -144,9 +144,8 @@ export default {
   },
   methods: {
     likeProduct: function (p) {
-      $('#vote-modal').modal('toggle')
-
-      this.axios.post('http://localhost:6001/products/vote', {product: p.value}).then(function (result) {
+      let postData = {'data':{'product': p}}
+      this.axios.post('http://localhost:6001/product/vote', postData).then(function (result) {
         if (result.data === 'ok') {
           $('#vote-modal').modal('toggle')
         }
