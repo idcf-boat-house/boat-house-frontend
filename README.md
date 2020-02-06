@@ -24,3 +24,12 @@ lrange votes 0 -1
 | product-service  | 业务条线 - 产品服务  |spring boot + mysql |
 | account-service  | 业务条线 - 账户服务  |spring boot + mysql |
 | pipelines  | 流水线脚本 | groovy |
+
+
+## 环境说明：
+
+| 地址  | 说明  | 用户名密码    |
+| ------------ | ------------ | ------------ |
+| [http://jenkins.devopshub.cn/]  | Jenkins管理端  | admin/admin  |
+| [http://tools.devopshub.cn:8081/]  | Nexus  | admin/admin |
+| [http://tools.devopshub.cn]  | Jira  |  |
