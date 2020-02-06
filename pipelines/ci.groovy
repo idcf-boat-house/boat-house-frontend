@@ -27,7 +27,6 @@ pipeline {
                 label 'vm-slave' 
             }
             input message: "Please confirm to deploy test env?"
-            milestone()
             steps {
                 sh 'echo hello world! Test!'
             }
@@ -39,7 +38,6 @@ pipeline {
             }
             
             input message: "Please confirm to deploy production env?"
-            milestone()
             steps {
                 sh 'echo hello world! Deploy!'
             }
