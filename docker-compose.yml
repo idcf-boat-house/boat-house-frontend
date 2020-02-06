@@ -7,6 +7,9 @@ services:
   management:
     build: ./management
 
+  statistics_service_api:
+    build: ./statistics-service/api
+
   statistics_service_worker:
     build: ./statistics-service/worker
 

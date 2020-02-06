@@ -19,6 +19,13 @@ services:
         depends_on:
             - statistics_service_db
 
+    statistics_service_api:
+        image: boathouse_statistics_service_api:latest
+        ports:
+            - 6001:80
+        networks:
+            - frontend
+            - backend
 
     statistics_service_worker:
         image: boathouse_statistics_service_worker:latest

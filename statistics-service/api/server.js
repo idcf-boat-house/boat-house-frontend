@@ -10,9 +10,11 @@ var express = require('express'),
     redis   = require('redis'),
     guid=require('guid');
 
-var port =  4000;
+var port = process.env.PORT || 6000;
 
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -25,14 +27,18 @@ app.get('/', function (req, res) {
     res.send('Welcome BoatHouse Statistics Service!');
 });
 
-app.get("/product/vote",function(req,res){
-  
-  var g=guid.create();
-  var client  = redis.createClient('6379', 'localhost');
-  var data={"voter_id": g, "vote": "a"};
-  client.rpush('votes',JSON.stringify(data),function(){
-    
-  });
+app.post("/product/vote",function(req,res){
+  if(req.body.data)
+  {
+    var product=req.body.data.product;
+    var g=guid.create().value;
+    var client  = redis.createClient('6379', 'statistics_service_redis');
+    var data={"voter_id": g, "vote": product};
+    client.rpush('votes',JSON.stringify(data),function(){
+    });
+ 
+  }
+
   res.statusCode=200;
   res.send();
   
