@@ -10,7 +10,7 @@ var express = require('express'),
     redis   = require('redis'),
     guid=require('guid');
 
-var port =  4000;
+var port = process.env.PORT || 6000;
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,7 +32,7 @@ app.post("/product/vote",function(req,res){
   {
     var product=req.body.data.product;
     var g=guid.create().value;
-    var client  = redis.createClient('6379', 'localhost');
+    var client  = redis.createClient('6379', 'statistics_service_redis');
     var data={"voter_id": g, "vote": product};
     client.rpush('votes',JSON.stringify(data),function(){
     });
