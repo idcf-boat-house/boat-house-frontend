@@ -26,7 +26,7 @@ pipeline {
             { 
                 label 'vm-slave' 
             }
-            input message: "Please confirm to deploy test env?"
+            input "Please confirm to deploy test env?"
             steps {
                 sh 'echo hello world! Test!'
             }
@@ -37,7 +37,7 @@ pipeline {
                 label 'vm-slave' 
             }
             
-            input message: "Please confirm to deploy production env?"
+            input "Please confirm to deploy production env?"
             steps {
                 sh 'echo hello world! Deploy!'
             }
