@@ -26,15 +26,20 @@ pipeline {
             { 
                 label 'vm-slave' 
             }
+            input message: "Please confirm to deploy test env?"
+            milestone()
             steps {
                 sh 'echo hello world! Test!'
             }
         }
-        stage('Deploy') { 
+        stage('Production') { 
             agent 
             { 
                 label 'vm-slave' 
             }
+            
+            input message: "Please confirm to deploy production env?"
+            milestone()
             steps {
                 sh 'echo hello world! Deploy!'
             }
