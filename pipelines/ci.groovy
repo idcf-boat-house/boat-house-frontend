@@ -37,9 +37,8 @@ pipeline {
             { 
                 label 'vm-slave' 
             }
-            
-            input("Please confirm to deploy production env?")
             steps {
+                input("Please confirm to deploy production env?")
                 sh 'echo hello world! Deploy!'
             }
         }
