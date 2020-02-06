@@ -69,7 +69,7 @@ public class BoatHouseController {
 		return;
 	}
 
-		@RequestMapping("/GetFoodCategories")
+	@RequestMapping("/GetFoodCategories")
 	public List<Map<String, Object>> GetFoodCategories(){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
