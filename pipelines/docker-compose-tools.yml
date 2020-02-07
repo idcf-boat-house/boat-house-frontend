@@ -1,0 +1,30 @@
+version: "3"
+services:
+    nexus3:
+      restart: always
+      container_name: nexus
+      image: sonatype/nexus3
+      ports:          
+        - 8081:8081
+        - 2020:2020
+      networks:
+        - working
+      volumes:
+        - /nexus-data:/nexus-data
+
+
+    jira:
+      restart: always
+      image: cptactionhank/atlassian-jira-software:8.1.0
+      container_name: jira
+      ports:
+       - 80:8080
+      networks: 
+       - working
+      volumes:
+       - /etc/localtime:/etc/localtime:ro
+
+
+networks: 
+  working:
+    

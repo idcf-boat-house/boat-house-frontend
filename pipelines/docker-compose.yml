@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+    jenkins:
+      restart: always
+      image: jenkins/jenkins:lts
+      ports:
+        - 80:8080
+        - 50000:50000
+      networks:
+        - working
+      volumes:
+        - /home/localadmin/jenkins-data:/var/jenkins_home
+
+    slavel:
+      restart: always
+      image: bibinwilson/jenkins-slave
+      networks:
+        - working
+      depend_on:
+        - jenkins
+
+    nexus3:
+      restart: always
+      image: sonatype/nexus3
+      ports:          
+        - 8081:8081
+        - 2020:2020
+      networks:
+        - working
+      volumes:
+        - /nexus-data:/nexus-data
+
+    jira:
+      restart: always
+      image: cptactionhank/atlassian-jira-software:8.1.0
+      ports:
+       - 80:8080
+      networks: 
+       - working
+      volumes:
+       - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  nexus-data: 
+
+networks: 
+  working:

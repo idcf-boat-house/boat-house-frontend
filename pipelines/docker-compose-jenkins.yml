@@ -1,0 +1,24 @@
+version: "3"
+services:
+
+    jenkins:
+      restart: always
+      image: jenkins/jenkins:lts
+      ports:
+        - 80:8080
+        - 50000:50000
+      networks:
+        - working
+      volumes:
+        - /home/localadmin/jenkins-data:/var/jenkins_home
+
+    slavel:
+      restart: always
+      image: bibinwilson/jenkins-slave
+      networks:
+        - working
+      depend_on:
+        - jenkins
+
+networks: 
+  working:
