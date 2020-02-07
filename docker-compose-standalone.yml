@@ -4,7 +4,7 @@ services:
     client:
         image: boathouse_client:latest
         ports:
-            - 5000:80
+            - 5000:8080
         networks:
             - frontend
         depends_on:

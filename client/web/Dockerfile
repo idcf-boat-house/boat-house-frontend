@@ -1,18 +1,22 @@
-# Using official python runtime base image
-FROM python:2.7-alpine
+FROM node:lts-alpine
 
-# Set the application directory
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'app' folder the current working directory
 WORKDIR /app
 
-# Install our requirements.txt
-ADD requirements.txt /app/requirements.txt
-RUN pip install -i https://repo.huaweicloud.com/repository/pypi/simple -r requirements.txt
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
-# Copy our code from the current folder to /app inside the container
-ADD . /app
+# install project dependencies
+RUN npm install
 
-# Make port 80 available for links and/or publish
-EXPOSE 80
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
 
-# Define our command to be run when launching the container
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
+# build app for production with minification
+RUN npm run build
+
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
