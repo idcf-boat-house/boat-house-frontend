@@ -48,6 +48,7 @@
   </div>
 </template>
 
+
 <script>
 
 
@@ -61,6 +62,7 @@
     components: {
     },
     mounted(){
+
     },
     methods:{
 

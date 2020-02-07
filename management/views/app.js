@@ -89,73 +89,7 @@ var config = {
 // Create the chart
 var lineChart = new Chart(ctx, config);
 
-app.controller('statsCtrl', function($scope){
 
-    var updateScores = function(){
-    socket.on('scores', function (json) {
-       data = JSON.parse(json);
-       var a = parseInt(data.a || 0);
-       var b = parseInt(data.b || 0);
-       var c = parseInt(data.c || 0);
-       var d = parseInt(data.d || 0);
-       var e = parseInt(data.e || 0);
-       var f = parseInt(data.f || 0);
-
-        $scope.a=a;
-        $scope.b=b;
-        $scope.c=c;
-        $scope.d=d;
-        $scope.e=e;
-        $scope.f=f;
-
-        var products=["蜂蜜烤猪肉","牛肉haggis","红酒炖羊腿","烟熏肠","蜂蜜猪肘","牛肉土豆泥"];
-        var productLike=[a,b,c,d,e,f];
-        products=products;
-        productLike=productLike;
-
-        lineChart.data={
-            labels: products,
-            datasets: [{
-                label: "Like",
-                data: productLike,
-                backgroundColor:[
-                    "rgba(255, 99, 132, 0.7)",
-                    "rgba(255, 159, 64, 0.7)",
-                    "rgba(255, 205, 86, 0.7)",
-                    "rgba(75, 192, 192, 0.7)",
-                    "rgba(54, 162, 235, 0.7)",
-                    "rgba(153, 102, 255, 0.7)"
-                ],
-                borderColor:[
-                    "rgb(255, 99, 132)",
-                    "rgb(255, 159, 64)",
-                    "rgb(255, 205, 86)",
-                    "rgb(75, 192, 192)",
-                    "rgb(54, 162, 235)",
-                    "rgb(153, 102, 255)"
-                ],
-                hoverBackgroundColor: "rgba(22,211,154,.9)",
-                borderColor: "transparent"
-            }]
-        };
-        lineChart.update();
-
-        $scope.$apply(function () {
-         $scope.total = a + b + c + d +e + f;
-       });
-
-
-    });
-  };
-
-  var init = function(){
-    document.body.style.opacity=1;
-    updateScores();
-  };
-  socket.on('message',function(data){
-    init();
-  });
-});
 
 function getPercentages(a, b) {
   var result = {};

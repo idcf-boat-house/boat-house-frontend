@@ -73,10 +73,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/dist'));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.resolve(__dirname + '/views/index.html'));
+  res.sendFile(path.resolve(__dirname + '/dist/index.html'));
 });
 
 server.listen(port, function () {

@@ -19,7 +19,13 @@
     "requestify": "^0.2.5",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "method-override": "^2.3.5",
+    "async": "^1.5.0",
+    "pg": "^4.4.3",
+    "socket.io": "^1.3.7"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
