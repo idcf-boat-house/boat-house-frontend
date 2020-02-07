@@ -1,5 +1,8 @@
+
 FROM node:lts-alpine
 
+RUN npm config set registry https://repo.huaweicloud.com/repository/npm/
+RUN npm config set unsafe-perm true
 # install simple http server for serving static content
 RUN npm install -g http-server
 
@@ -19,4 +22,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+CMD [ "node", "server.js" ]

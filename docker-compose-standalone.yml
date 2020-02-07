@@ -2,16 +2,15 @@ version: "3"
 services:
 
     client:
-        image: boathouse_client:latest
+        image: boat-house_client:latest
         ports:
             - 5000:8080
         networks:
             - frontend
-        depends_on:
-            - statistics_service_redis
+            - backend
 
     management:
-        image: boathouse_management:latest
+        image: boat-house_management:latest
         ports:
             - 5001:80
         networks:
@@ -20,7 +19,7 @@ services:
             - statistics_service_db
 
     statistics_service_api:
-        image: boathouse_statistics_service_api:latest
+        image: boat-house_statistics_service_api:latest
         ports:
             - 6001:80
         networks:
@@ -28,7 +27,7 @@ services:
             - backend
 
     statistics_service_worker:
-        image: boathouse_statistics_service_worker:latest
+        image: boat-house_statistics_service_worker:latest
         networks:
             - frontend
             - backend

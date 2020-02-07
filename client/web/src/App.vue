@@ -60,9 +60,6 @@
                   <div class="cart-items">
                     <!--Shopping cart item 1 -->
                     <div class="cart-items-item">
-                      <a href="#" class="cart-img mr-2 float-left">
-                        <img class="img-fluid" src="assets/img/shop/air01.jpeg" alt="Product 1">
-                      </a>
                       <div class="float-left">
                         <h5 class="mb-0">
                           蜂蜜烤猪肉
@@ -73,9 +70,6 @@
                     </div>
                     <!--Shopping cart item 2 -->
                     <div class="cart-items-item">
-                      <a href="#" class="cart-img mr-2 float-left">
-                        <img class="img-fluid" src="assets/img/shop/air02.jpeg" alt="Product 2">
-                      </a>
                       <div class="float-left">
                         <h5 class="mb-0">
                           牛肉haggis
