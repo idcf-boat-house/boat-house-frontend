@@ -57,6 +57,16 @@ services:
             - frontend
             - backend
 
+    product_service_db:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: P2ssw0rd
+        networks:
+            - frontend
+            - backend
+
 networks:
     frontend:
     backend:
