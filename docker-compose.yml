@@ -5,7 +5,7 @@ services:
     build: ./client/web
 
   management:
-    build: ./management
+    build: ./management/web
 
   statistics_service_api:
     build: ./statistics-service/api
