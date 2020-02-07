@@ -3,10 +3,7 @@ package com.idcf.boathouse.Controller;
 import com.idcf.boathouse.JdbcUtils;
 import com.idcf.boathouse.Models.FoodCategory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,10 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/BoatHouse")
+@RequestMapping("/BoatHouse/*")
 public class BoatHouseController {
 
-	@RequestMapping("/AddFoodCategory")
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
     public void AddFoodCategory(@RequestParam("name") String name){
         JdbcUtils jdbcUtils = new JdbcUtils();
         jdbcUtils.getConnection();
@@ -34,7 +32,8 @@ public class BoatHouseController {
         return;
     }
 
-	@RequestMapping("/DeleteFoodCategory")
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
 	public void DeleteFoodCategory(@RequestParam("name") String name){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
@@ -51,7 +50,8 @@ public class BoatHouseController {
 		return;
 	}
 
-	@RequestMapping("/UpdateFoodCategory")
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
 	public void UpdateFoodCategory(@RequestParam("id") int id, @RequestParam("name") String name){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
@@ -69,7 +69,8 @@ public class BoatHouseController {
 		return;
 	}
 
-	@RequestMapping("/GetFoodCategories")
+	@RequestMapping(value = "FoodCategories", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
 	public List<Map<String, Object>> GetFoodCategories(){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
@@ -85,7 +86,8 @@ public class BoatHouseController {
 		}
 	}
 
-	@RequestMapping("/GetFoodCategory")
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
 	public FoodCategory GetFoodCategory(@RequestParam("id") int id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();

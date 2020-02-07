@@ -8,6 +8,7 @@ class BoathouseApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }
