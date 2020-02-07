@@ -12,7 +12,7 @@ services:
     management:
         image: boat-house_management:latest
         ports:
-            - 5001:80
+            - 5001:4000
         networks:
             - backend
         depends_on:
