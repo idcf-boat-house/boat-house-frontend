@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        sh 'docker build -f ./client/web -t boat-house_client:v1'
+        sh 'docker build -f ./client/web -t boat-house_client:v1 .'
       }
     }
 
