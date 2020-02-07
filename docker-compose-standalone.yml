@@ -48,6 +48,15 @@ services:
         deploy:
             placement:
                 constraints: [node.role == manager]
+
+    product_service_api:
+        image: boat-house_product_service_api:latest
+        ports:
+            - 7001:8080
+        networks:
+            - frontend
+            - backend
+
 networks:
     frontend:
     backend:
