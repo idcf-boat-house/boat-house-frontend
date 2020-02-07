@@ -145,7 +145,7 @@ export default {
   methods: {
     likeProduct: function (p) {
       let postData = {'data':{'product': p}}
-      this.axios.post('http://localhost:6001/product/vote', postData).then(function (result) {
+      this.axios.post('api/product/vote', postData).then(function (result) {
         if (result.status === 200) {
           $('#vote-modal').modal('toggle')
         }
