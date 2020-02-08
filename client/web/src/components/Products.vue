@@ -31,7 +31,7 @@
 
               </div>
               <div class="card-footer">
-                <a id="a"  name="vote" class="btn btn-primary btn-vote text-light" value="a" v-on:click="likeProduct('a')"> ❤ 好吃</a>
+                <a id="a"  name="vote" class="btn btn-primary text-light" value="a" v-on:click="likeProduct('a')"> ❤ 好吃</a>
               </div>
             </div>
             <!-- Product 2 -->
@@ -47,7 +47,7 @@
                 </h5>
               </div>
               <div class="card-footer">
-                <a id="b"  name="vote" class="btn btn-primary btn-vote text-light" value="b" v-on:click="likeProduct('b')"> ❤ 好吃</a>
+                <a id="b"  name="vote" class="btn btn-primary text-light" value="b" v-on:click="likeProduct('b')"> ❤ 好吃</a>
               </div>
             </div>
             <!-- Product 3 -->
@@ -63,7 +63,7 @@
                 </h5>
               </div>
               <div class="card-footer">
-                <a id="c"  name="vote" class="btn btn-primary btn-vote text-light" value="c" v-on:click="likeProduct('c')"> ❤ 好吃</a>
+                <a id="c"  name="vote" class="btn btn-primary text-light" value="c" v-on:click="likeProduct('c')"> ❤ 好吃</a>
               </div>
             </div>
 
@@ -84,7 +84,7 @@
 
               </div>
               <div class="card-footer">
-                <a id="d"  name="vote" class="btn btn-primary btn-vote text-light" value="d" v-on:click="likeProduct('d')"> ❤ 好吃</a>
+                <a id="d"  name="vote" class="btn btn-primary text-light" value="d" v-on:click="likeProduct('d')"> ❤ 好吃</a>
               </div>
             </div>
             <!-- Product 5 -->
@@ -100,7 +100,7 @@
                 </h5>
               </div>
               <div class="card-footer">
-                <a id="e"  name="vote" class="btn btn-primary btn-vote text-light" value="e" v-on:click="likeProduct('e')"> ❤ 好吃</a>
+                <a id="e"  name="vote" class="btn btn-primary text-light" value="e" v-on:click="likeProduct('e')"> ❤ 好吃</a>
               </div>
             </div>
             <!-- Product 6 -->
@@ -116,7 +116,7 @@
                 </h5>
               </div>
               <div class="card-footer">
-                <a id="f"  name="vote" class="btn btn-primary btn-vote text-light" value="f" v-on:click="likeProduct('f')"> ❤ 好吃</a>
+                <a id="f"  name="vote" class="btn btn-primary text-light" value="f" v-on:click="likeProduct('f')"> ❤ 好吃</a>
               </div>
             </div>
 
@@ -145,7 +145,7 @@ export default {
   methods: {
     likeProduct: function (p) {
       let postData = {'data':{'product': p}}
-      this.axios.post('http://localhost:6001/product/vote', postData).then(function (result) {
+      this.axios.post('api/product/vote', postData).then(function (result) {
         if (result.status === 200) {
           $('#vote-modal').modal('toggle')
         }
