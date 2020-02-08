@@ -2,6 +2,7 @@ package com.idcf.boathouse.Controller;
 
 import com.idcf.boathouse.JdbcUtils;
 import com.idcf.boathouse.Models.FoodCategory;
+import com.idcf.boathouse.Models.FoodCategoryPost;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -20,12 +21,12 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("添加菜品分类")
-	public void AddFoodCategory(@RequestParam("name") String name){
+	public void AddFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
         JdbcUtils jdbcUtils = new JdbcUtils();
         jdbcUtils.getConnection();
 		String sql = "insert into FoodCategory (name) values (?)";
 		List<Object> params = new ArrayList<Object>();
-		params.add(name);
+		params.add(foodCategoryPost.name);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
 			System.out.println(flag);
@@ -39,12 +40,12 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除菜品分类")
-	public void DeleteFoodCategory(@RequestParam("name") String name){
+	public void DeleteFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
-		String sql = "delete from FoodCategory where name = ?";
+		String sql = "delete from FoodCategory where Id = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(name);
+		params.add(foodCategoryPost.id);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
 			System.out.println(flag);
@@ -58,13 +59,13 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品分类")
-	public void UpdateFoodCategory(@RequestParam("id") int id, @RequestParam("name") String name){
+	public void UpdateFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "update FoodCategory set name = ? where id = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(name);
-		params.add(id);
+		params.add(foodCategoryPost.name);
+		params.add(foodCategoryPost.id);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
 			System.out.println(flag);
@@ -96,13 +97,12 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取菜品分类")
-	@ApiImplicitParam(name = "id", value = "菜品分类Id", defaultValue = "2", required = true)
-	public FoodCategory GetFoodCategory(@RequestParam("id") int id){
+	public FoodCategory GetFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from FoodCategory where Id = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(id);
+		params.add(foodCategoryPost.id);
 		FoodCategory foodCategory;
 		try {
 			foodCategory = jdbcUtils.findSimpleRefResult(sql, params, FoodCategory.class);
