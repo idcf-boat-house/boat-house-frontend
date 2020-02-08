@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistics-service-api-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: statistics-service-api
+  template:
+    metadata:
+      labels:
+        app: statistics-service-api
+    spec:
+      containers:
+      - image: tools.devopshub.cn:2020/idcps/statistics-service-api:latest
+        name: statistics-service-api
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
