@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: management
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: management
+  template:
+    metadata:
+      labels:
+        app: management
+    spec:
+      containers:
+      - image: tools.devopshub.cn:2020/idcps/management:latest
+        name: management
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
