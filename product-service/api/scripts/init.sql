@@ -1,6 +1,6 @@
-create Database product_service_db
+create Database BoatHouse
 
-use product_service_db
+use BoatHouse
 
 create table FoodCategory
 (
