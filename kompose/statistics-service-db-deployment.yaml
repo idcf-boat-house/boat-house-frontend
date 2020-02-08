@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistics-service-db-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: statistics-service-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: statistics-service-db
+    spec:
+      containers:
+      - image: postgres:9.4
+        name: statistics-service-db
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
