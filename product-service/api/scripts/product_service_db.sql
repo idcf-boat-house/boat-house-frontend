@@ -1,5 +1,7 @@
 create Database product_service_db
 
+use product_service_db
+
 create table FoodCategory
 (
 	Id int auto_increment,
