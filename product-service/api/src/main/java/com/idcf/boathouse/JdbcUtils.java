@@ -1,15 +1,10 @@
 package com.idcf.boathouse;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.net.URL;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.*;
 
 
 public class JdbcUtils {
@@ -29,10 +24,8 @@ public class JdbcUtils {
     public JdbcUtils() {
         try {
         Properties pro = new Properties();
-        ClassLoader classLoader = JdbcUtils.class.getClassLoader();
-        URL resource = classLoader.getResource("application.properties");;
-        String path = resource.getPath();
-        pro.load(new FileReader(path));
+        InputStream resource=this.getClass().getResourceAsStream("/application.properties");
+        pro.load(resource);
         URL = pro.getProperty("url");
         USERNAME = pro.getProperty("user");
         PASSWORD = pro.getProperty("password");
