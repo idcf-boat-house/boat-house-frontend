@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-api-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: product-service-api
+  template:
+    metadata:
+      labels:
+        app: product-service-api
+    spec:
+      containers:
+      - image: tools.devopshub.cn:2020/idcps/product-service-api:latest
+        name: product-service-api
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
