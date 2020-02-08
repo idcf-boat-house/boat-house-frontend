@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - image: tools.devopshub.cn:2020/idcps/client:latest
+        name: client
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
