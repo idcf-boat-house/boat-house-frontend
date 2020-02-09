@@ -16,7 +16,7 @@ spec:
       - image: tools.devopshub.cn:2020/idcps/management:latest
         name: management
         ports:
-        - containerPort: 80
+        - containerPort: 4000
       imagePullSecrets:
       - name: regcred
       restartPolicy: Always

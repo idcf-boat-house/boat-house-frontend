@@ -16,7 +16,7 @@ spec:
       - image: tools.devopshub.cn:2020/idcps/client:latest
         name: client
         ports:
-        - containerPort: 80
+        - containerPort: 8080
       imagePullSecrets:
       - name: regcred
       restartPolicy: Always
