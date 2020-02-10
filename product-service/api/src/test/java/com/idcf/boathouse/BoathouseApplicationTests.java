@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BoathouseApplicationTests {
+public class BoathouseApplicationTests {
 
     @Mock
     private BoatHouseController boatHouseController;  // 被测类
@@ -34,7 +34,7 @@ class BoathouseApplicationTests {
         // 初始化测试用例类中由Mockito的注解标注的所有模拟对象
         MockitoAnnotations.initMocks(this);
         // 用模拟对象创建被测类对象
-        boatHouseController = new BoatHouseController();
+       boatHouseController = new BoatHouseController();
     }
 
     @After
@@ -44,7 +44,10 @@ class BoathouseApplicationTests {
 
     @Test
     public void AddFoodCategory() {
-        boatHouseController.AddFoodCategory(new FoodCategoryPost());
+        FoodCategoryPost foodCategoryPost=new FoodCategoryPost();
+        foodCategoryPost.id=1;
+        foodCategoryPost.name="三明治";
+        boatHouseController.AddFoodCategory(foodCategoryPost);
     }
 
     @Test
@@ -61,6 +64,7 @@ class BoathouseApplicationTests {
     public void GetFoodCategories() {
         boatHouseController.GetFoodCategories();
     }
+
 
     @Test
     void contextLoads() {
