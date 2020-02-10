@@ -1,7 +1,5 @@
-create Database BoatHouse
-
-use BoatHouse
-
+create Database BoatHouse;
+use BoatHouse;
 create table FoodCategory
 (
 	Id int auto_increment,
