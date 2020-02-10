@@ -10,8 +10,7 @@ pipeline {
     stages {
         stage('before-build'){
           steps {
-            echo "build id: ${env.BUILD_ID}"
-            echo "repo url: ${DOCKER_REPO_URL}"
+            sh "printenv"
           }
         }
         stage('build') {
