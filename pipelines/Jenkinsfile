@@ -24,7 +24,7 @@ pipeline {
 
         stage('build-management') {
           steps {
-            sh 'docker build -f management/tests/Dockerfile -t boathouse_management:latest management/tests'
+            sh 'docker build -f management/web/Dockerfile -t boathouse_management:latest management/web'
           }
         }
 
