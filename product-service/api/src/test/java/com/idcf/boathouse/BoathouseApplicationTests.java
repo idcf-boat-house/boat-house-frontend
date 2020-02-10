@@ -2,17 +2,19 @@ package com.idcf.boathouse;
 
 import com.idcf.boathouse.Controller.BoatHouseController;
 import com.idcf.boathouse.Models.FoodCategoryPost;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import com.idcf.boathouse.Services.FoodCategoryService;
+import org.junit.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.Assert.assertEquals;
+
 @SpringBootTest
 public class BoathouseApplicationTests {
+
+    private FoodCategoryService foodCategoryService=new FoodCategoryService();
 
     @Mock
     private BoatHouseController boatHouseController;  // 被测类
@@ -34,7 +36,7 @@ public class BoathouseApplicationTests {
         // 初始化测试用例类中由Mockito的注解标注的所有模拟对象
         MockitoAnnotations.initMocks(this);
         // 用模拟对象创建被测类对象
-       boatHouseController = new BoatHouseController();
+        boatHouseController = new BoatHouseController();
     }
 
     @After
@@ -44,9 +46,9 @@ public class BoathouseApplicationTests {
 
     @Test
     public void AddFoodCategory() {
-        FoodCategoryPost foodCategoryPost=new FoodCategoryPost();
-        foodCategoryPost.id=1;
-        foodCategoryPost.name="三明治";
+        FoodCategoryPost foodCategoryPost = new FoodCategoryPost();
+        foodCategoryPost.id = 1;
+        foodCategoryPost.name = "三明治";
         boatHouseController.AddFoodCategory(foodCategoryPost);
     }
 
@@ -65,6 +67,10 @@ public class BoathouseApplicationTests {
         boatHouseController.GetFoodCategories();
     }
 
+    @Test
+    public void VerifyName() {
+        assertEquals(true,foodCategoryService.VerifyName(("三明治")));
+    }
 
     @Test
     void contextLoads() {
