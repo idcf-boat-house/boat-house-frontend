@@ -9,6 +9,8 @@ pipeline {
     stages {
         stage('build') {
           steps {
+            echo repo url is ${DOCKER_REPO_URL}
+            echo will build image: ${DOCKER_REPO_URL}/client:${env.BUILD_ID}
             sh 'docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BUILD_ID} client/web'
             sh 'docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BUILD_ID} statistics-service/api'
             sh 'docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BUILD_ID} statistics-service/worker'
