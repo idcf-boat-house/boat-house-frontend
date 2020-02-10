@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
+      IMAGE_NAME_CLIENT = "${DOCKER_REPO_URL}/client:${env.BUILD_ID}"
     }
     stages {
         stage('before-build'){
@@ -17,7 +18,7 @@ pipeline {
           parallel {
             stage('build-client') {
               steps {
-                sh "docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BUILD_ID} client/web"
+                sh "docker build -f client/web/Dockerfile -t ${IMAGE_NAME_CLIENT} client/web"
               }
             }
 
