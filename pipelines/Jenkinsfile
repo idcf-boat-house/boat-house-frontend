@@ -7,8 +7,8 @@ pipeline {
                 label 'vm-slave' 
             } 
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']],
-                            userRemoteConfigs: [[url: 'https://github.com/icdps/BoatHouse.git']]])
+                // checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                //             userRemoteConfigs: [[url: 'https://github.com/icdps/BoatHouse.git']]])
                 sh 'docker-compose -f docker-compose.yml -f docker-compose-standalone.yml up -d'
             }
         }
