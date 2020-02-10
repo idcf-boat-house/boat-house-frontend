@@ -33,6 +33,10 @@ docker-compose up -d
 
 #### Product service(产品服务)
 
+进行菜品管理、菜品分类管理
+
+![markdown](/images/boathouse-structure-product.png "markdown")
+
 
 #### Account service(账户服务)
 
