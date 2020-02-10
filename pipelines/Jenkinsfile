@@ -4,18 +4,41 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      DOCKER_REPO_URL = 'tool.devopshub.cn:2020/idcps'
+      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
     }
     stages {
-        stage('build') {
+        stage('before-build'){
           steps {
-            echo repo url is ${DOCKER_REPO_URL}
-            echo will build image: ${DOCKER_REPO_URL}/client:${env.BUILD_ID}
-            sh 'docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BUILD_ID} client/web'
-            sh 'docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BUILD_ID} statistics-service/api'
-            sh 'docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BUILD_ID} statistics-service/worker'
-            sh 'docker build -f management/web/Dockerfile -t ${DOCKER_REPO_URL}/management:${env.BUILD_ID} management/web'
-            sh 'docker build -f product-service/api/Dockerfile -t ${DOCKER_REPO_URL}/product_service_api:${env.BUILD_ID} product-service/api'
+            echo "build id: ${env.BUILD_ID}"
+            echo "repo url: ${DOCKER_REPO_URL}"
+          }
+        }
+        stage('build') {
+          parallel {
+            stage('build-client') {
+              steps {
+                sh 'docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BUILD_ID} client/web'
+              }
+            }
+
+            stage('build-management') {
+              steps {
+                sh 'docker build -f management/web/Dockerfile -t ${DOCKER_REPO_URL}/management:${env.BUILD_ID} management/web'
+              }
+            }
+
+            stage('build-statistics-service') {
+              steps {
+                sh 'docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BUILD_ID} statistics-service/api'
+                sh 'docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BUILD_ID} statistics-service/worker'
+              }
+            }
+
+            stage('build-product-service') {
+              steps {
+                sh 'docker build -f product-service/api/Dockerfile -t ${DOCKER_REPO_URL}/product_service_api:${env.BUILD_ID} product-service/api'
+              }
+            }
           }
         }
         stage('Dev') { 
