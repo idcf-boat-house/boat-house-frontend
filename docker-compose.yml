@@ -16,9 +16,9 @@ services:
         networks:
             - backend
         depends_on:
-            - statistics_service_db
+            - statistics-service-db
 
-    statistics_service_api:
+    statistics-service-api:
         build: ./statistics-service/api
         ports:
             - 6001:80
@@ -26,27 +26,27 @@ services:
             - frontend
             - backend
 
-    statistics_service_worker:
+    statistics-service-worker:
         build: ./statistics-service/worker
         networks:
             - frontend
             - backend
 
-    statistics_service_redis:
+    statistics-service-redis:
         image: redis:alpine
         ports:
             - 6379:6379
         networks:
             - frontend
 
-    statistics_service_db:
+    statistics-service-db:
         image: postgres:9.4
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
             - backend
 
-    product_service_api:
+    product-service-api:
         build: ./product-service/api
         ports:
             - 7001:8080
@@ -54,7 +54,7 @@ services:
             - frontend
             - backend
 
-    product_service_db:
+    product-service-db:
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         restart: always

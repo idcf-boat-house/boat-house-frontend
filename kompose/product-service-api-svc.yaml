@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: product-service-api-service
+  name: product-service-api
 spec:
   ports:
   - port: 7001

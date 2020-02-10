@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: statistics-service-redis-service
+  name: statistics-service-redis
 spec:
   ports:
   - name: "6379"

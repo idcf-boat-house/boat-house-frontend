@@ -13,7 +13,7 @@ spec:
         app: management
     spec:
       containers:
-      - image: tools.devopshub.cn:2020/idcps/management:latest
+      - image: icdps.azurecr.io/management:latest
         name: management
         ports:
         - containerPort: 4000
