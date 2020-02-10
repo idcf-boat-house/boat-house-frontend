@@ -13,7 +13,7 @@ spec:
         app: statistics-service-api
     spec:
       containers:
-      - image: icdps.azurecr.io/product_service_api:latest
+      - image: icdps.azurecr.io/statistics_service_api:latest
         name: statistics-service-api
         ports:
         - containerPort: 80
