@@ -1,5 +1,6 @@
 pipeline {
     agent 
+<<<<<<< HEAD
         { 
             label 'vm-slave' 
         } 
@@ -36,26 +37,54 @@ pipeline {
             { 
                 label 'vm-slave' 
             }
+=======
+    { 
+        label 'vm-slave' 
+    }
+    environment {
+      DOCKER_REPO_URL = 'tool.devopshub.cn:2020/idcps'
+    }
+    stages {
+        stage('build') {
+          steps {
+            echo repo url is ${DOCKER_REPO_URL}
+            echo will build image: ${DOCKER_REPO_URL}/client:${env.BUILD_ID}
+            sh 'docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BUILD_ID} client/web'
+            sh 'docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BUILD_ID} statistics-service/api'
+            sh 'docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BUILD_ID} statistics-service/worker'
+            sh 'docker build -f management/web/Dockerfile -t ${DOCKER_REPO_URL}/management:${env.BUILD_ID} management/web'
+            sh 'docker build -f product-service/api/Dockerfile -t ${DOCKER_REPO_URL}/product_service_api:${env.BUILD_ID} product-service/api'
+          }
+        }
+        stage('Dev') { 
+>>>>>>> origin/master
             steps {
                 sh 'echo hello world! Dev!'
             }
         }
+<<<<<<< HEAD
         stage('Test') { 
             agent 
             { 
                 label 'vm-slave' 
             }
             
+=======
+        stage('Test') {  
+>>>>>>> origin/master
             steps {
                 input("Please confirm to deploy test env?")
                 sh 'echo hello world! Test!'
             }
         }
         stage('Production') { 
+<<<<<<< HEAD
             agent 
             { 
                 label 'vm-slave' 
             }
+=======
+>>>>>>> origin/master
             steps {
                 input("Please confirm to deploy production env?")
                 sh 'echo hello world! Deploy!'

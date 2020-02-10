@@ -29,3 +29,5 @@ docker-compose up -d
 | http://jenkins.devopshub.cn  | Jenkins管理端  | admin/admin  |
 | http://tools.devopshub.cn:8081 | Nexus  | admin/admin |
 | http://tools.devopshub.cn  | Jira  | admin/admin |
+
+
