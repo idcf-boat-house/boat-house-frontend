@@ -4,32 +4,12 @@ pipeline {
         label 'vm-slave' 
     }
     stages {
-        stage('build-client') {
+        stage('build') {
           steps {
             sh 'docker build -f client/web/Dockerfile -t boathouse_client:latest client/web'
-          }
-        }
-
-        stage('build-service-api') {
-          steps {
             sh 'docker build -f statistics-service/api/Dockerfile -t boathouse_statistics_service_api:latest statistics-service/api'
-          }
-        }
-
-        stage('build-service-worker') {
-          steps {
             sh 'docker build -f statistics-service/worker/Dockerfile -t boathouse_statistics_service_worker:latest statistics-service/worker'
-          }
-        }
-
-        stage('build-management') {
-          steps {
             sh 'docker build -f management/web/Dockerfile -t boathouse_management:latest management/web'
-          }
-        }
-
-        stage('build-product-api') {
-          steps {
             sh 'docker build -f product-service/api/Dockerfile -t boathouse_product_api:latest product-service/api'
           }
         }
