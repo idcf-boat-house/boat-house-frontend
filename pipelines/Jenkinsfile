@@ -1,10 +1,9 @@
 pipeline {
     agent 
-        { 
-            label 'vm-slave' 
-        } 
+    { 
+        label 'vm-slave' 
+    }
     stages {
-        parallel {
         stage('build-client') {
           steps {
             sh 'docker build -f client/web/Dockerfile -t boathouse_client:latest client/web'
@@ -23,14 +22,17 @@ pipeline {
           }
         }
 
-        stage('buile-management') {
+        stage('build-management') {
           steps {
-            sh '''docker build -f management/tests/Dockerfile -t boathouse_management:latest management/tests
-'''
+            sh 'docker build -f management/tests/Dockerfile -t boathouse_management:latest management/tests'
           }
         }
 
-      }
+        stage('build-product-api') {
+          steps {
+            sh 'docker build -f product-service/api/Dockerfile -t boathouse_product_api:latest product-service/api'
+          }
+        }
         stage('Dev') { 
             agent 
             { 
