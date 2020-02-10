@@ -65,13 +65,13 @@ pipeline {
         }
         stage('Test') {  
             steps {
-                input("Please confirm to deploy test env?")
+                
                 sh "echo hello world! Test!"
             }
         }
         stage('Production') { 
             steps {
-                input("Please confirm to deploy production env?")
+                
                 sh "echo hello world! Deploy!"
             }
         }
