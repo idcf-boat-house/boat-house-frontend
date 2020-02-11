@@ -1,12 +1,12 @@
+﻿using Newtonsoft.Json;
+using Npgsql;
+using StackExchange.Redis;
 using System;
 using System.Data.Common;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Newtonsoft.Json;
-using Npgsql;
-using StackExchange.Redis;
 
 namespace Worker
 {
@@ -29,7 +29,8 @@ namespace Worker
                 while (true)
                 {
                     // Reconnect redis if down
-                    if (redisConn == null || !redisConn.IsConnected) {
+                    if (redisConn == null || !redisConn.IsConnected)
+                    {
                         Console.WriteLine("Reconnecting Redis");
                         redis = OpenRedisConnection("statistics_service_redis").GetDatabase();
                     }

@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-preview2-sdk
+FROM microsoft/dotnet:2.1.803-sdk
 
 WORKDIR /code
 
