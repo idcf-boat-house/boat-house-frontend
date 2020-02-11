@@ -27,7 +27,7 @@ services:
             - backend
 
     statistics_service_worker:
-        build: ./statistics-service/worker/src/Worker
+        build: ./statistics-service/worker
         networks:
             - frontend
             - backend
