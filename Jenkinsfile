@@ -60,7 +60,11 @@ pipeline {
         }
         stage('Dev') { 
             steps {
-                sh "echo hello world! Dev!"
+                echo "stopping previous docker composed containers...."
+                sh "docker-compose down"
+                echo "restarting new docker containers...."
+                sh "docker-compose -f docker-compose-template.yaml up -d"
+                echo "successfully started!"
             }
         }
         stage('Test') {  
