@@ -34,7 +34,8 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 kubectl exec -it <your-pod-name> -c product-service-db sh -n <your-namespace>
 # 2. 进入mysql命令控制台
 mysql -u root -pP2ssw0rd
-# 3. 执行SQL初始化脚本
+# 3. 执行如下SQL初始化脚本
+/product-service/api/scripts/init.sql
 ```
 
 
