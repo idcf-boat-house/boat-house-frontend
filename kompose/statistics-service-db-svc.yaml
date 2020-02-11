@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: statistics-service-db-service
+  name: statistics-service-db
 spec:
   clusterIP: None
   ports:

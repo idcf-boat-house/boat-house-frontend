@@ -33,7 +33,7 @@ app.post("/product/vote",function(req,res){
   {
     var product=req.body.data.product;
     var g=guid.create().value;
-    var client  = redis.createClient('6379', 'statistics_service_redis');
+    var client  = redis.createClient('6379', 'statistics-service-redis');
     var data={"voter_id": g, "vote": product};
     client.rpush('votes',JSON.stringify(data),function(){
     });

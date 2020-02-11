@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client
 spec:
-  replicas: 1
+  replicas: 3
   selector: 
     matchLabels:
       app: client
@@ -13,7 +13,7 @@ spec:
         app: client
     spec:
       containers:
-      - image: tools.devopshub.cn:2020/idcps/client:latest
+      - image: icdps.azurecr.io/client:latest
         name: client
         ports:
         - containerPort: 8080

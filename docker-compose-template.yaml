@@ -2,7 +2,7 @@ version: "3"
 services:
 
     client:
-        build: ./client/web
+        image: tools.devopshub.cn:2020/idcps/client:latest
         ports:
             - 5000:8080
         networks:
@@ -10,7 +10,7 @@ services:
             - backend
 
     management:
-        build: ./management/web
+        image: tools.devopshub.cn:2020/idcps/management:latest
         ports:
             - 5001:4000
         networks:
@@ -19,15 +19,15 @@ services:
             - statistics-service-db
 
     statistics-service-api:
-        build: ./statistics-service/api
+        image: tools.devopshub.cn:2020/idcps/statistics_service_api:latest
         ports:
             - 6001:80
         networks:
             - frontend
             - backend
 
-    statistics_service_worker:
-        build: ./statistics-service/worker/src/Worker
+    statistics-service-worker:
+        image: tools.devopshub.cn:2020/idcps/statistics_service_worker:latest
         networks:
             - frontend
             - backend
@@ -47,7 +47,7 @@ services:
             - backend
 
     product-service-api:
-        build: ./product-service/api
+        image: tools.devopshub.cn:2020/idcps/product_service_api:latest
         ports:
             - 7001:8080
         networks:
