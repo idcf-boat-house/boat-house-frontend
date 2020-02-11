@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-db-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: product-service-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: product-service-db
+    spec:
+      containers:
+      - image: mysql
+        name: product-service-db
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always

@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: product-service-api
 spec:
+  type: LoadBalancer
   ports:
   - port: 7001
     targetPort: 8080
   selector:
-    io.kompose.service: product-service-api
+    app: product-service-api
