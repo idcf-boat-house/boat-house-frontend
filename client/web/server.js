@@ -20,11 +20,7 @@ app.listen(port, () => {
 
 
 app.post("/api/product/vote",function(req, res){
-  requestify.post('http://statistics-service-api/product/vote',req.body,{
-    headers:{
-      cookie:req.headers.cookie
-    }
-  }).then(function(response) {
+  requestify.post('http://statistics-service-api/product/vote',req.body).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
 
