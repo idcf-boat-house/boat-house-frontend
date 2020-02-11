@@ -10,14 +10,14 @@
 
 | 文件  | 说明 | 访问方式 | 
 | ------------ | ------------ | ------------ |
-| client-deployment && svc  | 创建船屋点餐系统部署资源对象 (Deployment、Service)  | Loader Balancer |
-| management-deployment && svc  | 船屋餐饮管理系统部署资源对象 (Deployment、Service)  | Loader Balancer |
-| statistics-service-api-deployment && svc  | 统计服务API系统部署资源对象 (Deployment、Service)   | ClusterIP |
-| statistics-service-redis-deployment && svc | 统计服务Redis缓存系统部署资源对象 (Deployment、Service)   |ClusterIP |
-| statistics-service-worker-deployment && svc  | 统计服务Worker系统部署资源对象 (Deployment、Service)   |ClusterIP |
-| statistics-service-db-deployment && svc  | 统计服务数据库系统部署资源对象  (Deployment、Service)  |ClusterIP |
-| product-service-api-deployment && svc  | 产品服务API系统部署资源对象 (Deployment、Service)   |Loader Balancer |
-| product-service-db-deployment && svc  | 产品服务数据库系统部署资源对象 (Deployment、Service、PVC)   |ClusterIP |
+| client | 创建船屋点餐系统部署资源对象| Loader Balancer |
+| management | 船屋餐饮管理系统部署资源对象  | Loader Balancer |
+| statistics-service-api | 统计服务API系统部署资源对象   | ClusterIP |
+| statistics-service-redis | 统计服务Redis缓存系统部署资源对象  |ClusterIP |
+| statistics-service-worker | 统计服务Worker系统部署资源对象 |ClusterIP |
+| statistics-service-db | 统计服务数据库系统部署资源对象 |ClusterIP |
+| product-service-api | 产品服务API系统部署资源对象   |Loader Balancer |
+| product-service-db | 产品服务数据库系统部署资源对象  |ClusterIP |
 
 #### 部署准备
 
