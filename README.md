@@ -1,12 +1,6 @@
 # Boat House（船屋餐饮系统）
 
 
-## 一键启动命令：
-
-`
-docker-compose up -d
-`
-
 ## 功能服务
 
 船屋餐饮系统采用微服务架构设计，包含三条业务条线（统计服务、产品服务、账户服务），每一个业务条线可以独立的开发以及部署。
@@ -40,18 +34,24 @@ docker-compose up -d
 
 #### Account service(账户服务)
 
+## 本地开发调试
+
+本项目采用容器的方式进行编译、打包、以及运行，客户端安装Docker以及Docker-compose工具后可以一键运行此应用。
+
+`
+docker-compose up -d
+`
+
 ## DevOps 工具链
 
 
 
+#### DevOps工具链环境：
 
-
-## 环境说明：
-
-| 地址  | 说明  | 用户名密码    |
-| ------------ | ------------ | ------------ |
-| http://jenkins.devopshub.cn  | Jenkins管理端  | admin/admin  |
-| http://tools.devopshub.cn:8081 | Nexus  | admin/admin |
-| http://tools.devopshub.cn  | Jira  | admin/admin |
+| 地址  | 说明  | 
+| ------------ | ------------ | 
+| http://jenkins.devopshub.cn  | Jenkins管理端  |
+| http://tools.devopshub.cn:8081 | Nexus  | 
+| http://tools.devopshub.cn  | Jira  |
 
 
