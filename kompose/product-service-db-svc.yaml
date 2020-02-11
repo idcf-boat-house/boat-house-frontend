@@ -3,10 +3,8 @@ kind: Service
 metadata:
   name: product-service-db
 spec:
-  clusterIP: None
   ports:
-  - name: headless
-    port: 55555
-    targetPort: 0
+    - port: 3306
   selector:
     app: product-service-db
+  clusterIP: None
