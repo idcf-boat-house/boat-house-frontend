@@ -44,6 +44,9 @@ docker-compose up -d
 
 ## DevOps 工具链
 
+本项目DevOps工具链架构如下图所示：使用JIRA进行项目管理、Github代码管理、Jenkins持续集成、Nexus进行包管理以及容器镜像管理、Jemeter进行接口测试以及压力测试、Selenium进行自动化UI测试。下图是本项目的持续交付流水线架构：
+
+![markdown](/images/boathouse-structure-tools.png "markdown")
 
 
 #### DevOps工具链环境：
