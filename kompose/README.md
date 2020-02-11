@@ -27,7 +27,15 @@
 kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 ```
 
-###### 2.初始化产品服务数据库
+
+###### 2.一键启动：
+
+`
+kubectl apply -f kompose/ -n boatouse-dev
+`
+
+
+###### 3.初始化产品服务数据库
 
 ```shell
 # 1. 进入容器交互式操作终端
@@ -37,12 +45,5 @@ mysql -u root -pP2ssw0rd
 # 3. 执行如下SQL初始化脚本
 /product-service/api/scripts/init.sql
 ```
-
-
-###### 3.一键启动：
-
-`
-kubectl apply -f kompose/ -n boatouse-dev
-`
 
 
