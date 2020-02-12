@@ -4,7 +4,7 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps',
+      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
       SERVER_DEV_CREDS = crendentials('delopy-server-dev-creds')
     }
     
