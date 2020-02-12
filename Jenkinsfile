@@ -4,24 +4,30 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
+      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps',
+      SERVER_DEV_CREDS = crendentials('delopy-server-dev-creds')
     }
+
+    script {
+            def remote = [:]
+              remote.name = 'server-dev'
+              remote.host = '138.91.37.88'
+              remote.user = "${SERVER_DEV_CREDS_USR}"
+              remote.password = "${SERVER_DEV_CREDS_PSW}"
+              remote.port = 22
+              remote.allowAnyHosts = true
+              return remote
+          }
 
     
     stages {
       
         stage('before-build'){
- 
+          
           steps {
-            script {
-              if(env.BRANCH_NAME == 'master'){
-                echo 'I am on master branch'
-              }
-              else {
-                echo 'I am not on master branch'
-              } 
-            }
             sh "printenv"
+            echo "creds: ${SERVER_DEV_CREDS}"
+            
           }
         }
         stage('build') {
