@@ -27,18 +27,6 @@ pipeline {
           
           steps {
             sh "printenv"
-            
-            script {
-              server = getHost()
-              sshCommand remote: server, command: "ls -lrt"
-              sshCommand remote: server, command: "pwd"
-              sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
-              echo "stopping previous docker composed containers...."
-              sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse down"
-              echo "restarting new docker containers...."
-              sshCommand remote: server, command:"docker-compose -f docker-compose-template.yaml -p boathouse up -d"
-              echo "successfully started!"
-            }
           }
         }
         stage('build') {
@@ -89,11 +77,19 @@ pipeline {
         }
         stage('Dev') { 
             steps {
-                echo "stopping previous docker composed containers...."
-                sh "docker-compose down"
+              script {
+                server = getHost()
+                echo "copy docker-compose file to remote server...."       
+                sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
+
+                echo "stopping previous docker containers...."       
+                sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse down"
+
                 echo "restarting new docker containers...."
-                sh "docker-compose -f docker-compose-template.yaml up -d"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse up -d"
                 echo "successfully started!"
+              }
             }
         }
         stage('Test') {  
