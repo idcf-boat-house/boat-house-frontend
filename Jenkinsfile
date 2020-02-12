@@ -35,9 +35,9 @@ pipeline {
 
               sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
               echo "stopping previous docker composed containers...."
-              sshCommand remote: server, command: "docker-compose -f docker-compose.yaml down"
+              sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml down"
               echo "restarting new docker containers...."
-              sshCommand remote: server, command:"docker-compose -f docker-compose.yaml up -d"
+              sshCommand remote: server, command:"docker-compose -f docker-compose-template.yaml up -d"
               echo "successfully started!"
             }
           }
