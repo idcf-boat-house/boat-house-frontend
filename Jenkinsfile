@@ -1,4 +1,4 @@
-def get Host() {
+def getHost() {
   def remote = [:]
   remote.name = 'server-dev'
   remote.host = '138.91.37.88'
