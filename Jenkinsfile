@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
-      SERVER_DEV_CREDS = crendentials('delopy-server-dev-creds')
+      SERVER_DEV_CREDS = credentials('delopy-server-dev-creds')
     }
     stages {
           
