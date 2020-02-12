@@ -1,23 +1,41 @@
+def getHost() {
+  def remote = [:]
+  remote.name = 'server-dev'
+  remote.host = '138.91.37.88'
+  remote.user = "${env.CREDS_DEV_SERVER_USR}"
+  remote.password = "${env.CREDS_DEV_SERVER_PSW}"
+  remote.port = 22
+  remote.allowAnyHosts = true
+  return remote
+}
+
 pipeline {
     agent 
     { 
         label 'vm-slave' 
     }
     environment {
-      DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
+      DOCKER_REPO_URL = 'docker.pkg.github.com/icdps/boat-house'
+      CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
+      CREDS_DEV_SERVER = credentials('creds-dev-server')
+      def server=''
     }
+
     stages {
+          
         stage('before-build'){
+          
           steps {
             sh "printenv"
           }
         }
+
         stage('build') {
           parallel {
             stage('build-client') {
               steps {
                 sh "docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/client:latest client/web"
-                sh "docker login tools.devopshub.cn:2020 -u admin -p admin"
+                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/client:latest"
                 sh "docker push ${DOCKER_REPO_URL}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
@@ -26,7 +44,7 @@ pipeline {
             stage('build-management') {
               steps {
                 sh "docker build -f management/web/Dockerfile -t ${DOCKER_REPO_URL}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/management:latest management/web"
-                sh "docker login tools.devopshub.cn:2020 -u admin -p admin"
+                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/management:latest"
                 sh "docker push ${DOCKER_REPO_URL}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
@@ -37,7 +55,7 @@ pipeline {
                 sh "docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/statistics_service_api:latest statistics-service/api"
                 sh "docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/statistics_service_worker:latest statistics-service/worker"
 
-                sh "docker login tools.devopshub.cn:2020 -u admin -p admin"
+                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 echo "push service api..."
                 sh "docker push ${DOCKER_REPO_URL}/statistics_service_api:latest"
                 sh "docker push ${DOCKER_REPO_URL}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
@@ -51,29 +69,72 @@ pipeline {
             stage('build-product-service') {
               steps {
                 sh "docker build -f product-service/api/Dockerfile -t ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/product_service_api:latest product-service/api"
-                sh "docker login tools.devopshub.cn:2020 -u admin -p admin"
+                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/product_service_api:latest"
                 sh "docker push ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
           }
         }
-        stage('Dev') { 
+
+        stage('deploy-dev') { 
             steps {
-                sh "echo hello world! Dev!"
+              script {
+                server = getHost()
+                echo "copy docker-compose file to remote server...."       
+                sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
+
+                echo "stopping previous docker containers...."       
+                sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse down"
+                
+                echo "pulling newest docker iamges..."
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse pull"
+                
+                echo "restarting new docker containers...."
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse up -d"
+                echo "successfully started!"
+              }
             }
         }
-        stage('Test') {  
+
+        stage('deploy-test') {  
             steps {
                 
                 sh "echo hello world! Test!"
             }
         }
+
         stage('Production') { 
             steps {
                 
                 sh "echo hello world! Deploy!"
             }
         }
+    }
+
+    post {
+      always {
+        echo 'This will always run!'
+      }
+
+      success {
+        echo 'This will run only if successful'
+      }
+
+      failure {
+        echo 'This will run only if failed'
+      }
+
+      unstable {
+        echo 'This will run only if the run was marked as unstable'
+      }
+
+      changed {
+        echo 'This will run only if the state of the pipeline has changed'
+        echo 'For example, if the Pipeline was previously failing but is now successful'
+      }
+
+
     }
 }
