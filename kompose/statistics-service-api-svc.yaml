@@ -4,7 +4,7 @@ metadata:
   name: statistics-service-api
 spec:
   ports:
-  - port: 6001
+  - port: 80
     targetPort: 80
   selector:
-    io.kompose.service: statistics-service-api
+    app: statistics-service-api
