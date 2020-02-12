@@ -2,8 +2,6 @@ def getHost() {
   def remote = [:]
   remote.name = 'server-dev'
   remote.host = '138.91.37.88'
-  remote.user = "${env.SERVER_DEV_CREDS_USR}"
-  remote.password = "${env.SERVER_DEV_CREDS_PSW}"
   remote.port = 22
   remote.allowAnyHosts = true
   return remote
@@ -27,9 +25,12 @@ pipeline {
           steps {
             script {
               server = getHost()
+              server.user = "${env.SERVER_DEV_CREDS_USR}"
+              server.password = "${env.SERVER_DEV_CREDS_PSW}"
+              echo "creds: ${SERVER_DEV_CREDS_USR}"
+              
             }
             sh "printenv"
-            echo "creds: ${SERVER_DEV_CREDS}"
           }
         }
         stage('build') {
