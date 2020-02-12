@@ -1,7 +1,3 @@
-def remote = [:]
-remote.name = "node-1"
-remote.host = "10.000.000.153"
-remote.allowAnyHosts = true
 pipeline {
     agent 
     { 
@@ -13,12 +9,19 @@ pipeline {
 
     
     stages {
+      
         stage('before-build'){
  
-            if (env.BRANCH_NAME == 'master') {
-              echo 'I only execute on the master branch'
-          } else {
-              echo 'I execute elsewhere'
+          steps {
+            script {
+              if(env.BRANCH_NAME == 'master'){
+                echo 'I am on master branch'
+              }
+              else {
+                echo 'I am not on master branch'
+              } 
+            }
+            sh "printenv"
           }
         }
         stage('build') {
