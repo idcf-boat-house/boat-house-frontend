@@ -6,14 +6,17 @@ pipeline {
     environment {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
     }
+
+    if(env.BRANCH_NAME == 'master'){
+      echo 'I am on master branch'
+    }
+    else {
+      echo 'I am not on master branch'
+    } 
     stages {
+      
         stage('before-build'){
-          if(env.BRANCH_NAME == 'master'){
-              echo 'I am on master branch'
-            }
-            else {
-              echo 'I am not on master branch'
-            }
+ 
           steps {
             sh "printenv"
           }
