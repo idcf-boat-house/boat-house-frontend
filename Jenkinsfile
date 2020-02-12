@@ -25,12 +25,14 @@ pipeline {
         stage('before-build'){
           
           steps {
+            sh "printenv"
+            echo "creds: ${SERVER_DEV_CREDS}"
+
             script {
               server = getHost()
-              sh "printenv"
-              echo "creds: ${SERVER_DEV_CREDS}"
+              sshCommand remote: server, command: "ls -lrt"
+              sshCommand remote: server, command: "pwd"
             }
-            
           }
         }
         stage('build') {
