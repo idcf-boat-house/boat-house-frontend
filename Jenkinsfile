@@ -1,4 +1,11 @@
 pipeline {
+  def remote = [:]
+              remote.name = 'server-dev'
+              remote.host = '138.91.37.88'
+              remote.user = "${SERVER_DEV_CREDS_USR}"
+              remote.password = "${SERVER_DEV_CREDS_PSW}"
+              remote.port = 22
+              remote.allowAnyHosts = true
     agent 
     { 
         label 'vm-slave' 
@@ -7,16 +14,6 @@ pipeline {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
       SERVER_DEV_CREDS = crendentials('delopy-server-dev-creds')
     }
-    script {
-            def remote = [:]
-              remote.name = 'server-dev'
-              remote.host = '138.91.37.88'
-              remote.user = "${SERVER_DEV_CREDS_USR}"
-              remote.password = "${SERVER_DEV_CREDS_PSW}"
-              remote.port = 22
-              remote.allowAnyHosts = true
-              return remote
-          }
     stages {
           
         stage('before-build'){
