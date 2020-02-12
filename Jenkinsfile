@@ -32,6 +32,11 @@ pipeline {
               server = getHost()
               sshCommand remote: server, command: "ls -lrt"
               sshCommand remote: server, command: "pwd"
+              echo "stopping previous docker composed containers...."
+              sshCommand remote: server, command: "docker-compose down"
+              echo "restarting new docker containers...."
+              sshCommand remote: server, command:"docker-compose -f docker-compose-template.yaml up -d"
+              echo "successfully started!"
             }
           }
         }
