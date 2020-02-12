@@ -1,3 +1,14 @@
+def get Host() {
+  def remote = [:]
+  remote.name = 'server-dev'
+  remote.host = '138.91.37.88'
+  remote.user = "${env.SERVER_DEV_CREDS_USR}"
+  remote.password = "${env.SERVER_DEV_CREDS_PSW}"
+  remote.port = 22
+  remote.allowAnyHosts = true
+  return remote
+}
+
 pipeline {
     agent 
     { 
@@ -6,25 +17,19 @@ pipeline {
     environment {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
       SERVER_DEV_CREDS = credentials('delopy-server-dev-creds')
+      def server=''
     }
+
     stages {
           
         stage('before-build'){
           
           steps {
-          
+            script {
+              server = getHost()
+            }
             sh "printenv"
             echo "creds: ${SERVER_DEV_CREDS}"
-            script {
-              def remote = [:]
-              remote.name = 'server-dev'
-              remote.host = '138.91.37.88'
-              remote.user = "${SERVER_DEV_CREDS_USR}"
-              remote.password = "${SERVER_DEV_CREDS_PSW}"
-              remote.port = 22
-              remote.allowAnyHosts = true
-              
-            }
           }
         }
         stage('build') {
