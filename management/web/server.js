@@ -2,6 +2,7 @@ var express = require('express'),
   async = require('async'),
   pg = require("pg"),
   cookieParser = require('cookie-parser'),
+  requestify = require('requestify');
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   app = express(),
@@ -81,4 +82,36 @@ app.use(function(req, res, next) {
 server.listen(port, function () {
   var port = server.address().port;
   console.log('App running on port ' + port);
+});
+
+server.get("/api/foodcategories",function(req, res){
+  requestify.get('http://localhost:8081/api/v1.0/BoatHouse/FoodCategories').then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+server.post("/api/foodcategory/add",function(req, res){
+  requestify.post('http://localhost:8081/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+server.post("/api/foodcategory/edit",function(req, res){
+  requestify.put('http://localhost:8081/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+server.post("/api/foodcategory/delete",function(req, res){
+  requestify.delete('http://localhost:8081/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
 });

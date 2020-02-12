@@ -3,15 +3,16 @@
     <div class="content-wrapper">
       <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-          <h3 class="content-header-title mb-0 d-inline-block">仪表盘1234</h3>
+          <h3 class="content-header-title mb-0 d-inline-block">菜品分类</h3>
           <div class="row breadcrumbs-top d-inline-block">
             <div class="breadcrumb-wrapper col-12">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">仪表盘</a>
+                <li class="breadcrumb-item">
+                  <a href="#">后台管理</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">数据统计分析</a>
+                <li class="breadcrumb-item">
+                  <a href="#">菜品分类管理</a>
                 </li>
-
               </ol>
             </div>
           </div>
@@ -23,197 +24,217 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">最受欢迎菜品 - 数据统计</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <h4 class="card-title">菜品分类列表</h4>
+                <a class="heading-elements-toggle">
+                  <i class="la la-ellipsis-v font-medium-3"></i>
+                </a>
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
-                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                    <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    <li>
+                      <a data-action="collapse">
+                        <i class="ft-minus"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a data-action="reload">
+                        <i class="ft-rotate-cw"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a data-action="expand">
+                        <i class="ft-maximize"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a data-action="close">
+                        <i class="ft-x"></i>
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>
               <div class="card-content collapse show">
                 <div class="card-body">
-                  <canvas id="column-chart" height="400"></canvas>
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      style="margin-bottom:20px"
+                      data-toggle="modal"
+                      data-target="#add-modal"
+                    >添加菜品分类</button>
+                  </div>
+                  <div class="table-responsive">
+                    <el-table :data="tableData" style="width: 100%" class="table-striped">
+                      <el-table-column
+                        v-for="items in tableDataType"
+                        :prop="items.nameProp"
+                        :label="items.nameLable"
+                        width="auto"
+                      ></el-table-column>
+                      <el-table-column
+                        fixed="right"
+                        align="center"
+                        label="操作"
+                        show-overflow-tooltip
+                        min-width="140"
+                      >
+                        <template slot-scope="scope">
+                          <button
+                            type="button"
+                            class="btn btn-icon btn-pure"
+                            v-on:click="EditRow(scope.row,scope.$index);"
+                          >
+                            <i class="ft-edit"></i>
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-icon btn-pure"
+                            v-on:click="DeleteFoodCategory(scope.row,scope.$index);"
+                          >
+                            <i class="ft-trash-2"></i>
+                          </button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
+      <div
+        class="modal fade text-left"
+        id="add-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel1"
+        style="display: none;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel1">添加菜品分类</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input id="food-category-id" type="hidden" />
+              <input
+                id="food-category-name"
+                type="text"
+                class="form-control"
+                style="margin-top:20px;"
+                placeholder="菜品分类名称"
+              />
+              <input
+                id="food-category-description"
+                type="text"
+                class="form-control"
+                style="margin-top:20px;margin-bottom:20px;"
+                placeholder="菜品分类描述"
+              />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" @click="AddFoodCategory">确定</button>
+              <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
-
-  var socket = io.connect({transports:['polling']});
-  var lineChart;
-
-  export default {
-    name: 'Dashboard',
-    data () {
-      return {
-        products: [],
-        productLike:[]
-
-      }
-    },
-    components: {
-    },
-    mounted(){
-
-      let _this=this;
-      var bg1 = document.getElementById('background-stats-1');
-      var bg2 = document.getElementById('background-stats-2');
-      //Get the context of the Chart canvas element we want to select
-      var ctx = $("#column-chart");
-
-      // Chart Options
-      var chartOptions = {
-        // Elements options apply to all of the options unless overridden in a dataset
-        // In this case, we are setting the border of each bar to be 2px wide and green
-        elements: {
-          rectangle: {
-            borderWidth: 2,
-            borderColor: 'rgb(0, 255, 0)',
-            borderSkipped: 'bottom'
-          }
-        },
-        responsive: true,
-        animation: false,
-        maintainAspectRatio: false,
-        responsiveAnimationDuration:500,
-        legend: {
-          display: false,
-          position: 'top',
-        },
-        scales: {
-          xAxes: [{
-            display: true,
-            gridLines: {
-              color: "#f3f3f3",
-              drawTicks: false,
-            },
-            scaleLabel: {
-              display: true,
-            },
-            ticks: {
-              fontSize: 14,
-              padding: 8
-            }
-          }],
-          yAxes: [{
-            display: true,
-            gridLines: {
-              color: "#f3f3f3",
-              drawTicks: false,
-            },
-            scaleLabel: {
-              display: true,
-            },
-            ticks: {
-              beginAtZero: true,
-              stepSize: 1
-            }
-          }]
-        },
-        title: {
-          display: false,
-          text: 'Chart.js Bar Chart'
-        }
-      };
-
-      // Chart Data
-      var chartData = {
-        labels: _this.products,
-        datasets: [{
-          label: "Like",
-          data: _this.productLike,
-          backgroundColor: "#28D094",
-          hoverBackgroundColor: "rgba(22,211,154,.9)",
-          borderColor: "transparent"
-        }]
-      };
-
-      var config = {
-        type: 'bar',
-
-        // Chart Options
-        options : chartOptions,
-
-        data : chartData
-      };
-
-      // Create the chart
-      lineChart = new Chart(ctx, config);
-
-
-      socket.on('message',function(data){
-        _this.init();
-      });
-
-    },
-    methods:{
-      init:function(){
-        document.body.style.opacity=1;
-        this.updateScores();
+export default {
+  name: "FoodCategory",
+  data() {
+    return {
+      tableDataType: [],
+      tableData: []
+    };
+  },
+  mounted() {
+    let _this = this;
+    _this.tableDataType = [
+      {
+        nameLable: "ID",
+        nameProp: "id"
       },
-      updateScores:function(){
-        let _this=this;
-        socket.on('scores', function (json) {
-          let data = JSON.parse(json);
-          var a = parseInt(data.a || 0);
-          var b = parseInt(data.b || 0);
-          var c = parseInt(data.c || 0);
-          var d = parseInt(data.d || 0);
-          var e = parseInt(data.e || 0);
-          var f = parseInt(data.f || 0);
-
-
-          var products=["蜂蜜烤猪肉","牛肉haggis","红酒炖羊腿","烟熏肠","蜂蜜猪肘","牛肉土豆泥"];
-          var productLike=[a,b,c,d,e,f];
-          _this.products=products;
-          _this.productLike=productLike;
-          
-          lineChart.data={
-            labels: products,
-            datasets: [{
-              label: "Like",
-              data: productLike,
-              backgroundColor:[
-                "rgba(255, 99, 132, 0.7)",
-                "rgba(255, 159, 64, 0.7)",
-                "rgba(255, 205, 86, 0.7)",
-                "rgba(75, 192, 192, 0.7)",
-                "rgba(54, 162, 235, 0.7)",
-                "rgba(153, 102, 255, 0.7)"
-              ],
-              borderColor:[
-                "rgb(255, 99, 132)",
-                "rgb(255, 159, 64)",
-                "rgb(255, 205, 86)",
-                "rgb(75, 192, 192)",
-                "rgb(54, 162, 235)",
-                "rgb(153, 102, 255)"
-              ],
-              hoverBackgroundColor: "rgba(22,211,154,.9)",
-              borderColor: "transparent"
-            }]
-          };
-          lineChart.update();
-
-
-
-        });
+      {
+        nameLable: "菜品名称",
+        nameProp: "name"
+      },
+      {
+        nameLable: "菜品描述",
+        nameProp: "description"
       }
+    ];
+    this.axios.get("api/foodcategories").then(function(result) {
+      if (result.status === 200) {
+        _this.tableData = result.data;
+      }
+    });
+  },
+  methods: {
+    AddFoodCategory: function() {
+      let _this = this;
+      let addFoodCategory = {
+        name: $("#food-category-name").val()
+      };
+      _this.tableData.push(addFoodCategory);
+      let postData = { data: { FoodCategory: addFoodCategory } };
+      this.axios.post("api/foodcategory/add", postData).then(function(result) {
+        if (result.status === 200) {
+          addFoodCategory.id = result.data.id;
+          _this.tableData.push(addFoodCategory);
+          $("#add-modal").modal("toggle");
+        }
+      });
+    },
+    EditFoodCategory: function() {
+      let _this = this;
+      let editFoodCategory = {
+        id: $("#food-category-id").val(),
+        name: $("#food-category-name").val()
+      };
+      let putData = { data: { FoodCategory: editFoodCategory } };
+      this.axios.post("api/foodcategory/edit", putData).then(function(result) {
+        if (result.status === 200) {
+          _this.tableData.map();
+          $("#add-modal").modal("toggle");
+        }
+      });
+    },
 
+    DeleteFoodCategory: function(row, index, cg) {
+      let _this = this;
+      let deleteFoodCategory = {
+        id: row.id,
+        name: row.name
+      };
+      let deleteData = { data: { FoodCategory: deleteFoodCategory } };
+      this.axios
+        .post("api/foodcategory/delete", deleteData)
+        .then(function(result) {
+          if (result.status === 200) {
+            _this.tableData.pop(editFoodCategory);
+            $("#add-modal").modal("toggle");
+          }
+        });
+    },
+
+    EditRow: function(row, index, cg) {
+      $("#food-category-id").val(row.id);
+      $("#food-category-name").val(row.name);
+      $("#food-category-description").val(row.description);
+      $("#add-modal").modal("toggle");
+    }
   }
-
-  }
-
+};
 </script>
