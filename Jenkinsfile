@@ -29,6 +29,7 @@ pipeline {
             sh "printenv"
           }
         }
+
         stage('build') {
           parallel {
             stage('build-client') {
@@ -75,7 +76,8 @@ pipeline {
             }
           }
         }
-        stage('Dev') { 
+
+        stage('deploy-dev') { 
             steps {
               script {
                 server = getHost()
@@ -92,12 +94,14 @@ pipeline {
               }
             }
         }
-        stage('Test') {  
+
+        stage('deploy-test') {  
             steps {
                 
                 sh "echo hello world! Test!"
             }
         }
+
         stage('Production') { 
             steps {
                 
