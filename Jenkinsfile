@@ -1,3 +1,7 @@
+def remote = [:]
+remote.name = "node-1"
+remote.host = "10.000.000.153"
+remote.allowAnyHosts = true
 pipeline {
     agent 
     { 
