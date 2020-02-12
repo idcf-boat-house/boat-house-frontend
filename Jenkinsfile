@@ -7,9 +7,7 @@ pipeline {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
       SERVER_DEV_CREDS = crendentials('delopy-server-dev-creds')
     }
-    
-    stages {
-          script {
+    script {
             def remote = [:]
               remote.name = 'server-dev'
               remote.host = '138.91.37.88'
@@ -19,6 +17,8 @@ pipeline {
               remote.allowAnyHosts = true
               return remote
           }
+    stages {
+          
         stage('before-build'){
           
           steps {
