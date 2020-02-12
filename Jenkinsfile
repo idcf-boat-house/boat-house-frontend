@@ -7,18 +7,20 @@ pipeline {
       DOCKER_REPO_URL = 'tools.devopshub.cn:2020/idcps'
     }
 
-    if(env.BRANCH_NAME == 'master'){
+    
+    stages {
+        if(env.BRANCH_NAME == 'master'){
       echo 'I am on master branch'
     }
     else {
       echo 'I am not on master branch'
     } 
-    stages {
-      
         stage('before-build'){
  
-          steps {
-            sh "printenv"
+            if (env.BRANCH_NAME == 'master') {
+              echo 'I only execute on the master branch'
+          } else {
+              echo 'I execute elsewhere'
           }
         }
         stage('build') {
