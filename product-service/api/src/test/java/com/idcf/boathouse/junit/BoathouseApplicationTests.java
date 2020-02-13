@@ -54,7 +54,7 @@ public class BoathouseApplicationTests {
 
     @Test
     public void DeleteFoodCategory() {
-        boatHouseController.DeleteFoodCategory(new FoodCategoryPost());
+        boatHouseController.DeleteFoodCategory("6");
     }
 
     @Test
