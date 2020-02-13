@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: statistics-service-db-deployment
-  namespace: boathouse-dev
-
+  namespace: boathouse-test
 spec:
   replicas: 1
   selector: 
