@@ -102,9 +102,6 @@ pipeline {
           input {
                 message "是否部署到测试环境?"
                 ok "是"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
             }
             steps {
                 kubernetesDeploy configs: 'kompose/test/*deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
@@ -117,7 +114,6 @@ pipeline {
           input {
                 message "是否部署到生产环境?"
                 ok "是"
-                submitter "admin"
             }
             steps {
                 kubernetesDeploy configs: 'kompose/prod/*deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-prod', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
@@ -126,5 +122,4 @@ pipeline {
         }
     }
 
-    }
-}
+  }
