@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service-db
+  namespace: boathouse-prod
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: product-service-db
+  clusterIP: None
