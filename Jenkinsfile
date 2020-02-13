@@ -83,7 +83,8 @@ pipeline {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
-                sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: 'product-service/api/scripts/'
+                sshCommand remote: server, command: "mkdir -p product-service/api/scripts"
+                sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
 
 
                 echo "stopping previous docker containers...."       
