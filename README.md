@@ -50,7 +50,7 @@ docker-compose up -d
 
 ## ChatOps && AIOps
 
-本项目将添加ChatOps工具链，让开发、测试、人员可以在IM即时通讯工具里已聊天的方式完成相应的工作。
+本项目将支持ChatOps && AIOps，让开发、测试、客户可以在IM即时通讯工具里以聊天的方式完成相应的工作。
 
 ![markdown](/images/boathouse-structure-chatops.png "markdown")
 
