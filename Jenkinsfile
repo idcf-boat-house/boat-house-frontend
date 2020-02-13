@@ -15,7 +15,7 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      DOCKER_REPO_URL = 'docker.pkg.github.com/icdps/boat-house'
+      DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
       def server=''
@@ -83,6 +83,7 @@ pipeline {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
+                sshCommand remote: server, command: "mkdir -p product-service/api/scripts"
                 sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
 
 
@@ -103,6 +104,7 @@ pipeline {
         stage('deploy-test') {  
           input {
                 message "是否部署到测试环境?"
+                ok "是"
             }
             steps {
                 kubernetesDeploy configs: 'kompose/test/*deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
