@@ -123,7 +123,6 @@
               </button>
             </div>
             <div class="modal-body">
-              <input id="food-category-id" type="hidden" />
               <input
                 id="food-category-name"
                 type="text"
@@ -141,6 +140,48 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" @click="AddFoodCategory">确定</button>
+              <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade text-left"
+        id="edit-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel2"
+        style="display: none;"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel2">更新菜品分类</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input id="food-category-id" type="hidden" />
+              <input
+                id="food-category-name-edit"
+                type="text"
+                class="form-control"
+                style="margin-top:20px;"
+                placeholder="菜品分类名称"
+              />
+              <input
+                id="food-category-description-edit"
+                type="text"
+                class="form-control"
+                style="margin-top:20px;margin-bottom:20px;"
+                placeholder="菜品分类描述"
+              />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" @click="EditFoodCategory">确定</button>
               <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">关闭</button>
             </div>
           </div>
@@ -164,15 +205,15 @@ export default {
     _this.tableDataType = [
       {
         nameLable: "ID",
-        nameProp: "id"
+        nameProp: "Id"
       },
       {
         nameLable: "菜品名称",
-        nameProp: "name"
+        nameProp: "Name"
       },
       {
         nameLable: "菜品描述",
-        nameProp: "description"
+        nameProp: "Description"
       }
     ];
     this.axios.get("api/foodcategories").then(function(result) {
@@ -184,56 +225,59 @@ export default {
   methods: {
     AddFoodCategory: function() {
       let _this = this;
-      let addFoodCategory = {
-        name: $("#food-category-name").val()
+      let postData = {
+        name: $("#food-category-name").val(),
+        description: $("#food-category-description").val()
       };
-      _this.tableData.push(addFoodCategory);
-      let postData = { data: { FoodCategory: addFoodCategory } };
       this.axios.post("api/foodcategory/add", postData).then(function(result) {
         if (result.status === 200) {
-          addFoodCategory.id = result.data.id;
-          _this.tableData.push(addFoodCategory);
+          _this.axios.get("api/foodcategories").then(function(result) {
+            if (result.status === 200) {
+              _this.tableData = result.data;
+            }
+          });
           $("#add-modal").modal("toggle");
         }
       });
     },
     EditFoodCategory: function() {
       let _this = this;
-      let editFoodCategory = {
+      let putData = {
         id: $("#food-category-id").val(),
-        name: $("#food-category-name").val()
+        name: $("#food-category-name-edit").val(),
+        description: $("#food-category-description-edit").val()
       };
-      let putData = { data: { FoodCategory: editFoodCategory } };
       this.axios.post("api/foodcategory/edit", putData).then(function(result) {
         if (result.status === 200) {
-          _this.tableData.map();
-          $("#add-modal").modal("toggle");
+          _this.axios.get("api/foodcategories").then(function(result) {
+            if (result.status === 200) {
+              _this.tableData = result.data;
+            }
+          });
+          $("#edit-modal").modal("toggle");
         }
       });
     },
-
-    DeleteFoodCategory: function(row, index, cg) {
+    DeleteFoodCategory: function(row, index) {
       let _this = this;
-      let deleteFoodCategory = {
-        id: row.id,
-        name: row.name
-      };
-      let deleteData = { data: { FoodCategory: deleteFoodCategory } };
+      let deleteData = { id: row.Id, name: row.Name, description: null };
       this.axios
         .post("api/foodcategory/delete", deleteData)
         .then(function(result) {
           if (result.status === 200) {
-            _this.tableData.pop(editFoodCategory);
-            $("#add-modal").modal("toggle");
+            _this.axios.get("api/foodcategories").then(function(result) {
+              if (result.status === 200) {
+                _this.tableData = result.data;
+              }
+            });
           }
         });
     },
-
-    EditRow: function(row, index, cg) {
-      $("#food-category-id").val(row.id);
-      $("#food-category-name").val(row.name);
-      $("#food-category-description").val(row.description);
-      $("#add-modal").modal("toggle");
+    EditRow: function(row, index) {
+      $("#food-category-id").val(row.Id);
+      $("#food-category-name-edit").val(row.Name);
+      $("#food-category-description-edit").val(row.Description);
+      $("#edit-modal").modal("toggle");
     }
   }
 };
