@@ -48,6 +48,12 @@ docker-compose up -d
 
 ![markdown](/images/boathouse-structure-tools.png "markdown")
 
+## ChatOps && AIOps
+
+本项目将添加ChatOps工具链，让开发、测试、人员可以在IM即时通讯工具里已聊天的方式完成相应的工作。
+
+![markdown](/images/boathouse-structure-chatops.png "markdown")
+
 
 #### DevOps工具链环境：
 
