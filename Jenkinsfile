@@ -104,6 +104,7 @@ pipeline {
         stage('deploy-test') {  
           input {
                 message "是否部署到测试环境?"
+                ok "是"
             }
             steps {
                 kubernetesDeploy configs: 'kompose/test/*deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
