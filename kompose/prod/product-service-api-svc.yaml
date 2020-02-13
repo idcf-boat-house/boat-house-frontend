@@ -6,7 +6,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 7001
+  - port: 8080
     targetPort: 8080
   selector:
     app: product-service-api
