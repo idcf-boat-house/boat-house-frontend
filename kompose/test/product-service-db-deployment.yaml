@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
-  namespace: boathouse-dev
+  namespace: boathouse-test
   labels:
     app: product-service-db
 spec:
@@ -16,7 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product-service-db-deployment
-  namespace: boathouse-dev
+  namespace: boathouse-test
 spec:
   replicas: 1
   selector: 
