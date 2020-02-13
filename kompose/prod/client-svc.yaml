@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: product-service-api
-  namespace: boathouse-test
+  name: client
+  namespace: boathouse-prod
 spec:
   type: LoadBalancer
   ports:
-  - port: 7001
+  - port: 5000
     targetPort: 8080
   selector:
-    app: product-service-api
+    app: client
+

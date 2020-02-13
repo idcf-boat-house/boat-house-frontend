@@ -1,4 +1,4 @@
-package com.idcf.boathouse;
+package com.idcf.boathouse.junit;
 
 import com.idcf.boathouse.Controller.BoatHouseController;
 import com.idcf.boathouse.Models.FoodCategoryPost;
