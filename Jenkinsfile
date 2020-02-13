@@ -83,6 +83,8 @@ pipeline {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
+                sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
+
 
                 echo "stopping previous docker containers...."       
                 sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
@@ -101,7 +103,6 @@ pipeline {
         stage('deploy-test') {  
           input {
                 message "是否部署到测试环境?"
-                ok "是"
             }
             steps {
                 kubernetesDeploy configs: 'kompose/test/*deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
