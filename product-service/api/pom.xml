@@ -104,7 +104,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-<!--                <version>2.9</version>-->
+                <!--<version>2.9</version>-->
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -117,7 +117,71 @@
                     </formats>
                 </configuration>
             </plugin>
+            <!--sonar config-->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.6.0.1398</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+            </plugin>
+            <!-- end sonar config-->
         </plugins>
     </build>
 
+     <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <!--以下属性请根据Sonarqube环境信息和maven项目修改 jenkins-->
+            <properties>
+                <sonar.host.url>http://tools.devopshub.cn:9000</sonar.host.url>
+                <sonar.login>11176db2231cb44575136952d8fea2fbd603f4a4</sonar.login>
+                <sonar.projectKey>sonar-dev-lxm</sonar.projectKey>
+                <sonar.projectName>sonar-dev-lxm</sonar.projectName>
+                <sonar.projectVersion>1.0.1</sonar.projectVersion>
+                <sonar.sources>src/main</sonar.sources>
+                <sonar.tests>src/test</sonar.tests>
+                <sonar.language>java</sonar.language>
+                <sonar.java.binaries>.</sonar.java.binaries>
+                <sonar.sourceEncodin>UTF-8</sonar.sourceEncodin>
+            </properties>
+        </profile>
+    </profiles>
 </project>

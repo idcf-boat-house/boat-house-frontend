@@ -3,7 +3,7 @@ MAINTAINER leansoftx
 COPY pom.xml /build/
 COPY src /build/src/
 WORKDIR /build/
-RUN mvn package && mvn cobertura:cobertura
+RUN mvn package && mvn sonar:sonar && mvn cobertura:cobertura
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
