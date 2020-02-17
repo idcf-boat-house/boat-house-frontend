@@ -111,7 +111,7 @@ pipeline {
           input {
                 message "是否部署到测试环境?"
                 ok "是"
-                submitter: "admin"
+                submitter: 'admin'
             }
           
             steps {
@@ -125,7 +125,7 @@ pipeline {
             input {
                   message "是否部署到生产环境?"
                   ok "是"
-                  submitter: "admin"
+                  submitter: 'admin'
               }
             steps {
                 kubernetesDeploy configs: 'kompose/prod/client-deployment.yaml,kompose/prod/management-deployment.yaml,kompose/prod/product-service-api-deployment.yaml,kompose/prod/statistics-service-api-deployment.yaml,kompose/prod/statistics-service-worker-deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-prod', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
