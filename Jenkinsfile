@@ -107,9 +107,7 @@ pipeline {
         }
 
         stage('deploy-test') {  
-          options {
-            timeout(time: 1, unit: 'HOURS') 
-          }
+
           input {
                 message "是否部署到测试环境?"
                 ok "是"
@@ -124,9 +122,6 @@ pipeline {
         }
 
         stage('deploy-production') { 
-          options {
-            timeout(time: 1, unit: 'HOURS') 
-          }
             input {
                   message "是否部署到生产环境?"
                   ok "是"
