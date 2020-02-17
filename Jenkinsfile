@@ -69,7 +69,7 @@ pipeline {
             stage('build-product-service') {
               steps {
                 sh "docker-compose -f product-service/api/docker-compose.build.yaml up"
-                sh "junit 'product-service/api/surefile-reports/**/TEST-*.xml'"
+                junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 sh "docker build -f product-service/api/Dockerfile.image -t ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/product_service_api:latest product-service/api"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/product_service_api:latest"
