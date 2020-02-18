@@ -11,7 +11,7 @@
           最受 欢迎 菜品
         </h2>
         <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
-          Great food, great value!
+           Great food, great people!
         </h5>
         <hr class="mb-5 w-50 mx-auto" />
         <!-- Products cards -->
