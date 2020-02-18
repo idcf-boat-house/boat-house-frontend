@@ -60,6 +60,7 @@ docker-compose up -d
 | ------------ | ------------ | 
 | http://jenkins.devopshub.cn  | Jenkins管理端  |
 | http://tools.devopshub.cn:8081 | Nexus  | 
+| http://tools.devopshub.cn:9000| Sonarqube|
 | http://tools.devopshub.cn  | Jira  |
 
 
