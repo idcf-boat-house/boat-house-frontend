@@ -6,5 +6,5 @@ services:
     volumes:
       - .:/build
     working_dir: /build
-    command: bash -c "mvn package && mvn cobertura:cobertura"
+    command: bash -c "mvn package && mvn sonar:sonar ${SONAR_ARGS} && mvn cobertura:cobertura"
 

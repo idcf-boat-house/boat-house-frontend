@@ -18,7 +18,8 @@ pipeline {
       DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
-      SONAR_ARGS = "-Dsonar.projectKey=sonar-dev-lxm -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.sources=src/main -Dsonar.tests=src/test"
+      TOKEN_SONARQUBE	 = credentials('token_sonarqube')
+      SONAR_ARGS="-Dsonar.projectKey=sonar-dev-lxm -Dsonar.host.url=http://tools.devopshub.cn:9000 -Dsonar.login=${TOKEN_SONARQUBE} -Dsonar.sources=src/main -Dsonar.tests=src/test
       def server=''
     }
 
@@ -68,15 +69,7 @@ pipeline {
             }
 
             stage('build-product-service') {
-
               steps {
-                dir('product-service/api'){
-                    withSonarQubeEnv(credentialsId: 'TOKEN_SONARQUBE',installationName: 'sonarqube-server') {
-                    withMaven(maven:'Maven 3.5') {
-                    sh "mvn package && mvn sonar:sonar"
-                    }
-                  }
-                }
                 sh "docker-compose -f product-service/api/docker-compose.build.yaml up"
                 junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'product-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
