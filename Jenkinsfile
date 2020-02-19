@@ -19,7 +19,7 @@ pipeline {
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
       TOKEN_SONARQUBE	 = credentials('token_sonarqube')
-      SONAR_ARGS="-Dsonar.projectKey=sonar-dev-lxm -Dsonar.host.url=http://tools.devopshub.cn:9000 -Dsonar.login=${TOKEN_SONARQUBE} -Dsonar.sources=src/main -Dsonar.tests=src/test
+      SONAR_ARGS="-Dsonar.projectKey=sonar-dev-lxm -Dsonar.host.url=http://tools.devopshub.cn:9000 -Dsonar.login=${TOKEN_SONARQUBE} -Dsonar.sources=src/main -Dsonar.tests=src/test"
       def server=''
     }
 
