@@ -71,10 +71,10 @@ pipeline {
 
               steps {
                 dir('product-service/api'){
-                    withSonarQubeEnv() {
-                      withMaven(maven:'Maven 3.5') {
-                      sh "mvn package && mvn sonar:sonar"
-                      }
+                    withSonarQubeEnv(credentialsId: 'TOKEN_SONARQUBE',installationName: 'sonarqube-server') {
+                    withMaven(maven:'Maven 3.5') {
+                    sh "mvn package && mvn sonar:sonar"
+                    }
                   }
                 }
                 sh "docker-compose -f product-service/api/docker-compose.build.yaml up"
