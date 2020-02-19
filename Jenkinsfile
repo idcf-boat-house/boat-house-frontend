@@ -28,7 +28,6 @@ pipeline {
           
           steps {
             sh "printenv"
-            sh "sudo rm -rf product-service/api/target"
           }
         }
 
