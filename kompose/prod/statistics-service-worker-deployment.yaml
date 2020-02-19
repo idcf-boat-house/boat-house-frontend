@@ -14,7 +14,7 @@ spec:
         app: statistics-service-worker
     spec:
       containers:
-      - image: docker.pkg.github.com/icdps/boat-house/statistics_service_worker:latest
+      - image: docker.pkg.github.com/idcf-boat-house/boat-house/statistics_service_worker:latest
         name: worker
       imagePullSecrets:
       - name: regcred
