@@ -208,11 +208,11 @@ export default {
         nameProp: "Id"
       },
       {
-        nameLable: "菜品名称",
+        nameLable: "菜品分类名称",
         nameProp: "Name"
       },
       {
-        nameLable: "菜品描述",
+        nameLable: "菜品分类描述",
         nameProp: "Description"
       }
     ];

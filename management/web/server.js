@@ -85,7 +85,7 @@ server.listen(port, function () {
 });
 
 app.get("/api/foodcategories",function(req, res){
-  requestify.get('http://product-service-api/api/v1.0/BoatHouse/FoodCategories').then(function(response) {
+  requestify.get('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategories').then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
