@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 async.retry(
-  {times: 1000, interval: 1000},
+  {times: 1000, interval: 10000},
   function(callback) {
     pg.connect('postgres://postgres@statistics-service-db/postgres', function(err, client, done) {
       if (err) {
@@ -53,7 +53,7 @@ function getVotes(client) {
       io.sockets.emit("scores", JSON.stringify(votes));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    setTimeout(function() {getVotes(client) }, 10000);
   });
 }
 
