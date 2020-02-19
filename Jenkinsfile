@@ -18,6 +18,7 @@ pipeline {
       DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
+      SONAR_ARGS = "-Dsonar.projectKey=sonar-dev-lxm -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.sources=src/main -Dsonar.tests=src/test"
       def server=''
     }
 
