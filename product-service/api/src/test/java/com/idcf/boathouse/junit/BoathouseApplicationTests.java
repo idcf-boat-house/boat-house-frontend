@@ -1,4 +1,4 @@
-package com.idcf.boathouse;
+package com.idcf.boathouse.junit;
 
 import com.idcf.boathouse.Controller.BoatHouseController;
 import com.idcf.boathouse.Models.FoodCategoryPost;
@@ -54,7 +54,7 @@ public class BoathouseApplicationTests {
 
     @Test
     public void DeleteFoodCategory() {
-        boatHouseController.DeleteFoodCategory(new FoodCategoryPost());
+        boatHouseController.DeleteFoodCategory("6");
     }
 
     @Test

@@ -6,3 +6,5 @@
 /statistics-service/worker/src/Worker/bin/Debug/netcoreapp2.1
 /statistics-service/worker/src/Worker/.vs
 /statistics-service/worker/src/Worker/obj
+.idea/workspace.xml
+/statistics-service/worker
