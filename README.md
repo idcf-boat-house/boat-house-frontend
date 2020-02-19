@@ -6,7 +6,7 @@
 
 ![markdown](/images/boathouse-structure.png "markdown")
 
-#### 代码说明：
+#### 代码说明：  
 
 | 文件夹  | 服务说明 | 技术架构 |
 | ------------ | ------------ |------------ |
@@ -60,6 +60,7 @@ docker-compose up -d
 | ------------ | ------------ | 
 | http://jenkins.devopshub.cn  | Jenkins管理端  |
 | http://tools.devopshub.cn:8081 | Nexus  | 
+| http://tools.devopshub.cn:9000| Sonarqube|
 | http://tools.devopshub.cn  | Jira  |
 
 

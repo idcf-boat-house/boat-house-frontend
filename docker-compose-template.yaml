@@ -3,6 +3,7 @@ services:
 
     client:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/client:latest
+        restart: always
         ports:
             - 5000:8080
         networks:
@@ -11,6 +12,7 @@ services:
 
     management:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/management:latest
+        restart: always
         ports:
             - 5001:4000
         networks:
@@ -20,6 +22,7 @@ services:
 
     statistics-service-api:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/statistics_service_api:latest
+        restart: always
         ports:
             - 6001:80
         networks:
@@ -28,12 +31,14 @@ services:
 
     statistics-service-worker:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/statistics_service_worker:latest
+        restart: always
         networks:
             - frontend
             - backend
 
     statistics-service-redis:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/redis:alpine
+        restart: always
         ports:
             - 6379:6379
         networks:
@@ -41,6 +46,7 @@ services:
 
     statistics-service-db:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/postgres:9.4
+        restart: always
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
@@ -48,6 +54,7 @@ services:
 
     product-service-api:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/product_service_api:latest
+        restart: always
         ports:
             - 7001:8080
         networks:
