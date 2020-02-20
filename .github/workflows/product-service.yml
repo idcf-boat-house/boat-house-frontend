@@ -1,0 +1,9 @@
+# action.yml
+name: 'Hello Docker'
+description: 'Greet someone and record the time'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'docker'
+  image: '/product-service/api/Dockerfile'

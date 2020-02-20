@@ -13,7 +13,7 @@ jobs:
         MIDDLE_NAME: The
         LAST_NAME: Octocat
       run: |
-        env && df -h && ls / && uname -a && free -m 
+        env 
     - name: print disk status
       run: df -h
     - name: root directory
@@ -22,3 +22,5 @@ jobs:
       run: uname -a
     - name: mem status
       run: free -m
+    - name: install docker
+      run: apt add docker
