@@ -14,3 +14,11 @@ jobs:
         LAST_NAME: Octocat
       run: |
         env && df -h && ls / && uname -a && free -m 
+    - name: print disk status
+      run: df -h
+    - name: root directory
+      run: ls /
+    - name: linux kenel
+      run: uname -a
+    - name: mem status
+      run: free -m
