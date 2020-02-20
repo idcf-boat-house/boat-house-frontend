@@ -229,7 +229,7 @@ export default {
         name: $("#food-category-name").val(),
         description: $("#food-category-description").val()
       };
-      this.axios.post("api/foodcategory/add", postData).then(function(result) {
+      this.axios.post("api/foodcategory", postData).then(function(result) {
         if (result.status === 200) {
           _this.axios.get("api/foodcategories").then(function(result) {
             if (result.status === 200) {
@@ -247,7 +247,7 @@ export default {
         name: $("#food-category-name-edit").val(),
         description: $("#food-category-description-edit").val()
       };
-      this.axios.post("api/foodcategory/edit", putData).then(function(result) {
+      this.axios.put("api/foodcategory", putData).then(function(result) {
         if (result.status === 200) {
           _this.axios.get("api/foodcategories").then(function(result) {
             if (result.status === 200) {
@@ -260,9 +260,8 @@ export default {
     },
     DeleteFoodCategory: function(row, index) {
       let _this = this;
-      let deleteData = { id: row.Id, name: row.Name, description: null };
       this.axios
-        .post("api/foodcategory/delete", deleteData)
+        .delete("api/foodcategory?id=" + row.Id)
         .then(function(result) {
           if (result.status === 200) {
             _this.axios.get("api/foodcategories").then(function(result) {

@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 async.retry(
-  {times: 1000, interval: 1000},
+  {times: 1000, interval: 10000},
   function(callback) {
     pg.connect('postgres://postgres@statistics-service-db/postgres', function(err, client, done) {
       if (err) {
@@ -53,7 +53,7 @@ function getVotes(client) {
       io.sockets.emit("scores", JSON.stringify(votes));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    setTimeout(function() {getVotes(client) }, 10000);
   });
 }
 
@@ -92,24 +92,24 @@ app.get("/api/foodcategories",function(req, res){
   );
 });
 
-app.post("/api/foodcategory/add",function(req, res){
-  requestify.post('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+app.post("/api/foodcategory",function(req, res){
+  requestify.post('http://product-service-api/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
   );
 });
 
-app.post("/api/foodcategory/edit",function(req, res){
-  requestify.put('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+app.put("/api/foodcategory",function(req, res){
+  requestify.put('http://product-service-api/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
   );
 });
 
-app.post("/api/foodcategory/delete",function(req, res){
-  requestify.delete('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory?id=' + req.body.id).then(function(response) {
+app.delete("/api/foodcategory",function(req, res){
+  requestify.delete('http://product-service-api/api/v1.0/BoatHouse/FoodCategory?id=' + req.query.id).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
