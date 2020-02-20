@@ -13,4 +13,4 @@ jobs:
         MIDDLE_NAME: The
         LAST_NAME: Octocat
       run: |
-        env && df -h && ls /
+        env && df -h && ls / && uname -a && free -m 
