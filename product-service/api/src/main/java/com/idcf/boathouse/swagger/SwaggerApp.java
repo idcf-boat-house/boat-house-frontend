@@ -1,4 +1,4 @@
-package com.idcf.boathouse.Swagger;
+package com.idcf.boathouse.swagger;
 
 import springfox.documentation.service.Contact;
 import org.springframework.context.annotation.Bean;
