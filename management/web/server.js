@@ -93,7 +93,7 @@ app.get("/api/foodcategories",function(req, res){
 });
 
 app.post("/api/foodcategory",function(req, res){
-  requestify.post('http://product-service-api/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+  requestify.post('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
@@ -101,7 +101,7 @@ app.post("/api/foodcategory",function(req, res){
 });
 
 app.put("/api/foodcategory",function(req, res){
-  requestify.put('http://product-service-api/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+  requestify.put('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
@@ -109,7 +109,7 @@ app.put("/api/foodcategory",function(req, res){
 });
 
 app.delete("/api/foodcategory",function(req, res){
-  requestify.delete('http://product-service-api/api/v1.0/BoatHouse/FoodCategory?id=' + req.query.id).then(function(response) {
+  requestify.delete('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory?id=' + req.query.id).then(function(response) {
       console.log(response.body);
       return res.send(response.body);
     }
