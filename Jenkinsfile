@@ -118,7 +118,7 @@ pipeline {
 
         stage('deploy-production') { 
             input {
-                message "是否部署到生产环境?"
+                message "是否部署到生产环境??"
                 ok "是"
                 submitter "admin"
             }
