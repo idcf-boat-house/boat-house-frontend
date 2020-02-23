@@ -15,7 +15,7 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      REMOTE_HOST = 'c-jenkins.southeastasia.cloudapp.azure.com'
+      REMOTE_HOST = 'c-docker.southeastasia.cloudapp.azure.com'
       DOCKER_REPO_URL = 'docker.pkg.github.com/fudaliang/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
