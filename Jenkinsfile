@@ -1,7 +1,7 @@
 def getHost() {
   def remote = [:]
   remote.name = 'server-dev'
-  remote.host = '138.91.37.88'
+  remote.host = "${env.REMOTE_HOST}"
   remote.user = "${env.CREDS_DEV_SERVER_USR}"
   remote.password = "${env.CREDS_DEV_SERVER_PSW}"
   remote.port = 22
@@ -15,6 +15,7 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
+      REMOTE_HOST = '138.91.37.88'
       DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
@@ -72,7 +73,6 @@ pipeline {
                 junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'product-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
                 sh "docker build -f product-service/api/Dockerfile.image -t ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/product_service_api:latest product-service/api"
-                sh "sudo rm -rf product-service/api/target"
 
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/product_service_api:latest"
@@ -131,5 +131,13 @@ pipeline {
             }
         }
     }
+
+    post {
+      always {
+        sh "sudo rm -rf product-service/api/target"
+      }
+    }
+    
+
 
   }
