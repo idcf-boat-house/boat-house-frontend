@@ -6,4 +6,4 @@ Spring Boot + MySql 提供的 Web RESTFUL API 用以进行 Boot House 网站的�
 ##### API 查看方式：
 swagger API： http://[DOMAIN]/api/v1.0/swagger-ui.html
 
-![](/boat-house-rest-api.png)
+![](/product-service/boat-house-rest-api.png)
