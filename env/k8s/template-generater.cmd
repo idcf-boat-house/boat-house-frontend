@@ -1,0 +1,1 @@
+acs-engine.exe generate "C:\WilsonBoData\tmp\gits\icdps\icdps-general\env\k8s\template-tool-config.json" -o "C:\WilsonBoData\tmp\gits\icdps\icdps-general\env\k8s\arm"
