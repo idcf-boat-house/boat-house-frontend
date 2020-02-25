@@ -1,13 +1,12 @@
 # Boat House（船屋餐饮系统）
 
-
 ## 功能服务
 
 船屋餐饮系统采用微服务架构设计，包含三条业务条线（统计服务、产品服务、账户服务），每一个业务条线可以独立的开发以及部署。
 
 ![markdown](/images/boathouse-structure.png "markdown")
 
-#### 代码说明：
+#### 代码说明：  
 
 | 文件夹  | 服务说明 | 技术架构 |
 | ------------ | ------------ |------------ |
@@ -29,7 +28,7 @@
 
 进行菜品管理、菜品分类管理
 
-![markdown](/images/boathouse-structure-product.png "markdown")
+![markdown](/images/boathouse-structure-product02.png "markdown")
 
 
 #### Account service(账户服务)
@@ -44,6 +43,15 @@ docker-compose up -d
 
 ## DevOps 工具链
 
+本项目使用JIRA进行项目管理、Github代码管理、Jenkins持续集成、Nexus进行包管理以及容器镜像管理、Jemeter进行接口测试以及压力测试、Selenium进行自动化UI测试。下图是本项目的持续交付流水线架构：
+
+![markdown](/images/boathouse-structure-tools.png "markdown")
+
+## ChatOps && AIOps
+
+本项目将支持ChatOps && AIOps，让开发、测试、客户可以在IM即时通讯工具里以聊天的方式完成相应的工作。
+
+![markdown](/images/boathouse-structure-chatops.png "markdown")
 
 
 #### DevOps工具链环境：
@@ -52,6 +60,7 @@ docker-compose up -d
 | ------------ | ------------ | 
 | http://jenkins.devopshub.cn  | Jenkins管理端  |
 | http://tools.devopshub.cn:8081 | Nexus  | 
+| http://tools.devopshub.cn:9000| Sonarqube|
 | http://tools.devopshub.cn  | Jira  |
 
 

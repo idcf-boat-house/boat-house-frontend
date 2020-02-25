@@ -3,6 +3,7 @@ services:
 
     client:
         build: ./client/web
+        restart: always
         ports:
             - 5000:8080
         networks:
@@ -11,6 +12,7 @@ services:
 
     management:
         build: ./management/web
+        restart: always
         ports:
             - 5001:4000
         networks:
@@ -20,6 +22,7 @@ services:
 
     statistics-service-api:
         build: ./statistics-service/api
+        restart: always
         ports:
             - 6001:80
         networks:
@@ -27,13 +30,15 @@ services:
             - backend
 
     statistics_service_worker:
-        build: ./statistics-service/worker/src/Worker
+        build: ./statistics-service/worker
+        restart: always
         networks:
             - frontend
             - backend
 
     statistics-service-redis:
         image: redis:alpine
+        restart: always
         ports:
             - 6379:6379
         networks:
@@ -41,6 +46,7 @@ services:
 
     statistics-service-db:
         image: postgres:9.4
+        restart: always
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
@@ -48,6 +54,7 @@ services:
 
     product-service-api:
         build: ./product-service/api
+        restart: always
         ports:
             - 7001:8080
         networks:
@@ -55,7 +62,7 @@ services:
             - backend
 
     product-service-db:
-        image: mysql
+        image: mysql:5.6
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         volumes:

@@ -1,11 +1,19 @@
-FROM microsoft/dotnet:2.1.803-sdk
+FROM mcr.microsoft.com/dotnet/core/runtime:2.1-stretch-slim AS base
+WORKDIR /app
 
-WORKDIR /code
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch AS build
+WORKDIR /src
+COPY ["Worker.csproj", ""]
+RUN dotnet restore "./Worker.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "Worker.csproj" -c Release -o /app/build
 
-ADD src/Worker /code/src/Worker
+FROM build AS publish
+RUN dotnet publish "Worker.csproj" -c Release -o /app/publish
 
-RUN  dotnet restore --verbosity diag src/ --configfile src/Worker/nuget.config \
-    && dotnet publish -c Release -o ./ src/Worker/ \
-    && rm -rf src/ $HOME/.nuget/
-
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Worker.dll"]
 CMD dotnet Worker.dll

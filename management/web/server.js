@@ -2,6 +2,7 @@ var express = require('express'),
   async = require('async'),
   pg = require("pg"),
   cookieParser = require('cookie-parser'),
+  requestify = require('requestify');
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   app = express(),
@@ -25,7 +26,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 async.retry(
-  {times: 1000, interval: 1000},
+  {times: 1000, interval: 10000},
   function(callback) {
     pg.connect('postgres://postgres@statistics-service-db/postgres', function(err, client, done) {
       if (err) {
@@ -52,7 +53,7 @@ function getVotes(client) {
       io.sockets.emit("scores", JSON.stringify(votes));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    setTimeout(function() {getVotes(client) }, 10000);
   });
 }
 
@@ -81,4 +82,36 @@ app.use(function(req, res, next) {
 server.listen(port, function () {
   var port = server.address().port;
   console.log('App running on port ' + port);
+});
+
+app.get("/api/foodcategories",function(req, res){
+  requestify.get('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategories').then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+app.post("/api/foodcategory",function(req, res){
+  requestify.post('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+app.put("/api/foodcategory",function(req, res){
+  requestify.put('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory',req.body).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
+});
+
+app.delete("/api/foodcategory",function(req, res){
+  requestify.delete('http://product-service-api:8080/api/v1.0/BoatHouse/FoodCategory?id=' + req.query.id).then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    }
+  );
 });

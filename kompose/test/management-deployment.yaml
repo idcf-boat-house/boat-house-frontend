@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: management
+  namespace: boathouse-test
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: management
+  template:
+    metadata:
+      labels:
+        app: management
+    spec:
+      containers:
+      - image: docker.pkg.github.com/idcf-boat-house/boat-house/management:latest
+        name: management
+        ports:
+        - containerPort: 4000
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statistics-service-worker
+  namespace: boathouse-test
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: statistics-service-worker
+
