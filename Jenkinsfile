@@ -15,9 +15,9 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
-      REMOTE_HOST = '138.91.37.88'
-      DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
-      CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
+      REMOTE_HOST = '13.76.97.141'
+      DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boathouse-team2/boat-house'
+      CREDS_GITHUB_REGISTRY = credentials('creds-github-registry-IDCF-2')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
       def server=''
     }
