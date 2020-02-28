@@ -14,13 +14,13 @@ import java.util.List;
 @SpringBootTest
 class JoinUsMapperTest {
 
-    @Resource
-    private JoinUsMapper joinUsMapper;
+//    @Resource
+//    private JoinUsMapper joinUsMapper;
 
     @Test
     public void testSelect() {
         System.out.println(("----- selectAll method test ------"));
-        List<JoinUs> userList = joinUsMapper.selectList(null);
-        userList.forEach(System.out::println);
+//        List<JoinUs> userList = joinUsMapper.selectList(null);
+//        userList.forEach(System.out::println);
     }
 }
