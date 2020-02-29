@@ -132,11 +132,11 @@ pipeline {
         }
     }
 
-    post {
-      always {
-        //sh "sudo rm -rf product-service/api/target"
-      }
-    }
+//    post {
+//      always {
+//        sh "sudo rm -rf product-service/api/target"
+//      }
+//    }
     
 
 
