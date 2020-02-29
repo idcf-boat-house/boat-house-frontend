@@ -7,6 +7,6 @@ CREATE TABLE Food (
 	Name nvarchar ( 50 ) NOT NULL,
 	Price DECIMAL ( 5, 2 ) NOT NULL DEFAULT 0,
 	Description nvarchar ( 1000 ) NULL,
-	Picture longblob NULL
+	Picture longblob NULL,
 CONSTRAINT food_pk PRIMARY KEY ( Id ),
 CONSTRAINT food_category_fk FOREIGN KEY ( CategoryId ) REFERENCES FoodCategory ( Id ));
