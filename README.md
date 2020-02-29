@@ -1,4 +1,4 @@
-# Boat House（船屋餐饮系统）
+# Boat House（船屋餐饮系统） Me
 
 ## 功能服务
 
@@ -24,7 +24,7 @@
 ![markdown](/images/boathouse-structure-stats.png "markdown")
 
 
-#### Product service(产品服务) 
+#### Product service(产品服务)
 
 进行菜品管理、菜品分类管理
 
