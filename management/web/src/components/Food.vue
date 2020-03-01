@@ -59,7 +59,7 @@
                     <button type="button" class="btn btn-primary" style="margin-bottom:20px" data-toggle="modal" data-target="#add-food-modal">添加菜品</button>
                   </div>
                   <div class="table-responsive">
-                    <el-table :data="tableData" style="width: 100%" class="table-striped">
+                    <el-table :data="foodTableData" style="width: 100%" class="table-striped">
                       <el-table-column v-for="items in tableDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
                       <el-table-column fixed="right" align="center" label="操作" show-overflow-tooltip min-width="140">
                         <template slot-scope="scope">
@@ -91,13 +91,12 @@
             </div>
             <div class="modal-body">
               <select id="food-category" class="form-control" style="margin-top:20px;" placeholder="菜品分类">
-                <option>sss</option>
-                <option>ddd</option>
+                <option v-for="item in foodCategory" :key="item.Id" :value="item.Id">{{item.Name}}</option>
               </select>
               <input id="food-name" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品名称" />
               <input id="food-price" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品价格" />
               <input id="food-description" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品描述" />
-              <input id="food-image" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品图片" />
+              <input id="food-image" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" @change="Change($event)" placeholder="菜品图片" />
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" @click="AddFood">确定</button>
@@ -119,8 +118,7 @@
             <div class="modal-body">
               <input id="food-id" type="hidden" />
               <select id="food-category-edit" class="form-control" style="margin-top:20px;" placeholder="菜品分类">
-                <option>sss</option>
-                <option>ddd</option>
+                <option v-for="item in foodCategory" :key="item.Id" :value="item.Id">{{item.Name}}</option>
               </select>
               <input id="food-name-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品名称" />
               <input id="food-price-edit" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品价格" />
@@ -144,9 +142,10 @@ export default {
   data () {
     return {
       tableDataType: [],
-      tableData: [],
+      foodCategory: [],
       foodDataType: [],
-      foodTableData: []
+      foodTableData: [],
+      file: Object
     }
   },
   mounted () {
@@ -157,81 +156,111 @@ export default {
         nameProp: 'Id'
       },
       {
-        nameLable: '菜品分类名称',
+        nameLable: '菜品分类',
+        nameProp: 'Category'
+      },
+      {
+        nameLable: '菜品名称',
         nameProp: 'Name'
       },
       {
-        nameLable: '菜品分类描述',
+        nameLable: '菜品价格',
+        nameProp: 'Price'
+      },
+      {
+        nameLable: '菜品描述',
         nameProp: 'Description'
       }
     ]
     this.axios.get('api/foodcategories').then(function (result) {
       if (result.status === 200) {
-        _this.tableData = result.data
+        _this.foodCategory = result.data
+        console.log(_this.foodCategory)
       }
     })
-    this.axios.get('api/foods').then(function (result) {
-      if (result.status === 200) {
-        console.log(result)
-        _this.foodTableData = result.data
-      }
-    })
+    this.GetFoodList()
   },
   methods: {
     AddFood: function () {
       let _this = this
-      let postData = {
-        name: $('#food-name').val(),
-        description: $('#food-category-description').val()
+      var postData = new FormData()
+      postData.append('菜品图片', this.file)
+      // postData.append('菜品分类ID', $('#food-category').val())
+      // postData.append('菜品名称', $('#food-name').val())
+      // postData.append('菜品价格', $('#food-price').val())
+      // postData.append('菜品描述', $('#food-description').val())
+      console.log(postData)
+      // let post2 = {
+      //   菜品图片: this.file,
+      //   菜品分类ID: $('#food-category').val(),
+      //   菜品名称: $('#food-name').val(),
+      //   菜品价格: $('#food-price').val(),
+      //   菜品描述: $('#food-description').val()
+      // }
+      // console.log(post2)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       }
-      this.axios.post('api/foodcategory', postData).then(function (result) {
+      let url = `api/food?菜品分类ID=${$('#food-category').val()}&菜品名称=${$('#food-name').val()}&菜品价格=${$('#food-price').val()}&菜品描述=${$('#food-description').val()}`
+      this.axios.post(url, postData, config).then(function (result) {
+        console.log(result)
         if (result.status === 200) {
-          _this.axios.get('api/foodcategories').then(function (result) {
-            if (result.status === 200) {
-              _this.tableData = result.data
-            }
-          })
-          $('#add-modal').modal('toggle')
+          _this.GetFoodList()
+          $('#add-food-modal').modal('toggle')
         }
       })
     },
     EditFood: function () {
       let _this = this
-      let putData = {
-        id: $('#food-category-id').val(),
-        name: $('#food-name-edit').val(),
-        description: $('#food-category-description-edit').val()
-      }
-      this.axios.put('api/foodcategory', putData).then(function (result) {
+      var postData = new FormData()
+      postData.append('菜品图片', this.file)
+      postData.append('菜品分类ID', $('#food-category').val())
+      postData.append('菜品名称', $('#food-name').val())
+      postData.append('菜品价格', $('#food-price').val())
+      postData.append('菜品描述', $('#food-description').val())
+      console.log(postData)
+      this.axios.put('api/food', postData).then(function (result) {
         if (result.status === 200) {
-          _this.axios.get('api/foodcategories').then(function (result) {
-            if (result.status === 200) {
-              _this.tableData = result.data
-            }
-          })
-          $('#edit-modal').modal('toggle')
+          _this.GetFoodList()
+          $('#edit-food-modal').modal('toggle')
         }
       })
     },
     DeleteFood: function (row, index) {
       let _this = this
       this.axios
-        .delete('api/foodcategory?id=' + row.Id)
+        .delete('api/food?id=' + row.Id)
         .then(function (result) {
           if (result.status === 200) {
-            _this.axios.get('api/foodcategories').then(function (result) {
-              if (result.status === 200) {
-                _this.tableData = result.data
-              }
-            })
+            _this.GetFoodList()
           }
         })
     },
     EditRow: function (row, index) {
-      $('#food-category-id').val(row.Id)
+      console.log(row)
+      $('#food-id').val(row.Id)
+      $('#food-category-edit').val(row.CategoryId)
       $('#food-name-edit').val(row.Name)
-      $('#food-category-description-edit').val(row.Description)
-      $('#edit-modal').modal('toggle')
+      $('#food-price-edit').val(row.Price)
+      $('#food-description-edit').val(row.Description)
+      $('#edit-food-modal').modal('toggle')
+    },
+    GetFoodList: function () {
+      let _this = this
+      this.axios.get('api/foods').then(function (result) {
+        if (result.status === 200) {
+          _this.foodTableData = result.data.data
+          _this.foodTableData.map(item => {
+            let categoryItem = _this.foodCategory.find(i => i.Id === item.CategoryId)
+            item.Category = categoryItem.Name
+          })
+        }
+      })
+    },
+    Change: function (event) {
+      this.file = event.target.files[0]
     }
   }
 }
