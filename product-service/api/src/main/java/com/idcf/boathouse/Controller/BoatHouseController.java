@@ -1,10 +1,9 @@
-package com.idcf.boathouse.Controller;
+package com.idcf.boathouse.controller;
 
 import com.idcf.boathouse.JdbcUtils;
-import com.idcf.boathouse.Models.FoodCategory;
-import com.idcf.boathouse.Models.FoodCategoryPost;
+import com.idcf.boathouse.models.FoodCategory;
+import com.idcf.boathouse.models.FoodCategoryPost;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

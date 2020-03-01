@@ -1,8 +1,8 @@
 package com.idcf.boathouse.junit;
 
-import com.idcf.boathouse.Controller.BoatHouseController;
-import com.idcf.boathouse.Models.FoodCategoryPost;
-import com.idcf.boathouse.Services.FoodCategoryService;
+import com.idcf.boathouse.controller.BoatHouseController;
+import com.idcf.boathouse.models.FoodCategoryPost;
+import com.idcf.boathouse.services.FoodCategoryService;
 import org.junit.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

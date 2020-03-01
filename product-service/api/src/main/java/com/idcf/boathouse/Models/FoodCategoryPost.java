@@ -1,4 +1,4 @@
-package com.idcf.boathouse.Models;
+package com.idcf.boathouse.models;
 
 public class FoodCategoryPost {
     public Integer id;

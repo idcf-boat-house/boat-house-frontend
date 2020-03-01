@@ -1,4 +1,4 @@
-package com.idcf.boathouse.DBEntity;
+package com.idcf.boathouse.dbentity;
 
 import java.util.Date;
 
