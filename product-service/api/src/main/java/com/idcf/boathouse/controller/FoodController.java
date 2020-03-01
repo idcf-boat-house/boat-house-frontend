@@ -59,7 +59,7 @@ public class FoodController extends BaseController{
 	@RequestMapping(value = "Food", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品分类ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
+	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
 										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)
 			throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
