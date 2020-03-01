@@ -189,22 +189,8 @@ export default {
       // postData.append('菜品名称', $('#food-name').val())
       // postData.append('菜品价格', $('#food-price').val())
       // postData.append('菜品描述', $('#food-description').val())
-      console.log(postData)
-      // let post2 = {
-      //   菜品图片: this.file,
-      //   菜品分类ID: $('#food-category').val(),
-      //   菜品名称: $('#food-name').val(),
-      //   菜品价格: $('#food-price').val(),
-      //   菜品描述: $('#food-description').val()
-      // }
-      // console.log(post2)
-      let config = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
       let url = `api/food?菜品分类ID=${$('#food-category').val()}&菜品名称=${$('#food-name').val()}&菜品价格=${$('#food-price').val()}&菜品描述=${$('#food-description').val()}`
-      this.axios.post(url, postData, config).then(function (result) {
+      this.axios.post(url, postData).then(function (result) {
         console.log(result)
         if (result.status === 200) {
           _this.GetFoodList()
