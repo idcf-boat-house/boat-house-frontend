@@ -11,8 +11,8 @@
         </li>
         <li class=" nav-item"><a><i class="la la-cogs"></i><span class="menu-title" data-i18n="nav.dash.main">后台管理</span></a>
           <ul class="menu-content">
-            <li><router-link to="/FoodCategory">菜品分类管理</router-link>
-            </li>
+            <li><router-link to="/FoodCategory">菜品分类管理</router-link></li>
+            <li><router-link to="/JoinUs">加盟查询</router-link></li>
           </ul>
         </li>
       </ul>
