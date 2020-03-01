@@ -1,13 +1,12 @@
 # Boat House（船屋餐饮系统）
 
-
 ## 功能服务
 
 船屋餐饮系统采用微服务架构设计，包含三条业务条线（统计服务、产品服务、账户服务），每一个业务条线可以独立的开发以及部署。  
 
 ![markdown](/images/boathouse-structure.png "markdown")
 
-#### 代码说明：
+#### 代码说明：  
 
 | 文件夹  | 服务说明 | 技术架构 |
 | ------------ | ------------ |------------ |
@@ -61,6 +60,7 @@ docker-compose up -d
 | ------------ | ------------ | 
 | http://jenkins.devopshub.cn  | Jenkins管理端  |
 | http://tools.devopshub.cn:8081 | Nexus  | 
+| http://tools.devopshub.cn:9000| Sonarqube|
 | http://tools.devopshub.cn  | Jira  |
 
 

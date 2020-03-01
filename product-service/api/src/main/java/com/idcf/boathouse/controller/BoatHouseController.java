@@ -23,9 +23,10 @@ public class BoatHouseController {
 	public void AddFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
         JdbcUtils jdbcUtils = new JdbcUtils();
         jdbcUtils.getConnection();
-		String sql = "insert into FoodCategory (name) values (?)";
+		String sql = "insert into FoodCategory (name,description) values (?,?)";
 		List<Object> params = new ArrayList<Object>();
 		params.add(foodCategoryPost.name);
+		params.add(foodCategoryPost.description);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
 			System.out.println(flag);
@@ -39,12 +40,12 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除菜品分类")
-	public void DeleteFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
+	public void DeleteFoodCategory(@RequestParam String id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "delete from FoodCategory where Id = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(foodCategoryPost.id);
+		params.add(id);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
 			System.out.println(flag);
@@ -61,9 +62,10 @@ public class BoatHouseController {
 	public void UpdateFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
-		String sql = "update FoodCategory set name = ? where id = ?";
+		String sql = "update FoodCategory set name = ?, description = ? where id = ?";
 		List<Object> params = new ArrayList<Object>();
 		params.add(foodCategoryPost.name);
+		params.add(foodCategoryPost.description);
 		params.add(foodCategoryPost.id);
 		try {
 			boolean flag = jdbcUtils.updateByPreparedStatement(sql, params);
@@ -96,12 +98,12 @@ public class BoatHouseController {
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取菜品分类")
-	public FoodCategory GetFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
+	public FoodCategory GetFoodCategory(@RequestParam String id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from FoodCategory where Id = ?";
 		List<Object> params = new ArrayList<Object>();
-		params.add(foodCategoryPost.id);
+		params.add(id);
 		FoodCategory foodCategory;
 		try {
 			foodCategory = jdbcUtils.findSimpleRefResult(sql, params, FoodCategory.class);
