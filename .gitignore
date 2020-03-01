@@ -8,4 +8,3 @@
 /statistics-service/worker/src/Worker/obj
 .idea/workspace.xml
 /statistics-service/worker
-*.exe
