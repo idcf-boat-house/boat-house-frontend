@@ -33,14 +33,19 @@ public class FoodController extends BaseController{
 	@RequestMapping(value= "Food", method = RequestMethod.POST, consumes = "multipart/*", headers = "content-type=multipart/form-data")
 	@ResponseBody
 	@ApiOperation("添加菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
+	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片", required = false) MultipartFile file, @RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
 			@RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)  throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
 		foodPost.categoryId = categoryId;
 		foodPost.name = name;
 		foodPost.price = price;
 		foodPost.description = description;
-		if (!file.isEmpty()) {
+		if(file==null)
+		{
+			InputStream fi = null;
+			foodService.insertOrUpdateFood(foodPost, fi);
+		}
+		if (file!=null&&!file.isEmpty()) {
 			if (file.getContentType().contains("image")) {
 				try {
 					// 获取图片的文件名
@@ -59,7 +64,7 @@ public class FoodController extends BaseController{
 	@RequestMapping(value = "Food", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品分类ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
+	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
 										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)
 			throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
