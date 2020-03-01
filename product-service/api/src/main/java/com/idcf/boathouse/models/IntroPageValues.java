@@ -1,4 +1,4 @@
-package com.idcf.boathouse.models;
+package com.idcf.boathouse.Models;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

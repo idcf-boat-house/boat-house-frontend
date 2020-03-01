@@ -2,8 +2,8 @@ package com.idcf.boathouse.controller;
 
 import com.idcf.boathouse.DBEntity.IntroPageEntity;
 import com.idcf.boathouse.JdbcUtils;
-import com.idcf.boathouse.models.IntroPage;
-import com.idcf.boathouse.models.IntroPageValues;
+import com.idcf.boathouse.Models.IntroPage;
+import com.idcf.boathouse.Models.IntroPageValues;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
