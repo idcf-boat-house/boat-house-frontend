@@ -99,7 +99,7 @@ export default {
         nameProp: 'comment'
       }
     ]
-    this.axios.get('api/v1.0/join/list').then(function (result) {
+    this.axios.get('join/list').then(function (result) {
       if (result.status === 200) {
         _this.tableData = result.data
       }
