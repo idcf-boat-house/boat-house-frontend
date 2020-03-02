@@ -72,41 +72,41 @@
 
 <script>
 export default {
-  name: "FoodCategory",
-  data() {
+  name: 'JoinUs',
+  data () {
     return {
       tableDataType: [],
       tableData: []
-    };
+    }
   },
-  mounted() {
-    let _this = this;
+  mounted () {
+    let _this = this
     _this.tableDataType = [
       {
-        nameLable: "ID",
-        nameProp: "id"
+        nameLable: 'ID',
+        nameProp: 'id'
       },
       {
-        nameLable: "联系人姓名",
-        nameProp: "name"
+        nameLable: '联系人姓名',
+        nameProp: 'name'
       },
       {
-        nameLable: "联系电话",
-        nameProp: "telephone"
+        nameLable: '联系电话',
+        nameProp: 'telephone'
       },
       {
-        nameLable: "备注",
-        nameProp: "comment"
+        nameLable: '备注',
+        nameProp: 'comment'
       }
-    ];
-    this.axios.get("http://localhost:8081/api/v1.0/join/list").then(function(result) {
+    ]
+    this.axios.get('api/v1.0/join/list').then(function (result) {
       if (result.status === 200) {
-        _this.tableData = result.data;
+        _this.tableData = result.data
       }
-    });
+    })
   },
   methods: {
-    
+
   }
-};
+}
 </script>
