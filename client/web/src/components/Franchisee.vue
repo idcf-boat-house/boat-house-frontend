@@ -44,15 +44,15 @@
             <div class="modal-body">
               <div class="form-group">
                 <label class="sr-only" for="name">姓名</label>
-                <input type="text" id="name" class="form-control email" placeholder="姓名" v-model="username">
+                <input type="text" id="name" class="form-control email" placeholder="姓名" v-model="name">
               </div>
               <div class="form-group">
                 <label class="sr-only" for="telphone">联系电话</label>
-                <input type="text" id="telphone" class="form-control password mb-1" placeholder="联系电话" v-model="password">
+                <input type="text" id="telphone" class="form-control password mb-1" placeholder="联系电话" v-model="telephone">
               </div>
               <div class="form-group">
                 <label class="sr-only" for="address">所在地址</label>
-                <input type="text" id="address" class="form-control password mb-1" placeholder="所在地址" v-model="password">
+                <input type="text" id="address" class="form-control password mb-1" placeholder="所在地址" v-model="comment">
               </div>
             </div>
             <div class="modal-footer bg-light py-3">
@@ -81,7 +81,10 @@ export default {
   name: "Franchisee",
   data () {
     return {
-      state: 'welcome'
+      state: 'welcome',
+      name: '',
+      telephone: '',
+      comment: ''
     }
 
   },
@@ -93,11 +96,23 @@ export default {
         this.state ='join';
     },
     submitJoin: function() {
-        this.state = "feedback"
+       
         // 3秒后回首岩浆
-        setTimeout( () => {
-           this.$router.push('/');
-        },3000 )
+        const postData = {
+          name: this.name,
+          telephone: this.telephone,
+          comment: this.comment,
+        };
+        
+        this.axios.post('/api/product/join', postData)
+              .then( result => {
+                  this.state = "feedback";
+                 setTimeout( () => {
+                    this.$router.push('/');
+                 },3000 )
+              });
+        
+       
     }
 
   }
