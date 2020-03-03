@@ -103,9 +103,8 @@ export default {
           telephone: this.telephone,
           comment: this.comment,
         };
-
-        console.log(postData);
-         this.axios.post('/api/product/join', postData)
+        
+        this.axios.post('/api/product/join', postData)
               .then( result => {
                   this.state = "feedback";
                  setTimeout( () => {
