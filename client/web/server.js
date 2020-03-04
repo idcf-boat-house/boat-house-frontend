@@ -29,7 +29,7 @@ app.post("/api/product/vote",function(req, res){
 });
 
 app.post("/api/product/join", (req, res) => {
-  requestify.post('http://product-service/join/save',req.body).then(response => {
+  requestify.post('http://13.76.97.141:7001/api/v1.0/join/save',req.body).then(response => {
     console.log(res.body);
     return res.send(response.body);
   });
