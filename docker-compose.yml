@@ -2,7 +2,7 @@ version: "3"
 services:
 
     client:
-        build: ./client/web
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/client:latest
         restart: always
         ports:
             - 5000:8080
@@ -11,7 +11,7 @@ services:
             - backend
 
     management:
-        build: ./management/web
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/management:latest
         restart: always
         ports:
             - 5001:4000
@@ -21,7 +21,7 @@ services:
             - statistics-service-db
 
     statistics-service-api:
-        build: ./statistics-service/api
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/statistics_service_api:latest
         restart: always
         ports:
             - 6001:80
@@ -29,15 +29,15 @@ services:
             - frontend
             - backend
 
-    statistics_service_worker:
-        build: ./statistics-service/worker
+    statistics-service-worker:
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/statistics_service_worker:latest
         restart: always
         networks:
             - frontend
             - backend
 
     statistics-service-redis:
-        image: redis:alpine
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/redis:alpine
         restart: always
         ports:
             - 6379:6379
@@ -45,7 +45,7 @@ services:
             - frontend
 
     statistics-service-db:
-        image: postgres:9.4
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/postgres:9.4
         restart: always
         volumes:
             - db-data:/var/lib/postgresql/data
@@ -53,7 +53,7 @@ services:
             - backend
 
     product-service-api:
-        build: ./product-service/api
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/product_service_api:latest
         restart: always
         ports:
             - 7001:8080
@@ -62,7 +62,7 @@ services:
             - backend
 
     product-service-db:
-        image: mysql:5.6
+        image: docker.pkg.github.com/idcf-boat-house/boat-house/mysql:5.6
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         volumes:
