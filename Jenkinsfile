@@ -73,8 +73,8 @@ pipeline {
                 sh "docker build -f product-service/api/Dockerfile.image -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/product_service_api:latest product-service/api"
 
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${DOCKER_REPO_URL}/product_service_api:latest"
-                sh "docker push ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
           }
