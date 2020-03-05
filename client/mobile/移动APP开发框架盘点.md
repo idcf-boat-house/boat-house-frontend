@@ -1,7 +1,7 @@
 # 移动APP开发框架盘点
  
 
-<img src="Imgs/Mobile-APP-development-framework-inventory.png" />
+<img src="images/AppAllFrame.png" />
 
 ## 总体概述
 现在比较流行的移动APP开发框架有以下六种：网页、混合、渐进、原生、桥接、自绘。前三种体验与Web的体验相似，后三种与原生APP的体验相似。这六种框架形式，都有自己适用的范围。无所谓好坏，适用就是好。
