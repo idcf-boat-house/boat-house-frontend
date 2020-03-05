@@ -1,5 +1,8 @@
 package com.idcf.boathouse;
 
+
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -24,7 +27,20 @@ public class JdbcUtils {
     public JdbcUtils() {
         try {
         Properties pro = new Properties();
-        InputStream resource=this.getClass().getResourceAsStream("/application.properties");
+        InputStream resourceProperty=this.getClass().getResourceAsStream("/application.properties");
+        pro.load(resourceProperty);
+        String path="";
+        String profile=pro.getProperty("spring.profiles.active");;
+            if(profile.equals("dev")){
+                path="/application-dev.properties";
+            }
+            else if(profile.equals("test")){
+                path="/application-test.properties";
+            }
+            else {
+                path="/application-prod.properties";
+            }
+        InputStream resource=this.getClass().getResourceAsStream(path);
         pro.load(resource);
         URL = pro.getProperty("url");
         USERNAME = pro.getProperty("user");
