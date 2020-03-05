@@ -1,6 +1,7 @@
 package com.idcf.boathouse;
 
 
+import com.idcf.boathouse.untils.SpringContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
@@ -30,7 +31,8 @@ public class JdbcUtils {
         InputStream resourceProperty=this.getClass().getResourceAsStream("/application.properties");
         pro.load(resourceProperty);
         String path="";
-        String profile=pro.getProperty("spring.profiles.active");;
+        String profile= SpringContextHolder.getActiveProfile();
+            System.out.println("environment-"+profile);
             if(profile.equals("dev")){
                 path="/application-dev.properties";
             }
