@@ -1,6 +1,3 @@
-create Database BoatHouse;
-use BoatHouse;
-create table FoodCategory ( Id int auto_increment, Name nvarchar(50) null, Description nvarchar(1000) null, constraint FoodCategory_pk primary key (Id) );
 CREATE TABLE `join_us`
 (
     `id`       int(11) NOT NULL AUTO_INCREMENT,

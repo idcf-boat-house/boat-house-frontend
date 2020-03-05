@@ -1,0 +1,22 @@
+spring:
+  application:
+    #应用名称
+    name: springboot-demo
+  #jdbc 配置文件内容
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://product-service-db:3306/BoatHouse?characterEncoding=utf-8
+    schema: classpath:db/schema.sql
+    data: classpath:db/data.sql
+    username: root
+    password: P2ssw0rd
+
+server:
+  #访问端口号
+  port: 8080
+  tomcat:
+    #编码格式
+    uri-encoding: utf-8
+  servlet:
+    #Api路由前缀
+    context-path: /api/v1.0
