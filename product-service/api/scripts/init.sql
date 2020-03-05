@@ -15,3 +15,4 @@ CREATE TABLE `intropage` (
   `update_time` datetime DEFAULT NULL,
    PRIMARY KEY (`page_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO intropage VALUES(100, "this is page title", "https://baidu.com", "I will show you the history", " ", 0, "2020-03-05 11:00:00", "2020-03-05 11:00:00");
