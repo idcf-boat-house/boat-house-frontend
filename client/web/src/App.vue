@@ -32,7 +32,7 @@
             <div class="header-block order-12">
               <div class="flex-column text-right d-none d-lg-flex mr-2">
                 <h6 class="my-0 mt-1">
-                  <i class="fa fa-clock text-primary"></i> 营业时间：早10点 - 晚9点
+                  <i class="fa fa-clock text-primary"></i> 营业时间：早10点 - 晚10点
                 </h6>
 
               </div>
