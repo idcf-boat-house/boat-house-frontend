@@ -105,7 +105,7 @@
                 <li class="nav-item"> <a href="#" class="nav-link">主页</a> </li>
                 <li class="nav-item"> <a href="#" class="nav-link">船屋菜单</a> </li>
                 <li class="nav-item"> <a href="#" class="nav-link">船屋故事</a> </li>
-                <li class="nav-item"> <a href="#" class="nav-link">品牌加盟</a> </li>
+                <li class="nav-item"> <router-link to="/franchisee" class="nav-link">品牌加盟</router-link> </li>
 
               </ul>
               <!-- All Categories menu -->
@@ -382,6 +382,8 @@
 <script>
 
   import Products from '@/components/Products'
+  import Franchisee from '@/components/Franchisee'
+ 
 
 
   export default {
@@ -393,7 +395,7 @@
       }
     },
     components: {
-      'app-products': Products
+      'app-products': Products,
     },
     mounted(){
       this.getUserInfo();
