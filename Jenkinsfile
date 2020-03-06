@@ -1,7 +1,7 @@
 def getHost() {
   def remote = [:]
   remote.name = 'server-dev'
-  remote.host = "${BOATHOUSE_DEV_HOST}"
+  remote.host = "${env.REMOTE_HOST}"
   remote.user = "${env.CREDS_DEV_SERVER_USR}"
   remote.password = "${env.CREDS_DEV_SERVER_PSW}"
   remote.port = 22
@@ -15,6 +15,8 @@ pipeline {
         label 'vm-slave' 
     }
     environment {
+      REMOTE_HOST = '138.91.37.88'
+      DOCKER_REPO_URL = 'docker.pkg.github.com/idcf-boat-house/boat-house'
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
       def server=''
@@ -33,35 +35,35 @@ pipeline {
           parallel {
             stage('build-client') {
               steps {
-                sh "docker build -f client/web/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest client/web"
+                sh "docker build -f client/web/Dockerfile -t ${DOCKER_REPO_URL}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/client:latest client/web"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${DOCKER_REPO_URL}/client:latest"
+                sh "docker push ${DOCKER_REPO_URL}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
 
             stage('build-management') {
               steps {
-                sh "docker build -f management/web/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest management/web"
+                sh "docker build -f management/web/Dockerfile -t ${DOCKER_REPO_URL}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/management:latest management/web"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${DOCKER_REPO_URL}/management:latest"
+                sh "docker push ${DOCKER_REPO_URL}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
 
             stage('build-statistics-service') {
               steps {
-                sh "docker build -f statistics-service/api/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:latest statistics-service/api"
-                sh "docker build -f statistics-service/worker/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:latest statistics-service/worker"
+                sh "docker build -f statistics-service/api/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/statistics_service_api:latest statistics-service/api"
+                sh "docker build -f statistics-service/worker/Dockerfile -t ${DOCKER_REPO_URL}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/statistics_service_worker:latest statistics-service/worker"
 
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 echo "push service api..."
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${DOCKER_REPO_URL}/statistics_service_api:latest"
+                sh "docker push ${DOCKER_REPO_URL}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
 
                 echo "push service worker..."
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${DOCKER_REPO_URL}/statistics_service_worker:latest"
+                sh "docker push ${DOCKER_REPO_URL}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
 
@@ -70,11 +72,11 @@ pipeline {
                 sh "docker-compose -f product-service/api/docker-compose.build.yaml up"
                 junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'product-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
-                sh "docker build -f product-service/api/Dockerfile.image -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest product-service/api"
+                sh "docker build -f product-service/api/Dockerfile.image -t ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/product_service_api:latest product-service/api"
 
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${DOCKER_REPO_URL}/product_service_api:latest"
+                sh "docker push ${DOCKER_REPO_URL}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
           }
