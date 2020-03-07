@@ -9,4 +9,4 @@ WORKDIR /app
 COPY ./UITest/UITest.csproj .
 RUN dotnet restore
 COPY ./UITest/src ./src
-ENTRYPOINT dotnet test --logger:"trx;LogFileName=report.xml"
+ENTRYPOINT dotnet test --logger:"trx;LogFileName=report.trx"
