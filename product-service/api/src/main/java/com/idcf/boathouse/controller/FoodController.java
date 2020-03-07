@@ -30,42 +30,29 @@ public class FoodController extends BaseController{
 	@Autowired
 	public FoodService foodService;
 
-	@RequestMapping(value= "Food", method = RequestMethod.POST, consumes = "multipart/*", headers = "content-type=multipart/form-data")
+	@RequestMapping(value= "Food", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("添加菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片", required = false) MultipartFile file, @RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
-			@RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)  throws IllegalStateException, IOException {
+	public  Map<String, Object> addFood(@RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
+			@RequestParam(value = "菜品价格") BigDecimal price, @RequestParam(value = "菜品描述") String description,
+			@RequestParam(value = "菜品图片", required = false) String picture)  throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
 		foodPost.categoryId = categoryId;
 		foodPost.name = name;
 		foodPost.price = price;
 		foodPost.description = description;
-		if(file==null)
-		{
-			InputStream fi = null;
-			foodService.insertOrUpdateFood(foodPost, fi);
-		}
-		if (file!=null&&!file.isEmpty()) {
-			if (file.getContentType().contains("image")) {
-				try {
-					// 获取图片的文件名
-					String fileName = file.getOriginalFilename();;
-					InputStream fi = file.getInputStream();
-					foodService.insertOrUpdateFood(foodPost, fi);
-				}catch (Exception e){
-					e.printStackTrace();
-					return super.info(BaseController.CODE_OK,"添加菜品失败", null);
-				}
-			}
-		}
+		foodPost.picture = picture;
+		foodService.insertOrUpdateFood(foodPost);
 		return super.info(BaseController.CODE_OK,"添加菜品成功", null);
 	}
 
 	@RequestMapping(value = "Food", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品图片") MultipartFile file, @RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
-										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)
+	public  Map<String, Object> addFood(@RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
+										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,
+										@RequestParam(value = "菜品描述") String description,
+										@RequestParam(value = "菜品图片", required = false) String picture)
 			throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
 		foodPost.id = id;
@@ -73,19 +60,11 @@ public class FoodController extends BaseController{
 		foodPost.name = name;
 		foodPost.price = price;
 		foodPost.description = description;
-		if (!file.isEmpty()) {
-			if (file.getContentType().contains("image")) {
-				try {
-					// 获取图片的文件名
-					String fileName = file.getOriginalFilename();;
-					InputStream fi = file.getInputStream();
-					foodService.insertOrUpdateFood(foodPost, fi);
-				}catch (Exception e){
-					e.printStackTrace();
-					return super.info(BaseController.CODE_OK,"更新菜品失败", null);
-				}
-			}
+		if(picture!=null)
+		{
+			foodPost.picture = picture;
 		}
+		foodService.insertOrUpdateFood(foodPost);
 		return super.info(BaseController.CODE_OK,"更新菜品成功", null);
 	}
 

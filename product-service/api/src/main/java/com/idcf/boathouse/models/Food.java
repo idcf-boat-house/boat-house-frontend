@@ -25,6 +25,6 @@ public class Food {
     public String Description;
 
     @ApiModelProperty(value = "菜品图片")
-    public byte[] Picture;
+    public String Picture;
 
 }
