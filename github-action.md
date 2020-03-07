@@ -29,7 +29,7 @@
 
 ## TAG
 
-注意由于项目中使用了Jenkins做编译打包，为了避免Github Action与Jenkins有冲突，所以我们在Github Action流水线打标签时添加了CI关键词，Github Action仅仅用于编译、打包的验证，不用作实际部署。
+注意由于项目中使用了Jenkins做编译打包，为了避免Github Action与Jenkins有冲突，所以我们在Github Action流水线打标签时添加了CI关键词，Github Action仅仅用于编译、打包的验证，不用作实际部署
 
 ## 参考文档
 http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html
