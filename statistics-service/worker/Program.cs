@@ -54,6 +54,8 @@ namespace Worker
                     {
                         keepAliveCommand.ExecuteNonQuery();
                     }
+
+
                 }
             }
             catch (Exception ex)
@@ -78,12 +80,12 @@ namespace Worker
                 catch (SocketException)
                 {
                     Console.Error.WriteLine("Waiting for db");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
                 catch (DbException)
                 {
                     Console.Error.WriteLine("Waiting for db");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
             }
 
