@@ -8,3 +8,5 @@
 /statistics-service/worker/src/Worker/obj
 .idea/workspace.xml
 /statistics-service/worker
+.vscode/launch.json
+.vscode/tasks.json
