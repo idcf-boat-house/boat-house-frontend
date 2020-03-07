@@ -73,6 +73,7 @@ namespace Worker
             {
                 try
                 {
+                    Thread.Sleep(10000);
                     connection = new NpgsqlConnection(connectionString);
                     connection.Open();
                     break;
@@ -111,6 +112,7 @@ namespace Worker
             {
                 try
                 {
+                    Thread.Sleep(10000);
                     Console.Error.WriteLine("Connecting to redis");
                     return ConnectionMultiplexer.Connect(ipAddress);
                 }
