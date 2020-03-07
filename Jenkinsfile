@@ -84,7 +84,7 @@ pipeline {
 
          stage('build test image'){
             steps {
-                sh "docker build -f selenium/Dockerfile -t ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/uitest:latest selenium"
+                sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/uitest:latest selenium/dotnet-uitest"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/uitest:latest"
                 sh "docker push ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID}"
