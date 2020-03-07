@@ -10,6 +10,8 @@ var express = require("express"),
   (io = require("socket.io")(server)),
   (serveStatic = require("serve-static")),
   (path = require("path"));
+var multiparty = require("multiparty");
+const axios = require("axios");
 
 io.set("transports", ["polling"]);
 
@@ -160,32 +162,40 @@ app.get("/api/food", function(req, res) {
 });
 
 app.post("/api/food", function(req, res) {
-  requestify
-    .post(
-      `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${req.query.菜品分类ID}&菜品名称=${req.query.菜品名称}&菜品价格=${req.query.菜品价格}&菜品描述=${req.query.菜品描述}`,
-      req.body,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      }
-    )
-    .then(function(response) {
-      console.log(response.body);
-      return res.send(response.body);
-    })
-    .fail(function(res) {
-      console.log(res);
-    });
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    // var postForm = new FormData();
+    var tempPath = files["菜品图片"][0].path;
+    console.log(tempPath);
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    axios
+      .post(encodeURI(url))
+      .then(function(response) {
+        console.log(response.body);
+        return res.send(response.body);
+      })
+      .catch(function(res) {
+        console.log(res);
+      });
+  });
 });
 
 app.put("/api/food", function(req, res) {
-  requestify
-    .put("http://product-service-api:8080/api/v1.0/BoatHouse/Food", req.body)
-    .then(function(response) {
-      console.log(response.body);
-      return res.send(response.body);
-    });
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    var tempPath = files["菜品图片"][0].path;
+    console.log(tempPath);
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields["菜品ID"][0]}&菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    axios
+      .put(encodeURI(url))
+      .then(function(response) {
+        console.log(response.body);
+        return res.send(response.body);
+      })
+      .catch(function(res) {
+        console.log(res);
+      });
+  });
 });
 
 app.delete("/api/food", function(req, res) {

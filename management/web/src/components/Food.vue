@@ -185,11 +185,12 @@ export default {
       let _this = this
       var postData = new FormData()
       postData.append('菜品图片', this.file)
-      // postData.append('菜品分类ID', $('#food-category').val())
-      // postData.append('菜品名称', $('#food-name').val())
-      // postData.append('菜品价格', $('#food-price').val())
-      // postData.append('菜品描述', $('#food-description').val())
-      let url = `api/food?菜品分类ID=${$('#food-category').val()}&菜品名称=${$('#food-name').val()}&菜品价格=${$('#food-price').val()}&菜品描述=${$('#food-description').val()}`
+      postData.append('菜品分类ID', $('#food-category').val())
+      postData.append('菜品名称', $('#food-name').val())
+      postData.append('菜品价格', $('#food-price').val())
+      postData.append('菜品描述', $('#food-description').val())
+      // let url = `api/food?菜品分类ID=${$('#food-category').val()}&菜品名称=${$('#food-name').val()}&菜品价格=${$('#food-price').val()}&菜品描述=${$('#food-description').val()}`
+      let url = 'api/food'
       this.axios.post(url, postData).then(function (result) {
         console.log(result)
         if (result.status === 200) {
@@ -202,11 +203,11 @@ export default {
       let _this = this
       var postData = new FormData()
       postData.append('菜品图片', this.file)
-      postData.append('菜品分类ID', $('#food-category').val())
-      postData.append('菜品名称', $('#food-name').val())
-      postData.append('菜品价格', $('#food-price').val())
-      postData.append('菜品描述', $('#food-description').val())
-      console.log(postData)
+      postData.append('菜品ID', $('#food-id').val())
+      postData.append('菜品分类ID', $('#food-category-edit').val())
+      postData.append('菜品名称', $('#food-name-edit').val())
+      postData.append('菜品价格', $('#food-price-edit').val())
+      postData.append('菜品描述', $('#food-description-edit').val())
       this.axios.put('api/food', postData).then(function (result) {
         if (result.status === 200) {
           _this.GetFoodList()
