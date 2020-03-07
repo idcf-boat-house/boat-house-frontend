@@ -53,6 +53,8 @@ namespace Worker
                     else
                     {
                         keepAliveCommand.ExecuteNonQuery();
+                        Thread.Sleep(10000);
+
                     }
 
 
