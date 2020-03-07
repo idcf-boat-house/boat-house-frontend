@@ -16,5 +16,5 @@ public class FoodPost {
 
     public String description;
 
-    public byte[] picture;
+    public String picture;
 }

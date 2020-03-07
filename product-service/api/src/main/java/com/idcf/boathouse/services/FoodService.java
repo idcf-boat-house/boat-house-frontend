@@ -25,7 +25,7 @@ public class FoodService {
         return matcher.matches();
     }
 
-    public void insertOrUpdateFood(FoodPost foodPost, InputStream is){
+    public void insertOrUpdateFood(FoodPost foodPost){
 
         List<Object> params = new ArrayList<Object>();
         String sql = "";
@@ -33,7 +33,7 @@ public class FoodService {
         params.add(foodPost.name);
         params.add(foodPost.price);
         params.add(foodPost.description);
-        params.add(is);
+        params.add(foodPost.picture);
         if(foodPost.id == null){
             sql = "insert into Food (categoryId, name, price, description, picture) values (?, ?, ?, ?, ?)";
         }else{
