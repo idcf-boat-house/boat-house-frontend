@@ -34,3 +34,5 @@ jobs:
       
       - name: docker push statistics_service_worker tag latest
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:ci
+
+        

@@ -25,3 +25,5 @@ jobs:
       
       - name: docker push management tag latest
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:ci
+
+        
