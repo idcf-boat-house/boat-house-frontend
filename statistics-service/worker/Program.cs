@@ -117,7 +117,7 @@ namespace Worker
                 catch (RedisConnectionException)
                 {
                     Console.Error.WriteLine("Waiting for redis");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
             }
         }
