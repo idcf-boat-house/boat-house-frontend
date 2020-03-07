@@ -61,6 +61,16 @@
                   <div class="table-responsive">
                     <el-table :data="foodTableData" style="width: 100%" class="table-striped">
                       <el-table-column v-for="items in tableDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
+                      <el-table-column label="菜品图片">
+                        <template slot-scope="scope">
+                          <!-- <image :src="scope.row.Picture"></image> -->
+                          <el-image :src="scope.row.Picture" :fit="fit" style="width: 50px; height: 50px">
+                            <div slot="error" class="image-slot">
+                              <span>无图</span>
+                            </div>
+                          </el-image>
+                        </template>
+                      </el-table-column>
                       <el-table-column fixed="right" align="center" label="操作" show-overflow-tooltip min-width="140">
                         <template slot-scope="scope">
                           <button type="button" class="btn btn-icon btn-pure" v-on:click="EditRow(scope.row,scope.$index);">
@@ -123,7 +133,7 @@
               <input id="food-name-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品名称" />
               <input id="food-price-edit" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品价格" />
               <input id="food-description-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品描述" />
-              <input id="food-image-edit" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="菜品图片" />
+              <input id="food-image-edit" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" @change="Change($event)" placeholder="菜品图片" />
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" @click="EditFood">确定</button>

@@ -34,14 +34,15 @@ public class FoodController extends BaseController{
 	@ResponseBody
 	@ApiOperation("添加菜品")
 	public  Map<String, Object> addFood(@RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
-			@RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)  throws IllegalStateException, IOException {
+			@RequestParam(value = "菜品价格") BigDecimal price, @RequestParam(value = "菜品描述") String description,
+			@RequestParam(value = "菜品图片", required = false) String picture)  throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
 		foodPost.categoryId = categoryId;
 		foodPost.name = name;
 		foodPost.price = price;
 		foodPost.description = description;
-		InputStream fi = null;
-		foodService.insertOrUpdateFood(foodPost, fi);
+		foodPost.picture = picture;
+		foodService.insertOrUpdateFood(foodPost);
 		return super.info(BaseController.CODE_OK,"添加菜品成功", null);
 	}
 
@@ -49,7 +50,9 @@ public class FoodController extends BaseController{
 	@ResponseBody
 	@ApiOperation("更新菜品")
 	public  Map<String, Object> addFood(@RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
-										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,@RequestParam(value = "菜品描述") String description)
+										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,
+										@RequestParam(value = "菜品描述") String description,
+										@RequestParam(value = "菜品图片", required = false) String picture)
 			throws IllegalStateException, IOException {
 		FoodPost foodPost = new FoodPost();
 		foodPost.id = id;
@@ -57,8 +60,11 @@ public class FoodController extends BaseController{
 		foodPost.name = name;
 		foodPost.price = price;
 		foodPost.description = description;
-		InputStream fi = null;
-		foodService.insertOrUpdateFood(foodPost, fi);
+		if(picture!=null)
+		{
+			foodPost.picture = picture;
+		}
+		foodService.insertOrUpdateFood(foodPost);
 		return super.info(BaseController.CODE_OK,"更新菜品成功", null);
 	}
 

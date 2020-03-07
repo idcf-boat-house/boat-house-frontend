@@ -12,6 +12,7 @@ var express = require("express"),
   (path = require("path"));
 var multiparty = require("multiparty");
 const axios = require("axios");
+var fs = require("fs");
 
 io.set("transports", ["polling"]);
 
@@ -165,9 +166,18 @@ app.post("/api/food", function(req, res) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
     // var postForm = new FormData();
-    var tempPath = files["菜品图片"][0].path;
-    console.log(tempPath);
     let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    if (files["菜品图片"] !== undefined) {
+      var tempPath = files["菜品图片"][0].path;
+      var tempFileNameList = tempPath.split("/");
+      var tempFileName = tempFileNameList[tempFileNameList.length - 1];
+      let nodeFile = fs.createReadStream(tempPath);
+      let outFilePath = "./dist/foods/" + tempFileName;
+      let dbPath = "./foods/" + tempFileName;
+      let outFile = fs.createWriteStream(outFilePath);
+      nodeFile.pipe(outFile);
+      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}&菜品图片=${dbPath}`;
+    }
     axios
       .post(encodeURI(url))
       .then(function(response) {
@@ -183,9 +193,19 @@ app.post("/api/food", function(req, res) {
 app.put("/api/food", function(req, res) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
-    var tempPath = files["菜品图片"][0].path;
-    console.log(tempPath);
     let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields["菜品ID"][0]}&菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    if (files["菜品图片"] !== undefined) {
+      var tempPath = files["菜品图片"][0].path;
+      var tempFileNameList = tempPath.split("/");
+      var tempFileName = tempFileNameList[tempFileNameList.length - 1];
+      let nodeFile = fs.createReadStream(tempPath);
+      let outFilePath = "./dist/foods/" + tempFileName;
+      let dbPath = "./foods/" + tempFileName;
+      let outFile = fs.createWriteStream(outFilePath);
+      nodeFile.pipe(outFile);
+      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields["菜品ID"][0]}&菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}&&菜品图片=${dbPath}`;
+    }
+
     axios
       .put(encodeURI(url))
       .then(function(response) {
