@@ -123,6 +123,7 @@ export default {
   position:absolute;
   z-index:80;
   background:url(../assets/img/story/left.png) no-repeat center;
+  background-size:100% 100%;
   width: 450px;
   height: 300px;
   display:inline-block;
@@ -134,6 +135,7 @@ export default {
   position:absolute;
   z-index:80;
   background:url(../assets/img/story/right.png) no-repeat center;
+  background-size:100% 100%;
   width:450px;
   height:300px;
   display:inline-block;
