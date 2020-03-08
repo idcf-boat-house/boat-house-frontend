@@ -71,7 +71,6 @@ pipeline {
                 junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'product-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
                 sh "docker build -f product-service/api/Dockerfile.image -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest product-service/api"
-                sh "docker build -f product-service/api/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest product-service/api"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
@@ -80,28 +79,7 @@ pipeline {
           }
         }
 
-         stage('build test image'){
-            steps {
-                sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest selenium/dotnet-uitest"
-                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID}"
-            }
-        }
-
-        stage('run ui test in container'){
-            steps {
-                script {
-                    // 本地执行测试
-                    sh "mkdir -p ./selenium/dotnet-uitest/uitest/report"
-                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub down"
-                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub pull"
-                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub up -d"
-                    sh "docker run -v \$(pwd)/selenium/dotnet-uitest/uitest/report:/app/TestResults ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
-                    mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
-                  }
-            }
-        }
+         
 
         stage('deploy-dev') { 
             steps {
@@ -124,6 +102,29 @@ pipeline {
                 sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse up -d"
                 echo "successfully started!"
               }
+            }
+        }
+
+        stage('build test image'){
+            steps {
+                sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest selenium/dotnet-uitest"
+                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID}"
+            }
+        }
+
+        stage('run ui test in container'){
+            steps {
+                script {
+                    // 本地执行测试
+                    sh "mkdir -p ./selenium/dotnet-uitest/uitest/report"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub down"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub pull"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub up -d"
+                    sh "docker run -v \$(pwd)/selenium/dotnet-uitest/uitest/report:/app/TestResults ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
+                    mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
+                  }
             }
         }
 
