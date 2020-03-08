@@ -23,6 +23,11 @@ export default new Router({
       path: '/Food',
       name: 'Food',
       component: Food
+    },
+    {
+      path: '/JoinUs',
+      name: 'JoinUs',
+      component: JoinUs
     }
   ]
 })
