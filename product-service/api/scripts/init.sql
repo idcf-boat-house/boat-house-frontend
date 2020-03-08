@@ -10,7 +10,7 @@ CREATE TABLE `join_us`
     `comment`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
+DEFAULT CHARSET = utf8mb4;
 
 DROP TABLE IF EXISTS `intropage`;
 CREATE TABLE `intropage` (
