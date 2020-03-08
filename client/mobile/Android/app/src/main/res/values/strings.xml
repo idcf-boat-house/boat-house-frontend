@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">船屋餐厅</string>
+    <string name="title_activity_main">船屋餐厅·苏格兰风味</string>
+
+    <string name="app_uri">http://c-docker.southeastasia.cloudapp.azure.com:5000/</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">第一页</string>
+    <string name="second_fragment_label">第二页</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="test_get_data">获取菜单</string>
+    <string name="test_fragment">点餐系统</string>
+    <string name="order_food">点餐</string>
+
+    <string name="fragment_morning">早餐</string>
+    <string name="fragment_nooning">午餐</string>
+    <string name="fragment_evening">晚餐</string>
+</resources>

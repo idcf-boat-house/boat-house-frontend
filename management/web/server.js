@@ -35,19 +35,19 @@ async.retry(
       done
     ) {
       if (err) {
-        console.error("Waiting for db");
+        console.error('Waiting for db')
       }
-      callback(err, client);
-    });
+      callback(err, client)
+    })
   },
-  function(err, client) {
+  function (err, client) {
     if (err) {
-      return console.err("Giving up");
+      return console.err('Giving up')
     }
-    console.log("Connected to db");
-    getVotes(client);
+    console.log('Connected to db')
+    getVotes(client)
   }
-);
+)
 
 function getVotes(client) {
   client.query(
@@ -75,7 +75,7 @@ function collectVotesFromResult(result) {
     votes[row.vote] = parseInt(row.count);
   });
 
-  return votes;
+  return votes
 }
 app.use(serveStatic(__dirname + "/dist"));
 app.use(cookieParser());

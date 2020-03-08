@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import FoodCategory from '@/components/FoodCategory'
 import Food from '@/components/Food'
+import JoinUs from '@/components/JoinUs'
 
 Vue.use(Router)
 
