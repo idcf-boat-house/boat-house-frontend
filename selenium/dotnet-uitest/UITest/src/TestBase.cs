@@ -5,11 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using UITest.src.Util;
 using Xunit.Abstractions;
+using System.Linq;
+using Xunit.Sdk;
 
 namespace UITest
 {
-    public class TestBase
+    public abstract class TestBase
     {
         private readonly ITestOutputHelper output;
 
@@ -18,37 +21,172 @@ namespace UITest
             this.output = output;
         }
 
+        public TestEnv env = TestEnv.Group;
+
         private IWebDriver _driver;
 
-        //http://d-docker.southeastasia.cloudapp.azure.com:5001/#/
-        public string Url= "http://d-docker.southeastasia.cloudapp.azure.com:5001/#/FoodCategory";
+        public string HostName
+        {
+            get
+            {
+                switch (env)
+                {
+                    case TestEnv.Local:
+                        return "localhost";
+                    case TestEnv.Group:
+                        return "d-docker.southeastasia.cloudapp.azure.com";
+                    case TestEnv.MainRepo:
+                        return "";
+                    default:
+                        break;
+                }
+                throw new Exception("TestEnv wrong");
+            }
+        }
 
-        //是否是本地测试，使用本机的
-        public bool localtest = false;
+        //http://d-docker.southeastasia.cloudapp.azure.com:5001/#/FoodCategory
+        public string Backend_Food_Category_Url
+        {
+            get
+            {
+                return $"http://{HostName}:5001/#/FoodCategory";
+            }
+        }
 
-        public IWebDriver GetDriver(DriverOptions options)
+        //http://d-docker.southeastasia.cloudapp.azure.com:5001/#/Food
+        public string Backend_Food_Url
+        {
+            get
+            {
+                return $"http://{HostName}:5001/#/Food";
+            }
+
+        }
+
+        //http://d-docker.southeastasia.cloudapp.azure.com:5000
+
+        public IWebDriver GetDriver()
         {
             //InternetExplorerOptions Options = new InternetExplorerOptions();
-            if (!localtest)
+            if (_driver == null)
             {
-                if (_driver == null)
-                {
-                    _driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(600));
-                }
-            }
-            else
-            {
-                if (_driver == null)
-                {
-                    _driver = new ChromeDriver();
-                }
+                //var options = new ChromeOptions();
+                //_driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
+
+                _driver = new ChromeDriver();
             }
             return _driver;
         }
 
-        public void Wait()
+        public string GetXPath(int index)
         {
-            Thread.Sleep(1000);
+            return GetXPathArray()[index];
+        }
+
+        public abstract string[] GetXPathArray();
+
+        public void Click(int xpahtIndex)
+        {
+           
+            Wait();
+            GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex))).Click();
+            Wait();
+        }
+
+        public void SendKey(int xpahtIndex, string content,bool clearFirst=true)
+        {
+            //Click(xpahtIndex);
+            //if (clearFirst)
+            //{
+            //    ClearText(xpahtIndex);
+            //}
+            GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex))).SendKeys(content);
+        }
+        public void GoToUrl(string url, Action action)
+        {
+            using (var driver = GetDriver())
+            {
+                output.WriteLine($"nav to {url}");
+                driver.Navigate().GoToUrl(url);
+                Wait(3000);
+                action();
+            }
+        }
+
+        public string GetText(int xpahtIndex)
+        {
+            return GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex))).Text;
+        }
+
+        public void ClearText(int xpahtIndex)
+        {
+             GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex))).Clear();
+        }
+
+        public bool ElementExist(int xpahtIndex,out IWebElement element)
+        {
+            element = GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex)));
+            return element != null;
+        }
+        public void Wait(int ms= 2000)
+        {
+            Thread.Sleep(ms);
+        }
+    }
+
+    public enum TestEnv
+    {
+        Local,
+        Group,
+        MainRepo
+
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    public class TestPriorityAttribute : Attribute
+    {
+        public TestPriorityAttribute(int priority)
+        {
+            Priority = priority;
+        }
+
+        public int Priority { get; private set; }
+    }
+
+    public class PriorityOrderer : ITestCaseOrderer
+    {
+        public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases) where TTestCase : ITestCase
+        {
+            var sortedMethods = new SortedDictionary<int, List<TTestCase>>();
+
+            foreach (TTestCase testCase in testCases)
+            {
+                int priority = 0;
+
+                foreach (IAttributeInfo attr in testCase.TestMethod.Method.GetCustomAttributes((typeof(TestPriorityAttribute).AssemblyQualifiedName)))
+                    priority = attr.GetNamedArgument<int>("Priority");
+
+                GetOrCreate(sortedMethods, priority).Add(testCase);
+            }
+
+            foreach (var list in sortedMethods.Keys.Select(priority => sortedMethods[priority]))
+            {
+                list.Sort((x, y) => StringComparer.OrdinalIgnoreCase.Compare(x.TestMethod.Method.Name, y.TestMethod.Method.Name));
+                foreach (TTestCase testCase in list)
+                    yield return testCase;
+            }
+        }
+
+        static TValue GetOrCreate<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key) where TValue : new()
+        {
+            TValue result;
+
+            if (dictionary.TryGetValue(key, out result)) return result;
+
+            result = new TValue();
+            dictionary[key] = result;
+
+            return result;
         }
     }
 }
