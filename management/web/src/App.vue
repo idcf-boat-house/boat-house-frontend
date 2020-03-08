@@ -17,6 +17,9 @@
               <li>
                 <router-link to="/Food">菜品管理</router-link>
               </li>
+              <li>
+                <router-link to="/JoinUs">加盟查询</router-link>
+              </li>
             </ul>
           </li>
         </ul>
