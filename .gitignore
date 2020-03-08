@@ -9,3 +9,9 @@
 .idea/workspace.xml
 /statistics-service/worker
 *.exe
+.vscode/
+selenium/dotnet-uitest/UITest/.vs/
+selenium/dotnet-uitest/UITest/bin/
+selenium/dotnet-uitest/UITest/obj/
+selenium/dotnet-uitest/UITest/TestResults/Administrator_WIN-5J4MKK3TH7G_2020-03-04_22_07_17.trx
+selenium/dotnet-uitest/UITest/.vs/
