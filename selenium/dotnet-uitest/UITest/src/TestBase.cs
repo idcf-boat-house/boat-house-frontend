@@ -21,7 +21,7 @@ namespace UITest
             this.output = output;
         }
 
-        public TestEnv env = TestEnv.Group;
+        public TestEnv env = TestEnv.MainRepo;
 
         private IWebDriver _driver;
 
@@ -36,7 +36,7 @@ namespace UITest
                     case TestEnv.Group:
                         return "d-docker.southeastasia.cloudapp.azure.com";
                     case TestEnv.MainRepo:
-                        return "";
+                        return "138.91.37.88";
                     default:
                         break;
                 }
