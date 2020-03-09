@@ -104,6 +104,20 @@ pipeline {
             }
         }
 
+        stage('Jmeter') {
+          steps {
+            script{
+                sh "ls -al ./jmeter"
+                sh "cd jmeter && find . -name '*.log' -delete"
+                sh "rm -R ./jmeter/output || exit 0"
+                sh "mkdir ./jmeter/output"
+                sh "docker run --network boathouse_frontend --interactive --rm --volume `pwd`/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -e -o ./output"
+                sh "ls -al ./jmeter"
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
+            }
+          }
+        }
+
         stage('deploy-test') {  
           input {
                 message "是否部署到测试环境?"

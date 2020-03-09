@@ -9,3 +9,4 @@
 .idea/workspace.xml
 /statistics-service/worker
 *.exe
+.DS_Store
