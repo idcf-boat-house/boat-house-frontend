@@ -70,10 +70,8 @@ namespace UITest
             //InternetExplorerOptions Options = new InternetExplorerOptions();
             if (_driver == null)
             {
-                //var options = new ChromeOptions();
-                //_driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
-
-                _driver = new ChromeDriver();
+                var options = new ChromeOptions();
+                _driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
             }
             return _driver;
         }
