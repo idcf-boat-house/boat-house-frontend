@@ -121,6 +121,9 @@ pipeline {
         }
 
         stage('deploy-test') {  
+          when {
+            branch 'master'
+          }
           input {
                 message "是否部署到测试环境?"
                 ok "是"
@@ -134,6 +137,9 @@ pipeline {
         }
 
         stage('deploy-production') { 
+            when {
+                branch 'master'
+            }
             input {
                 message "是否部署到生产环境?"
                 ok "是"
