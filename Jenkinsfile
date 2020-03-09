@@ -118,6 +118,8 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
             }
           }
+        }
+
         stage('build-uitest'){
             steps {
                 sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest selenium/dotnet-uitest"
@@ -169,8 +171,4 @@ pipeline {
         sh "sudo rm -rf product-service/api/target"
       }
     }
-    
-
-
-  }
 }
