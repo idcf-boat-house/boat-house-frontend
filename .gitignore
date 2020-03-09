@@ -10,3 +10,9 @@
 /statistics-service/worker
 *.exe
 .DS_Store
+.vscode/
+selenium/dotnet-uitest/UITest/.vs/
+selenium/dotnet-uitest/UITest/bin/
+selenium/dotnet-uitest/UITest/obj/
+selenium/dotnet-uitest/UITest/TestResults
+selenium/dotnet-uitest/UITest/.vs/
