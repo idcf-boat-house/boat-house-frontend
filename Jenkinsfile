@@ -105,14 +105,9 @@ pipeline {
         }
 
         stage('Jmeter') {
-          input {
-                message "是否执行Jmeter测试?"
-                ok "是"
-                submitter "admin"
-            }
           steps {
             script{
-                sleep 15
+                sleep 90
                 sh "ls -al ./jmeter"
                 sh "cd jmeter && find . -name '*.log' -delete"
                 sh "rm -R ./jmeter/output || exit 0"
