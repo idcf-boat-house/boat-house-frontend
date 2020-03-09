@@ -105,6 +105,11 @@ pipeline {
         }
 
         stage('Jmeter') {
+          input {
+                message "是否执行Jmeter测试?"
+                ok "是"
+                submitter "admin"
+            }
           steps {
             script{
                 sleep 15
