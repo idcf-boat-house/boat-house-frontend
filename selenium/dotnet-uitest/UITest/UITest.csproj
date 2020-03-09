@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="src\Xpath\FoodCategory_Xpath.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="src\Xpath\Food_Xpath.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
