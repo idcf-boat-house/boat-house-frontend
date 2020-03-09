@@ -107,6 +107,7 @@ pipeline {
         stage('Jmeter') {
           steps {
             script{
+                sleep 15
                 sh "ls -al ./jmeter"
                 sh "cd jmeter && find . -name '*.log' -delete"
                 sh "rm -R ./jmeter/output || exit 0"
