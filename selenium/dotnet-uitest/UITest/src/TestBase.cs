@@ -77,7 +77,8 @@ namespace UITest
                 else
                 {
                     var options = new ChromeOptions();
-                    _driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
+                    //172.17.0.1 是docker宿主的ip，通过这个ip可以访问selenium hub
+                    _driver = new RemoteWebDriver(new Uri("http://172.17.0.1:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
                 }
                
             }
