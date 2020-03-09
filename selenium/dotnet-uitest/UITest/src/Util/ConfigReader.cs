@@ -9,6 +9,7 @@ namespace UITest.src.Util
     public class ConfigReader
     {
         public static string Food_Xpath =  "Food_Xpath.txt";
+        public static string FoodCategory_Xpath = "FoodCategory_Xpath.txt";
 
         public static string[] ReadFile(string fileName)
         {
@@ -33,6 +34,11 @@ namespace UITest.src.Util
         public static string[] GetFoodXpath()
         {
             return ReadFile(Food_Xpath);
+        }
+
+        public static string[] GetFoodCategory_Xpath()
+        {
+            return ReadFile(FoodCategory_Xpath);
         }
     }
 }
