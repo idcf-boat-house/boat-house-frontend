@@ -97,15 +97,15 @@ namespace UITest
         [TestPriority(1)]
         public void Backend_Food_Add_Test()
         {
-            GoToUrl(Backend_Food_Url, () =>
-            {
-                Add();
-                Wait(5000);
-                //Update();
-                //Wait(5000);
-                Delete();
-                Wait(5000);
-            });
+            // GoToUrl(Backend_Food_Url, () =>
+            // {
+            //     Add();
+            //     Wait(5000);
+            //     //Update();
+            //     //Wait(5000);
+            //     Delete();
+            //     Wait(5000);
+            // });
         }
 
         [Fact]
