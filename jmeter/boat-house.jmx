@@ -15,7 +15,7 @@
           </elementProp>
           <elementProp name="port" elementType="Argument">
             <stringProp name="Argument.name">port</stringProp>
-            <stringProp name="Argument.value">8080</stringProp>
+            <stringProp name="Argument.value">7001</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
