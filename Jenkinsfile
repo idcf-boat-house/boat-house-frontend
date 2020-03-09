@@ -104,6 +104,23 @@ pipeline {
             }
         }
 
+        
+        stage('Jmeter') {
+          steps {
+            script{
+                echo "waitting for the sevice up...."
+                sleep 80
+                sh "ls -al ./jmeter"
+                sh "cd jmeter && find . -name '*.log' -delete"
+                sh "rm -R ./jmeter/output || exit 0"
+                sh "mkdir ./jmeter/output"
+                sh "docker run --interactive --rm --volume `pwd`/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -e -o ./output"
+                sh "ls -al ./jmeter"
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
+            }
+          }
+        }
+
         stage('build-uitest'){
             steps {
                 sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest selenium/dotnet-uitest"
@@ -122,20 +139,6 @@ pipeline {
                     mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
                   }
             }
-        stage('Jmeter') {
-          steps {
-            script{
-                echo "waitting for the sevice up...."
-                sleep 80
-                sh "ls -al ./jmeter"
-                sh "cd jmeter && find . -name '*.log' -delete"
-                sh "rm -R ./jmeter/output || exit 0"
-                sh "mkdir ./jmeter/output"
-                sh "docker run --interactive --rm --volume `pwd`/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -e -o ./output"
-                sh "ls -al ./jmeter"
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
-            }
-          }
         }
 
         stage('deploy-test') {  
@@ -170,3 +173,4 @@ pipeline {
       }
     }
   }
+
