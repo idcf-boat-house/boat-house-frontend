@@ -18,7 +18,11 @@
 
 --6，编辑按钮
 /html/body/div[2]/div[2]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div[4]/div[2]/table/tbody/tr[1]/td[4]/div/button[1]
-
-
---7，删除按钮
+--7,编辑分类名
+//*[@id="food-category-name-edit"]
+--8，编辑分类描述
+//*[@id="food-category-description-edit"]
+--9，编辑确认按钮
+//*[@id="edit-modal"]/div/div/div[3]/button[1]
+--10，删除按钮
 /html/body/div[2]/div[2]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div[4]/div[2]/table/tbody/tr[1]/td[4]/div/button[2]
