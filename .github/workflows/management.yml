@@ -12,7 +12,7 @@ jobs:
         run: env
 
       - name: docker build management
-        run: docker build -f management/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:latest management/web
+        run: docker build -f management/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:ci management/web
 
       - name: docker images 
         run: docker images
@@ -21,7 +21,7 @@ jobs:
         run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push management tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push management tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:latest
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:ci

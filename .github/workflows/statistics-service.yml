@@ -12,10 +12,10 @@ jobs:
         run: env
 
       - name: docker build statistics-service/api
-        run: docker build -f statistics-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:latest statistics-service/api 
+        run: docker build -f statistics-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:ci statistics-service/api 
 
       - name: docker build statistics-service/worker
-        run: docker build -f statistics-service/worker/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:latest statistics-service/worker
+        run: docker build -f statistics-service/worker/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:ci statistics-service/worker
 
       - name: docker images 
         run: docker images
@@ -24,13 +24,13 @@ jobs:
         run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push statistics_service_api tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push statistics_service_api tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:latest
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:ci
 
       - name: docker push statistics_service_worker tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push statistics_service_worker tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:latest
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:ci
