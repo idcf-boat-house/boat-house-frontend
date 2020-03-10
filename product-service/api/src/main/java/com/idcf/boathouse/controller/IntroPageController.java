@@ -74,7 +74,7 @@ public class IntroPageController {
 	@RequestMapping(value = "IntroPage", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
-	public void DeleteFoodCategory(@RequestParam String page_id ){
+	public void DeleteIntroPage(@RequestParam String page_id ){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "update  intropage set deleted=1 where page_id = ?";
@@ -123,10 +123,10 @@ public class IntroPageController {
 	@RequestMapping(value = "IntroPage", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取介绍页")
-	public IntroPage GetFoodCategory(@RequestParam String page_id){
+	public IntroPage GetIntroPage(@RequestParam String page_id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
-		String sql = "select * from intropage where page_id = ?";
+		String sql = "select * from intropage where page_id = ? and deleted!=0";
 		List<Object> params = new ArrayList<Object>();
 		params.add(page_id);
 		IntroPage introPage=new IntroPage();
