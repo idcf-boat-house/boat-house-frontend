@@ -12,7 +12,7 @@ jobs:
         run: env
 
       - name: docker build client
-        run: docker build -f client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:latest client/web
+        run: docker build -f client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci client/web
 
       - name: docker images 
         run: docker images
@@ -21,7 +21,7 @@ jobs:
         run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push client tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push client tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:latest
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci

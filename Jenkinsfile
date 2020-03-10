@@ -104,6 +104,7 @@ pipeline {
             }
         }
 
+        
         stage('Jmeter') {
           steps {
             script{
@@ -118,6 +119,26 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
             }
           }
+        }
+
+        stage('build-uitest'){
+            steps {
+                sh "docker build -f selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest selenium/dotnet-uitest"
+            }
+        }
+
+        stage('run-uitest'){
+            steps {
+                script {
+                    // 本地执行测试
+                    sh "mkdir -p ./selenium/dotnet-uitest/uitest/report"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub down"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub pull"
+                    sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub up -d"
+                    sh "docker run -v \$(pwd)/selenium/dotnet-uitest/uitest/report:/app/TestResults ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
+                    mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
+                  }
+            }
         }
 
         stage('deploy-test') {  
@@ -151,7 +172,5 @@ pipeline {
         sh "sudo rm -rf product-service/api/target"
       }
     }
-    
-
-
   }
+

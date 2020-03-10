@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UITest": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

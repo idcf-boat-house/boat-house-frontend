@@ -1,5 +1,10 @@
 # Boat House（船屋餐饮系统）
 
+![Build client](https://github.com/idcf-boat-house/boat-house/workflows/Build%20client/badge.svg)
+![Build statistics-service](https://github.com/idcf-boat-house/boat-house/workflows/Build%20statistics-service/badge.svg)
+![Build product-service](https://github.com/idcf-boat-house/boat-house/workflows/Build%20product-service/badge.svg)
+![Build management](https://github.com/idcf-boat-house/boat-house/workflows/Build%20management/badge.svg)
+
 ## 功能服务
 
 船屋餐饮系统采用微服务架构设计，包含三条业务条线（统计服务、产品服务、账户服务），每一个业务条线可以独立的开发以及部署。
