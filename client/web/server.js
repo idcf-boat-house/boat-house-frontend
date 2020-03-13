@@ -27,12 +27,19 @@ app.post("/api/product/vote", function(req, res) {
 });
 
 app.post("/api/product/join", (req, res) => {
+<<<<<<< HEAD
   requestify
     .post("http://product-service-api:8080/api/v1.0/join/save", req.body)
     .then(response => {
       console.log(res.body);
       return res.send(response.body);
     });
+=======
+  requestify.post('http://13.76.97.141:7001/api/v1.0/join/save',req.body).then(response => {
+    console.log(res.body);
+    return res.send(response.body);
+  });
+>>>>>>> 561d942c93ebd424befe02d4f2b29836c4dbff31
 });
 
 app.get("/api/foodcategories", function(req, res) {
