@@ -102,10 +102,18 @@
               <!--main navigation-->
               <ul class="nav navbar-nav float-lg-left navbar-nav-flush dropdown-effect-fadeup ml-1">
                 <!-- Shop Homepage -->
-                <li class="nav-item"> <a href="#" class="nav-link">主页</a> </li>
-                <li class="nav-item"> <a href="#" class="nav-link">船屋菜单</a> </li>
-                <li class="nav-item"> <a href="#" class="nav-link">船屋故事</a> </li>
-                <li class="nav-item"> <router-link to="/franchisee" class="nav-link">品牌加盟</router-link> </li>
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link">主页</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/food" class="nav-link">船屋菜单</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/story" class="nav-link">船屋故事</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/franchisee" class="nav-link">品牌加盟</router-link>
+                </li>
 
               </ul>
               <!-- All Categories menu -->
@@ -123,53 +131,7 @@
       </div>
     </div>
 
-    <!-- ======== @Region: #highlighted ======== -->
-    <div id="highlighted">
-      <!-- Showshow - Slider Revolution see: plugins/slider-revolution/examples&sources for help invoke using data-toggle="slider-rev" options can be passed to the slider via HTML5 data- ie. data-startwidth="960" -->
-      <div class="slider-wrapper rev_slider_wrapper bg-black" data-page-class="slider-appstrap-theme">
-        <div class="rev_slider" data-toggle="slider-rev" data-settings='{"delay":10000}'>
-          <ul>
-            <!-- SLIDE 1 -->
-            <li class="slide" data-transition="fadethroughdark" data-slotamount="7" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="assets/img/shop/mens-1-thumb.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide" >
-              <img src="assets/img/slide-dummy.png" style='background-color:#151513' data-lazyload="assets/img/transparent.png" alt="Background image" data-bgposition="center top" data-bgfit="cover" data-bgparallax="10" class="rev-slidebg" data-no-retina />
-              <!-- SLIDE 1 Content-->
-              <div class="slide-content container pos-zindex-80">
-                <!--elements within .slide-content are pushed below navbar on "behind"-->
-                <!-- Layer 1 -->
-                <div class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['140','140','140','140']" data-fontsize="['52','52','52','52']" data-lineheight="['52','52','52','52']" data-width="420" data-height="none" data-whitespace="normal" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1200,"to":"o:1;","delay":1300,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"nothing"}]' data-textAlign="left"> <span class="font-weight-bold text-uppercase text-white">最新菜品</span>
-                </div>
-                <!-- Layer 3 -->
-                <div class="tp-caption text-grey" data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="['bottom','bottom','bottom','bottom']" data-voffset="['80','80','80','80']" data-fontsize="['20','20','20','30']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-basealign="slide" data-responsive_offset="on" data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","delay":1400},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' data-textAlign="['center','center','center','center']"> 限时8折优惠!
-                </div>
-                <!-- Layer 3 -->
-                <div class="tp-caption rs-parallaxlevel-8" data-frames='[{"from":"o:0;sX:3;sY:3;","speed":1500,"to":"o:0.20;sX:3;sY:3;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1200,"to":"x:[100%];","ease":"Power3.easeInOut"}]' data-x="left" data-y="bottom" data-hoffset="0" data-voffset="0" data-width="none" data-height="none" data-type="image" data-basealign="slide"> <i class="fa fa-bullseye icon-20x icon-bg op-1 text-white"></i>
-                </div>
-                <!-- Layer 4 -->
-                <div class="tp-caption tp-resizeme bg-primary-bright" data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]' data-x="['left','left','left','left']" data-hoffset="['0','0','0','40']" data-y="bottom" data-voffset="120" data-width="380" data-height="4" data-basealign="slide"></div>
-              </div>
-              <div class="tp-caption tp-resizeme" data-x="['right','right','right','right']" data-hoffset="['0','0','0','0']" data-y="['top','top','top','top']" data-voffset="['0','0','0','0']" data-width="full-proportional"
-                   data-height="full-proportional"
-                   data-whitespace="nowrap"
-                   data-type="image" data-responsive_offset="on" data-frames='[{"delay":500,"speed":3800,"frame":"0","from":"opacity:0;x:150%;","to":"o:1;x:0;","ease":"Circ.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                   data-textAlign="['inherit','inherit','inherit','inherit']"
-                   data-paddingtop="[0,0,0,0]"
-                   data-paddingright="[0,0,0,0]"
-                   data-paddingbottom="[0,0,0,0]"
-                   data-paddingleft="[0,0,0,0]"
-                   style="z-index: 5;">
-                <img src="assets/img/slide-dummy.png" alt="" data-lazyload="assets/img/product/slide01.png" data-no-retina />
-
-              </div>
-
-            </li>
-          </ul>
-          <div class="tp-bannertimer tp-bottom"></div>
-        </div>
-        <!--end of tp-banner-->
-      </div>
-    </div>
-
-    <router-view/>
+    <router-view />
 
     <!-- ======== @Region: #footer ======== -->
     <footer id="footer">
@@ -213,34 +175,18 @@
     </footer>
     <!-- Style switcher - demo only - @todo: remove in production -->
     <div class="colour-switcher">
-      <a href="#" class="colour-switcher-toggle" data-toggle="class" data-target=".colour-switcher"> <i
-        class="fa fa-paint-brush"></i> </a>
+      <a href="#" class="colour-switcher-toggle" data-toggle="class" data-target=".colour-switcher"> <i class="fa fa-paint-brush"></i> </a>
       <h5 class="text-uppercase my-0">
         Theme Colours
       </h5>
-      <hr/>
-      <div class="theme-colours"><a href="#green" class="green active" data-toggle="tooltip" data-placement="right"
-                                    data-original-title="Green (Default)">Green</a> <a href="#red" class="red"
-                                                                                       data-toggle="tooltip"
-                                                                                       data-placement="right"
-                                                                                       data-original-title="Red">Red</a> <a
-        href="#blue" class="blue" data-toggle="tooltip" data-placement="right" data-original-title="Blue">Blue</a> <a
-        href="#purple" class="purple" data-toggle="tooltip" data-placement="right" data-original-title="Purple">Purple</a>
-        <a href="#pink" class="pink" data-toggle="tooltip" data-placement="right" data-original-title="Pink">Pink</a> <a
-          href="#orange" class="orange" data-toggle="tooltip" data-placement="right" data-original-title="Orange">Orange</a>
-        <a href="#lime" class="lime" data-toggle="tooltip" data-placement="right" data-original-title="Lime">Lime</a> <a
-          href="#blue-dark" class="blue-dark" data-toggle="tooltip" data-placement="right" data-original-title="Blue-dark">Blue-dark</a>
+      <hr />
+      <div class="theme-colours"><a href="#green" class="green active" data-toggle="tooltip" data-placement="right" data-original-title="Green (Default)">Green</a> <a href="#red" class="red" data-toggle="tooltip" data-placement="right" data-original-title="Red">Red</a> <a href="#blue" class="blue" data-toggle="tooltip" data-placement="right" data-original-title="Blue">Blue</a> <a href="#purple" class="purple" data-toggle="tooltip" data-placement="right" data-original-title="Purple">Purple</a>
+        <a href="#pink" class="pink" data-toggle="tooltip" data-placement="right" data-original-title="Pink">Pink</a> <a href="#orange" class="orange" data-toggle="tooltip" data-placement="right" data-original-title="Orange">Orange</a>
+        <a href="#lime" class="lime" data-toggle="tooltip" data-placement="right" data-original-title="Lime">Lime</a> <a href="#blue-dark" class="blue-dark" data-toggle="tooltip" data-placement="right" data-original-title="Blue-dark">Blue-dark</a>
         <a href="#red-dark" class="red-dark" data-toggle="tooltip" data-placement="right" data-original-title="Red-dark">Red-dark</a>
-        <a href="#brown" class="brown" data-toggle="tooltip" data-placement="right" data-original-title="Brown">Brown</a> <a
-          href="#cyan-dark" class="cyan-dark" data-toggle="tooltip" data-placement="right" data-original-title="Cyan-dark">Cyan-dark</a>
-        <a href="#yellow" class="yellow" data-toggle="tooltip" data-placement="right"
-           data-original-title="Yellow">Yellow</a> <a href="#slate" class="slate" data-toggle="tooltip"
-                                                      data-placement="right" data-original-title="Slate">Slate</a> <a
-          href="#olive" class="olive" data-toggle="tooltip" data-placement="right" data-original-title="Olive">Olive</a> <a
-          href="#teal" class="teal" data-toggle="tooltip" data-placement="right" data-original-title="Teal">Teal</a> <a
-          href="#green-bright" class="green-bright" data-toggle="tooltip" data-placement="right"
-          data-original-title="Green-bright">Green-bright</a></div>
-      <hr/>
+        <a href="#brown" class="brown" data-toggle="tooltip" data-placement="right" data-original-title="Brown">Brown</a> <a href="#cyan-dark" class="cyan-dark" data-toggle="tooltip" data-placement="right" data-original-title="Cyan-dark">Cyan-dark</a>
+        <a href="#yellow" class="yellow" data-toggle="tooltip" data-placement="right" data-original-title="Yellow">Yellow</a> <a href="#slate" class="slate" data-toggle="tooltip" data-placement="right" data-original-title="Slate">Slate</a> <a href="#olive" class="olive" data-toggle="tooltip" data-placement="right" data-original-title="Olive">Olive</a> <a href="#teal" class="teal" data-toggle="tooltip" data-placement="right" data-original-title="Teal">Teal</a> <a href="#green-bright" class="green-bright" data-toggle="tooltip" data-placement="right" data-original-title="Green-bright">Green-bright</a></div>
+      <hr />
       <p class="text-xs text-muted">Cookies are NOT enabled so colour selection is not persistent.</p>
       <p class="text-xs my-0"><a href="index.html">Back to main homepage</a></p>
       <p class="text-xs my-0"><a href="intro.html">Back to intro page</a></p>
@@ -269,7 +215,7 @@
                     <option>Pro +</option>
                   </select>
                 </div>
-                <hr/>
+                <hr />
 
                 <h6 class="op-8">
                   Account Information
@@ -307,7 +253,7 @@
                   <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 </div>
                 <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">Already signed up? <a href="login.html">Login
-                  here</a></p>
+                    here</a></p>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -344,21 +290,19 @@
               </div>
               <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">
                 Not a member? <a href="#" class="signup">Sign up now!</a>
-                <br/>
+                <br />
                 <a href="#">Forgotten password?</a>
               </p>
             </div>
             <!-- Modal -->
-            <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
+            <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h4 class="modal-title">
                       最受欢迎菜品:
                     </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                      aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body"> 感谢支持!</div>
                   <div class="modal-footer">
@@ -381,73 +325,73 @@
 
 <script>
 
-  import Products from '@/components/Products'
-  import Franchisee from '@/components/Franchisee'
- 
+import Products from '@/components/Products'
+import Story from '@/components/Story'
+import Franchisee from '@/components/Franchisee'
 
 
-  export default {
-    name: 'App',
-    data () {
-      return {
-        isLoging: false,
-        username:''
-      }
-    },
-    components: {
-      'app-products': Products,
-    },
-    mounted(){
-      this.getUserInfo();
-    },
-    methods:{
-      getCookie: function (cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') c = c.substring(1);
-          if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
-        }
-        return "";
-      },
-      setCookie: function (cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        console.info(cname + "=" + cvalue + "; " + expires);
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-        console.info(document.cookie);
-      },
-      getUserInfo:function () {
-        var user=this.getCookie("session");
-        if(!!user)
-        {
-          this.isLoging=true;
-          this.username=user;
-        }
-        console.log(user);
-      },
-      logout:function () {
-        this.setCookie("session","",365);
-        this.isLoging=false;
-        this.username='';
-        this.$router.push('/login');
-
-      }
+export default {
+  name: 'App',
+  data () {
+    return {
+      isLoging: false,
+      username: ''
     }
+  },
+  components: {
+    'app-products': Products,
+    'app-Story': Story
+  },
+  mounted () {
+    this.getUserInfo();
+  },
+  methods: {
+    getCookie: function (cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+      }
+      return "";
+    },
+    setCookie: function (cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+      console.info(cname + "=" + cvalue + "; " + expires);
+      document.cookie = cname + "=" + cvalue + "; " + expires;
+      console.info(document.cookie);
+    },
+    getUserInfo: function () {
+      var user = this.getCookie("session");
+      if (!!user) {
+        this.isLoging = true;
+        this.username = user;
+      }
+      console.log(user);
+    },
+    logout: function () {
+      this.setCookie("session", "", 365);
+      this.isLoging = false;
+      this.username = '';
+      this.$router.push('/login');
 
+    }
   }
+
+}
 
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
