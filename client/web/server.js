@@ -30,18 +30,10 @@ app.post('/api/product/join', (req, res) => {
   requestify
     .post('http://product-service-api:8080/api/v1.0/join/save', req.body)
     .then(response => {
-      return res.send(response.body);
-
-    }
-  );
-});
-
-app.post("/api/product/join", (req, res) => {
-  requestify.post('http://13.76.97.141:7001/api/v1.0/join/save',req.body).then(response => {
-    console.log(res.body);
-    return res.send(response.body);
-  });
-});
+      console.log(res.body)
+      return res.send(response.body)
+    })
+})
 
 app.get('/api/foodcategories', function (req, res) {
   requestify
