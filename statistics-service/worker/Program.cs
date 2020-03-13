@@ -53,7 +53,11 @@ namespace Worker
                     else
                     {
                         keepAliveCommand.ExecuteNonQuery();
+                        Thread.Sleep(10000);
+
                     }
+
+
                 }
             }
             catch (Exception ex)
@@ -71,6 +75,7 @@ namespace Worker
             {
                 try
                 {
+                    Thread.Sleep(10000);
                     connection = new NpgsqlConnection(connectionString);
                     connection.Open();
                     break;
@@ -78,12 +83,12 @@ namespace Worker
                 catch (SocketException)
                 {
                     Console.Error.WriteLine("Waiting for db");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
                 catch (DbException)
                 {
                     Console.Error.WriteLine("Waiting for db");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
             }
 
@@ -109,13 +114,14 @@ namespace Worker
             {
                 try
                 {
+                    Thread.Sleep(10000);
                     Console.Error.WriteLine("Connecting to redis");
                     return ConnectionMultiplexer.Connect(ipAddress);
                 }
                 catch (RedisConnectionException)
                 {
                     Console.Error.WriteLine("Waiting for redis");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10000);
                 }
             }
         }
