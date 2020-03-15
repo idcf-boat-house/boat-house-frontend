@@ -22,4 +22,9 @@ public class ResponseData {
         this.message = message;
         this.data = data;
     }
+
+    public static ResponseData success(Object data) {
+        return new ResponseData(true, DEFAULT_SUCCESS_CODE, DEFAULT_SUCCESS_MESSAGE, data);
+    }
+
 }
