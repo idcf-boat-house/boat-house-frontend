@@ -174,9 +174,5 @@ pipeline {
         sh "sudo rm -rf product-service/api/target"
       }
     }
-<<<<<<< HEAD
-}
-=======
   }
 
->>>>>>> 7f4e8bcaef06ea19dddb289cb41196ae7a5bc794
