@@ -82,12 +82,14 @@ pipeline {
 
         stage('deploy-dev') { 
             steps {
+              sh "sed -i 's/BOATHOUSE_ORG_NAME/${BOATHOUSE_ORG_NAME}/g' docker-compose-template.yaml"
               script {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
                 sshCommand remote: server, command: "mkdir -p product-service/api/scripts"
                 sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
+
 
 
                 echo "stopping previous docker containers...."       
@@ -104,23 +106,6 @@ pipeline {
             }
         }
 
-<<<<<<< HEAD
-        // stage('Jmeter') {
-        //   steps {
-        //     script{
-        //         echo "waitting for the sevice up...."
-        //         sleep 80
-        //         sh "ls -al ./jmeter"
-        //         sh "cd jmeter && find . -name '*.log' -delete"
-        //         sh "rm -R ./jmeter/output || exit 0"
-        //         sh "mkdir ./jmeter/output"
-        //         sh "docker run --interactive --rm --volume `pwd`/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -e -o ./output"
-        //         sh "ls -al ./jmeter"
-        //         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
-        //     }
-        //   }
-        // }
-=======
         
         stage('Jmeter') {
           steps {
@@ -137,7 +122,6 @@ pipeline {
             }
           }
         }
->>>>>>> 7f4e8bcaef06ea19dddb289cb41196ae7a5bc794
 
         stage('build-uitest'){
             steps {
