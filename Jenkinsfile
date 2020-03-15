@@ -104,6 +104,7 @@ pipeline {
             }
         }
 
+<<<<<<< HEAD
         // stage('Jmeter') {
         //   steps {
         //     script{
@@ -119,6 +120,24 @@ pipeline {
         //     }
         //   }
         // }
+=======
+        
+        stage('Jmeter') {
+          steps {
+            script{
+                echo "waitting for the sevice up...."
+                sleep 80
+                sh "ls -al ./jmeter"
+                sh "cd jmeter && find . -name '*.log' -delete"
+                sh "rm -R ./jmeter/output || exit 0"
+                sh "mkdir ./jmeter/output"
+                sh "docker run --interactive --rm --volume `pwd`/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -Jdomain=${BOATHOUSE_DEV_HOST} -e -o ./output"
+                sh "ls -al ./jmeter"
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
+            }
+          }
+        }
+>>>>>>> 7f4e8bcaef06ea19dddb289cb41196ae7a5bc794
 
         stage('build-uitest'){
             steps {
@@ -171,4 +190,9 @@ pipeline {
         sh "sudo rm -rf product-service/api/target"
       }
     }
+<<<<<<< HEAD
 }
+=======
+  }
+
+>>>>>>> 7f4e8bcaef06ea19dddb289cb41196ae7a5bc794

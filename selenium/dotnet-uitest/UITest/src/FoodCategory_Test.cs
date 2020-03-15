@@ -43,25 +43,25 @@ namespace UITest
             output.WriteLine($"listCatName={listCatName}");
             output.WriteLine($"listCatDesc={listCatDesc}");
 
-            Wait(3000);
+            Wait();
             Assert.Equal(catName, listCatName);
             Assert.Equal(catDesc, listCatDesc);
         }
 
         void Update()
         {
-            string catName = "测试分类2";
-            string catDesc = "测试分类描述2";
+            string catName = "测试分类---2";
+            string catDesc = "测试分类描述---2";
 
             Click(6);
             output.WriteLine($"点击编辑");
-            SendKey(1, catName);
+            SendKey(7, catName);
             output.WriteLine($"输入{catName}");
-            SendKey(2, catDesc);
+            SendKey(8, catDesc);
             output.WriteLine($"输入{catDesc}");
-            Click(3);
+            Click(9);
             output.WriteLine($"点击保存");
-            Wait(3000);
+            Wait();
             var listCatName = GetText(4);
             var listCatDesc = GetText(5);
 
@@ -82,26 +82,25 @@ namespace UITest
             //确保之前列中有一条数据
             if (ElementExist(4, out IWebElement element))
             {
-                Click(7);
-                Wait(2000);
+                Click(10);
                 //ElementExist(5, out IWebElement element2);
                 //Assert.NotEqual(element, element2);
             }
-            Wait(10000);
+            Wait();
         }
 
         [Fact]
         [TestPriority(1)]
         public void Backend_FoodCategory_Add_Test()
         {
-            GoToUrl(Backend_Food_Url, () =>
+            GoToUrl(Backend_Food_Category_Url, () =>
             {
                 Add();
-                Wait(5000);
-                //Update();
-                //Wait(5000);
-                //Delete();
-                //Wait(5000);
+                Wait(2000);
+                Update();
+                Wait(2000);
+                Delete();
+                Wait(2000);
             });
         }
 

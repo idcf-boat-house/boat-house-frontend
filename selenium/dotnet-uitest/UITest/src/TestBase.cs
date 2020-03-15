@@ -70,10 +70,17 @@ namespace UITest
             //InternetExplorerOptions Options = new InternetExplorerOptions();
             if (_driver == null)
             {
-                //var options = new ChromeOptions();
-                //_driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
-
-                _driver = new ChromeDriver();
+                if (env== TestEnv.Local)
+                {
+                    _driver = new ChromeDriver();
+                }
+                else
+                {
+                    var options = new ChromeOptions();
+                    //172.17.0.1 是docker宿主的ip，通过这个ip可以访问selenium hub
+                    _driver = new RemoteWebDriver(new Uri("http://172.17.0.1:4444/wd/hub/"), options.ToCapabilities(), TimeSpan.FromSeconds(60));
+                }
+               
             }
             return _driver;
         }
@@ -96,10 +103,10 @@ namespace UITest
         public void SendKey(int xpahtIndex, string content,bool clearFirst=true)
         {
             //Click(xpahtIndex);
-            //if (clearFirst)
-            //{
-            //    ClearText(xpahtIndex);
-            //}
+            if (clearFirst)
+            {
+                ClearText(xpahtIndex);
+            }
             GetDriver().FindElement(By.XPath(GetXPath(xpahtIndex))).SendKeys(content);
         }
         public void GoToUrl(string url, Action action)
