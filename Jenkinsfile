@@ -82,7 +82,7 @@ pipeline {
 
         stage('deploy-dev') { 
             steps {
-              sh "sed -i 's/BOATHOUSE_ORG_NAME/${BOATHOUSE_ORG_NAME}/g' docker-compose-template.yaml"
+              sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' docker-compose-template.yaml"
               script {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
