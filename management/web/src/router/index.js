@@ -4,6 +4,7 @@ import Dashboard from "@/components/Dashboard";
 import FoodCategory from "@/components/FoodCategory";
 import Food from "@/components/Food";
 import JoinUs from "@/components/JoinUs";
+import Orders from "@/components/Orders";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/JoinUs",
       name: "JoinUs",
       component: JoinUs
+    },
+    {
+      path: "/Orders",
+      name: "Orders",
+      component: Orders
     }
   ]
 });
