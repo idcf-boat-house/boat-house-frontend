@@ -238,3 +238,92 @@ app.get("/join/list", function(req, res) {
       return res.send(response.body);
     });
 });
+
+app.get("/api/users", function(req, res) {
+  requestify
+    .get("http://account-service-api:8080/api/v1.0/BoatHouse/Foods")
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.get("/api/users", function(req, res) {
+  requestify
+    .get(
+      "http://account-service-api:8080/api/v1.0/BoatHouse/Food?id=" +
+        req.query.id
+    )
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.post("/api/users", function(req, res) {
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    // var postForm = new FormData();
+    let url = `http://account-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    if (files["菜品图片"] !== undefined) {
+      var tempPath = files["菜品图片"][0].path;
+      var tempFileNameList = tempPath.split("/");
+      var tempFileName = tempFileNameList[tempFileNameList.length - 1];
+      let nodeFile = fs.createReadStream(tempPath);
+      let outFilePath = "./dist/foods/" + tempFileName;
+      let dbPath = "./foods/" + tempFileName;
+      let outFile = fs.createWriteStream(outFilePath);
+      nodeFile.pipe(outFile);
+      url = `http://account-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}&菜品图片=${dbPath}`;
+    }
+    axios
+      .post(encodeURI(url))
+      .then(function(response) {
+        console.log(response.body);
+        return res.send(response.body);
+      })
+      .catch(function(res) {
+        console.log(res);
+      });
+  });
+});
+
+app.put("/api/users", function(req, res) {
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    let url = `http://account-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields["菜品ID"][0]}&菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}`;
+    if (files["菜品图片"] !== undefined) {
+      var tempPath = files["菜品图片"][0].path;
+      var tempFileNameList = tempPath.split("/");
+      var tempFileName = tempFileNameList[tempFileNameList.length - 1];
+      let nodeFile = fs.createReadStream(tempPath);
+      let outFilePath = "./dist/foods/" + tempFileName;
+      let dbPath = "./foods/" + tempFileName;
+      let outFile = fs.createWriteStream(outFilePath);
+      nodeFile.pipe(outFile);
+      url = `http://account-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields["菜品ID"][0]}&菜品分类ID=${fields["菜品分类ID"][0]}&菜品名称=${fields["菜品名称"][0]}&菜品价格=${fields["菜品价格"][0]}&菜品描述=${fields["菜品描述"][0]}&&菜品图片=${dbPath}`;
+    }
+
+    axios
+      .put(encodeURI(url))
+      .then(function(response) {
+        console.log(response.body);
+        return res.send(response.body);
+      })
+      .catch(function(res) {
+        console.log(res);
+      });
+  });
+});
+
+app.delete("/api/users", function(req, res) {
+  requestify
+    .delete(
+      "http://account-service-api:8080/api/v1.0/BoatHouse/Food?id=" +
+        req.query.id
+    )
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
