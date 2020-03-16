@@ -27,13 +27,10 @@
 
 在每次提交的时候，github就会启动相应的yml对应的流程进行构建。可以点击项目的action进行过程查看。
 
-<<<<<<< HEAD
 ## TAG
 
 注意由于项目中使用了Jenkins做编译打包，为了避免Github Action与Jenkins有冲突，所以我们在Github Action流水线打标签时添加了CI关键词，Github Action仅仅用于编译、打包的验证，不用作实际部署。
 
-=======
->>>>>>> aa63ce19bfaec36fd3285fe8fe3c30b8d3b13a55
 ## 参考文档
 http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html
 https://help.github.com/cn/packages/publishing-and-managing-packages/about-github-packages#about-tokens
