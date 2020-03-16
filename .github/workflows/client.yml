@@ -25,3 +25,28 @@ jobs:
       
       - name: docker push client tag latest
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci
+
+name: Deploy-dev client
+on: push
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - uses: Azure/k8s-create-secret@v1
+        with:
+          container-registry-url: contoso.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          secret-name: demo-k8s-secret
+
+      - uses: Azure/k8s-deploy@v1
+        with:
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: |
+            demo.azurecr.io/k8sdemo:${{ github.sha }}
+          imagepullsecrets: |
+            demo-k8s-secret
