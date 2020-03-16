@@ -7,7 +7,7 @@
 
 ## 功能服务
 
-船屋餐饮系统采用微服务架构设计，包含三条业务条线（统计服务、产品服务、账户服务），每一个业务条线可以独立的开发以及部署。
+船屋餐饮系统采用微服务架构设计，包含五条业务条线（统计服务、商品服务、账户服务、订单服务、支付服务），每一个业务条线可以独立的开发以及部署。
 
 ![markdown](/images/boathouse-structure.png "markdown")
 
@@ -15,11 +15,13 @@
 
 | 文件夹  | 服务说明 | 技术架构 |
 | ------------ | ------------ |------------ |
-| client  | 客户端，船屋餐饮官方网站  | Boatstrap 4 + Vue + Nodejs|
-| management  | 船屋餐饮后台管理系统  | Boatstrap 4 + Vue + NodeJs |
+| client  | 客户端，船屋餐饮官方网站  | Boatstrap 4 (模版：AppStrap [参考链接](http://demos.themelize.me/appstrap3.3.3/theme/intro.html "参考链接"))  <br> Vue + Nodejs|
+| management  | 船屋餐饮后台管理系统  | Boatstrap 4 (模版：ModernAdmin [参考链接](https://preview.themeforest.net/item/modern-admin-clean-bootstrap-4-dashboard-html-template/full_screen_preview/21430660?_ga=2.66676205.272140448.1583930719-396544145.1583854564 "参考链接"))  <br> Vue + NodeJs |
 | statistics-service  | 业务条线 - 统计服务  | nodejs + dotnet + redis + postgres  |
 | product-service  | 业务条线 - 产品服务  |spring boot + mysql |
 | account-service  | 业务条线 - 账户服务  |spring boot + mysql |
+| order-service  | 业务条线 - 订单服务  |spring boot + mysql |
+| payment-service  | 业务条线 - 支付服务  |spring boot + mysql |
 | pipelines  | 流水线脚本 | groovy |
 
 #### Statistics service(统计服务)
