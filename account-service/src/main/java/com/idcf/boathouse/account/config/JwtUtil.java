@@ -28,7 +28,7 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-        return TOKEN_PREFIX + " " + jwt;
+        return jwt;
     }
 
     public static Map<String, Object> validateTokenAndGetClaims(HttpServletRequest request) {
