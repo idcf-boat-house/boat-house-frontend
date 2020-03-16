@@ -1,4 +1,4 @@
-name: Deploy-dev client
+name: Deploy client on dev
 on: push
 env:
   SERVER: dev
