@@ -12,7 +12,7 @@ jobs:
 
       - uses: Azure/k8s-create-secret@v1
         with:
-          container-registry-url: contoso.azurecr.io
+          container-registry-url: docker.pkg.github.com
           container-registry-username: ${GITHUB_REPOSITORY%/*}
           container-registry-password: ${{ secrets.packages_token }}
           secret-name: demo-k8s-secret
