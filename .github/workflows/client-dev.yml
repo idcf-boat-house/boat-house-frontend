@@ -1,5 +1,5 @@
 name: Deploy client on dev
-on: push
+on: pull_request
 env:
   SERVER: dev
 jobs:
