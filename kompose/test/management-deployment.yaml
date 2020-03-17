@@ -4,7 +4,7 @@ metadata:
   name: management
   namespace: boathouse-test
 spec:
-  replicas: 1
+  replicas: 3
   selector: 
     matchLabels:
       app: management
