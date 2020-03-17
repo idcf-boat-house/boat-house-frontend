@@ -1,5 +1,5 @@
-name: Build statistics-service
-on: pull_request
+name: Build and Deploy dev statistics-service
+on: push
 
 jobs:
   build:

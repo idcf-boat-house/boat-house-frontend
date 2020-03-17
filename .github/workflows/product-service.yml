@@ -1,5 +1,5 @@
-name: Build product-service
-on: pull_request
+name: Build and Deploy dev product-service
+on: push
 
 jobs:
   build:
