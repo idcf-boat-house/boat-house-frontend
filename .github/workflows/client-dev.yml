@@ -12,10 +12,10 @@ jobs:
         run: env && ls 
 
       - name: replace project name
-        run: sed -i "s/docker.pkg.github.com\/idcf-boat-house\/boat-house/docker.pkg.github.com\/${GITHUB_REPOSITORY}\/boat-house/g" kompose/test/client-*.yaml
+        run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house|docker.pkg.github.com\/${GITHUB_REPOSITORY}\/boat-house|g" kompose/test/client-*.yaml
 
       - name: replace docker images tags
-        run: sed "s/:latest$/:ci/" kompose/test/client-*.yaml
+        run: sed -i "s|:latest$|:ci|g" kompose/test/client-*.yaml
 
 
       - uses: Azure/k8s-set-context@v1
