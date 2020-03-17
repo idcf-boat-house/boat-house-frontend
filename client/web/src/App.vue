@@ -9,9 +9,12 @@
         <!--Header search region - hidden by default -->
         <div class="header-search collapse" id="search">
           <form class="search-form container">
-            <input type="text" name="search" class="form-control search" value="" placeholder="Search">
-            <button type="button" class="btn btn-link"><span class="sr-only">Search </span><i class="fa fa-search fa-flip-horizontal search-icon"></i></button>
-            <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close"><span class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
+            <input type="text" name="search" class="form-control search" v-model="searchText" placeholder="Search">
+            <button type="button" class="btn btn-link" @click="searchFood"><span class="sr-only">Search </span><i
+              class="fa fa-search fa-flip-horizontal search-icon"></i></button>
+            <button type="button" @click="clearSearchTest()" class="btn btn-link close-btn"
+                    data-toggle="search-form-close"><span class="sr-only">Close </span><i
+              class="fa fa-times search-icon"></i></button>
           </form>
         </div>
 
@@ -38,16 +41,22 @@
               </div>
 
               <!--Search trigger -->
-              <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form" data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
+              <a href="#search" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="search-form"
+                 data-target=".header-search"><i class="fa fa-search fa-flip-horizontal search-icon"></i></a>
 
               <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
-              <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
+              <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas"
+                 data-target=".navbar-main"
+                 data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i
+                class="fa fa-bars"></i> </a>
               <div class="header-divider d-none d-lg-block"></div>
 
               <!--Shopping cart-->
               <div class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
-                <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
-                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">2</span> </span>
+                <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link"
+                   data-toggle="dropdown">
+                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span
+                    class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">2</span> </span>
                 </a>
 
                 <!--Shopping cart dropdown -->
@@ -55,7 +64,7 @@
                   <h5 class="dropdown-header mb-0">
                     购物车列表
                   </h5>
-                  <hr class="mt-0 mb-3" />
+                  <hr class="mt-0 mb-3"/>
                   <!--Shopping cart items-->
                   <div class="cart-items">
                     <!--Shopping cart item 1 -->
@@ -81,12 +90,13 @@
 
                   </div>
                   <!--End of Shopping cart items-->
-                  <hr class="mt-3 mb-0" />
+                  <hr class="mt-3 mb-0"/>
                   <div class="dropdown-footer text-center">
                     <h5 class="font-weight-bold">
                       合计: <span class="text-primary">¥249</span>
                     </h5>
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">清理购物车</a> <a
+                    href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
                   </div>
                 </div>
               </div>
@@ -120,7 +130,8 @@
               <ul class="nav navbar-nav float-lg-right navbar-nav-flush-right dropdown-effect-fadeup">
                 <li class="nav-item dropdown dropdowns-no-carets dropdown-persist">
                   <!-- Dropdown Menu -->
-                  <div class="dropdown-menu dropdown-menu-right"> <a href="#" class="dropdown-item">我的收藏</a> <a href="#" class="dropdown-item">订单记录</a>
+                  <div class="dropdown-menu dropdown-menu-right"><a href="#" class="dropdown-item">我的收藏</a> <a href="#"
+                                                                                                               class="dropdown-item">订单记录</a>
                   </div>
                 </li>
               </ul>
@@ -131,7 +142,7 @@
       </div>
     </div>
 
-    <router-view />
+    <router-view/>
 
     <!-- ======== @Region: #footer ======== -->
     <footer id="footer">
@@ -147,10 +158,14 @@
             <!--social media icons-->
             <div class="mt-3 mb-4 mb-lg-0">
               <!--@todo: replace with company social media details-->
-              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-twitter"></i> <span class="sr-only">Fa twitter</span> </a>
-              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-facebook-f"></i> <span class="sr-only">Fa facebook f</span> </a>
-              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-linkedin-in"></i> <span class="sr-only">Fa linkedin in</span> </a>
-              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-google-plus-g"></i> <span class="sr-only">Fa google plus g</span> </a>
+              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-twitter"></i> <span
+                class="sr-only">Fa twitter</span> </a>
+              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-facebook-f"></i> <span
+                class="sr-only">Fa facebook f</span> </a>
+              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-linkedin-in"></i> <span
+                class="sr-only">Fa linkedin in</span> </a>
+              <a href="#" class="btn btn-icon btn-dark btn-rounded btn-flat"> <i class="fab fa-google-plus-g"></i> <span
+                class="sr-only">Fa google plus g</span> </a>
             </div>
           </div>
 
@@ -160,7 +175,7 @@
           </div>
         </div>
 
-        <hr class="my-4 hr-white op-1" />
+        <hr class="my-4 hr-white op-1"/>
         <!--@todo: replace with company copyright details-->
         <div class="subfooter text-sm text-center">
           <p>Copyright 2018 &copy; 欢乐美食 尽在船屋</p>
@@ -171,22 +186,44 @@
           </ul>
         </div>
       </div>
-      <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden" title="Back to top" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
+      <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden"
+         title="Back to top" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
     </footer>
     <!-- Style switcher - demo only - @todo: remove in production -->
     <div class="colour-switcher">
-      <a href="#" class="colour-switcher-toggle" data-toggle="class" data-target=".colour-switcher"> <i class="fa fa-paint-brush"></i> </a>
+      <a href="#" class="colour-switcher-toggle" data-toggle="class" data-target=".colour-switcher"> <i
+        class="fa fa-paint-brush"></i> </a>
       <h5 class="text-uppercase my-0">
         Theme Colours
       </h5>
-      <hr />
-      <div class="theme-colours"><a href="#green" class="green active" data-toggle="tooltip" data-placement="right" data-original-title="Green (Default)">Green</a> <a href="#red" class="red" data-toggle="tooltip" data-placement="right" data-original-title="Red">Red</a> <a href="#blue" class="blue" data-toggle="tooltip" data-placement="right" data-original-title="Blue">Blue</a> <a href="#purple" class="purple" data-toggle="tooltip" data-placement="right" data-original-title="Purple">Purple</a>
-        <a href="#pink" class="pink" data-toggle="tooltip" data-placement="right" data-original-title="Pink">Pink</a> <a href="#orange" class="orange" data-toggle="tooltip" data-placement="right" data-original-title="Orange">Orange</a>
-        <a href="#lime" class="lime" data-toggle="tooltip" data-placement="right" data-original-title="Lime">Lime</a> <a href="#blue-dark" class="blue-dark" data-toggle="tooltip" data-placement="right" data-original-title="Blue-dark">Blue-dark</a>
-        <a href="#red-dark" class="red-dark" data-toggle="tooltip" data-placement="right" data-original-title="Red-dark">Red-dark</a>
-        <a href="#brown" class="brown" data-toggle="tooltip" data-placement="right" data-original-title="Brown">Brown</a> <a href="#cyan-dark" class="cyan-dark" data-toggle="tooltip" data-placement="right" data-original-title="Cyan-dark">Cyan-dark</a>
-        <a href="#yellow" class="yellow" data-toggle="tooltip" data-placement="right" data-original-title="Yellow">Yellow</a> <a href="#slate" class="slate" data-toggle="tooltip" data-placement="right" data-original-title="Slate">Slate</a> <a href="#olive" class="olive" data-toggle="tooltip" data-placement="right" data-original-title="Olive">Olive</a> <a href="#teal" class="teal" data-toggle="tooltip" data-placement="right" data-original-title="Teal">Teal</a> <a href="#green-bright" class="green-bright" data-toggle="tooltip" data-placement="right" data-original-title="Green-bright">Green-bright</a></div>
-      <hr />
+      <hr/>
+      <div class="theme-colours"><a href="#green" class="green active" data-toggle="tooltip" data-placement="right"
+                                    data-original-title="Green (Default)">Green</a> <a href="#red" class="red"
+                                                                                       data-toggle="tooltip"
+                                                                                       data-placement="right"
+                                                                                       data-original-title="Red">Red</a>
+        <a href="#blue" class="blue" data-toggle="tooltip" data-placement="right" data-original-title="Blue">Blue</a> <a
+          href="#purple" class="purple" data-toggle="tooltip" data-placement="right"
+          data-original-title="Purple">Purple</a>
+        <a href="#pink" class="pink" data-toggle="tooltip" data-placement="right" data-original-title="Pink">Pink</a> <a
+          href="#orange" class="orange" data-toggle="tooltip" data-placement="right"
+          data-original-title="Orange">Orange</a>
+        <a href="#lime" class="lime" data-toggle="tooltip" data-placement="right" data-original-title="Lime">Lime</a> <a
+          href="#blue-dark" class="blue-dark" data-toggle="tooltip" data-placement="right"
+          data-original-title="Blue-dark">Blue-dark</a>
+        <a href="#red-dark" class="red-dark" data-toggle="tooltip" data-placement="right"
+           data-original-title="Red-dark">Red-dark</a>
+        <a href="#brown" class="brown" data-toggle="tooltip" data-placement="right"
+           data-original-title="Brown">Brown</a> <a href="#cyan-dark" class="cyan-dark" data-toggle="tooltip"
+                                                    data-placement="right" data-original-title="Cyan-dark">Cyan-dark</a>
+        <a href="#yellow" class="yellow" data-toggle="tooltip" data-placement="right" data-original-title="Yellow">Yellow</a>
+        <a href="#slate" class="slate" data-toggle="tooltip" data-placement="right"
+           data-original-title="Slate">Slate</a> <a href="#olive" class="olive" data-toggle="tooltip"
+                                                    data-placement="right" data-original-title="Olive">Olive</a> <a
+          href="#teal" class="teal" data-toggle="tooltip" data-placement="right" data-original-title="Teal">Teal</a> <a
+          href="#green-bright" class="green-bright" data-toggle="tooltip" data-placement="right"
+          data-original-title="Green-bright">Green-bright</a></div>
+      <hr/>
       <p class="text-xs text-muted">Cookies are NOT enabled so colour selection is not persistent.</p>
       <p class="text-xs my-0"><a href="index.html">Back to main homepage</a></p>
       <p class="text-xs my-0"><a href="intro.html">Back to intro page</a></p>
@@ -215,7 +252,7 @@
                     <option>Pro +</option>
                   </select>
                 </div>
-                <hr />
+                <hr/>
 
                 <h6 class="op-8">
                   Account Information
@@ -250,10 +287,11 @@
               <div class="modal-footer bg-light py-3">
                 <div class="d-flex align-items-center">
                   <button type="button" class="btn btn-primary">Sign Up</button>
-                  <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                  <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">Cancel
+                  </button>
                 </div>
                 <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">Already signed up? <a href="login.html">Login
-                    here</a></p>
+                  here</a></p>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -290,19 +328,21 @@
               </div>
               <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">
                 Not a member? <a href="#" class="signup">Sign up now!</a>
-                <br />
+                <br/>
                 <a href="#">Forgotten password?</a>
               </p>
             </div>
             <!-- Modal -->
-            <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
+            <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h4 class="modal-title">
                       最受欢迎菜品:
                     </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body"> 感谢支持!</div>
                   <div class="modal-footer">
@@ -325,73 +365,82 @@
 
 <script>
 
-import Products from '@/components/Products'
-import Story from '@/components/Story'
-import Franchisee from '@/components/Franchisee'
+  import Products from '@/components/Products'
+  import Story from '@/components/Story'
+  import Franchisee from '@/components/Franchisee'
 
 
-export default {
-  name: 'App',
-  data () {
-    return {
-      isLoging: false,
-      username: ''
-    }
-  },
-  components: {
-    'app-products': Products,
-    'app-Story': Story
-  },
-  mounted () {
-    this.getUserInfo();
-  },
-  methods: {
-    getCookie: function (cname) {
-      var name = cname + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+  export default {
+    name: 'App',
+    data() {
+      return {
+        isLoging: false,
+        username: '',
+        searchText: ''
       }
-      return "";
     },
-    setCookie: function (cname, cvalue, exdays) {
-      var d = new Date();
-      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires=" + d.toUTCString();
-      console.info(cname + "=" + cvalue + "; " + expires);
-      document.cookie = cname + "=" + cvalue + "; " + expires;
-      console.info(document.cookie);
+    components: {
+      'app-products': Products,
+      'app-Story': Story
     },
-    getUserInfo: function () {
-      var user = this.getCookie("session");
-      if (!!user) {
-        this.isLoging = true;
-        this.username = user;
-      }
-      console.log(user);
+    mounted() {
+      this.getUserInfo();
     },
-    logout: function () {
-      this.setCookie("session", "", 365);
-      this.isLoging = false;
-      this.username = '';
-      this.$router.push('/login');
+    methods: {
+      getCookie: function (cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') c = c.substring(1);
+          if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+      },
+      setCookie: function (cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        console.info(cname + "=" + cvalue + "; " + expires);
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+        console.info(document.cookie);
+      },
+      getUserInfo: function () {
+        var user = this.getCookie("session");
+        if (!!user) {
+          this.isLoging = true;
+          this.username = user;
+        }
+        console.log(user);
+      },
+      logout: function () {
+        this.setCookie("session", "", 365);
+        this.isLoging = false;
+        this.username = '';
+        this.$router.push('/login');
 
+      },
+      searchFood: function () {
+        this.$router.push({ name: 'SearchFood', params: { foodName: this.searchText }})
+
+
+      },
+      clearSearchTest: function () {
+        this.searchText = "";
+      },
     }
+
   }
-
-}
 
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>

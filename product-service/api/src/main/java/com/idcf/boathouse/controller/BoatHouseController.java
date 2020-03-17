@@ -98,27 +98,7 @@ public class BoatHouseController {
 		}
 	}
 
-	@RequestMapping(value = "GetLikeFoodCategories", method = RequestMethod.GET, produces = {
-			"application/json;charset=UTF-8" })
-	@ResponseBody
-	@ApiOperation("菜品模糊查询")
-	public List<Map<String, Object>> GetLikeFoodCategorie(@RequestParam String name) {
 
-		JdbcUtils jdbcUtils = new JdbcUtils();
-		jdbcUtils.getConnection();
-		String sql = "select * from FoodCategory where Name like ?";
-		List<Object> params = new ArrayList<Object>();
-		params.add("%"+name+"%");
-		try {
-			List<Map<String, Object>> list = jdbcUtils.findModeResult(sql, params);
-			System.out.print(list);
-			jdbcUtils.releaseConn();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody

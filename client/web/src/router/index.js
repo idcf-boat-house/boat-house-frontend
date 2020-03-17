@@ -5,6 +5,7 @@ import Story from "@/components/Story";
 import Login from "@/components/Login";
 import Franchisee from "@/components/Franchisee";
 import Food from "@/components/Food";
+import SearchFood from "@/components/SearchFood";
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       path: "/food",
       name: "Food",
       component: Food
+    },
+    {
+      path: "/searchfood",
+      name: "SearchFood",
+      component: SearchFood
     }
   ]
 });

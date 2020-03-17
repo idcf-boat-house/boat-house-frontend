@@ -52,3 +52,12 @@ app.get("/api/foods", function(req, res) {
       return res.send(response.body);
     });
 });
+
+app.get("/api/searchfood", function(req, res) {
+  requestify
+    .get("http://product-service-api:8080/api/v1.0/BoatHouse/GetFoodLike")
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
