@@ -18,7 +18,6 @@ spec:
       containers:
       - image: docker.pkg.github.com/idcf-boat-house/boat-house/postgres:9.4
         name: statistics-service-db
-      restartPolicy: Always
       imagePullSecrets:
       - name: regcred
       restartPolicy: Always
