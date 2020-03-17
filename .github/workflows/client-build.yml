@@ -1,5 +1,5 @@
 name: Build client 
-on: pull_request
+on: push
 
 jobs:
   build:
