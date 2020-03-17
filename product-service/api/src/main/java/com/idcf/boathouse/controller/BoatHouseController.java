@@ -17,12 +17,13 @@ import java.util.Map;
 @RequestMapping("/BoatHouse/*")
 public class BoatHouseController {
 
-	@RequestMapping(value = "FoodCategory", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.POST, produces = {
+			"application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("添加菜品分类")
-	public void AddFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
-        JdbcUtils jdbcUtils = new JdbcUtils();
-        jdbcUtils.getConnection();
+	public void AddFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost) {
+		JdbcUtils jdbcUtils = new JdbcUtils();
+		jdbcUtils.getConnection();
 		String sql = "insert into FoodCategory (name,description) values (?,?)";
 		List<Object> params = new ArrayList<Object>();
 		params.add(foodCategoryPost.name);
@@ -34,13 +35,14 @@ public class BoatHouseController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        return;
-    }
+		return;
+	}
 
-	@RequestMapping(value = "FoodCategory", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("删除菜品分类")
-	public void DeleteFoodCategory(@RequestParam String id){
+	public void DeleteFoodCategory(@RequestParam String id) {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "delete from FoodCategory where Id = ?";
@@ -56,10 +58,10 @@ public class BoatHouseController {
 		return;
 	}
 
-	@RequestMapping(value = "FoodCategory", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("更新菜品分类")
-	public void UpdateFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost){
+	public void UpdateFoodCategory(@RequestBody FoodCategoryPost foodCategoryPost) {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "update FoodCategory set name = ?, description = ? where id = ?";
@@ -77,10 +79,11 @@ public class BoatHouseController {
 		return;
 	}
 
-	@RequestMapping(value = "FoodCategories", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "FoodCategories", method = RequestMethod.GET, produces = {
+			"application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("获取所有菜品分类")
-	public List<Map<String, Object>> GetFoodCategories(){
+	public List<Map<String, Object>> GetFoodCategories() {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from FoodCategory";
@@ -95,10 +98,32 @@ public class BoatHouseController {
 		}
 	}
 
-	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "GetLikeFoodCategories", method = RequestMethod.GET, produces = {
+			"application/json;charset=UTF-8" })
+	@ResponseBody
+	@ApiOperation("菜品模糊查询")
+	public List<Map<String, Object>> GetLikeFoodCategorie(@RequestParam String name) {
+
+		JdbcUtils jdbcUtils = new JdbcUtils();
+		jdbcUtils.getConnection();
+		String sql = "select * from FoodCategory where Name like ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add("%"+name+"%");
+		try {
+			List<Map<String, Object>> list = jdbcUtils.findModeResult(sql, params);
+			System.out.print(list);
+			jdbcUtils.releaseConn();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@RequestMapping(value = "FoodCategory", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("根据Id获取菜品分类")
-	public FoodCategory GetFoodCategory(@RequestParam String id){
+	public FoodCategory GetFoodCategory(@RequestParam String id) {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from FoodCategory where Id = ?";
@@ -107,11 +132,11 @@ public class BoatHouseController {
 		FoodCategory foodCategory;
 		try {
 			foodCategory = jdbcUtils.findSimpleRefResult(sql, params, FoodCategory.class);
-		    System.out.print(foodCategory);
+			System.out.print(foodCategory);
 			jdbcUtils.releaseConn();
 			return foodCategory;
 		} catch (Exception e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
 	}

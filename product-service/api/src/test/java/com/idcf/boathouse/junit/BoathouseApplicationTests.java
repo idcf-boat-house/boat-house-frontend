@@ -68,6 +68,11 @@ public class BoathouseApplicationTests {
     }
 
     @Test
+    public void GetLikeFoodCategorie() {
+        boatHouseController.GetLikeFoodCategorie("明");
+    }
+
+    @Test
     public void VerifyName() {
         assertEquals(true,foodCategoryService.VerifyName(("三明治")));
     }
