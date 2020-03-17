@@ -56,27 +56,17 @@
               <div class="card-content collapse show">
                 <div class="card-body">
                   <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-primary" style="margin-bottom:20px" data-toggle="modal" data-target="#add-food-modal">添加用户</button>
+                    <button type="button" class="btn btn-primary" style="margin-bottom:20px" data-toggle="modal" data-target="#add-user-modal">添加用户</button>
                   </div>
                   <div class="table-responsive">
                     <el-table :data="foodTableData" style="width: 100%" class="table-striped">
                       <el-table-column v-for="items in tableDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
-                      <el-table-column label="用户图片">
-                        <template slot-scope="scope">
-                          <!-- <image :src="scope.row.Picture"></image> -->
-                          <el-image :src="scope.row.Picture" :fit="fit" style="width: 50px; height: 50px">
-                            <div slot="error" class="image-slot">
-                              <span>无图</span>
-                            </div>
-                          </el-image>
-                        </template>
-                      </el-table-column>
                       <el-table-column fixed="right" align="center" label="操作" show-overflow-tooltip min-width="140">
                         <template slot-scope="scope">
                           <button type="button" class="btn btn-icon btn-pure" v-on:click="EditRow(scope.row,scope.$index);">
                             <i class="ft-edit"></i>
                           </button>
-                          <button type="button" class="btn btn-icon btn-pure" v-on:click="DeleteFood(scope.row,scope.$index);">
+                          <button type="button" class="btn btn-icon btn-pure" v-on:click="DeleteRow(scope.row,scope.$index);">
                             <i class="ft-trash-2"></i>
                           </button>
                         </template>
@@ -90,7 +80,7 @@
         </div>
       </div>
 
-      <div class="modal fade text-left" id="add-food-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+      <div class="modal fade text-left" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -100,13 +90,9 @@
               </button>
             </div>
             <div class="modal-body">
-              <select id="food-category" class="form-control" style="margin-top:20px;" placeholder="用户分类">
-                <option v-for="item in foodCategory" :key="item.Id" :value="item.Id">{{item.Name}}</option>
-              </select>
-              <input id="food-name" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户名称" />
-              <input id="food-price" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户价格" />
-              <input id="food-description" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户描述" />
-              <input id="food-image" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" @change="Change($event)" placeholder="用户图片" />
+              <input id="account" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户账号" />
+              <input id="age" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户年龄" />
+              <input id="email" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户邮箱" />
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" @click="AddFood">确定</button>
@@ -116,7 +102,7 @@
         </div>
       </div>
 
-      <div class="modal fade text-left" id="edit-food-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="display: none;" aria-hidden="true">
+      <div class="modal fade text-left" id="edit-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -126,17 +112,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <input id="food-id" type="hidden" />
-              <select id="food-category-edit" class="form-control" style="margin-top:20px;" placeholder="用户分类">
-                <option v-for="item in foodCategory" :key="item.Id" :value="item.Id">{{item.Name}}</option>
-              </select>
-              <input id="food-name-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户名称" />
-              <input id="food-price-edit" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户价格" />
-              <input id="food-description-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户描述" />
-              <input id="food-image-edit" type="file" class="form-control" style="margin-top:20px;margin-bottom:20px;" @change="Change($event)" placeholder="用户图片" />
+              <input id="id-edit" type="hidden" />
+              <input id="account-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="用户名称" />
+              <input id="age-edit" type="number" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="年龄" />
+              <input id="email-edit" type="text" class="form-control" style="margin-top:20px;margin-bottom:20px;" placeholder="邮箱" />
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-primary" @click="EditFood">确定</button>
+              <button type="button" class="btn btn-outline-primary" @click="EditUser">确定</button>
               <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">关闭</button>
             </div>
           </div>
@@ -163,96 +145,79 @@ export default {
     _this.tableDataType = [
       {
         nameLable: 'ID',
-        nameProp: 'Id'
-      },
-      {
-        nameLable: '用户分类',
-        nameProp: 'Category'
+        nameProp: 'id'
       },
       {
         nameLable: '用户名称',
-        nameProp: 'Name'
+        nameProp: 'account'
       },
       {
-        nameLable: '用户价格',
-        nameProp: 'Price'
+        nameLable: '年龄',
+        nameProp: 'age'
       },
       {
-        nameLable: '用户描述',
-        nameProp: 'Description'
+        nameLable: '邮箱',
+        nameProp: 'email'
       }
     ]
-    this.axios.get('api/foodcategories').then(function (result) {
-      if (result.status === 200) {
-        _this.foodCategory = result.data
-        console.log(_this.foodCategory)
-      }
-    })
-    this.GetFoodList()
+
+    this.GetUserList()
   },
   methods: {
     AddFood: function () {
       let _this = this
-      var postData = new FormData()
-      postData.append('用户图片', this.file)
-      postData.append('用户分类ID', $('#food-category').val())
-      postData.append('用户名称', $('#food-name').val())
-      postData.append('用户价格', $('#food-price').val())
-      postData.append('用户描述', $('#food-description').val())
-      // let url = `api/food?用户分类ID=${$('#food-category').val()}&用户名称=${$('#food-name').val()}&用户价格=${$('#food-price').val()}&用户描述=${$('#food-description').val()}`
-      let url = 'api/food'
+      var postData = {
+        account: $('#account').val(),
+        age: $('#age').val(),
+        email: $('#email').val()
+      }
+      let url = 'api/user'
       this.axios.post(url, postData).then(function (result) {
         console.log(result)
         if (result.status === 200) {
-          _this.GetFoodList()
-          $('#add-food-modal').modal('toggle')
+          _this.GetUserList()
+          $('#add-user-modal').modal('toggle')
         }
       })
     },
-    EditFood: function () {
+    EditUser: function () {
       let _this = this
-      var postData = new FormData()
-      postData.append('用户图片', this.file)
-      postData.append('用户ID', $('#food-id').val())
-      postData.append('用户分类ID', $('#food-category-edit').val())
-      postData.append('用户名称', $('#food-name-edit').val())
-      postData.append('用户价格', $('#food-price-edit').val())
-      postData.append('用户描述', $('#food-description-edit').val())
-      this.axios.put('api/food', postData).then(function (result) {
+      var postData = {
+        id: $('#id-edit').val(),
+        account: $('#account-edit').val(),
+        age: $('#age-edit').val(),
+        email: $('#email-edit').val()
+      }
+      this.axios.put('api/user', postData).then(function (result) {
         if (result.status === 200) {
-          _this.GetFoodList()
-          $('#edit-food-modal').modal('toggle')
+          _this.GetUserList()
+          $('#edit-user-modal').modal('toggle')
         }
       })
     },
-    DeleteFood: function (row, index) {
+    DeleteRow: function (row, index) {
       let _this = this
       this.axios
-        .delete('api/food?id=' + row.Id)
+        .delete('api/user?id=' + row.id)
         .then(function (result) {
           if (result.status === 200) {
-            _this.GetFoodList()
+            _this.GetUserList()
           }
         })
     },
     EditRow: function (row, index) {
       console.log(row)
-      $('#food-id').val(row.Id)
-      $('#food-category-edit').val(row.CategoryId)
-      $('#food-name-edit').val(row.Name)
-      $('#food-price-edit').val(row.Price)
-      $('#food-description-edit').val(row.Description)
-      $('#edit-food-modal').modal('toggle')
+      $('#id-edit').val(row.id)
+      $('#account-edit').val(row.account)
+      $('#age-edit').val(row.age)
+      $('#email-edit').val(row.email)
+      $('#edit-user-modal').modal('toggle')
     },
-    GetFoodList: function () {
+    GetUserList: function () {
       let _this = this
-      this.axios.get('api/foods').then(function (result) {
+      this.axios.get('api/users').then(function (result) {
         if (result.status === 200) {
           _this.foodTableData = result.data.data
-          _this.foodTableData.map(item => {
-            let categoryItem = _this.foodCategory.find(i => i.Id === item.CategoryId)
-            item.Category = categoryItem.Name
-          })
         }
       })
     },
