@@ -1,5 +1,5 @@
 name: Build management
-on: pull_request
+on: push
 
 jobs:
   build:
