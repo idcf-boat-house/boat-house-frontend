@@ -34,10 +34,8 @@ jobs:
 
       - uses: Azure/k8s-deploy@v1
         with:
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: |
-            demo.azurecr.io/k8sdemo:${{ github.sha }}
-          imagepullsecrets: |
-            demo-k8s-secret
-
-
+          namespace: 'boathouse-test'
+          manifests: |
+             kompose/test/client-deployment.yaml
+             kompose/test/client-svc.yaml
+          kubectl-version: 'latest'
