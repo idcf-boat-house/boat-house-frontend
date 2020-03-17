@@ -1,4 +1,4 @@
-name: Build client 
+name: Build and Deploy dev client 
 on: push
 
 jobs:
