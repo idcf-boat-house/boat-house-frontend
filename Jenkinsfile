@@ -95,12 +95,14 @@ pipeline {
 
         stage('deploy-dev') { 
             steps {
+              sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' docker-compose-template.yaml"
               script {
                 server = getHost()
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
                 sshCommand remote: server, command: "mkdir -p product-service/api/scripts"
                 sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
+
 
 
                 echo "stopping previous docker containers...."       
