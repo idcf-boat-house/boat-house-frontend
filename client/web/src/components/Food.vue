@@ -57,7 +57,8 @@ export default {
           console.log(_this.foodList)
         }
       })
-    }
+    },
+
   }
 }
 </script>

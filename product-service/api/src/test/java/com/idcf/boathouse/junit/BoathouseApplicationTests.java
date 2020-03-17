@@ -67,10 +67,7 @@ public class BoathouseApplicationTests {
         boatHouseController.GetFoodCategories();
     }
 
-    @Test
-    public void GetLikeFoodCategorie() {
-        boatHouseController.GetLikeFoodCategorie("明");
-    }
+
 
     @Test
     public void VerifyName() {
