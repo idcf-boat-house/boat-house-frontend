@@ -27,6 +27,7 @@ jobs:
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci
 
   deploy-dev:
+     needs: build
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v2
