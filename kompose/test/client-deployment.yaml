@@ -4,7 +4,7 @@ metadata:
   name: client
   namespace: boathouse-test
 spec:
-  replicas: 1
+  replicas: 5
   selector: 
     matchLabels:
       app: client
