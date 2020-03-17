@@ -1,4 +1,4 @@
-name: Build management
+name: Build and Depoly dev management 
 on: push
 
 jobs:
