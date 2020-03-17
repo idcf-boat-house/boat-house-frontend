@@ -40,7 +40,7 @@ INSERT INTO `intropage` VALUES ('intro', 'this is page title', 'http://www.baidu
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
-    id BIGINT(20) NOT NULL COMMENT '主键ID',
+    id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     account VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
     password VARCHAR(100) NULL DEFAULT NULL COMMENT '密码',
     age INT(11) NULL DEFAULT NULL COMMENT '年龄',
