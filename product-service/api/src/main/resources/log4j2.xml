@@ -7,6 +7,7 @@
     </Properties>
 
     <Appenders>
+        <!-- use for local or dev env -->
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -42,8 +43,8 @@
     </Appenders>
 
     <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="Console"/>
+        <Root level="info">
+            <!--<AppenderRef ref="Console"/>-->
             <AppenderRef ref="appLog"/>
             <AppenderRef ref="appErrorLog"/>
         </Root>
