@@ -18,8 +18,8 @@ jobs:
         run: sed -i "s|:latest$|:ci|g" kompose/test/client-*.yaml
 
       - name: grep images url
-        run: grep -i "docker.pkg.github.com" kompose/test/client-*.yaml
-        #run: ls kompose/test/client-*.yaml
+        #run: grep -i "docker.pkg.github.com" kompose/test/client-*.yaml
+        run: ls kompose/test/client-*.yaml
 
       - uses: Azure/k8s-set-context@v1
         with:
