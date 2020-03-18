@@ -67,7 +67,7 @@ jobs:
 
        - uses: Azure/k8s-deploy@v1
          with:
-           namespace: 'boathouse-test'
+           namespace: 'boathouse-test-github'
            manifests: |
               kompose/test/statistics-service-api-deployment.yaml
               kompose/test/statistics-service-api-svc.yaml
