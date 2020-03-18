@@ -1,0 +1,23 @@
+package com.idcf.boathouse.enums;
+
+import io.swagger.annotations.ApiModel;
+
+public enum ResponseEnum {
+    Success(1,"成功"),
+    Fail(0,"失败");
+
+    private int value;
+    private String desc;
+    ResponseEnum(int value,String desc){
+        this.value=value;
+        this.desc=desc;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+}

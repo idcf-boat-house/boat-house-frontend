@@ -59,6 +59,9 @@ create table `idcf_orders` (
   `reason`            varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '拒单理由',
+   `note`            varchar(500) CHARACTER SET utf8
+  COLLATE utf8_general_ci           default null
+  comment '用户备注',
   primary key order_pk (`id`),
   unique order_unique (`order_id`),
   index order_user_idx (`user_id`)
@@ -82,7 +85,7 @@ create table `idcf_order_items` (
   comment 'food sub total price',
   `food_num`       int           not null
   comment 'food number',
-  `food_picutre`   nvarchar(1000) NULL
+  `food_picture`   nvarchar(1000) NULL
   comment 'food intro picture uri',
   primary key order_items_pk (`id`),
   index order_items_idx (`order_id`)

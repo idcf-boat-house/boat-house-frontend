@@ -28,4 +28,7 @@ public interface OrdersMapper extends BaseMapper<Orders> {
 
     @Update("update idcf_orders set order_status=-1, reason=#{reason}, update_time=NOW() where order_id=#{orderId} AND order_status=1")
     int refuseOrder(@Param("orderId") String orderId, @Param("reason") String reason);
+
+    @Select("select count(1) from idcf_orders where to_days((create_time)) = to_days(now()) ")
+    Long getOrderCountToday();
 }

@@ -1,10 +1,17 @@
 package com.idcf.boathouse.controller;
 
+import com.idcf.boathouse.enums.ResponseEnum;
+import com.idcf.boathouse.models.OrderItems;
 import com.idcf.boathouse.models.Orders;
 import com.idcf.boathouse.services.OrderService;
+import com.idcf.boathouse.untils.ActionResult;
+import com.idcf.boathouse.vo.OrderCreateVo;
+import com.idcf.boathouse.vo.OrderVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +36,7 @@ public class OrderController {
     @RequestMapping(value = "pending", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @ApiOperation("查询商户未接单的订单列表")
-    public List<Orders> getPendingOrders(@Positive(message = "必须为大于0的正整数") @RequestParam(value = "index", defaultValue = "1") Integer pageIndex,
+    public List<OrderVo> getPendingOrders(@Positive(message = "必须为大于0的正整数") @RequestParam(value = "index", defaultValue = "1") Integer pageIndex,
                                          @Positive(message = "必须为大于0的正整数") @RequestParam(value = "size", defaultValue = "20") Integer pageSize) {
         return orderService.findPendingOrders(pageIndex, pageSize);
     }
@@ -50,5 +57,24 @@ public class OrderController {
         String orderId = map.get("order_id");
         String reason = map.get("reason");
         orderService.refuseOrders(orderId, reason);
+    }
+
+    /**
+     * 下单接口，返回结果明确泛型使用的类是为了配合swagger生成接口文档
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "create", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ApiOperation("客户下单操作")
+    public ActionResult<OrderVo> createOrder(@RequestBody OrderCreateVo order){
+        ActionResult result=null;
+        try {
+            OrderVo orderVo=orderService.createOrder(order);
+            result=  ActionResult.success(orderVo);
+        }
+        catch (Exception e){
+            result= ActionResult.fail(null,e.getMessage());
+        }
+        return result;
     }
 }

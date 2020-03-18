@@ -1,6 +1,9 @@
 package com.idcf.boathouse.services;
 
 import com.idcf.boathouse.models.Orders;
+import com.idcf.boathouse.vo.OrderCreateVo;
+import com.idcf.boathouse.vo.OrderItemsCreateVo;
+import com.idcf.boathouse.vo.OrderVo;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,8 +52,8 @@ public class OrderServiceTest {
     // 单元测试通过
     @Test
     public void findPendingOrders() {
-        List<Orders> orders = orderService.findPendingOrders(1, 10);
-        for (Orders order : orders) {
+        List<OrderVo> orders = orderService.findPendingOrders(1, 10);
+        for (OrderVo order : orders) {
             System.out.println(order);
             System.out.println(order.getItemsList());
         }
@@ -57,9 +61,9 @@ public class OrderServiceTest {
 
     @Test
     public void confirm() {
-        List<Orders> orders = orderService.findPendingOrders(0, 10);
+        List<OrderVo> orders = orderService.findPendingOrders(0, 10);
         List<String> orderIds = new ArrayList<>();
-        for (Orders order : orders) {
+        for (OrderVo order : orders) {
             orderIds.add(order.getOrderId());
         }
         Assert.assertEquals(1, orderService.confirmOrders(orderIds));
@@ -67,10 +71,30 @@ public class OrderServiceTest {
 
     @Test
     public void refuse() {
-        List<Orders> orders = orderService.findPendingOrders(0, 1);
+        List<OrderVo> orders = orderService.findPendingOrders(0, 1);
         Assert.assertEquals(1, orders.size());
         Assert.assertNotNull(orders.get(0).getOrderId());
         int res = orderService.refuseOrders(orders.get(0).getOrderId(), "the order have something wrong..");
         Assert.assertEquals(1, res);
+    }
+
+    @Test
+    public void create() throws Exception {
+        OrderCreateVo orderCreateVo=new OrderCreateVo();
+        orderCreateVo.setAdditionalAmount(new BigDecimal(20));
+        orderCreateVo.setNote("不要辣");
+        orderCreateVo.setUserId(1L);
+        orderCreateVo.setUserName("testUser");
+        OrderItemsCreateVo itemVo=new OrderItemsCreateVo();
+        itemVo.setFoodId(1);
+        itemVo.setFoodName("烤五花");
+        itemVo.setFoodNum(10);
+        itemVo.setFoodPrice(new BigDecimal(5.5));
+        List<OrderItemsCreateVo> lstOrderItemsCreateVo=new ArrayList<>();
+        lstOrderItemsCreateVo.add(itemVo);
+        orderCreateVo.setItemsList(lstOrderItemsCreateVo);
+
+        OrderVo orders = orderService.createOrder(orderCreateVo);
+        Assert.assertEquals(75, orders.getTotalAmount().intValue());
     }
 }

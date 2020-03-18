@@ -46,13 +46,6 @@ public class Orders {
     @TableField(value = "reason", insertStrategy = FieldStrategy.DEFAULT)
     private String reason;
 
-    // for frontend
-    private List<OrderItems> itemsList;
-
-    private String orderStatusDesc;
-
-    private String orderTime;
-
-    private String updateTimeStr;
-
+    @TableField(value = "note", insertStrategy = FieldStrategy.DEFAULT)
+    private String note;
 }
