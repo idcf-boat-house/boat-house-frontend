@@ -24,14 +24,12 @@ public class ShopCartController extends  BaseController {
     @RequestMapping(value= "ShopCart", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @ApiOperation("添加菜品到购物车")
-    public Map<String, Object> addFoodToShopCart(@RequestParam(value = "用户ID") Integer userId, @RequestParam(value = "菜品ID") Integer foodID,
-                                       @RequestParam(value = "数量") Integer num, @RequestParam(value = "描述") String description
-                                       )  throws IllegalStateException, IOException {
+    public Map<String, Object> addFoodToShopCart(@RequestBody ShopCartPost shopCart)  throws IllegalStateException, IOException {
         ShopCartPost shopCartPost = new ShopCartPost();
-        shopCartPost.userid = userId;
-        shopCartPost.foodid = foodID;
-        shopCartPost.num = num;
-        shopCartPost.comment = description;
+        shopCartPost.userid = shopCart.userid;
+        shopCartPost.foodid = shopCart.foodid;
+        shopCartPost.num = shopCart.num;
+        shopCartPost.comment = shopCart.comment;
         shopCartService.insertOrUpdateShopCart(shopCartPost);
         return super.info(BaseController.CODE_OK,"添加购物车成功", null);
     }
