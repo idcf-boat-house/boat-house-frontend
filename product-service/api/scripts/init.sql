@@ -49,12 +49,11 @@ CREATE TABLE user
 );
 DROP TABLE IF EXISTS shop_cart;
 CREATE TABLE shop_cart (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(100) NOT NULL,
     `userid` INT(11) NOT NULL,
     `foodid` INT(11) NOT NULL,
-    `name` VARCHAR(50) NOT NULL,
-    `price` INT(6) NOT NULL,
     `num` INT(4) NOT NULL,
     `comment` VARCHAR(1000) DEFAULT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    unique key userid_foodid(`userid` ,`foodid`)
 );
