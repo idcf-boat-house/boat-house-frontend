@@ -206,29 +206,32 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div class="modal-body">
+                <div class="alert alert-warning" v-if="message !== '' ">
+                  {{message}}
+                </div>
                 <div class="form-group">
                   <label class="sr-only" for="signup-username">用户名</label>
-                  <input type="text" class="form-control" id="signup-username" placeholder="用户名">
+                  <input type="text" class="form-control" id="signup-username" placeholder="用户名" v-model="username">
                 </div>
                
                 <div class="form-group">
                   <label class="sr-only" for="signup-password">密码</label>
-                  <input type="password" class="form-control" id="signup-password" placeholder="密码">
+                  <input type="password" class="form-control" id="signup-password" placeholder="密码" v-model="password">
                 </div>
                 <div class="form-group">
                   <label class="sr-only" for="signup-password">再次确认密码</label>
-                  <input type="password" class="form-control" id="signup-password-repeat" placeholder="再次输入密码">
+                  <input type="password" class="form-control" id="signup-password-repeat" placeholder="再次输入密码" v-model="password2">
                 </div>
                 <div class="form-check text-xs">
                   <label class="form-check-label op-8">
                     <input type="checkbox" value="term" class="form-check-input mt-1">
-                    注册即表示同意相关协议
+                      注册即表示同意相关协议
                   </label>
                 </div>
               </div>
               <div class="modal-footer bg-light py-3">
                 <div class="d-flex align-items-center">
-                  <button type="button" class="btn btn-primary">注册</button>
+                  <button type="button" class="btn btn-primary" @click="signup">注册</button>
                   <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">取消</button>
                 </div>
                 <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">已有账号？ 
@@ -256,16 +259,16 @@
             <div class="modal-body">
               <div class="form-group">
                 <label class="sr-only" for="login-email">用户名</label>
-                <input type="email" id="login-username" class="form-control email" placeholder="用户名">
+                <input type="email" id="login-username" class="form-control email" placeholder="用户名" v-model="username">
               </div>
               <div class="form-group mb-0">
                 <label class="sr-only" for="login-password">密码</label>
-                <input type="password" id="login-password" class="form-control password mb-1" placeholder="密码">
+                <input type="password" id="login-password" class="form-control password mb-1" placeholder="密码" v-model="password">
               </div>
             </div>
             <div class="modal-footer bg-light py-3">
               <div class="d-flex align-items-center">
-                <button type="button" class="btn btn-primary">登录</button>
+                <button type="button" class="btn btn-primary" @click="login">登录</button>
                 <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">取消</button>
               </div>
               <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">
@@ -313,7 +316,10 @@ export default {
   data () {
     return {
       isLoging: false,
-      username: ''
+      username: '',
+      password: '',
+      password2: '', 
+      message: ''
     }
   },
   components: {
@@ -343,12 +349,52 @@ export default {
       console.info(document.cookie);
     },
     getUserInfo: function () {
-      var user = this.getCookie("session");
+      var user = this.getCookie("username");
       if (!!user) {
         this.isLoging = true;
         this.username = user;
       }
       console.log(user);
+    },
+    /** 注册操作 */
+    signup: function() {
+      /** check password */
+      if (this.password2 !== this.password) {
+        this.message = '两次密码不一致';
+        return;
+      } 
+      this.message = '';
+      const postData = {
+          username: this.username,
+          password: this.password,
+      };
+
+      this.axios.post('/api/signup', postData)
+        .then( result => {
+              $("#signup-modal").modal('hide');
+              $("#login-modal").modal('show');
+      });
+    },
+    /** 登录  */
+    login: function() {
+      const postData = {
+          username: this.username,
+          password: this.password,
+      };
+      this.message = '';
+      this.axios.post('/api/login', postData)
+        .then( result => {
+            if( result.status === 200) {
+              const {token, username} = result.data.data;
+              this.username = username;
+              this.setCookie("session",token ,365);
+              this.setCookie("username",username ,365);
+              $("#login-modal").modal('hide');
+            } else {
+              this.message = result.message;
+            }
+          
+        });
     },
     logout: function () {
       this.setCookie("session", "", 365);

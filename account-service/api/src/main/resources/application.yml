@@ -1,7 +1,7 @@
 spring:
   application:
     #应用名称
-    name: springboot-demo
+    name: account-service-api
   #jdbc 配置文件内容
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

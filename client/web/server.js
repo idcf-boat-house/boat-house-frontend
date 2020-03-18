@@ -52,3 +52,27 @@ app.get('/api/foods', function (req, res) {
       return res.send(response.body)
     })
 })
+
+app.post('/api/login', function (req, res) {
+  // console.log(req);
+  const { username, password} = req.body;
+  const login_post = `http://account-service-api:8080/api/v1.0/login?username=${username}&password=${password}`;
+  requestify
+  .post(login_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
+})
+
+app.post('/api/signup',function (req, res) {
+  // console.log(req);
+  const { username, password} = req.body;
+  const signup_post = `http://account-service-api:8080/api/v1.0/signUp?username=${username}&password=${password}`;
+  requestify
+  .post(signup_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
+})
