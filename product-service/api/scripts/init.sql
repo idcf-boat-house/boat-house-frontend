@@ -55,7 +55,7 @@ create table `idcf_orders` (
   `additional_amount` decimal(6, 2) default 0.00
   comment 'order additional price,for example Cost of tableware etc.',
   `order_status`      tinyint(2)    default 0
-  comment '-2: expired, -1: cancelled, 0: unpaid, 1: paid & order pending, 2: wait for delivery, 3: finished',
+  comment '-2: expired, -1: rejected, 0: unpaid, 1: paid & order pending, 2: wait for delivery, 3: finished',
   `reason`            varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '拒单理由',
@@ -68,7 +68,7 @@ create table `idcf_orders` (
 
 DROP table if exists `idcf_order_items`;
 create table `idcf_order_items` (
-  `id`             bigint                                                                                  auto_increment
+  `id`             bigint                                                                                                                                                                 auto_increment
   comment 'primary key',
   `order_id`       varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci         not null
@@ -78,7 +78,7 @@ create table `idcf_order_items` (
   `food_name`      nvarchar(50) NOT NULL,
   `food_price`     DECIMAL(5, 2) NOT NULL                                                                  DEFAULT 0.00
   comment 'food single price',
-  `food_sub_price` decimal(5, 2) not null                                                                  default 0.00
+  `food_sub_total` decimal(5, 2) not null                                                                                                                                                 default 0.00
   comment 'food sub total price',
   `food_num`       int           not null
   comment 'food number',

@@ -29,8 +29,8 @@ public class OrderItems {
     @TableField(value = "food_price", insertStrategy = FieldStrategy.DEFAULT)
     private BigDecimal foodPrice;
 
-    @TableField(value = "food_sub_price", insertStrategy = FieldStrategy.DEFAULT)
-    private BigDecimal foodSubPrice;
+    @TableField(value = "food_sub_total", insertStrategy = FieldStrategy.DEFAULT)
+    private BigDecimal foodSubTotal;
 
     @TableField(value = "food_num", insertStrategy = FieldStrategy.DEFAULT)
     private int foodNum;

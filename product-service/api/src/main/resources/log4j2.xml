@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} (%F:%L) - %msg%n</Property>
+        <Property name="APP_LOG_ROOT">/tmp/boathouse/api</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- use for local or dev env -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="appLog"
+                     fileName="${APP_LOG_ROOT}/logs/app.log"
+                     filePattern="${APP_LOG_ROOT}/logs/$${date:yyyy-MM-dd}/app-%d{yyyy-MM-dd}-%i.log.gz"
+                     append="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="appErrorLog"
+                     fileName="${APP_LOG_ROOT}/logs/app-error.log"
+                     filePattern="${APP_LOG_ROOT}/logs/$${date:yyyy-MM-dd}/app-error-%d{yyyy-MM-dd}-%i.log.gz"
+                     append="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <!--<AppenderRef ref="Console"/>-->
+            <AppenderRef ref="appLog"/>
+            <AppenderRef ref="appErrorLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

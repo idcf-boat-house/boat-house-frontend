@@ -5,6 +5,7 @@ import com.idcf.boathouse.models.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +19,13 @@ import java.util.List;
 @Mapper
 public interface OrdersMapper extends BaseMapper<Orders> {
 
-    @Select("select * from idcf_orders where order_status=1 limit #{limited} offset #{offset}")
+    @Select("select * from idcf_orders where order_status!=0 order by update_time desc limit #{limited} offset #{offset}")
     List<Orders> findPendingOrders(@Param("offset") int offset, @Param("limited") int limited);
+
+    // 必须只有pending order才能进行更改
+    @Update("update idcf_orders set order_status=2,update_time=NOW() where order_id=#{orderId} AND order_status=1")
+    int confirmOrder(@Param("orderId") String orderId);
+
+    @Update("update idcf_orders set order_status=-1, reason=#{reason}, update_time=NOW() where order_id=#{orderId} AND order_status=1")
+    int refuseOrder(@Param("orderId") String orderId, @Param("reason") String reason);
 }

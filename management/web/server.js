@@ -238,3 +238,31 @@ app.get("/join/list", function(req, res) {
       return res.send(response.body);
     });
 });
+
+app.get("/orders/pending", function(req, res) {
+  requestify
+    .get("http://product-service-api:8080/api/v1.0/orders/pending")
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.put("/orders/confirm", function(req, res) {
+  requestify
+    .put("http://product-service-api:8080/api/v1.0/orders/confirm", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.put("/orders/refuse", function(req, res) {
+  requestify
+    .put("http://product-service-api:8080/api/v1.0/orders/refuse", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
