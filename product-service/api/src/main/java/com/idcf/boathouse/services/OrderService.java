@@ -59,6 +59,11 @@ public class OrderService {
             queryWrapper.eq("order_id", order.getOrderId());
             List<OrderItems> itemsList = orderItemsMapper.selectList(queryWrapper);
             List<OrderItemsVo> lstOrderItemsVo=new ArrayList<>();
+            for(OrderItems orderItems:itemsList){
+                OrderItemsVo orderItemsVo=new OrderItemsVo();
+                BeanUtils.copyProperties(orderItems,orderItemsVo);
+                lstOrderItemsVo.add(orderItemsVo);
+            }
             BeanUtils.copyProperties(itemsList,lstOrderItemsVo);
 
             orderVo.setItemsList(lstOrderItemsVo);
