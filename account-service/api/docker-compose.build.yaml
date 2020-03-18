@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  product-service-api-ci:
+  account-service-api-ci:
     image: maven:3.5.2-jdk-8-alpine
     volumes:
       - .:/build
