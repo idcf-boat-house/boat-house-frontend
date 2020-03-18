@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.fragment.FragmentActivity" />
+        <activity android:name=".presentation.login.LoginActivity" />
     </application>
 
 </manifest>
