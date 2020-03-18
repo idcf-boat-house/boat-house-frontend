@@ -61,6 +61,14 @@ services:
             - frontend
             - backend
 
+    account-service-api:
+        image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/account_service_api:latest
+        restart: always
+        ports:
+            - 7002:8080
+        networks:
+            - frontend
+            - backend
 
     product-service-db:
         image: docker.pkg.github.com/idcf-boat-house/boat-house/mysql:5.6
