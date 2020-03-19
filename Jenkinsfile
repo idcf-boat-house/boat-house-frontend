@@ -157,11 +157,13 @@ pipeline {
             }
         }
 
-        stage('deploy-test') {  
-          input {
-                message "是否部署到测试环境?"
-                ok "是"
-                submitter "admin"
+        stage('deploy-test') {
+            timeout(5) {
+                input {
+                  message "是否部署到测试环境?"
+                  ok "是"
+                  submitter "admin"
+                }
             }
             steps {
                 sh "find kompose/test -name *-deployment.yaml | xargs sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g'"
