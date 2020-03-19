@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.idcf.boathouse.R;
@@ -33,7 +34,8 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
     private Button mBtnRegister;
     private WebView mWebView;
     private String webURI;
-
+    private TextView mTextUserName;
+    private TextView mTextPassword;
 
     public static Intent newIntent(Context context, String data) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -54,11 +56,13 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         setContentView(R.layout.activity_login);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        webURI = getResources().getString(R.string.app_uri);
+        webURI = getResources().getString(R.string.app_login_uri);
         mWebView = (WebView)findViewById(R.id.webview_index);
         APP_CACAHE_DIRNAME = this.getCacheDir().getAbsolutePath();
+        mTextUserName = findViewById(R.id.editText_username);
+        mTextPassword = findViewById(R.id.editText_password);
         initView();
-        initWebView();
+//        initWebView();
         getPresenter().start();
 //        mFragment = LoginFragment.newInstance();
         /**
@@ -120,6 +124,15 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
 
     @Override
     public void onClick(View v) {
-
+        String username = (String) mTextUserName.getText();
+        String password = (String) mTextPassword.getText();
+        switch (v.getId()) {
+            case R.id.btn_login:
+                getPresenter().login(webURI, username, password);
+                break;
+            case R.id.btn_register:
+                getPresenter().register(webURI, username, password);
+                break;
+        }
     }
 }

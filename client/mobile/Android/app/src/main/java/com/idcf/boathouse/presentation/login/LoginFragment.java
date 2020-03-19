@@ -71,7 +71,7 @@ public class LoginFragment extends MvpFragment<LoginContract.Presenter> implemen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                getPresenter().login();
+          //      getPresenter().login(username, password);
                 break;
         }
     }

@@ -5,6 +5,7 @@
     <string name="title_activity_main">船屋餐厅·苏格兰风味</string>
 
     <string name="app_uri" translatable="false">http://c-docker.southeastasia.cloudapp.azure.com:5000/</string>
+    <string name="app_login_uri" translatable="false">http://13.76.97.141:7002/api/v1.0/swagger-ui.html</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">第一页</string>

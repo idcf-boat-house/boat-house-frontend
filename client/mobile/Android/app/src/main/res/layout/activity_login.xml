@@ -29,9 +29,34 @@
     <WebView
         android:id="@+id/webview_index"
         android:layout_width="match_parent"
-        android:layout_height="494dp">
+        android:layout_height="99dp">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="131dp"
+            android:text="TextView" />
     </WebView>
+
+    <EditText
+        android:id="@+id/editText_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="用户名"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="用户名" />
+
+    <EditText
+        android:id="@+id/editText_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="密码"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="123" />
 
     <Button
         android:id="@+id/btn_login"

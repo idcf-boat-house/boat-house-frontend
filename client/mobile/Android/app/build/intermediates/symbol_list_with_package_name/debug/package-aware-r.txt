@@ -1190,6 +1190,8 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id editText_password
+id editText_username
 id edit_query
 id end
 id enterAlways
@@ -1328,6 +1330,7 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1483,6 +1486,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string app_login_uri
 string app_name
 string app_uri
 string appbar_scrolling_view_behavior

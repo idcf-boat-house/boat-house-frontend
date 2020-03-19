@@ -14,6 +14,8 @@ public interface LoginContract {
 
     interface Presenter extends MvpPresenter<View> {
 
-        void login();
+        String login(String webURI, String username, String password);
+
+        String register(String webURI, String username, String password);
     }
 }
