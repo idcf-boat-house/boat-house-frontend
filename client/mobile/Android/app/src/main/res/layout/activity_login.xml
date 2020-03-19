@@ -44,30 +44,37 @@
         android:id="@+id/editText_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:contentDescription="用户名"
         android:ems="10"
+        android:hint="用户名"
         android:inputType="textPersonName"
-        android:text="用户名" />
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editText_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="密码"
+        android:layout_marginLeft="30dp"
         android:ems="10"
+        android:hint="密码"
         android:inputType="textPassword"
-        android:text="123" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
         android:text="@string/login" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="-47dp"
         android:text="注册" />
 
 </LinearLayout>
