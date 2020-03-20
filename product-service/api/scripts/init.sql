@@ -57,3 +57,10 @@ CREATE TABLE shop_cart (
     PRIMARY KEY (id),
     unique key userid_foodid(`userid` ,`foodid`)
 );
+
+insert into BoatHouse.FoodCategory (Id,Name,Description)  values (1,'甜品','甜品');
+insert into BoatHouse.FoodCategory (Id,Name,Description)  values (2,'主食','主食');
+insert into BoatHouse.Food (Id,CategoryID,Name,Price,Description)  values (1,1,'黑森林',18,'黑森林蛋糕三角');
+insert into BoatHouse.Food (Id,CategoryID,Name,Price,Description)  values (2,2,'米饭',2,'东北大米');
+insert into BoatHouse.Food (Id,CategoryID,Name,Price,Description)  values (3,1,'酸奶',8,'自制无添加酸奶');
+insert into BoatHouse.Food (Id,CategoryID,Name,Price,Description)  values (4,2,'意大利面',2,'意面');
