@@ -126,7 +126,7 @@ public class IntroPageController {
 	public IntroPage GetIntroPage(@RequestParam String page_id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
-		String sql = "select * from intropage where page_id = ? and deleted!=0";
+		String sql = "select * from intropage where page_id = ? and deleted!=1";
 		List<Object> params = new ArrayList<Object>();
 		params.add(page_id);
 		IntroPage introPage=new IntroPage();
