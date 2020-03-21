@@ -48,6 +48,7 @@ pipeline {
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
+            
 
             stage('build-statistics-service') {
               steps {
