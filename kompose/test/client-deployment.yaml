@@ -14,7 +14,7 @@ spec:
         app: client
     spec:
       containers:
-      - image: docker.pkg.github.com/idcf-boat-house/boat-house/client:latest
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/client:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
         name: client
         ports:
         - containerPort: 8080

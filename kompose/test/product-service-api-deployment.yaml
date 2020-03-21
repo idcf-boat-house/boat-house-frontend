@@ -14,7 +14,7 @@ spec:
         app: product-service-api
     spec:
       containers:
-      - image: docker.pkg.github.com/idcf-boat-house/boat-house/product_service_api:latest
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/product_service_api:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
         name: product-service-api
         ports:
         - containerPort: 8080
