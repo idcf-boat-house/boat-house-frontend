@@ -29,8 +29,8 @@ npm test
 为了减少提交构建冲突，约定各个目录功能如下：
 
 ├── build                      # 构建相关
-├── config                     #配置文件
-│   ├── dev.env.js            #开发环境配置文件
+├── config                     # 配置文件
+│   ├── dev.env.js            # 开发环境配置文件
 │   ├── index.js              #webpack相关
 │   ├── prod.env.js           #生产环境配置文件，一idcf社区为准不建议修改
 │   ├── test.env.js           #测试环境配置文件，一idcf社区为准不建议修改
