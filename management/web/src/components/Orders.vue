@@ -56,15 +56,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <el-table :data="orders" style="width: 100%" class="table-striped">
-                      <el-table-column v-for="items in orderDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
-                      <el-table-column label="支付类型" width="auto">
-                          <template slot-scope="scope">
-                            <span v-if="scope.row.payType=='1'">支付宝支付</span>
-                            <span v-else-if="scope.row.payType=='2'">微信支付</span>
-                            <span v-else-if="scope.row.payType=='3'">银联支付</span>
-                          </template>
-                      </el-table-column>
-                      <el-table-column type="expand" fixed="right" align="center" label="查看详情" min-width="280">
+                      <el-table-column type="expand" align="center" label="" min-width="280">
                         <template slot-scope="scope">
                             <el-table :data="scope.row.itemsList" class="table-striped">
                               <el-table-column v-for="items in itemDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
@@ -87,6 +79,14 @@
                               <el-button v-if="scope.row.orderStatus=='1'" class="btn btn-outline-primary" v-on:click="confirm(scope.row.orderId)">接单</el-button>
                             </div>
                         </template>
+                      </el-table-column>
+                      <el-table-column v-for="items in orderDataType" :key="items.nameLable" :prop="items.nameProp" :label="items.nameLable" width="auto"></el-table-column>
+                      <el-table-column label="支付类型" width="auto">
+                          <template slot-scope="scope">
+                            <span v-if="scope.row.payType=='1'">支付宝支付</span>
+                            <span v-else-if="scope.row.payType=='2'">微信支付</span>
+                            <span v-else-if="scope.row.payType=='3'">银联支付</span>
+                          </template>
                       </el-table-column>
                     </el-table>
                   </div>
