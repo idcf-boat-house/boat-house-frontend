@@ -26,7 +26,7 @@ npm run e2e
 # run all tests
 npm test
 前端编写约定！
-为了减少提交构建冲突，约定各个目录功能如下：
+为了减少提交冲突，约定各个目录功能如下：
 
 ├── build                      # 构建相关
 ├── config                     # 配置文件
