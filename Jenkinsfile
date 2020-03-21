@@ -14,6 +14,9 @@ pipeline {
     { 
         label 'vm-slave' 
     }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '10')
+    }
     environment {
       CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
       CREDS_DEV_SERVER = credentials('creds-dev-server')
@@ -67,6 +70,7 @@ pipeline {
 
             stage('build-product-service') {
               steps {
+                sh "docker-compose -f product-service/api/docker-compose.build.yaml stop"
                 sh "docker-compose -f product-service/api/docker-compose.build.yaml up"
                 junit 'product-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'product-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
@@ -77,14 +81,14 @@ pipeline {
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/product_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
-
+            
             stage('build-account-service') {
               steps {
+                sh "docker-compose -f account-service/api/docker-compose.build.yaml stop"
                 sh "docker-compose -f account-service/api/docker-compose.build.yaml up"
                 junit 'account-service/api/target/surefire-reports/**/TEST-*.xml'
                 cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'account-service/api/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
                 sh "docker build -f account-service/api/Dockerfile.image -t ${BOATHOUSE_CONTAINER_REGISTRY}/account_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/account_service_api:latest account-service/api"
-
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/account_service_api:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/account_service_api:${env.BRANCH_NAME}-${env.BUILD_ID}"
@@ -102,8 +106,6 @@ pipeline {
                 sshPut remote: server, from: 'docker-compose-template.yaml', into: '.'
                 sshCommand remote: server, command: "mkdir -p product-service/api/scripts"
                 sshPut remote: server, from: 'product-service/api/scripts/init.sql', into: './product-service/api/scripts/init.sql'
-
-
 
                 echo "stopping previous docker containers...."       
                 sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
@@ -156,13 +158,13 @@ pipeline {
             }
         }
 
-        stage('deploy-test') {  
-          input {
-                message "是否部署到测试环境?"
-                ok "是"
-                submitter "admin"
-            }
+        stage('deploy-test') {
             steps {
+                timeout(5) {
+                    input message: '是否部署到测试环境?', ok: '是', submitter: 'admin'
+                }
+                sh "find kompose/test -name *-deployment.yaml | xargs sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g'"
+                sh "find kompose/test -name *-deployment.yaml | xargs sed -i 's/#{env.BRANCH_NAME}#-#{env.BUILD_ID}#/${env.BRANCH_NAME}-${env.BUILD_ID}/g'"
                 kubernetesDeploy configs: 'kompose/test/client-deployment.yaml,kompose/test/management-deployment.yaml,kompose/test/product-service-api-deployment.yaml,kompose/test/statistics-service-api-deployment.yaml,kompose/test/statistics-service-worker-deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
                 kubernetesDeploy configs: 'kompose/test/*', deleteResource: false, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-dev', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 
@@ -170,12 +172,12 @@ pipeline {
         }
 
         stage('deploy-production') { 
-            input {
-                message "是否部署到生产环境?"
-                ok "是"
-                submitter "admin"
-            }
             steps {
+                timeout(5) {
+                    input message: '是否部署到生产环境?', ok: '是', submitter: 'admin'
+                }
+                sh "find kompose/prod -name *-deployment.yaml | xargs sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g'"
+                sh "find kompose/prod -name *-deployment.yaml | xargs sed -i 's/#{env.BRANCH_NAME}#-#{env.BUILD_ID}#/${env.BRANCH_NAME}-${env.BUILD_ID}/g'"
                 kubernetesDeploy configs: 'kompose/prod/client-deployment.yaml,kompose/prod/management-deployment.yaml,kompose/prod/product-service-api-deployment.yaml,kompose/prod/statistics-service-api-deployment.yaml,kompose/prod/statistics-service-worker-deployment.yaml', deleteResource: true, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-prod', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
                 kubernetesDeploy configs: 'kompose/prod/*', deleteResource: false, kubeConfig: [path: ''], kubeconfigId: 'creds-test-k8s', secretName: 'regcred', secretNamespace: 'boathouse-prod', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
             }
@@ -185,7 +187,7 @@ pipeline {
     post {
       always {
         sh "sudo rm -rf product-service/api/target"
+        sh "sudo rm -rf account-service/api/target"
       }
     }
   }
-

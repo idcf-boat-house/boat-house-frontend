@@ -53,6 +53,7 @@ app.get('/api/foods', function (req, res) {
     })
 })
 
+<<<<<<< HEAD
 app.post('/api/food/shopcart', function (req, res) {
   requestify
     .post('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart/', req.body)
@@ -60,4 +61,28 @@ app.post('/api/food/shopcart', function (req, res) {
       console.log(response.body)
       return res.send(response.body)
     })
+=======
+app.post('/api/login', function (req, res) {
+  // console.log(req);
+  const { username, password} = req.body;
+  const login_post = `http://account-service-api:8080/api/v1.0/login?username=${username}&password=${password}`;
+  requestify
+  .post(login_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
+})
+
+app.post('/api/signup',function (req, res) {
+  // console.log(req);
+  const { username, password} = req.body;
+  const signup_post = `http://account-service-api:8080/api/v1.0/signUp?username=${username}&password=${password}`;
+  requestify
+  .post(signup_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
+>>>>>>> fa8e2fb7155a2ac2a49df10fd0d2feee0e8e30a3
 })
