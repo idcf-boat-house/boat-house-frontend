@@ -52,3 +52,12 @@ app.get('/api/foods', function (req, res) {
       return res.send(response.body)
     })
 })
+
+app.post('/api/food/shopcart', function (req, res) {
+  requestify
+    .post('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart/', req.body)
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
