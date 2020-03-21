@@ -55,7 +55,7 @@ app.get('/api/foods', function (req, res) {
  
 app.post('/api/food/shopcart', function (req, res) {
   requestify
-    .post('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart/', req.body)
+    .post('http://127.0.0.1:8081/api/v1.0/BoatHouse/ShopCart/', req.body)
     .then(function (response) {
       console.log(response.body)
       return res.send(response.body)
@@ -83,4 +83,6 @@ app.post('/api/signup',function (req, res) {
     console.log(response.body)
     return res.send(response.body)
   }) 
+})
+
 })
