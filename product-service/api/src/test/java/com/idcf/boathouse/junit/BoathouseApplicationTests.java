@@ -67,6 +67,8 @@ public class BoathouseApplicationTests {
         boatHouseController.GetFoodCategories();
     }
 
+
+
     @Test
     public void VerifyName() {
         assertEquals(true,foodCategoryService.VerifyName(("三明治")));

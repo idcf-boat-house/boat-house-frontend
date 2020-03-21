@@ -1,0 +1,11 @@
+docker-compose-template.yaml                               merge=ours
+kompose/test/client-deployment.yaml                        merge=ours
+kompose/test/management-deployment.yaml                    merge=ours
+kompose/test/product-service-api-deployment.yaml           merge=ours
+kompose/test/statistics-service-api-deployment.yaml        merge=ours
+kompose/test/statistics-service-worker-deployment.yaml     merge=ours
+kompose/prod/client-deployment.yaml                        merge=ours
+kompose/prod/management-deployment.yaml                    merge=ours
+kompose/prod/product-service-api-deployment.yaml           merge=ours
+kompose/prod/statistics-service-api-deployment.yaml        merge=ours
+kompose/prod/statistics-service-worker-deployment.yaml     merge=ours

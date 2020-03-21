@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'Food',
+  name: 'SearchFood',
   data () {
     return {
       foodList: [],
@@ -36,18 +36,19 @@ export default {
     }
   },
   mounted: function () {
-    let _this = this
-    this.axios.get('api/foodcategories').then(function (result) {
-      if (result.status === 200) {
-        _this.foodCategory = result.data
-        _this.GetFoodList()
-      }
-    })
+
+    //console.log(this.$route.params);
+    this.GetFoodLikeList(this.$route.params.foodName);
   },
   methods: {
-    GetFoodList: function () {
+
+    GetFoodLikeList: function (searchName) {
+      console.log(searchName);
       let _this = this
-      this.axios.get('api/foods').then(function (result) {
+      let params={
+        name: searchName,
+      };
+      this.axios.get('api/searchfood').then(function (result) {
         if (result.status === 200) {
           _this.foodList = result.data.data
           _this.foodList.map(item => {
