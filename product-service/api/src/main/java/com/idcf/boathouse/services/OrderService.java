@@ -68,7 +68,6 @@ public class OrderService {
                 BeanUtils.copyProperties(orderItems,orderItemsVo);
                 lstOrderItemsVo.add(orderItemsVo);
             }
-            BeanUtils.copyProperties(itemsList,lstOrderItemsVo);
 
             orderVo.setItemsList(lstOrderItemsVo);
             orderVo.setOrderStatusDesc(OrderConstant.getOrderDesc(order.getOrderStatus()));
