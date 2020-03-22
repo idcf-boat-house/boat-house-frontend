@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.idcf.boathouse.enums.OrderStatusEnum;
 import com.idcf.boathouse.mapper.OrderItemsMapper;
 import com.idcf.boathouse.mapper.OrdersMapper;
+import com.idcf.boathouse.models.Food;
 import com.idcf.boathouse.models.OrderItems;
 import com.idcf.boathouse.models.Orders;
 import com.idcf.boathouse.models.constant.OrderConstant;
@@ -39,6 +40,9 @@ public class OrderService {
 
     @Autowired
     private OrderItemsMapper orderItemsMapper;
+
+    @Autowired
+    private FoodService foodService;
 
 
     /**
@@ -124,14 +128,22 @@ public class OrderService {
 
 
         for (OrderItemsCreateVo orderItemsCreateVo:orderCreateVo.getItemsList()) {
+            Food food= foodService.getFood(orderItemsCreateVo.getFoodId()+"");
+            if(food==null){
+                throw new Exception("菜品Id"+orderItemsCreateVo.getFoodId()+"不存在");
+            }
             OrderItems orderItems=new OrderItems();
-            BeanUtils.copyProperties(orderItemsCreateVo,orderItems);
-            if(orderItems.getFoodNum()!=0 &&orderItems.getFoodPrice()!=null){
-                BigDecimal subTotal=new BigDecimal(orderItems.getFoodNum()).multiply(orderItems.getFoodPrice());
+            if(orderItemsCreateVo.getFoodNum()!=0 &&food.Price!=null){
+                BigDecimal subTotal=new BigDecimal(orderItemsCreateVo.getFoodNum()).multiply(food.Price);
                 total=total.add(subTotal);
                 orderItems.setFoodSubTotal(subTotal);
             }
             orderItems.setOrderId(id);
+            orderItems.setFoodId(orderItemsCreateVo.getFoodId());
+            orderItems.setFoodNum(orderItemsCreateVo.getFoodNum());
+            orderItems.setFoodPicture(food.Picture);
+            orderItems.setFoodName(food.Name);
+            orderItems.setFoodPrice(food.Price);
             orderItemsMapper.insert(orderItems);
         }
         if(orderCreateVo.getAdditionalAmount()!=null){

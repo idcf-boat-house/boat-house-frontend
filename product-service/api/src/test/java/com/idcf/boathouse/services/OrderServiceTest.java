@@ -87,9 +87,7 @@ public class OrderServiceTest {
         orderCreateVo.setUserName("testUser");
         OrderItemsCreateVo itemVo=new OrderItemsCreateVo();
         itemVo.setFoodId(1);
-        itemVo.setFoodName("烤五花");
         itemVo.setFoodNum(10);
-        itemVo.setFoodPrice(new BigDecimal(5.5));
         List<OrderItemsCreateVo> lstOrderItemsCreateVo=new ArrayList<>();
         lstOrderItemsCreateVo.add(itemVo);
         orderCreateVo.setItemsList(lstOrderItemsCreateVo);
