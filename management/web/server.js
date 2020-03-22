@@ -230,14 +230,65 @@ app.delete("/api/food", function(req, res) {
     });
 });
 
-app.get("/join/list", function(req, res) {
+app.get('/join/list', function (req, res) {
   requestify
-    .get("http://product-service-api:8080/api/v1.0/join/list")
-    .then(function(response) {
-      console.log(response.body);
-      return res.send(response.body);
-    });
-});
+    .get('http://product-service-api:8080/api/v1.0/join/list')
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
+
+app.get('/api/users', function (req, res) {
+  requestify
+    .get('http://account-service-api:8080/api/v1.0/user/')
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
+
+app.get('/api/user', function (req, res) {
+  requestify
+    .get('http://account-service-api:8080/api/v1.0/user/' + req.query.id)
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
+
+app.post('/api/user', function (req, res) {
+  requestify
+    .post(
+      'http://account-service-api:8080/api/v1.0/user/',
+      req.body
+    )
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
+
+app.put('/api/user', function (req, res) {
+  requestify
+    .put(
+      'http://account-service-api:8080/api/v1.0/user/',
+      req.body
+    )
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
+
+app.delete('/api/user', function (req, res) {
+  requestify
+    .delete('http://account-service-api:8080/api/v1.0/user/delete/' + req.query.id)
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
 
 app.get("/orders/pending", function(req, res) {
   requestify

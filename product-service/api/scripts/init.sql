@@ -11,6 +11,8 @@ CREATE TABLE Food (
 	Picture nvarchar ( 1000 ) NULL,
 CONSTRAINT food_pk PRIMARY KEY ( Id ),
 CONSTRAINT food_category_fk FOREIGN KEY ( CategoryId ) REFERENCES FoodCategory ( Id ));
+
+DROP TABLE IF EXISTS `join_us`;
 CREATE TABLE `join_us`
 (
     `id`       int(11) NOT NULL AUTO_INCREMENT,
@@ -92,3 +94,24 @@ create table `idcf_order_items` (
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user
+(
+    id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    account VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
+    password VARCHAR(100) NULL DEFAULT NULL COMMENT '密码',
+    age INT(11) NULL DEFAULT NULL COMMENT '年龄',
+    email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
+    PRIMARY KEY (id)
+);
+DROP TABLE IF EXISTS shop_cart;
+CREATE TABLE shop_cart (
+    `id` VARCHAR(100) NOT NULL,
+    `userid` INT(11) NOT NULL,
+    `foodid` INT(11) NOT NULL,
+    `num` INT(4) NOT NULL,
+    `comment` VARCHAR(1000) DEFAULT NULL,
+    PRIMARY KEY (id),
+    unique key userid_foodid(`userid` ,`foodid`)
+);
