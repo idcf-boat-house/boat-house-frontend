@@ -75,9 +75,7 @@ export default {
     }, 
     AddFoodToCart: function (e) {
       let _this = this 
-      var user = _this.getCookie("username");
-       var fum=JSON.stringify(user);        
-       alert(fum); 
+      var userId = 1;// _this.getCookie("userId");   
       let postData = {
             userid: 1,
             foodid: parseInt(e.Id),
@@ -85,21 +83,20 @@ export default {
             comment: ""
          };
 
-      alert("PostData :" +postData);
        // http://127.0.0.1:8081/api/v1.0/BoatHouse/ShopCart 
       let url = 'api/food/shopcart'; 
       this.axios.post(url, postData).then(function (result) {
         console.log(result)
         if (result.status === 200) {
-          alert("success");  
+          alert("添加购物车成功");  
         }
       },
-       function(res){
-          
+       function(res){          
              console.log(res.status); 
-             alert("failed");
+             alert("添加购物车失败");
        })
-    } 
+    }
+
   }
 }
 </script>
