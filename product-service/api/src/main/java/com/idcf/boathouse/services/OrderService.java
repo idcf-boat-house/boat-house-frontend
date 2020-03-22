@@ -120,7 +120,7 @@ public class OrderService {
         //复制字段信息
         BeanUtils.copyProperties(orderCreateVo,order);
         order.setCreateTime(new Date());
-        order.setOrderStatus(OrderStatusEnum.OrderWaitHandle.getValue());
+        order.setOrderStatus(OrderStatusEnum.OrderWaitPay.getValue());
         order.setUpdateTime(new Date());
         String id=generateOrderId();
         order.setOrderId(id);
@@ -157,6 +157,8 @@ public class OrderService {
         orderVo.setOrderStatusDesc(OrderStatusEnum.OrderWaitHandle.getDesc());
         orderVo.setOrderTime(DateUtils.formatTime(order.getCreateTime()));
         orderVo.setUpdateTimeStr(DateUtils.formatTime(order.getUpdateTime()));
+        //TODO 需要从用户相关方法取到当前用户信息
+        orderVo.setUserId(1L);
         return orderVo;
     }
 

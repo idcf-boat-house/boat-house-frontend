@@ -83,8 +83,6 @@ public class OrderServiceTest {
         OrderCreateVo orderCreateVo=new OrderCreateVo();
         orderCreateVo.setAdditionalAmount(new BigDecimal(20));
         orderCreateVo.setNote("不要辣");
-        orderCreateVo.setUserId(1L);
-        orderCreateVo.setUserName("testUser");
         OrderItemsCreateVo itemVo=new OrderItemsCreateVo();
         itemVo.setFoodId(1);
         itemVo.setFoodNum(10);
