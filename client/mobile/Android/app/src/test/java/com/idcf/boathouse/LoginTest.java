@@ -26,8 +26,8 @@ public class LoginTest {
     @Test
     public void gettoken()  {
         LoginMsgParse loginMsgParse = new LoginMsgParse();
-        String str = "{\"success\":true,\"code\":200,\"token\":123321,\"message\":\"............\",\"data\":{\"result\":true}}";
-        assertEquals("123321", loginMsgParse.getToken(str));
+        String str = "{\"success\":true,\"code\":200,\"message\":\"............\",\"data\":{\"userId\":null,\"token\":\"1234567890\",\"username\":\"1234\"}}";
+        assertEquals("1234567890", loginMsgParse.getToken(str));
     }
 
 

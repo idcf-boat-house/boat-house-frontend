@@ -38,6 +38,8 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
 
     private static final String TAG = "LoginActivity";
     private static final String K_EXTRA_FRAGMENT = "extra_fragment";
+    public static final String SIGNUP = "signUp";
+    public static final String LOGIN = "login";
     private static String APP_CACAHE_DIRNAME;
     public static String app_token;
     private Toolbar mToolbar;
@@ -106,22 +108,22 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         String password = mTextPassword.getText().toString();
         switch (v.getId()) {
             case R.id.btn_login:
-                new LoginTask().execute(webURI + "/login", username, password);
+                new LoginTask().execute(webURI + "/" + LOGIN, username, password);
                 break;
             case R.id.btn_register:
-                new LoginTask().execute(webURI+ "/signUp", username, password);
+                new LoginTask().execute(webURI+ "/" + SIGNUP, username, password);
                 break;
         }
     }
 
     private class LoginTask extends AsyncTask<String, Void, String> {
-        private String command;
+        private String command = "";
         private LoginPostMsg loginPostMsg = new LoginPostMsg();
         @Override
         protected String doInBackground(String... params) {
             try {
                 URL url = getUrl(params);
-                return loginPostMsg.postMsg(url);
+                return loginPostMsg.postMsg(url,params[1], params[2]);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
@@ -136,18 +138,17 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         }
 
         private void getCommand(String url) {
-            if (url.contains("login")){
+            if (url.contains(LOGIN)){
                 command = getResources().getString(R.string.login);
             }
-            else if (url.contains("signUp")){
+            else if (url.contains(SIGNUP)){
                 command = getResources().getString(R.string.register);
             }
         }
 
         private URL getUrl(String[] params) throws MalformedURLException {
             getCommand(params[0]);
-            String data = "username="+String.valueOf(params[1])+"&password="+String.valueOf(params[2]);
-            return new URL(String.valueOf(params[0]) + "?"+ data);
+            return new URL(String.valueOf(params[0]));
         }
 
         @Override
