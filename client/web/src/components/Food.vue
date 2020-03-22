@@ -75,9 +75,9 @@ export default {
     }, 
     AddFoodToCart: function (e) {
       let _this = this 
-      var userId = 1;// _this.getCookie("userId");   
+      const userId = _this.$parent.getCookie("userId");   
       let postData = {
-            userid: 1,
+            userid: userId,
             foodid: parseInt(e.Id),
             num: 1,
             comment: ""
@@ -88,12 +88,12 @@ export default {
       this.axios.post(url, postData).then(function (result) {
         console.log(result)
         if (result.status === 200) {
-          alert("添加购物车成功");  
+          console.log("添加购物车成功"); 
+          _this.$parent.GetShopCartInfo(); 
         }
       },
        function(res){          
-          console.log(res.status); 
-          alert("添加购物车失败");
+          console.log("添加购物车失败",res);
        })
     }
 

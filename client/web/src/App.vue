@@ -383,11 +383,11 @@ export default {
       this.axios.post('/api/login', postData)
         .then( result => {
             if( result.status === 200) {
-              const {token, username,userId} = result.data.data;
+              const {token, username, userId} = result.data.data;
               this.username = username;
               this.setCookie("session",token ,365);
               this.setCookie("username",username ,365);
-              this.setCookie("userId",1 ,365);
+              this.setCookie("userId",userId ,365);
               $("#login-modal").modal('hide');
             } else {
               this.message = result.message;
@@ -417,7 +417,8 @@ export default {
     GetShopCartInfo: function () {  
       let _this = this   
       //清空重新获取  
-      let userId= 1;//this.getCookie(userId); 
+      _this.shopCartList =[];
+      let userId= this.getCookie("userId"); 
       this.axios.get('api/shopcart',{params:{userId:userId}}).then(function (result) {
         if (result.status === 200) {
           _this.returnList = result.data.data    
@@ -448,11 +449,10 @@ export default {
     
     DeleteFoodFromShopCart:function(e){
       let _this = this ;   
-      alert(JSON.stringify(e)); 
-     const delete_put = 'api/shopcart?userId='+1+'&foodID='+parseInt(JSON.stringify(e));  
-      this.axios
-      .put(delete_put).then(function (result) {    
-        alert(JSON.stringify(result));
+      let userId= this.getCookie("userId"); 
+      const delete_put = 'api/shopcart?userId='+userId+'&foodID='+parseInt(JSON.stringify(e));  
+      this.axios.put(delete_put).then(function (result) {    
+        // alert(JSON.stringify(result));
         if (result.status === 200) {
           _this.shopCartList=[];
           _this.GetShopCartInfo();
@@ -463,9 +463,9 @@ export default {
 
     ClearShopCart:function(){
       let _this = this ;      
-      let userid= 1;//this.getCookie(userId); 
+      const userId = this.getCookie("userId"); 
       this.axios
-        .delete('api/shopcart',{params:{userId:userid}})
+        .delete('api/shopcart',{params:{userId:userId}})
         .then(function (result) {
           //alert(JSON.stringify(result));
         if (result.status === 200) {          
