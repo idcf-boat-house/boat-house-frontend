@@ -9,16 +9,18 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.idcf.boathouse.R;
 import com.idcf.boathouse.mvp.MvpActivity;
-
+import com.idcf.boathouse.presentation.fragment.FragmentActivity;
+import com.idcf.boathouse.presentation.main.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,8 +39,7 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
     private static final String TAG = "LoginActivity";
     private static final String K_EXTRA_FRAGMENT = "extra_fragment";
     private static String APP_CACAHE_DIRNAME;
-
-    private SupportFragment mFragment = new SupportFragment();
+    public static String app_token;
     private Toolbar mToolbar;
     private String mData;
     private Button mBtnLogin;
@@ -92,16 +93,6 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         mBtnRegister = findViewById(R.id.btn_register);
         bindOnClickLister(this, mBtnRegister);
     }
-    @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView() {
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-    }
 
     @NonNull
     @Override
@@ -117,7 +108,6 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         switch (v.getId()) {
             case R.id.btn_login:
                 new LoginTask().execute(webURI + "/login", username, password);
-                //getPresenter().login(webURI, username, password);
                 break;
             case R.id.btn_register:
                 new LoginTask().execute(webURI+ "/signUp", username, password);
@@ -126,37 +116,18 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
     }
 
     private class LoginTask extends AsyncTask<String, Void, String> {
+        private String command;
         @Override
         protected String doInBackground(String... params) {
-            Log.d("username=", String.valueOf(params[1]));
-            Log.d("password=", String.valueOf(params[2]));
             try {
-                String data = "username="+String.valueOf(params[1])+"&password="+String.valueOf(params[2]);
-                URL url = new URL(String.valueOf(params[0]) + "?"+ data);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(5000);
-                connection.setRequestMethod("POST");
-
-                //数据准备
-
-                //至少要设置的两个请求头
-                connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-                connection.setRequestProperty("Content-Length", "0");
-
-                //post的方式提交实际上是留的方式提交给服务器
-                connection.setDoOutput(true);
+                URL url = getUrl(params);
+                HttpURLConnection connection = getHttpURLConnection(url);
                 OutputStream outputStream = connection.getOutputStream();
-//                outputStream.write(data.getBytes());
 
                 //获得结果码
                 int responseCode = connection.getResponseCode();
                 if(responseCode ==200){
-                    //请求成功
-                    InputStream is = connection.getInputStream();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    String msg = br.readLine();
-                    Log.d("result=",msg);
-                    return msg;//IOSUtil.inputStream2String(is);
+                    return getSuccessMsg(connection);
                 }else {
                     //请求失败
                     return String.valueOf(responseCode);
@@ -174,19 +145,78 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
             return null;
         }
 
+        private void getCommand(String url) {
+            if (url.contains("login")){
+                command = getResources().getString(R.string.login);
+            }
+            else if (url.contains("signUp")){
+                command = getResources().getString(R.string.register);
+            }
+        }
+
+        private String getSuccessMsg(HttpURLConnection connection) throws IOException {
+            //请求成功
+            InputStream is = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String msg = br.readLine();
+            Log.d("result=",msg);
+            return msg;//IOSUtil.inputStream2String(is);
+        }
+
+        private HttpURLConnection getHttpURLConnection(URL url) throws IOException {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setRequestMethod("POST");
+
+            //至少要设置的两个请求头
+            connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", "0");
+
+            //post的方式提交实际上是留的方式提交给服务器
+            connection.setDoOutput(true);
+            return connection;
+        }
+
+        private URL getUrl(String[] params) throws MalformedURLException {
+            getCommand(params[0]);
+            String data = "username="+String.valueOf(params[1])+"&password="+String.valueOf(params[2]);
+            return new URL(String.valueOf(params[0]) + "?"+ data);
+        }
+
         @Override
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             //updateLoginStatus();
-            Log.d("return:", result);
-            if (result.contains("success")){
-                showToast("请求成功");
+
+            if (result != null && result.contains("\"code\":200,")){
+                String token = getToken(result);
+                if (token != null && token.length() > 0)
+                {
+                    app_token = token;
+                }
+                showToast(command + "成功");
+                turnToMainFragment(command);
             }
             else{
-                showToast("请求失败");
+                showToast(command + "失败");
             }
         }
     }
 
+    public void turnToMainFragment(String command) {
+        if (command.equals(getResources().getString(R.string.login))){
+            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("token", app_token);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
+    public String getToken(String result) {
+        com.alibaba.fastjson.JSONObject object = JSON.parseObject(result, JSONObject.class);
+        return object.getString("token");
+    }
 }

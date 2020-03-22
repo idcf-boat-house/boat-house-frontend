@@ -39,31 +39,30 @@
 23-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:15:9-54
 24        android:supportsRtl="true"
 24-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:16:9-35
-25        android:testOnly="true"
-26        android:theme="@style/AppTheme"
-26-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:17:9-40
-27        android:usesCleartextTraffic="true" >
-27-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:18:9-44
-28        <activity android:name="com.idcf.boathouse.presentation.main.MainActivity" >
-28-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:20:9-26:20
-28-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:20:19-65
-29            <intent-filter>
-29-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:21:13-25:29
-30                <action android:name="android.intent.action.MAIN" />
-30-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:22:17-69
-30-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:22:25-66
-31
-32                <category android:name="android.intent.category.LAUNCHER" />
-32-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:24:17-77
-32-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:24:27-74
-33            </intent-filter>
-34        </activity>
-35        <activity android:name="com.idcf.boathouse.presentation.fragment.FragmentActivity" />
-35-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:27:9-76
-35-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:27:19-73
-36        <activity android:name="com.idcf.boathouse.presentation.login.LoginActivity" />
-36-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:28:9-70
-36-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:28:19-67
-37    </application>
-38
-39</manifest>
+25        android:theme="@style/AppTheme"
+25-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:17:9-40
+26        android:usesCleartextTraffic="true" >
+26-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:18:9-44
+27        <activity android:name="com.idcf.boathouse.presentation.main.MainActivity" >
+27-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:20:9-26:20
+27-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:20:19-65
+28            <intent-filter>
+28-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:21:13-25:29
+29                <action android:name="android.intent.action.MAIN" />
+29-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:22:17-69
+29-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:22:25-66
+30
+31                <category android:name="android.intent.category.LAUNCHER" />
+31-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:24:17-77
+31-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:24:27-74
+32            </intent-filter>
+33        </activity>
+34        <activity android:name="com.idcf.boathouse.presentation.fragment.FragmentActivity" />
+34-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:27:9-76
+34-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:27:19-73
+35        <activity android:name="com.idcf.boathouse.presentation.login.LoginActivity" />
+35-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:28:9-70
+35-->D:\git\boat-4\boat-house\client\mobile\Android\app\src\main\AndroidManifest.xml:28:19-67
+36    </application>
+37
+38</manifest>

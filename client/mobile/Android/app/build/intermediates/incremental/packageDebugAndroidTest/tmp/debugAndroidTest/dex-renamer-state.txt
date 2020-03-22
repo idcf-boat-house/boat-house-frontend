@@ -1,0 +1,4 @@
+#Sat Mar 21 15:37:21 CST 2020
+base.0=D\:\\git\\boat-4\\boat-house\\client\\mobile\\Android\\app\\build\\intermediates\\dex\\debugAndroidTest\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

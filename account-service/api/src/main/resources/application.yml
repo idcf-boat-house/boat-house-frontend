@@ -5,7 +5,7 @@ spring:
   #jdbc 配置文件内容
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://product-service-db:3306/BoatHouse?characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/BoatHouse?characterEncoding=utf-8
     schema: classpath:db/schema.sql
     data: classpath:db/data.sql
     username: root
