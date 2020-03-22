@@ -22,8 +22,8 @@ public class IntroPageController {
 	@ResponseBody
 	@ApiOperation("添加介绍页内容")
 	public void InserIntroPage(@RequestBody IntroPage introPage) throws SQLException{
-        JdbcUtils jdbcUtils = new JdbcUtils();
-        jdbcUtils.getConnection();
+		JdbcUtils jdbcUtils = new JdbcUtils();
+		jdbcUtils.getConnection();
 
 		String sqlSelect = "select * from intropage where page_id=?";
 		List<Object> params = new ArrayList<Object>();
@@ -69,12 +69,12 @@ public class IntroPageController {
 			e.printStackTrace();
 			jdbcUtils.releaseConn();
 		}
-    }
+	}
 
 	@RequestMapping(value = "IntroPage", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
-	public void DeleteIntroPage(@RequestParam String page_id ){
+	public void DeleteFoodCategory(@RequestParam String page_id ){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "update  intropage set deleted=1 where page_id = ?";
@@ -123,10 +123,10 @@ public class IntroPageController {
 	@RequestMapping(value = "IntroPage", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取介绍页")
-	public IntroPage GetIntroPage(@RequestParam String page_id){
+	public IntroPage GetFoodCategory(@RequestParam String page_id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
-		String sql = "select * from intropage where page_id = ? and deleted!=0";
+		String sql = "select * from intropage where page_id = ?";
 		List<Object> params = new ArrayList<Object>();
 		params.add(page_id);
 		IntroPage introPage=new IntroPage();
@@ -143,7 +143,7 @@ public class IntroPageController {
 			jdbcUtils.releaseConn();
 			return introPage;
 		} catch (Exception e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
 	}
