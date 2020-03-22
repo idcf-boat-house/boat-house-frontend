@@ -48,7 +48,7 @@
               <!--Shopping cart-->
               <div class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
-                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">2</span> </span>
+                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">{{totalFoodNum}}</span> </span>
                 </a>
 
                 <!--Shopping cart dropdown -->
@@ -58,25 +58,15 @@
                   </h5>
                   <hr class="mt-0 mb-3" />
                   <!--Shopping cart items-->
-                  <div class="cart-items">
+                  <div class="cart-items" v-for="item in shopCartList" :key='item.Id' >
                     <!--Shopping cart item 1 -->
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
-                          蜂蜜烤猪肉
+                          {{item.foodName}}
                         </h5>
-                        <p class="mb-0">¥90 / x2</p>
-                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times"></i> </a>
-                      </div>
-                    </div>
-                    <!--Shopping cart item 2 -->
-                    <div class="cart-items-item">
-                      <div class="float-left">
-                        <h5 class="mb-0">
-                          牛肉haggis
-                        </h5>
-                        <p class="mb-0">¥69 / x1</p>
-                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times"></i> </a>
+                        <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
+                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
                       </div>
                     </div>
 
@@ -85,11 +75,11 @@
                   <hr class="mt-3 mb-0" />
                   <div class="dropdown-footer text-center">
                     <h5 class="font-weight-bold">
-                      合计: <span class="text-primary">¥249</span>
+                      合计: <span class="text-primary">¥{{totalPrice}}</span>
                     </h5>
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="ClearShopCart()">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
                   </div>
-                </div>
+                </div>                
               </div>
               <!-- end of shopping cart -->
             </div>
@@ -319,7 +309,12 @@ export default {
       username: '',
       password: '',
       password2: '', 
-      message: ''
+      message: '',      
+      foodList: [],
+      shopCartList:[],
+      totalPrice:0,
+      totalFoodNum:0,
+
     }
   },
   components: {
@@ -328,6 +323,7 @@ export default {
   },
   mounted () {
     this.getUserInfo();
+    this.GetFoodList();
   },
   methods: {
     getCookie: function (cname) {
@@ -350,9 +346,11 @@ export default {
     },
     getUserInfo: function () {
       var user = this.getCookie("username");
+      var userId = this.getCookie("userId");
       if (!!user) {
         this.isLoging = true;
         this.username = user;
+        this.userId=userId;
       }
       console.log(user);
     },
@@ -385,10 +383,11 @@ export default {
       this.axios.post('/api/login', postData)
         .then( result => {
             if( result.status === 200) {
-              const {token, username} = result.data.data;
+              const {token, username, userId} = result.data.data;
               this.username = username;
               this.setCookie("session",token ,365);
               this.setCookie("username",username ,365);
+              this.setCookie("userId",userId ,365);
               $("#login-modal").modal('hide');
             } else {
               this.message = result.message;
@@ -402,6 +401,78 @@ export default {
       this.username = '';
       this.$router.push('/login');
 
+    },
+
+    GetFoodList: function () {  
+     let _this = this;
+      this.axios.get('api/foods').then(function (result) {
+        if (result.status === 200) {
+          _this.foodList = result.data.data;
+          console.log(_this.foodList);
+          _this.GetShopCartInfo();
+        }
+      });
+    }, 
+
+    GetShopCartInfo: function () {  
+      let _this = this   
+      //清空重新获取  
+      _this.shopCartList =[];
+      let userId= this.getCookie("userId"); 
+      this.axios.get('api/shopcart',{params:{userId:userId}}).then(function (result) {
+        if (result.status === 200) {
+          _this.returnList = result.data.data    
+          console.log(result.data)        
+          var total=0; 
+          var totalNum=0; 
+          _this.returnList.map(item => {
+          let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
+          // if(typeof foo !== 'undefined'){
+          var shopCartListItem = {
+              shopCartItem: item,
+              foodName: FoodItem.Name,
+              price: FoodItem.Price
+          }; 
+          // alert(JSON.stringify(shopCartListItem));
+          _this.shopCartList.push(shopCartListItem);
+          total+=(item.num * FoodItem.Price);
+          totalNum+=item.num;
+          // }
+          })
+          console.log("总价格："+total)  
+          _this.totalPrice=total; 
+          _this.totalFoodNum=totalNum;
+          console.log("shopCartInfo:"+JSON.stringify(_this.shopCartList)); 
+        }
+      })
+    },  
+    
+    DeleteFoodFromShopCart:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const delete_put = 'api/shopcart?userId='+userId+'&foodID='+parseInt(JSON.stringify(e));  
+      this.axios.put(delete_put).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
+
+
+    ClearShopCart:function(){
+      let _this = this ;      
+      const userId = this.getCookie("userId"); 
+      this.axios
+        .delete('api/shopcart',{params:{userId:userId}})
+        .then(function (result) {
+          //alert(JSON.stringify(result));
+        if (result.status === 200) {          
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
     }
   }
 

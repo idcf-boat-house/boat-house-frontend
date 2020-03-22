@@ -66,8 +66,8 @@ public class ShopCartController extends  BaseController {
     @RequestMapping(value = "ShopCart", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @ApiOperation("从购物车删除菜品")
-    public Map<String, Object> DeleteFoodFromShopCart(@RequestParam(value = "用户ID") Integer userId,
-                                                      @RequestParam(value = "菜品ID") Integer foodID){
+    public Map<String, Object> DeleteFoodFromShopCart(@RequestParam Integer userId,
+                                                      @RequestParam Integer foodID){
         shopCartService.DeleteFoodFromShopCart(userId,foodID);
         return super.info(BaseController.CODE_OK,"从购物车删除菜品成功", null);
     }
