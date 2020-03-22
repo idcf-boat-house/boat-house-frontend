@@ -383,11 +383,11 @@ export default {
       this.axios.post('/api/login', postData)
         .then( result => {
             if( result.status === 200) {
-              const {token, username,userId} = result.data.data;
+              const {token, username, userId} = result.data.data;
               this.username = username;
               this.setCookie("session",token ,365);
               this.setCookie("username",username ,365);
-              this.setCookie("userId",1 ,365);
+              this.setCookie("userId",userId ,365);
               $("#login-modal").modal('hide');
             } else {
               this.message = result.message;
@@ -417,7 +417,7 @@ export default {
     GetShopCartInfo: function () {  
       let _this = this   
       //清空重新获取  
-      let userId= 1;//this.getCookie(userId); 
+      let userId= this.getCookie("userId"); 
       this.axios.get('api/shopcart',{params:{userId:userId}}).then(function (result) {
         if (result.status === 200) {
           _this.returnList = result.data.data    
