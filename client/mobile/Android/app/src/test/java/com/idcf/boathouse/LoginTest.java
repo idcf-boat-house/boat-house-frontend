@@ -5,6 +5,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.idcf.boathouse.presentation.login.LoginActivity;
+import com.idcf.boathouse.presentation.login.LoginMsgParse;
 
 
 import org.junit.Test;
@@ -24,9 +25,9 @@ public class LoginTest {
 
     @Test
     public void gettoken()  {
-        LoginActivity activity = new LoginActivity();
+        LoginMsgParse loginMsgParse = new LoginMsgParse();
         String str = "{\"success\":true,\"code\":200,\"token\":123321,\"message\":\"............\",\"data\":{\"result\":true}}";
-        assertEquals("123321", activity.getToken(str));
+        assertEquals("123321", loginMsgParse.getToken(str));
     }
 
 

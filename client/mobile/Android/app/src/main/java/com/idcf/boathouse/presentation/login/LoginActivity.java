@@ -69,14 +69,13 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         webURI = getResources().getString(R.string.app_login_uri);
-        mWebView = (WebView)findViewById(R.id.webview_index);
-        APP_CACAHE_DIRNAME = this.getCacheDir().getAbsolutePath();
+
         mTextUserName = findViewById(R.id.editText_username);
         mTextPassword = findViewById(R.id.editText_password);
         initView();
-//        initWebView();
+
         getPresenter().start();
-//        mFragment = LoginFragment.newInstance();
+
         /**
          * login init
          *
@@ -117,21 +116,12 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
 
     private class LoginTask extends AsyncTask<String, Void, String> {
         private String command;
+        private LoginPostMsg loginPostMsg = new LoginPostMsg();
         @Override
         protected String doInBackground(String... params) {
             try {
                 URL url = getUrl(params);
-                HttpURLConnection connection = getHttpURLConnection(url);
-                OutputStream outputStream = connection.getOutputStream();
-
-                //获得结果码
-                int responseCode = connection.getResponseCode();
-                if(responseCode ==200){
-                    return getSuccessMsg(connection);
-                }else {
-                    //请求失败
-                    return String.valueOf(responseCode);
-                }
+                return loginPostMsg.postMsg(url);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
@@ -154,29 +144,6 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
             }
         }
 
-        private String getSuccessMsg(HttpURLConnection connection) throws IOException {
-            //请求成功
-            InputStream is = connection.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String msg = br.readLine();
-            Log.d("result=",msg);
-            return msg;//IOSUtil.inputStream2String(is);
-        }
-
-        private HttpURLConnection getHttpURLConnection(URL url) throws IOException {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(5000);
-            connection.setRequestMethod("POST");
-
-            //至少要设置的两个请求头
-            connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", "0");
-
-            //post的方式提交实际上是留的方式提交给服务器
-            connection.setDoOutput(true);
-            return connection;
-        }
-
         private URL getUrl(String[] params) throws MalformedURLException {
             getCommand(params[0]);
             String data = "username="+String.valueOf(params[1])+"&password="+String.valueOf(params[2]);
@@ -187,20 +154,23 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            //updateLoginStatus();
 
             if (result != null && result.contains("\"code\":200,")){
-                String token = getToken(result);
-                if (token != null && token.length() > 0)
-                {
-                    app_token = token;
-                }
+                updateToken(result);
                 showToast(command + "成功");
                 turnToMainFragment(command);
             }
             else{
                 showToast(command + "失败");
             }
+        }
+    }
+
+    private void updateToken(String result) {
+        String token = (new LoginMsgParse()).getToken(result);
+        if (token != null && token.length() > 0)
+        {
+            app_token = token;
         }
     }
 
@@ -215,8 +185,4 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         }
     }
 
-    public String getToken(String result) {
-        com.alibaba.fastjson.JSONObject object = JSON.parseObject(result, JSONObject.class);
-        return object.getString("token");
-    }
 }
