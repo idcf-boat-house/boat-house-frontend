@@ -4,7 +4,11 @@ metadata:
   name: client
   namespace: boathouse-test
 spec:
+<<<<<<< HEAD
   replicas: 1
+=======
+  replicas: 3
+>>>>>>> daa2651cabe4c3cac3b4ac9b5e80a225075da4d7
   selector: 
     matchLabels:
       app: client
