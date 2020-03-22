@@ -52,3 +52,12 @@ app.get("/api/foods", function(req, res) {
       return res.send(response.body);
     });
 });
+
+app.get("/api/story", function(req, res) {
+  requestify
+    .get("http://20.184.26.3:7001/api/v1.0/Intro/IntroPage?page_id=intro")
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
