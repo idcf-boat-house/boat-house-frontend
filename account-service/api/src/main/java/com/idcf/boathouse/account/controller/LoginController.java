@@ -30,8 +30,8 @@ public class LoginController {
         Map<String, Object> result = new HashMap<>();
         User user = userService.getOne(new QueryWrapper<User>().eq("account", username));
         String token = "";
-        if (user.getPassword().equals(password)) {
-            token = "1234567890";//JwtUtil.generateToken(user.getId().toString());
+        if (user.getPassword().equals(DigestUtil.md5Hex(password))) {
+            token = JwtUtil.generateToken(user.getId().toString());
         }
         result.put("token", token);
         result.put("userId", user.getId());
@@ -55,7 +55,7 @@ public class LoginController {
         user.setAccount(username);
         user.setPassword(DigestUtil.md5Hex(password));
         Map<String, Object> result = new HashMap<>();
-     //   result.put("result", userService.save(user));
+        result.put("result", userService.save(user));
         return new ResponseData(true, 200, "请求成功", result);
     }
 }
