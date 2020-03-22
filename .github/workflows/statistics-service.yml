@@ -1,4 +1,4 @@
-name: Build statistics-service
+name: Build and Deploy dev statistics-service
 on: push
 
 jobs:
@@ -34,3 +34,47 @@ jobs:
       
       - name: docker push statistics_service_worker tag latest
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:ci
+
+  deploy-dev:
+     needs: build
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+
+       - name: list env
+         run: env && ls
+
+       - name: replace project name
+         run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house|g" kompose/test/statistics-service-*.yaml
+
+       - name: replace docker images tags
+         run: sed -i "s|:latest$|:ci|g" kompose/test/statistics-service-*.yaml
+
+       - name: grep images url
+         run: grep -i "image:" kompose/test/statistics-service-*.yaml
+         #run: ls kompose/test/statistics-service-*.yaml
+
+       - uses: Azure/k8s-set-context@v1
+         with:
+           kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+       - uses: Azure/k8s-create-secret@v1
+         with:
+           container-registry-url: docker.pkg.github.com
+           container-registry-username: ${GITHUB_REPOSITORY%/*}
+           container-registry-password: ${{ secrets.packages_token }}
+           secret-name: demo-k8s-secret
+
+       - uses: Azure/k8s-deploy@v1
+         with:
+           namespace: 'boathouse-test-github'
+           manifests: |
+              kompose/test/statistics-service-api-deployment.yaml
+              kompose/test/statistics-service-api-svc.yaml
+              kompose/test/statistics-service-db-deployment.yaml
+              kompose/test/statistics-service-db-svc.yaml
+              kompose/test/statistics-service-redis-deployment.yaml
+              kompose/test/statistics-service-redis-svc.yaml
+              kompose/test/statistics-service-worker-deployment.yaml
+              kompose/test/statistics-service-worker-svc.yaml
+           kubectl-version: 'latest'
