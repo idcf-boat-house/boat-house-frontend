@@ -19,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface OrdersMapper extends BaseMapper<Orders> {
 
-    @Select("select * from idcf_orders where order_status!=0 order by update_time desc limit #{limited} offset #{offset}")
+    @Select("select * from idcf_orders  order by update_time desc limit #{limited} offset #{offset}")
     List<Orders> findPendingOrders(@Param("offset") int offset, @Param("limited") int limited);
 
     // 必须只有pending order才能进行更改
