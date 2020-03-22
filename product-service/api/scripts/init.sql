@@ -11,6 +11,8 @@ CREATE TABLE Food (
 	Picture nvarchar ( 1000 ) NULL,
 CONSTRAINT food_pk PRIMARY KEY ( Id ),
 CONSTRAINT food_category_fk FOREIGN KEY ( CategoryId ) REFERENCES FoodCategory ( Id ));
+
+DROP TABLE IF EXISTS `join_us`;
 CREATE TABLE `join_us`
 (
     `id`       int(11) NOT NULL AUTO_INCREMENT,
@@ -34,6 +36,27 @@ CREATE TABLE `intropage` (
    PRIMARY KEY (`page_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `intropage` VALUES ('intro', 'this is page title', 'http://www.baidu.com', '[\" <div>第一段  文字</div> \",\"<html> <p>第二段文字</p></html> \"]', '  [\"http://www.baidu.com\",\"https://www.cnblogs.com\"]', '\0', '2020-03-05 12:07:18', '2020-03-05 12:07:18');
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user
+(
+    id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    account VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
+    password VARCHAR(100) NULL DEFAULT NULL COMMENT '密码',
+    age INT(11) NULL DEFAULT NULL COMMENT '年龄',
+    email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
+    PRIMARY KEY (id)
+);
+DROP TABLE IF EXISTS shop_cart;
+CREATE TABLE shop_cart (
+    `id` VARCHAR(100) NOT NULL,
+    `userid` INT(11) NOT NULL,
+    `foodid` INT(11) NOT NULL,
+    `num` INT(4) NOT NULL,
+    `comment` VARCHAR(1000) DEFAULT NULL,
+    PRIMARY KEY (id),
+    unique key userid_foodid(`userid` ,`foodid`)
+);
 
 DROP TABLE IF EXISTS `idcf_orders`;
 create table `idcf_orders` (

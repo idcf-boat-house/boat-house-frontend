@@ -43,11 +43,12 @@
               <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
               <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
               <div class="header-divider d-none d-lg-block"></div>
-
+              <!-- User center -->
+              <a href="#" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="modal" data-target="#login-modal" ><i class="fa fa-user" aria-hidden="true"></i></a>
               <!--Shopping cart-->
               <div class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
-                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">2</span> </span>
+                  <span class="cart-link-icon"> <i class="fa fa-shopping-cart"></i> <span class="sr-only">Cart</span> <span class="cart-link-count bg-primary text-white">{{totalFoodNum}}</span> </span>
                 </a>
 
                 <!--Shopping cart dropdown -->
@@ -57,25 +58,15 @@
                   </h5>
                   <hr class="mt-0 mb-3" />
                   <!--Shopping cart items-->
-                  <div class="cart-items">
+                  <div class="cart-items" v-for="item in shopCartList" :key='item.Id' >
                     <!--Shopping cart item 1 -->
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
-                          蜂蜜烤猪肉
+                          {{item.foodName}}
                         </h5>
-                        <p class="mb-0">¥90 / x2</p>
-                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times"></i> </a>
-                      </div>
-                    </div>
-                    <!--Shopping cart item 2 -->
-                    <div class="cart-items-item">
-                      <div class="float-left">
-                        <h5 class="mb-0">
-                          牛肉haggis
-                        </h5>
-                        <p class="mb-0">¥69 / x1</p>
-                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times"></i> </a>
+                        <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
+                        <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
                       </div>
                     </div>
 
@@ -84,11 +75,11 @@
                   <hr class="mt-3 mb-0" />
                   <div class="dropdown-footer text-center">
                     <h5 class="font-weight-bold">
-                      合计: <span class="text-primary">¥249</span>
+                      合计: <span class="text-primary">¥{{totalPrice}}</span>
                     </h5>
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="ClearShopCart()">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
                   </div>
-                </div>
+                </div>                
               </div>
               <!-- end of shopping cart -->
             </div>
@@ -195,69 +186,51 @@
     <div class="hidden-elements js-off-canvas-exclude">
       <!--@modal - signup modal-->
       <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <form action="signup.html">
+        <div class="modal-dialog modal-dialog-centered">
+          <!-- <form action="signup.html"> -->
             <div class="modal-content">
               <div class="modal-header bg-light">
                 <h4 class="modal-title">
-                  Sign Up
+                  注册船屋
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <h6 class="op-8">
-                    Price Plan
-                  </h6>
-                  <select class="form-control">
-                    <option>Basic</option>
-                    <option>Pro</option>
-                    <option>Pro +</option>
-                  </select>
-                </div>
-                <hr />
-
-                <h6 class="op-8">
-                  Account Information
-                </h6>
-                <div class="form-group">
-                  <label class="sr-only" for="signup-first-name">First Name</label>
-                  <input type="text" class="form-control" id="signup-first-name" placeholder="First name">
+                <div class="alert alert-warning" v-if="message !== '' ">
+                  {{message}}
                 </div>
                 <div class="form-group">
-                  <label class="sr-only" for="signup-last-name">Last Name</label>
-                  <input type="text" class="form-control" id="signup-last-name" placeholder="Last name">
+                  <label class="sr-only" for="signup-username">用户名</label>
+                  <input type="text" class="form-control" id="signup-username" placeholder="用户名" v-model="username">
+                </div>
+               
+                <div class="form-group">
+                  <label class="sr-only" for="signup-password">密码</label>
+                  <input type="password" class="form-control" id="signup-password" placeholder="密码" v-model="password">
                 </div>
                 <div class="form-group">
-                  <label class="sr-only" for="signup-username">Userame</label>
-                  <input type="text" class="form-control" id="signup-username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="signup-email">Email address</label>
-                  <input type="email" class="form-control" id="signup-email" placeholder="Email address">
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="signup-password">Password</label>
-                  <input type="password" class="form-control" id="signup-password" placeholder="Password">
+                  <label class="sr-only" for="signup-password">再次确认密码</label>
+                  <input type="password" class="form-control" id="signup-password-repeat" placeholder="再次输入密码" v-model="password2">
                 </div>
                 <div class="form-check text-xs">
                   <label class="form-check-label op-8">
                     <input type="checkbox" value="term" class="form-check-input mt-1">
-                    I agree with the Terms and Conditions.
+                      注册即表示同意相关协议
                   </label>
                 </div>
               </div>
               <div class="modal-footer bg-light py-3">
                 <div class="d-flex align-items-center">
-                  <button type="button" class="btn btn-primary">Sign Up</button>
-                  <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                  <button type="button" class="btn btn-primary" @click="signup">注册</button>
+                  <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">取消</button>
                 </div>
-                <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">Already signed up? <a href="login.html">Login
-                    here</a></p>
+                <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">已有账号？ 
+                  <a href="#" data-dismiss="modal" aria-hidden="true" data-toggle="modal" data-target="#login-modal">立即登录</a>
+                  </p>
               </div>
             </div>
             <!-- /.modal-content -->
-          </form>
+          <!-- </form> -->
         </div>
         <!-- /.modal-dialog -->
       </div>
@@ -269,55 +242,53 @@
           <div class="modal-content">
             <div class="modal-header bg-light">
               <h4 class="modal-title">
-                Login
+                登录船屋
               </h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label class="sr-only" for="login-email">Email</label>
-                <input type="email" id="login-email" class="form-control email" placeholder="Email">
+                <label class="sr-only" for="login-email">用户名</label>
+                <input type="email" id="login-username" class="form-control email" placeholder="用户名" v-model="username">
               </div>
               <div class="form-group mb-0">
-                <label class="sr-only" for="login-password">Password</label>
-                <input type="password" id="login-password" class="form-control password mb-1" placeholder="Password">
+                <label class="sr-only" for="login-password">密码</label>
+                <input type="password" id="login-password" class="form-control password mb-1" placeholder="密码" v-model="password">
               </div>
             </div>
             <div class="modal-footer bg-light py-3">
               <div class="d-flex align-items-center">
-                <button type="button" class="btn btn-primary">Login</button>
-                <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="button" class="btn btn-primary" @click="login">登录</button>
+                <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">取消</button>
               </div>
               <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">
-                Not a member? <a href="#" class="signup">Sign up now!</a>
+                无账号 <a href="#" class="signup" data-dismiss="modal" aria-hidden="true" data-toggle="modal" data-target="#signup-modal">立即注册</a>
                 <br />
-                <a href="#">Forgotten password?</a>
+                <!-- <a href="#">Forgotten password?</a> -->
               </p>
             </div>
-            <!-- Modal -->
-            <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">
-                      最受欢迎菜品:
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  </div>
-                  <div class="modal-body"> 感谢支持!</div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade modal-duration" data-modal-duration="1000" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="vote-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">
+                最受欢迎菜品:
+              </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body"> 感谢支持!</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
-          <!-- /.modal-content -->
-
         </div>
-        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
+         
+
     </div>
 
   </div>
@@ -335,7 +306,15 @@ export default {
   data () {
     return {
       isLoging: false,
-      username: ''
+      username: '',
+      password: '',
+      password2: '', 
+      message: '',      
+      foodList: [],
+      shopCartList:[],
+      totalPrice:0,
+      totalFoodNum:0,
+
     }
   },
   components: {
@@ -344,6 +323,7 @@ export default {
   },
   mounted () {
     this.getUserInfo();
+    this.GetFoodList();
   },
   methods: {
     getCookie: function (cname) {
@@ -365,12 +345,55 @@ export default {
       console.info(document.cookie);
     },
     getUserInfo: function () {
-      var user = this.getCookie("session");
+      var user = this.getCookie("username");
+      var userId = this.getCookie("userId");
       if (!!user) {
         this.isLoging = true;
         this.username = user;
+        this.userId=userId;
       }
       console.log(user);
+    },
+    /** 注册操作 */
+    signup: function() {
+      /** check password */
+      if (this.password2 !== this.password) {
+        this.message = '两次密码不一致';
+        return;
+      } 
+      this.message = '';
+      const postData = {
+          username: this.username,
+          password: this.password,
+      };
+
+      this.axios.post('/api/signup', postData)
+        .then( result => {
+              $("#signup-modal").modal('hide');
+              $("#login-modal").modal('show');
+      });
+    },
+    /** 登录  */
+    login: function() {
+      const postData = {
+          username: this.username,
+          password: this.password,
+      };
+      this.message = '';
+      this.axios.post('/api/login', postData)
+        .then( result => {
+            if( result.status === 200) {
+              const {token, username, userId} = result.data.data;
+              this.username = username;
+              this.setCookie("session",token ,365);
+              this.setCookie("username",username ,365);
+              this.setCookie("userId",userId ,365);
+              $("#login-modal").modal('hide');
+            } else {
+              this.message = result.message;
+            }
+          
+        });
     },
     logout: function () {
       this.setCookie("session", "", 365);
@@ -378,6 +401,78 @@ export default {
       this.username = '';
       this.$router.push('/login');
 
+    },
+
+    GetFoodList: function () {  
+     let _this = this;
+      this.axios.get('api/foods').then(function (result) {
+        if (result.status === 200) {
+          _this.foodList = result.data.data;
+          console.log(_this.foodList);
+          _this.GetShopCartInfo();
+        }
+      });
+    }, 
+
+    GetShopCartInfo: function () {  
+      let _this = this   
+      //清空重新获取  
+      _this.shopCartList =[];
+      let userId= this.getCookie("userId"); 
+      this.axios.get('api/shopcart',{params:{userId:userId}}).then(function (result) {
+        if (result.status === 200) {
+          _this.returnList = result.data.data    
+          console.log(result.data)        
+          var total=0; 
+          var totalNum=0; 
+          _this.returnList.map(item => {
+          let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
+          // if(typeof foo !== 'undefined'){
+          var shopCartListItem = {
+              shopCartItem: item,
+              foodName: FoodItem.Name,
+              price: FoodItem.Price
+          }; 
+          // alert(JSON.stringify(shopCartListItem));
+          _this.shopCartList.push(shopCartListItem);
+          total+=(item.num * FoodItem.Price);
+          totalNum+=item.num;
+          // }
+          })
+          console.log("总价格："+total)  
+          _this.totalPrice=total; 
+          _this.totalFoodNum=totalNum;
+          console.log("shopCartInfo:"+JSON.stringify(_this.shopCartList)); 
+        }
+      })
+    },  
+    
+    DeleteFoodFromShopCart:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const delete_put = 'api/shopcart?userId='+userId+'&foodID='+parseInt(JSON.stringify(e));  
+      this.axios.put(delete_put).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
+
+
+    ClearShopCart:function(){
+      let _this = this ;      
+      const userId = this.getCookie("userId"); 
+      this.axios
+        .delete('api/shopcart',{params:{userId:userId}})
+        .then(function (result) {
+          //alert(JSON.stringify(result));
+        if (result.status === 200) {          
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
     }
   }
 

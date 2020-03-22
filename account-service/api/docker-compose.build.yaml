@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  account-service-api-ci:
+    image: maven:3.5.2-jdk-8-alpine
+    volumes:
+      - .:/build
+    working_dir: /build
+    command: bash -c "mvn package && mvn cobertura:cobertura"
+

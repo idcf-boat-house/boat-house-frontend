@@ -15,12 +15,11 @@ spec:
         app: statistics-service-redis
     spec:
       containers:
-      - image: docker.pkg.github.com/idcf-boat-house/boat-house/redis:alpine
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/redis:alpine
         name: redis
         ports:
         - containerPort: 6379
         resources: {}
-      restartPolicy: Always
       imagePullSecrets:
       - name: regcred
       restartPolicy: Always
