@@ -15,6 +15,8 @@ public interface ContentChildContract {
         void setRefresh(boolean refresh);
 
         void showDatas(List<String> datas);
+
+        void showData(String data);
     }
 
     interface Presenter extends MvpPresenter<View> {

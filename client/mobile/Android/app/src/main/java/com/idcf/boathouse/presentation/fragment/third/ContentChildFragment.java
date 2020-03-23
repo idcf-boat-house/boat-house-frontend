@@ -94,4 +94,9 @@ public class ContentChildFragment extends MvpFragment<ContentChildContract.Prese
         mdatas.addAll(datas);
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void showData(String data) {
+        showToast(data);
+    }
 }
