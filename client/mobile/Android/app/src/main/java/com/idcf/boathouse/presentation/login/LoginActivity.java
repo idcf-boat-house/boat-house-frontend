@@ -40,6 +40,7 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
     private static final String K_EXTRA_FRAGMENT = "extra_fragment";
     public static final String SIGNUP = "signUp";
     public static final String LOGIN = "login";
+    public static final String API = "/api/";
     private static String APP_CACAHE_DIRNAME;
     public static String app_token;
     private Toolbar mToolbar;
@@ -70,7 +71,7 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         setContentView(R.layout.activity_login);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        webURI = getResources().getString(R.string.app_login_uri);
+        webURI = getResources().getString(R.string.app_uri);
 
         mTextUserName = findViewById(R.id.editText_username);
         mTextPassword = findViewById(R.id.editText_password);
@@ -108,10 +109,10 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter> implemen
         String password = mTextPassword.getText().toString();
         switch (v.getId()) {
             case R.id.btn_login:
-                new LoginTask().execute(webURI + "/" + LOGIN, username, password);
+                new LoginTask().execute(webURI + API + LOGIN, username, password);
                 break;
             case R.id.btn_register:
-                new LoginTask().execute(webURI+ "/" + SIGNUP, username, password);
+                new LoginTask().execute(webURI+ API + SIGNUP, username, password);
                 break;
         }
     }
