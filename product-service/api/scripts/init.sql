@@ -82,7 +82,7 @@ create table `idcf_orders` (
   `reason`            varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '拒单理由',
-   `note`            varchar(500) CHARACTER SET utf8
+  `note`              varchar(500) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '用户备注',
   primary key order_pk (`id`),
@@ -94,7 +94,7 @@ create table `idcf_orders` (
 
 DROP table if exists `idcf_order_items`;
 create table `idcf_order_items` (
-  `id`             bigint                                                                                                                                                                 auto_increment
+  `id`             bigint                                                                                                                                                                                                                                                                                                                                                                                                                                                                   auto_increment
   comment 'primary key',
   `order_id`       varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci         not null
@@ -104,7 +104,7 @@ create table `idcf_order_items` (
   `food_name`      nvarchar(50) NOT NULL,
   `food_price`     DECIMAL(5, 2) NOT NULL                                                                  DEFAULT 0.00
   comment 'food single price',
-  `food_sub_total` decimal(5, 2) not null                                                                                                                                                 default 0.00
+  `food_sub_total` decimal(5, 2) not null                                                                                                                                                                                                                                                                                                                                                                                                                                                   default 0.00
   comment 'food sub total price',
   `food_num`       int           not null
   comment 'food number',
