@@ -125,7 +125,7 @@ app.post('/api/signup',function (req, res) {
 
 app.get("/api/story", function(req, res) {
   requestify
-    .get("http://product-service:7001/api/v1.0/Intro/IntroPage?page_id=intro")
+    .get("http://product-service-api:8080/api/v1.0/Intro/IntroPage?page_id=intro")
     .then(function(response) {
       console.log(response.body);
       return res.send(response.body);
@@ -134,7 +134,7 @@ app.get("/api/story", function(req, res) {
 
 app.get("/api/story", function(req, res) {
   requestify
-    .get("http://product-service:7001/api/v1.0/Intro/IntroPage?page_id=intro")
+    .get("http://product-service-api:8080/api/v1.0/Intro/IntroPage?page_id=intro")
     .then(function(response) {
       console.log(response.body);
       return res.send(response.body);
