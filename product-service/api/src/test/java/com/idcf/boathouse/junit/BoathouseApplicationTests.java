@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
+@ContextConfiguration(locations = "classpath:application.properties")
 @SpringBootTest
 public class BoathouseApplicationTests {
 

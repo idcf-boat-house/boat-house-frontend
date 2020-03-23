@@ -6,9 +6,11 @@ import com.idcf.boathouse.services.FoodService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigDecimal;
 
+@ContextConfiguration(locations = "classpath:application.properties")
 @SpringBootTest
 public class FoodApplicationTests {
     @Mock
