@@ -61,7 +61,7 @@ create table `idcf_orders` (
   `reason`            varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '拒单理由',
-   `note`            varchar(500) CHARACTER SET utf8
+  `note`              varchar(500) CHARACTER SET utf8
   COLLATE utf8_general_ci           default null
   comment '用户备注',
   primary key order_pk (`id`),
@@ -73,7 +73,7 @@ create table `idcf_orders` (
 
 DROP table if exists `idcf_order_items`;
 create table `idcf_order_items` (
-  `id`             bigint                                                                                                                                                                 auto_increment
+  `id`             bigint                                                                                                                                                                                                                                                                                                                                                                                                                                                                   auto_increment
   comment 'primary key',
   `order_id`       varchar(32) CHARACTER SET utf8
   COLLATE utf8_general_ci         not null
@@ -83,7 +83,7 @@ create table `idcf_order_items` (
   `food_name`      nvarchar(50) NOT NULL,
   `food_price`     DECIMAL(5, 2) NOT NULL                                                                  DEFAULT 0.00
   comment 'food single price',
-  `food_sub_total` decimal(5, 2) not null                                                                                                                                                 default 0.00
+  `food_sub_total` decimal(5, 2) not null                                                                                                                                                                                                                                                                                                                                                                                                                                                   default 0.00
   comment 'food sub total price',
   `food_num`       int           not null
   comment 'food number',
@@ -98,20 +98,25 @@ create table `idcf_order_items` (
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
-    id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-    account VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
-    password VARCHAR(100) NULL DEFAULT NULL COMMENT '密码',
-    age INT(11) NULL DEFAULT NULL COMMENT '年龄',
-    email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
-    PRIMARY KEY (id)
+  id       BIGINT(20)   NOT NULL AUTO_INCREMENT
+  COMMENT '主键ID',
+  account VARCHAR(30) NULL     DEFAULT NULL
+  COMMENT '姓名',
+  password VARCHAR(100) NULL     DEFAULT NULL
+  COMMENT '密码',
+  age      INT(11)      NULL     DEFAULT NULL
+  COMMENT '年龄',
+  email    VARCHAR(50)  NULL     DEFAULT NULL
+  COMMENT '邮箱',
+  PRIMARY KEY (id)
 );
 DROP TABLE IF EXISTS shop_cart;
 CREATE TABLE shop_cart (
-    `id` VARCHAR(100) NOT NULL,
-    `userid` INT(11) NOT NULL,
-    `foodid` INT(11) NOT NULL,
-    `num` INT(4) NOT NULL,
-    `comment` VARCHAR(1000) DEFAULT NULL,
-    PRIMARY KEY (id),
-    unique key userid_foodid(`userid` ,`foodid`)
+  `id`      VARCHAR(100) NOT NULL,
+  `userid` INT(11)      NOT NULL,
+  `foodid` INT(11)      NOT NULL,
+  `num`    INT(4)       NOT NULL,
+  `comment` VARCHAR(1000) DEFAULT NULL,
+  PRIMARY KEY (id),
+  unique key userid_foodid(`userid`, `foodid`)
 );

@@ -1,7 +1,7 @@
 package com.idcf.boathouse.controller;
 
-import com.idcf.boathouse.dbentity.IntroPageEntity;
 import com.idcf.boathouse.JdbcUtils;
+import com.idcf.boathouse.dbentity.IntroPageEntity;
 import com.idcf.boathouse.models.IntroPage;
 import com.idcf.boathouse.models.IntroPageValues;
 import io.swagger.annotations.Api;
@@ -74,7 +74,7 @@ public class IntroPageController {
 	@RequestMapping(value = "IntroPage", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
-	public void DeleteFoodCategory(@RequestParam String page_id ){
+	public void DeleteFoodCategory(@RequestParam String page_id) {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "update  intropage set deleted=1 where page_id = ?";
@@ -123,7 +123,7 @@ public class IntroPageController {
 	@RequestMapping(value = "IntroPage", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取介绍页")
-	public IntroPage GetFoodCategory(@RequestParam String page_id){
+	public IntroPage GetFoodCategory(@RequestParam String page_id) {
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from intropage where page_id = ?";
