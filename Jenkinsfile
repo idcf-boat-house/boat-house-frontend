@@ -153,7 +153,7 @@ pipeline {
                     sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub pull"
                     sh "docker-compose -f ./selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub up -d"
                     //sh "docker run -v \$(pwd)/selenium/dotnet-uitest/uitest/report:/app/TestResults ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
-                    mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
+                    //mstest testResultsFile:"selenium/**/*.trx", keepLongStdio: true
                   }
             }
         }
