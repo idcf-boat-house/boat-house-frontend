@@ -8,7 +8,7 @@ var port = process.env.PORT || 8080
 var hostname = 'localhost'
 var http = require('http')
 var requestify = require('requestify')
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser') 
 
 // parse application/json
 app.use(bodyParser.json())
@@ -52,15 +52,52 @@ app.get('/api/foods', function (req, res) {
       return res.send(response.body)
     })
 })
+
+//获取购物车
+app.get('/api/shopcart', function (req, res) {
+  requestify
+    .get('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId='+req.query.userId)
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})
  
+//添加购物车
 app.post('/api/food/shopcart', function (req, res) {
   requestify
-    .post('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart/', req.body)
+    .post('http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart', req.body)
     .then(function (response) {
       console.log(response.body)
       return res.send(response.body)
     }) 
-  })
+}) 
+
+//删除购物车某个菜品
+app.put('/api/shopcart', function (req, res) {
+  const userId=req.query.userId;
+  const foodID=req.query.foodID;
+  const delete_put = 'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId='+userId+'&foodID='+foodID;  
+  requestify
+    .put(delete_put)
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+})  
+
+ //清空购物车
+app.delete('/api/shopcart', function (req, res) {
+  requestify
+    .delete(
+      'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId=' +
+        req.query.userId
+    )
+    .then(function (response) {
+      console.log(response.body)
+      return res.send(response.body)
+    })
+}) 
 
 app.post('/api/login', function (req, res) {
   // console.log(req);
