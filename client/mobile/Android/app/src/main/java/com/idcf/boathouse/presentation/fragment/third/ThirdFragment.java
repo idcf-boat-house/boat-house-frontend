@@ -50,6 +50,7 @@ public class ThirdFragment extends MvpFragment<ThirdContract.Presenter> implemen
         initView(view);
 
         getPresenter().loadData();
+
     }
 
     private void initView(View view) {
@@ -80,5 +81,10 @@ public class ThirdFragment extends MvpFragment<ThirdContract.Presenter> implemen
             mPager.setOffscreenPageLimit(adapter.getCount() - 1);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showData(String data) {
+        showToast(data);
     }
 }

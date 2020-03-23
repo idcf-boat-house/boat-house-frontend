@@ -15,6 +15,9 @@ public interface ThirdContract {
     interface View extends MvpView {
 
         void setTabContent(@NonNull SupportFragment[] fragments, @NonNull String[] titles);
+
+        void showData(String data);
+
     }
 
     interface Presenter extends MvpPresenter<View> {

@@ -1,5 +1,7 @@
 package com.idcf.boathouse.presentation.fragment.first;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 
 import com.idcf.boathouse.mvp.MvpBasePresenter;
@@ -42,7 +44,10 @@ public class FirstPresenter extends MvpBasePresenter<FirstContract.View> impleme
 
                 getView().showData("正在获取...");
                 getView().setBtnGetDataEnabled(true);
+
+
             }
         }, 1000);
     }
+
 }

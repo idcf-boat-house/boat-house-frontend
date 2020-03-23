@@ -11,7 +11,7 @@ import com.idcf.boathouse.util.ToastUtil;
  */
 public abstract class MvpFragment<P extends MvpPresenter> extends BaseFragment implements MvpView {
 
-    private P mPresenter;
+    protected P mPresenter;
 
     @Override
     public void showToast(String message) {
