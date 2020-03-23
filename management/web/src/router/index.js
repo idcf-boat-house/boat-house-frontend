@@ -5,7 +5,6 @@ import FoodCategory from "@/components/FoodCategory";
 import Food from "@/components/Food";
 import UserMgt from "@/components/UserMgt";
 import JoinUs from "@/components/JoinUs";
-import Orders from "@/components/Orders";
 
 Vue.use(Router);
 
@@ -35,11 +34,6 @@ export default new Router({
       path: "/UserMgt",
       name: "UserMgt",
       component: UserMgt
-    },
-    {
-      path: "/Orders",
-      name: "Orders",
-      component: Orders
     }
   ]
 });
