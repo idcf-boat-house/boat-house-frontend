@@ -132,12 +132,3 @@ app.get('/api/story', function(req, res) {
     });
 });
 
-//'api/Intro/IntroPage', {'params': {'page_id': 'intro'}}
-app.get("/api/story", function(req, res) {
-  requestify
-    .get("http://product-service-api:8080/api/v1.0/Intro/IntroPage?page_id=intro")
-    .then(function(response) {
-      console.log(response.body);
-      return res.send(response.body);
-    });
-});

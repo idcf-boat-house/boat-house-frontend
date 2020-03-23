@@ -65,9 +65,9 @@ export default {
             let introObj = result.value
             _this.page_title = introObj.page_title
             _this.text = introObj.page_values.text
-            _this.textArr = eval(_this.text)
+            _this.textArr = eval('(' + _this.text +')')
             _this.images = introObj.page_values.image
-            _this.imageArr = eval(_this.images)
+            _this.imageArr = eval('(' + _this.images +')')
             _this.left_msg = _this.textArr[0]
             _this.right_msg = _this.textArr[1]
             _this.bg_image = _this.imageArr[0]
