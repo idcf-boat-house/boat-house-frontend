@@ -131,3 +131,12 @@ app.get("/api/story", function(req, res) {
       return res.send(response.body);
     });
 });
+
+app.post("/api/orders/create", function(req, res) {
+  requestify
+    .post("http://product-service-api:8080/api/v1.0/orders/create", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});

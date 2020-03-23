@@ -27,7 +27,7 @@ namespace UITest
         void Add()
         {
             
-            string catName = "测试分类";
+            string catName = "测试添加";
             string catDesc = "测试分类描述";
             Click(0);
             output.WriteLine($"点击添加");

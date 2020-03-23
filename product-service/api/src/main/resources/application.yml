@@ -20,3 +20,9 @@ server:
   servlet:
     #Api路由前缀
     context-path: /api/v1.0
+
+## 本地输出日志详情,本地需要更改日志文件中的路径配置为个人电脑下的路径
+logging:
+  config: classpath:log4j2.xml
+  file:
+    path: logs/

@@ -32,14 +32,14 @@ export default new Router({
       component: JoinUs
     },
     {
-      path: "/UserMgt",
-      name: "UserMgt",
-      component: UserMgt
-    },
-    {
       path: "/Orders",
       name: "Orders",
       component: Orders
+    },
+    {
+      path: "/UserMgt",
+      name: "UserMgt",
+      component: UserMgt
     }
   ]
 });

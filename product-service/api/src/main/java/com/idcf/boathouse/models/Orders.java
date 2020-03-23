@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * date:2020/3/15 13:37
@@ -45,4 +46,6 @@ public class Orders {
     @TableField(value = "reason", insertStrategy = FieldStrategy.DEFAULT)
     private String reason;
 
+    @TableField(value = "note", insertStrategy = FieldStrategy.DEFAULT)
+    private String note;
 }
