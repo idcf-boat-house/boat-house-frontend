@@ -11,7 +11,7 @@ using UITest.src.Util;
 
 namespace UITest
 {
-    //[TestCaseOrderer("UITest.PriorityOrderer", "UITest")]
+    [TestCaseOrderer("UITest.PriorityOrderer", "UITest")]
     public class FoodCategory_Test : TestBase
     {
         private readonly ITestOutputHelper output;
