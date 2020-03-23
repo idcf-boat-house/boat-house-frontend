@@ -59,7 +59,7 @@ export default {
   methods: {
     GetStory: function () {
       let _this = this
-      this.axios.get('http://20.184.26.3:7001/api/v1.0/Intro/IntroPage', {'params': {'page_id': 'intro'}})
+      this.axios.get('http://product-service-api:8080/api/v1.0/Intro/IntroPage', {'params': {'page_id': 'intro'}})
       .then(result => {
           if (result.status === 200) {
             let introObj = result.value
