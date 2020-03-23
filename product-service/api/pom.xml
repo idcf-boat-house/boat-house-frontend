@@ -141,7 +141,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-<!--                <version>2.9</version>-->
+                <!--                <version>2.9</version>-->
+                <configuration>
+                    <systemPropertyVariables>
+                        <org.springframework.boot.logging.LoggingSystem>
+                            org.springframework.boot.logging.log4j2.Log4J2LoggingSystem
+                        </org.springframework.boot.logging.LoggingSystem>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -152,6 +159,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
+                    <check/>
                 </configuration>
             </plugin>
         </plugins>
