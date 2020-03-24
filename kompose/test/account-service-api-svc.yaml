@@ -7,7 +7,7 @@ spec:
   type: LoadBalancer
   ports:
   - port: 7002
-    targetPort: 7002
+    targetPort: 8080
   selector:
     app: account-service-api
 
