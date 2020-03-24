@@ -22,8 +22,8 @@ public class IntroPageController {
 	@ResponseBody
 	@ApiOperation("添加介绍页内容")
 	public void InserIntroPage(@RequestBody IntroPage introPage) throws SQLException{
-		JdbcUtils jdbcUtils = new JdbcUtils();
-		jdbcUtils.getConnection();
+        JdbcUtils jdbcUtils = new JdbcUtils();
+        jdbcUtils.getConnection();
 
 		String sqlSelect = "select * from intropage where page_id=?";
 		List<Object> params = new ArrayList<Object>();
@@ -69,7 +69,7 @@ public class IntroPageController {
 			e.printStackTrace();
 			jdbcUtils.releaseConn();
 		}
-	}
+    }
 
 	@RequestMapping(value = "IntroPage", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
@@ -143,7 +143,7 @@ public class IntroPageController {
 			jdbcUtils.releaseConn();
 			return introPage;
 		} catch (Exception e) {
-			e.printStackTrace();
+		    e.printStackTrace();
 			return null;
 		}
 	}
