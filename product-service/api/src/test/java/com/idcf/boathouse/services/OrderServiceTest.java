@@ -1,6 +1,5 @@
 package com.idcf.boathouse.services;
 
-import com.idcf.boathouse.models.Orders;
 import com.idcf.boathouse.vo.OrderCreateVo;
 import com.idcf.boathouse.vo.OrderItemsCreateVo;
 import com.idcf.boathouse.vo.OrderVo;
@@ -48,15 +47,16 @@ public class OrderServiceTest {
     public void tearDown() {
 
     }
+
     @Test
     public void create() throws Exception {
-        OrderCreateVo orderCreateVo=new OrderCreateVo();
+        OrderCreateVo orderCreateVo = new OrderCreateVo();
         orderCreateVo.setAdditionalAmount(new BigDecimal(20));
         orderCreateVo.setNote("不要辣");
-        OrderItemsCreateVo itemVo=new OrderItemsCreateVo();
+        OrderItemsCreateVo itemVo = new OrderItemsCreateVo();
         itemVo.setFoodId(1);
         itemVo.setFoodNum(10);
-        List<OrderItemsCreateVo> lstOrderItemsCreateVo=new ArrayList<>();
+        List<OrderItemsCreateVo> lstOrderItemsCreateVo = new ArrayList<>();
         lstOrderItemsCreateVo.add(itemVo);
         orderCreateVo.setItemsList(lstOrderItemsCreateVo);
 

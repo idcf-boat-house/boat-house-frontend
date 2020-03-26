@@ -1,6 +1,8 @@
 package com.idcf.boathouse.junit;
 
+import com.idcf.boathouse.controller.BoatHouseController;
 import com.idcf.boathouse.controller.FoodController;
+import com.idcf.boathouse.models.FoodCategoryPost;
 import com.idcf.boathouse.models.FoodPost;
 import com.idcf.boathouse.services.FoodService;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,7 @@ import java.math.BigDecimal;
 public class FoodApplicationTests {
     @Mock
     private FoodController foodController;
-    private FoodService foodService = new FoodService();
+    private FoodService foodService=new FoodService();
 
     @Test
     public void AddFood() {

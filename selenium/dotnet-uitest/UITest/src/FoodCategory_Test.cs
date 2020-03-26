@@ -28,7 +28,7 @@ namespace UITest
         {
             
             string catName = "测试添加";
-            string catDesc = "测试分类描述";
+            string catDesc = "测试类型添加";
             Click(0);
             output.WriteLine($"点击添加");
             SendKey(1, catName);

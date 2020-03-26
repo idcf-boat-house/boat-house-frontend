@@ -3,10 +3,7 @@ package com.idcf.boathouse.junit;
 import com.idcf.boathouse.controller.BoatHouseController;
 import com.idcf.boathouse.models.FoodCategoryPost;
 import com.idcf.boathouse.services.FoodCategoryService;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class BoathouseApplicationTests {
 
-    private FoodCategoryService foodCategoryService = new FoodCategoryService();
+    private FoodCategoryService foodCategoryService=new FoodCategoryService();
 
     @Mock
     private BoatHouseController boatHouseController;  // 被测类
@@ -35,7 +32,7 @@ public class BoathouseApplicationTests {
 
     // 在@Test标注的测试方法之前运行
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         // 初始化测试用例类中由Mockito的注解标注的所有模拟对象
         MockitoAnnotations.initMocks(this);
         // 用模拟对象创建被测类对象
@@ -72,7 +69,7 @@ public class BoathouseApplicationTests {
 
     @Test
     public void VerifyName() {
-        assertEquals(true, foodCategoryService.VerifyName(("三明治")));
+        assertEquals(true,foodCategoryService.VerifyName(("三明治")));
     }
 
     @Test
