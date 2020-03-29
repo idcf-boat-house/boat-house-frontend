@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(tags = "Boat House Introduce API")
-@RequestMapping("/Intro/*")
+//@Api(tags = "Boat House Introduce API")
+@Api(tags = "船坞故事接口")
+//@RequestMapping("/Intro/*")
+@RequestMapping("/intro/*")
 public class IntroPageController {
 
-	@RequestMapping(value = "IntroPage", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("添加介绍页内容")
 	public void InserIntroPage(@RequestBody IntroPage introPage) throws SQLException{
@@ -71,7 +73,7 @@ public class IntroPageController {
 		}
     }
 
-	@RequestMapping(value = "IntroPage", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
 	public void DeleteFoodCategory(@RequestParam String page_id ){
@@ -90,7 +92,7 @@ public class IntroPageController {
 		return;
 	}
 
-	@RequestMapping(value = "IntroPage", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新介绍页内容")
 	public void UpdateIntroPage(@RequestBody IntroPage introPage){
@@ -120,15 +122,17 @@ public class IntroPageController {
 	}
 
 
-	@RequestMapping(value = "IntroPage", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取介绍页")
-	public IntroPage GetFoodCategory(@RequestParam String page_id){
+	//public IntroPage GetFoodCategory(@RequestParam String page_id){
+	public IntroPage GetFoodCategory(@RequestBody String page_id){
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
 		String sql = "select * from intropage where page_id = ?";
 		List<Object> params = new ArrayList<Object>();
 		params.add(page_id);
+//		params.add("intro");
 		IntroPage introPage=new IntroPage();
 		try {
 			IntroPageEntity introPageEntity= jdbcUtils.findSimpleRefResult(sql, params, IntroPageEntity.class);
