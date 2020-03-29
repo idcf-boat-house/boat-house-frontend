@@ -47,6 +47,9 @@ CREATE TABLE user
     email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
     PRIMARY KEY (id)
 );
+ALTER TABLE `BoatHouse`.`user` 
+ADD UNIQUE INDEX `account_UNIQUE` (`account` ASC);
+
 DROP TABLE IF EXISTS shop_cart;
 CREATE TABLE shop_cart (
     `id` VARCHAR(100) NOT NULL,
