@@ -6,6 +6,7 @@ import Food from "@/components/Food";
 import UserMgt from "@/components/UserMgt";
 import JoinUs from "@/components/JoinUs";
 import Orders from "@/components/Orders";
+import HouseStory from "@/components/HouseStory";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/Orders",
       name: "Orders",
       component: Orders
+    },
+    {
+      path: "/HouseStory",
+      name: "HouseStory",
+      component: HouseStory
     }
   ]
 });
