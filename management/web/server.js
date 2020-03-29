@@ -318,7 +318,6 @@ app.put("/orders/refuse", function(req, res) {
 });
 
 app.get("/api/intro/intro_page", function(req, res) {
-  console.log(req.query);
   requestify
     .get("http://product-service-api:8080/api/v1.0/intro/intro_page/" + req.query.page_id)
     .then(function(response) {
