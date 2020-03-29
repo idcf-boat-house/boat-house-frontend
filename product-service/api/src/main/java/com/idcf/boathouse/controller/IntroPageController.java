@@ -32,7 +32,7 @@ public class IntroPageController {
 		introPageService.inserIntroPage(introPage);
     }
 
-	@RequestMapping(value = "intro_page", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page/{page_id}", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
 	public void deleteIntroPage(@PathVariable("page_id") String page_id ) throws Exception{
