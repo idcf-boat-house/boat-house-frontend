@@ -35,7 +35,7 @@ public class IntroPageController {
 	@RequestMapping(value = "intro_page", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("删除介绍页内容")
-	public void deleteIntroPage(@RequestParam String page_id ) throws Exception{
+	public void deleteIntroPage(@PathVariable("page_id") String page_id ) throws Exception{
 		introPageService.deleteIntroPage(page_id);
 	}
 
@@ -47,11 +47,11 @@ public class IntroPageController {
 	}
 
 
-	@RequestMapping(value = "intro_page", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "intro_page/{page_id}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("根据Id获取介绍页")
 	//public IntroPage GetFoodCategory(@RequestParam String page_id){
-	public IntroPageFront getIntroPage(@RequestParam String page_id){
+	public IntroPageFront getIntroPage(@PathVariable("page_id") String page_id){
 		return introPageService.getIntroPage(page_id);
 	}
 }
