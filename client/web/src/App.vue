@@ -433,10 +433,13 @@ export default {
     logout: function () {
       this.username = '';
       this.signusername = '';
+      this.userId = '';
       this.setCookie("session", "", 365);
       this.setCookie("username", "", 365);
       this.setCookie("userId", "", 365);
       this.isLoging = false;
+      this.shopCartList=[];
+      this.GetShopCartInfo();
     },
 
     GetFoodList: function () {  
