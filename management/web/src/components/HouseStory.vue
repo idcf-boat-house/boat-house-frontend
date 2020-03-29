@@ -27,7 +27,11 @@
           <div class="story-row story-content">
             <div class="story-label">页面内容</div>
             <div class="story-body">
-              <froala :tag="'textarea'" :config="froalaConfig" v-model="pageBody"></froala>
+              <quill-editor
+                ref="myQuillEditor"
+                v-model="pageBody"
+                :options="editorOption"
+              />
             </div>
           </div>
           <div class="story-row">
@@ -39,14 +43,22 @@
   </div>
 </template>
 <script>
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
+
 export default {
+  components: {
+    quillEditor
+  },
   data () {
     return {
       pageId: 'intro',
       pageTitle: '',
       pageBody: '',
-      froalaConfig: {
-        heightMin: 600
+      editorOption: {
+        scrollingContainer: '.story-body'
       }
     }
   },
@@ -81,7 +93,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .story-container {
   margin: 12px 32px;
 }
@@ -105,5 +117,9 @@ export default {
 
 .story-body {
   margin-top: 12px;
+}
+
+.story-body .ql-editor {
+  height: 600px;
 }
 </style>
