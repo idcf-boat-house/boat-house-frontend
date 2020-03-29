@@ -214,7 +214,7 @@
                 </div>
                 <div class="form-check text-xs">
                   <label class="form-check-label op-8">
-                    <input type="checkbox" value="term" class="form-check-input mt-1">
+                    <input type="checkbox" id="contract-check" class="form-check-input mt-1" v-model="contract">
                       注册即表示同意相关协议
                   </label>
                 </div>
@@ -309,6 +309,7 @@ export default {
       username: '',
       password: '',
       password2: '', 
+      contract: false,
       message: '',      
       foodList: [],
       shopCartList:[],
@@ -356,6 +357,13 @@ export default {
     },
     /** 注册操作 */
     signup: function() {
+
+      /** check 协议 */
+      if(!this.contract){
+          this.message = '您必须通过协议';
+          return;
+      }
+
       /** check password */
       if (this.password2 !== this.password) {
         this.message = '两次密码不一致';
