@@ -76,6 +76,10 @@ export default {
     AddFoodToCart: function (e) {
       let _this = this 
       const userId = _this.$parent.getCookie("userId");   
+      if(userId === '' || userId === undefined){
+        $("#login-modal").modal('show');
+        return;
+      }
       let postData = {
             userid: userId,
             foodid: parseInt(e.Id),
