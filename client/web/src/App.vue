@@ -386,8 +386,17 @@ export default {
 
       this.axios.post('/api/signup', postData)
         .then( result => {
-              $("#signup-modal").modal('hide');
-              $("#login-modal").modal('show');
+          if(result.data.code===200){
+            this.username = '';
+            this.signusername = '';
+            this.password = '';
+            this.password2 = '';
+            $("#signup-modal").modal('hide');
+            $("#login-modal").modal('show');
+          }else{
+            this.message = result.data.message;
+            return;
+          }
       });
     },
     /** 登录  */
