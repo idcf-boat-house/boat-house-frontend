@@ -1,0 +1,52 @@
+{{- range $index, $svc := $.Values.serviceProfiles }}
+{{- if has $svc.name $.Values.services  }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    rel: boat-house
+spec:
+  replicas: {{ $svc.replicas }}
+  selector: 
+    matchLabels:
+      app: {{ $svc.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $svc.name }}
+    spec:
+{{- if contains "product-service-db" $svc.name }}
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+{{- end }}
+      containers:
+      - name: {{ $svc.name }}
+        image: {{ $.Values.imageRepository }}/{{ $.Values.imageNamePrefix }}{{ $svc.imageName }}{{- if contains ":" $svc.imageName }}{{else}}:{{ $.Values.imageTag }}{{- end }}
+        {{- if contains "product-service-db" $svc.name }}
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "P2ssw0rd"
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+        {{- end }}
+        {{- if contains "statistics-service-db" $svc.name }}
+        env:
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: trust
+        {{- end }}{{$appPort := int (toString ($svc.appPort)) }}
+        {{- if ne $appPort 0 }}
+        ports:
+          - containerPort: {{ $svc.appPort }}
+        {{- end }}
+    {{- with $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      restartPolicy: Always
+{{- end }}
+{{- end }}

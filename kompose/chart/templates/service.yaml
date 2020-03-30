@@ -1,0 +1,21 @@
+{{- range $index, $svc := $.Values.serviceProfiles }}
+{{- if has $svc.name $.Values.services  }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $svc.name }}
+  labels:
+    rel: boat-house
+spec:
+  type: {{ $svc.svcType }}
+  ports:
+    - port: {{ $svc.svcPort | default "80" }}
+      targetPort: {{ $svc.appPort }}
+      {{- if contains "NodePort" $svc.svcType }}
+      nodePort: {{ $svc.svcNodePort | default "{}" }}
+      {{- end }}
+  selector:
+    app: {{ $svc.name }}
+{{- end }}
+{{- end }}
