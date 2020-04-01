@@ -47,9 +47,30 @@
               <a href="#" v-if="signusername === ''" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="modal" data-target="#login-modal" >
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
-              <a href="#" v-if="signusername !== ''" class="btn btn-icon btn-link header-btn float-right order-11" @click="logout">
-                <span >{{signusername}}退出登录</span>
-              </a>
+
+              <!--UserInfo-->
+              <div v-if="signusername !== ''" class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right order-11">
+                <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+
+                <!--Shopping cart dropdown -->
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
+                  <h5 class="dropdown-header mb-0">
+                    {{signusername}}，欢迎您！
+                  </h5>
+                  
+                  <!--End of Shopping cart items-->
+                  <hr class="mt-3 mb-0" />
+                  <div class="dropdown-footer text-center">
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="logout()">退出登录</a>
+                  </div>
+                </div>                
+              </div>
+              <!-- end of UserInfo -->
+
+
+
               <!--Shopping cart-->
               <div class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
@@ -357,10 +378,12 @@ export default {
     getUserInfo: function () {
       var user = this.getCookie("username");
       var userId = this.getCookie("userId");
+      var signusername = this.getCookie("username");
       if (!!user) {
         this.isLoging = true;
         this.username = user;
         this.userId=userId;
+        this.signusername = signusername;
       }
       console.log(user);
     },
