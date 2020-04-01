@@ -9,9 +9,9 @@
         <!--Header search region - hidden by default -->
         <div class="header-search collapse" id="search">
           <form class="search-form container">
-            <input type="text" name="search" class="form-control search" value="" placeholder="Search">
-            <button type="button" class="btn btn-link"><span class="sr-only">Search </span><i class="fa fa-search fa-flip-horizontal search-icon"></i></button>
-            <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close"><span class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
+            <input type="text" name="search" class="form-control search" v-model="searchText" placeholder="Search">
+            <button type="button" class="btn btn-link" @click="getFoodLike"><span class="sr-only">Search </span><i class="fa fa-search fa-flip-horizontal search-icon"></i></button>
+            <button type="button" class="btn btn-link close-btn" @click="clearSearchTest"  data-toggle="search-form-close"><span class="sr-only">Close </span><i class="fa fa-times search-icon"></i></button>
           </form>
         </div>
 
@@ -79,7 +79,7 @@
                     </h5>
                     <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="ClearShopCart()">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
                   </div>
-                </div>                
+                </div>
               </div>
               <!-- end of shopping cart -->
             </div>
@@ -203,7 +203,7 @@
                   <label class="sr-only" for="signup-username">用户名</label>
                   <input type="text" class="form-control" id="signup-username" placeholder="用户名" v-model="username">
                 </div>
-               
+
                 <div class="form-group">
                   <label class="sr-only" for="signup-password">密码</label>
                   <input type="password" class="form-control" id="signup-password" placeholder="密码" v-model="password">
@@ -224,7 +224,7 @@
                   <button type="button" class="btn btn-primary" @click="signup">注册</button>
                   <button type="button" class="btn btn-link ml-1" data-dismiss="modal" aria-hidden="true">取消</button>
                 </div>
-                <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">已有账号？ 
+                <p class="text-xs text-right text-lh-tight op-8 my-0 ml-auto">已有账号？
                   <a href="#" data-dismiss="modal" aria-hidden="true" data-toggle="modal" data-target="#login-modal">立即登录</a>
                   </p>
               </div>
@@ -287,7 +287,7 @@
           </div>
         </div>
       </div>
-         
+
 
     </div>
 
@@ -308,13 +308,13 @@ export default {
       isLoging: false,
       username: '',
       password: '',
-      password2: '', 
-      message: '',      
+      password2: '',
+      message: '',
       foodList: [],
       shopCartList:[],
       totalPrice:0,
       totalFoodNum:0,
-
+      searchText: '',
     }
   },
   components: {
@@ -360,7 +360,7 @@ export default {
       if (this.password2 !== this.password) {
         this.message = '两次密码不一致';
         return;
-      } 
+      }
       this.message = '';
       const postData = {
           username: this.username,
@@ -392,7 +392,7 @@ export default {
             } else {
               this.message = result.message;
             }
-          
+
         });
     },
     logout: function () {
@@ -403,7 +403,7 @@ export default {
 
     },
 
-    GetFoodList: function () {  
+    GetFoodList: function () {
      let _this = this;
       this.axios.get('api/foods').then(function (result) {
         if (result.status === 200) {
@@ -412,19 +412,24 @@ export default {
           _this.GetShopCartInfo();
         }
       });
-    }, 
-
-    GetShopCartInfo: function () {  
-      let _this = this   
-      //清空重新获取  
+    },
+    getFoodLike: function () {
+      this.$router.push({ name: 'SearchFood', params: { foodName: this.searchText }})
+    },
+    clearSearchTest: function () {
+      this.searchText = "";
+    },
+    GetShopCartInfo: function () {
+      let _this = this
+      //清空重新获取
       _this.shopCartList =[];
-      let userId= this.getCookie("userId"); 
+      let userId= this.getCookie("userId");
       this.axios.get('api/shopcart',{params:{userId:userId}}).then(function (result) {
         if (result.status === 200) {
-          _this.returnList = result.data.data    
-          console.log(result.data)        
-          var total=0; 
-          var totalNum=0; 
+          _this.returnList = result.data.data
+          console.log(result.data)
+          var total=0;
+          var totalNum=0;
           _this.returnList.map(item => {
           let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
           // if(typeof foo !== 'undefined'){
@@ -432,26 +437,26 @@ export default {
               shopCartItem: item,
               foodName: FoodItem.Name,
               price: FoodItem.Price
-          }; 
+          };
           // alert(JSON.stringify(shopCartListItem));
           _this.shopCartList.push(shopCartListItem);
           total+=(item.num * FoodItem.Price);
           totalNum+=item.num;
           // }
           })
-          console.log("总价格："+total)  
-          _this.totalPrice=total; 
+          console.log("总价格："+total)
+          _this.totalPrice=total;
           _this.totalFoodNum=totalNum;
-          console.log("shopCartInfo:"+JSON.stringify(_this.shopCartList)); 
+          console.log("shopCartInfo:"+JSON.stringify(_this.shopCartList));
         }
       })
-    },  
-    
+    },
+
     DeleteFoodFromShopCart:function(e){
-      let _this = this ;   
-      let userId= this.getCookie("userId"); 
-      const delete_put = 'api/shopcart?userId='+userId+'&foodID='+parseInt(JSON.stringify(e));  
-      this.axios.put(delete_put).then(function (result) {    
+      let _this = this ;
+      let userId= this.getCookie("userId");
+      const delete_put = 'api/shopcart?userId='+userId+'&foodID='+parseInt(JSON.stringify(e));
+      this.axios.put(delete_put).then(function (result) {
         // alert(JSON.stringify(result));
         if (result.status === 200) {
           _this.shopCartList=[];
@@ -462,13 +467,13 @@ export default {
 
 
     ClearShopCart:function(){
-      let _this = this ;      
-      const userId = this.getCookie("userId"); 
+      let _this = this ;
+      const userId = this.getCookie("userId");
       this.axios
         .delete('api/shopcart',{params:{userId:userId}})
         .then(function (result) {
           //alert(JSON.stringify(result));
-        if (result.status === 200) {          
+        if (result.status === 200) {
           _this.shopCartList=[];
           _this.GetShopCartInfo();
         }
