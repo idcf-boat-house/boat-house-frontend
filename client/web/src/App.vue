@@ -89,9 +89,9 @@
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
-                          <a href="#"> <i class="fa fa-times" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"></i> </a>
+                          <a href="#"> <i class="fa fa-cart-arrow-down" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"></i> </a>
                           {{item.foodName}}
-                          <a href="#"> <i class="fa fa-times" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"></i> </a>
+                          <a href="#"> <i class="fa fa-cart-plus" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"></i> </a>
                         </h5>
                         <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
                         <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
