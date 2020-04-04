@@ -89,7 +89,9 @@
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
+                          <a href="#"> <i class="fa fa-times" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"></i> </a>
                           {{item.foodName}}
+                          <a href="#"> <i class="fa fa-times" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"></i> </a>
                         </h5>
                         <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
                         <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
@@ -355,7 +357,7 @@ export default {
   },
   mounted () {
     this.getUserInfo();
-    this.GetFoodList();
+    //this.GetFoodList();
   },
   methods: {
     getCookie: function (cname) {
@@ -488,19 +490,18 @@ export default {
           var total=0; 
           var totalNum=0; 
           _this.returnList.map(item => {
-            let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
-            // if(typeof foo !== 'undefined'){
+            
             var shopCartListItem = {
                 shopCartItem: item,
-                foodName: FoodItem.Name,
-                price: FoodItem.Price,
+                foodName: item.Name,
+                price: item.Price,
                 foodId: item.foodid,
                 foodNum: item.num,
-                foodPrice: FoodItem.Price
+                foodPrice: item.Price
             }; 
             // alert(JSON.stringify(shopCartListItem));
             _this.shopCartList.push(shopCartListItem);
-            total+=(item.num * FoodItem.Price);
+            total+=(item.num * item.Price);
             totalNum+=item.num;
             // }
           })
@@ -525,6 +526,42 @@ export default {
       })
     },
 
+    ShopCartReduceFoodNum:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const minus_put = 'api/ShopCartReduceFoodNum'; 
+      //?userId='+userId+'&foodID='+parseInt(JSON.stringify(e))+'&reduceNum=1
+      const put_data = {
+        userId: userId,
+        foodID: parseInt(JSON.stringify(e)),
+        reduceNum: 1
+      };
+      this.axios.put(minus_put,put_data).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
+
+    ShopCartAddFoodNum:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const add_put = 'api/ShopCartAddFoodNum';  
+      const put_data = {
+        userId: userId,
+        foodID: parseInt(JSON.stringify(e)),
+        reduceNum: 1
+      };
+      this.axios.put(add_put,put_data).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
 
     ClearShopCart:function(){
       let _this = this ;      
