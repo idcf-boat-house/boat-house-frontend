@@ -56,7 +56,6 @@
           _this.GetFoodList()
         }
       })
-<<<<<<< HEAD
     },
     methods: {
       GetFoodList: function () {
@@ -72,31 +71,6 @@
             console.log(_this.foodList)
           }
         })
-=======
-    }, 
-    AddFoodToCart: function (e) {
-      let _this = this 
-      const userId = _this.$parent.getCookie("userId");   
-      if(userId === '' || userId === undefined){
-        $("#login-modal").modal('show');
-        return;
-      }
-      let postData = {
-            userid: userId,
-            foodid: parseInt(e.Id),
-            num: 1,
-            comment: ""
-         };
-
-       // http://127.0.0.1:8081/api/v1.0/BoatHouse/ShopCart 
-      const url = '/api/food/shopcart'; 
-      this.axios.post(url, postData).then(function (result) {
-        console.log(result)
-        if (result.status === 200) {
-          console.log("添加购物车成功"); 
-          _this.$parent.GetShopCartInfo(); 
-        }
->>>>>>> fae16dc4cc0e4caa6a8310737372b6ff1f809676
       },
       AddFoodToCart: function (e) {
         let _this = this
