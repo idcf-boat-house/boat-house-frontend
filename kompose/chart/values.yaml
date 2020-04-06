@@ -1,0 +1,64 @@
+
+imageRepository: docker.pkg.github.com/idcf-boat-house/boat-house
+imageNamePrefix: ''
+imageTag: master-86
+imagePullSecrets: []
+
+services:
+  - client
+  - management
+  - statistics-service-api
+  - statistics-service-worker
+  - product-service-api
+  - account-service-api
+
+
+serviceProfiles:
+  - name: client
+    imageName: client
+    replicas: 3
+    svcType: LoadBalancer
+    appPort: 8080
+    svcPort: 80
+  - name: management
+    imageName: management
+    replicas: 1
+    svcType: LoadBalancer
+    appPort: 4000
+    svcPort: 80
+  - name: product-service-db
+    imageName: mysql:5.6
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 3306
+    svcPort: 3306
+  - name: product-service-api
+    imageName: product_service_api
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 8080
+    svcPort: 8080
+  - name: statistics-service-db
+    imageName: postgres:9.4
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 5432
+    svcPort: 5432
+  - name: statistics-service-redis
+    imageName: redis:alpine
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 6379
+    svcPort: 6379
+  - name: statistics-service-api
+    imageName: statistics_service_api
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 80
+    svcPort: 80
+  - name: statistics-service-worker
+    imageName: statistics_service_worker
+    replicas: 1
+    svcType: ClusterIP
+    appPort: 0
+    svcPort: 55555
