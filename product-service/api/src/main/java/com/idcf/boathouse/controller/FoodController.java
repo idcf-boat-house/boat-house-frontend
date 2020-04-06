@@ -40,7 +40,7 @@ public class FoodController extends BaseController{
 		// foodPost.price = price;
 		// foodPost.description = description;
 		// foodPost.picture = picture;
-		foodService.insertOrUpdateFood(foodPost);
+		foodService.insertOrUpdateFood(food);
 		return super.info(BaseController.CODE_OK,"添加菜品成功", null);
 	}
 
@@ -59,7 +59,7 @@ public class FoodController extends BaseController{
 		// {
 		// 	foodPost.picture = picture;
 		// }
-		foodService.insertOrUpdateFood(foodPost);
+		foodService.insertOrUpdateFood(food);
 		return super.info(BaseController.CODE_OK,"更新菜品成功", null);
 	}
 
