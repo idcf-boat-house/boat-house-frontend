@@ -103,7 +103,8 @@
                     <h5 class="font-weight-bold">
                       合计: <span class="text-primary">¥{{totalPrice}}</span>
                     </h5>
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="ClearShopCart()">清理购物车</a> <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2">去结算</a>
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="ClearShopCart()">清理购物车</a> 
+                    <a href="#" tabindex="-1" class="btn btn-primary btn-sm btn-rounded mx-2" v-on:click="Order()">去结算</a>
                   </div>
                 </div>                
               </div>
@@ -455,9 +456,13 @@ export default {
     logout: function () {
       this.username = '';
       this.signusername = '';
+      this.userId = '';
       this.setCookie("session", "", 365);
       this.setCookie("username", "", 365);
+      this.setCookie("userId", "", 365);
       this.isLoging = false;
+      this.shopCartList=[];
+      this.GetShopCartInfo();
     },
 
     GetFoodList: function () {  
@@ -483,18 +488,21 @@ export default {
           var total=0; 
           var totalNum=0; 
           _this.returnList.map(item => {
-          let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
-          // if(typeof foo !== 'undefined'){
-          var shopCartListItem = {
-              shopCartItem: item,
-              foodName: FoodItem.Name,
-              price: FoodItem.Price
-          }; 
-          // alert(JSON.stringify(shopCartListItem));
-          _this.shopCartList.push(shopCartListItem);
-          total+=(item.num * FoodItem.Price);
-          totalNum+=item.num;
-          // }
+            let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
+            // if(typeof foo !== 'undefined'){
+            var shopCartListItem = {
+                shopCartItem: item,
+                foodName: FoodItem.Name,
+                price: FoodItem.Price,
+                foodId: item.foodid,
+                foodNum: item.num,
+                foodPrice: FoodItem.Price
+            }; 
+            // alert(JSON.stringify(shopCartListItem));
+            _this.shopCartList.push(shopCartListItem);
+            total+=(item.num * FoodItem.Price);
+            totalNum+=item.num;
+            // }
           })
           console.log("总价格："+total)  
           _this.totalPrice=total; 
@@ -530,7 +538,36 @@ export default {
           _this.GetShopCartInfo();
         }
       })
+    },
+
+    Order:function(){
+      let _this = this ;      
+      const userId = this.getCookie("userId"); 
+      if(userId === '' || userId === undefined){
+        $("#login-modal").modal('show');
+        return;
+      }
+      this.axios
+        .post('/api/orders/create',{
+            additionalAmount: _this.totalPrice,
+            itemsList: _this.shopCartList,
+            note: "",
+            userName: _this.username,
+            userId:userId
+        })
+        .then(function (result) {
+          //alert(JSON.stringify(result));
+          console.log(result);
+        if (result.status === 200) {        
+          _this.shopCartList=[];
+          _this.DeleteFoodFromShopCart();
+          _this.GetShopCartInfo();
+          _this.$router.push('/orders');
+        }
+      })
     }
+
+
   }
 
 }
