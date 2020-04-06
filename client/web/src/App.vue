@@ -53,19 +53,12 @@
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </a>
-
-                <!--Shopping cart dropdown -->
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
-                  <h5 class="dropdown-header mb-0">
-                    {{signusername}}，欢迎您！
-                  </h5>
-                  
-                  <!--End of Shopping cart items-->
-                  <hr class="mt-3 mb-0" />
-                  <div class="dropdown-footer text-center">
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="logout()">退出登录</a>
-                  </div>
-                </div>                
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#"><i class="ft-user"></i> {{signusername}}，欢迎您！</a>
+                  <a class="dropdown-item" href="#"><i class="ft-mail"></i> 我的消息</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#" v-on:click="logout()"><i class="ft-power"></i> 用户注销</a>
+                </div>
               </div>
               <!-- end of UserInfo -->
 
@@ -89,7 +82,9 @@
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
-                          {{item.foodName}}
+                          <a href="#" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"> - </a>
+                          &nbsp&nbsp{{item.foodName}}&nbsp&nbsp
+                          <a href="#" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"> + </a>
                         </h5>
                         <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
                         <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
@@ -355,7 +350,7 @@ export default {
   },
   mounted () {
     this.getUserInfo();
-    this.GetFoodList();
+    this.GetShopCartInfo();
   },
   methods: {
     getCookie: function (cname) {
@@ -488,19 +483,18 @@ export default {
           var total=0; 
           var totalNum=0; 
           _this.returnList.map(item => {
-            let FoodItem = _this.foodList.find(i => i.Id === item.foodid)
-            // if(typeof foo !== 'undefined'){
+            
             var shopCartListItem = {
                 shopCartItem: item,
-                foodName: FoodItem.Name,
-                price: FoodItem.Price,
+                foodName: item.Name,
+                price: item.Price,
                 foodId: item.foodid,
                 foodNum: item.num,
-                foodPrice: FoodItem.Price
+                foodPrice: item.Price
             }; 
             // alert(JSON.stringify(shopCartListItem));
             _this.shopCartList.push(shopCartListItem);
-            total+=(item.num * FoodItem.Price);
+            total+=(item.num * item.Price);
             totalNum+=item.num;
             // }
           })
@@ -525,6 +519,42 @@ export default {
       })
     },
 
+    ShopCartReduceFoodNum:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const minus_put = 'api/ShopCartReduceFoodNum'; 
+      //?userId='+userId+'&foodID='+parseInt(JSON.stringify(e))+'&reduceNum=1
+      const put_data = {
+        userId: userId,
+        foodID: parseInt(JSON.stringify(e)),
+        num: 1
+      };
+      this.axios.put(minus_put,put_data).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
+
+    ShopCartAddFoodNum:function(e){
+      let _this = this ;   
+      let userId= this.getCookie("userId"); 
+      const add_put = 'api/ShopCartAddFoodNum';  
+      const put_data = {
+        userId: userId,
+        foodID: parseInt(JSON.stringify(e)),
+        num: 1
+      };
+      this.axios.put(add_put,put_data).then(function (result) {    
+        // alert(JSON.stringify(result));
+        if (result.status === 200) {
+          _this.shopCartList=[];
+          _this.GetShopCartInfo();
+        }
+      })
+    },
 
     ClearShopCart:function(){
       let _this = this ;      
@@ -557,17 +587,16 @@ export default {
         })
         .then(function (result) {
           //alert(JSON.stringify(result));
+          console.log("结算成功！");
           console.log(result);
-        if (result.status === 200) {        
-          _this.shopCartList=[];
-          _this.DeleteFoodFromShopCart();
-          _this.GetShopCartInfo();
-          _this.$router.push('/orders');
-        }
+          if (result.status === 200) {        
+            _this.shopCartList=[];
+            _this.ClearShopCart();
+            _this.GetShopCartInfo();
+            _this.$router.push('/orders');
+          }
       })
     }
-
-
   }
 
 }

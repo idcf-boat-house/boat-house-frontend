@@ -54,7 +54,7 @@ public class ShopCartService {
         params1.add(foodId);
 
         sql = "";
-        sql="delete from shop-cart where userid = ? and foodId = ? and num<=0";
+        sql="delete from shop_cart where userid = ? and foodId = ? and num<=0";
         BaseDao.exec(sql, params1);
     }
 
@@ -74,12 +74,12 @@ public class ShopCartService {
     }
 
     public List<Map<String, Object>> listFoodsInCart(Integer userId){
-        StringBuffer sql = new StringBuffer("select * from shop_cart");
+        StringBuffer sql = new StringBuffer("select t.*,t1.Name, t1.Price from shop_cart t, Food t1 where t.foodid = t1.id");
         if(userId != null){
-            sql.append(" where userId = ");
+            sql.append(" and userId = ");
             sql.append(userId.toString());
         }else{
-            sql.append(" where userId = -1");
+            sql.append(" and userId = -1");
         }
         return BaseDao.exec(sql.toString());
     }
