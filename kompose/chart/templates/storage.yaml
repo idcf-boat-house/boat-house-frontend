@@ -1,0 +1,20 @@
+{{- range $index, $svc := $.Values.serviceProfiles }}
+{{- if has $svc.name $.Values.services  }}
+{{- if contains "product-service-db" $svc.name }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    rel: boat-house
+    app: {{ $svc.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+{{- end }}
+{{- end }}
+{{- end }}
