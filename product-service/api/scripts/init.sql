@@ -12,6 +12,9 @@ CREATE TABLE Food (
 CONSTRAINT food_pk PRIMARY KEY ( Id ),
 CONSTRAINT food_category_fk FOREIGN KEY ( CategoryId ) REFERENCES FoodCategory ( Id ));
 
+INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (1,1,'test',10.00,'test',NULL);
+INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (2,1,'test2',2.00,'test2',NULL);
+
 DROP TABLE IF EXISTS `join_us`;
 CREATE TABLE `join_us`
 (
@@ -49,6 +52,9 @@ CREATE TABLE user
 );
 ALTER TABLE `BoatHouse`.`user` 
 ADD UNIQUE INDEX `account_UNIQUE` (`account` ASC);
+INSERT INTO `user` (`id`,`account`,`password`,`age`,`email`) VALUES (1,'admin','96e79218965eb72c92a549dd5a330112',NULL,NULL);
+INSERT INTO `user` (`id`,`account`,`password`,`age`,`email`) VALUES (2,'test','96e79218965eb72c92a549dd5a330112',NULL,NULL);
+INSERT INTO `user` (`id`,`account`,`password`,`age`,`email`) VALUES (3,'test2','96e79218965eb72c92a549dd5a330112',NULL,NULL);
 
 DROP TABLE IF EXISTS shop_cart;
 CREATE TABLE shop_cart (
