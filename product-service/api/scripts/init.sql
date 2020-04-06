@@ -12,8 +12,9 @@ CREATE TABLE Food (
 CONSTRAINT food_pk PRIMARY KEY ( Id ),
 CONSTRAINT food_category_fk FOREIGN KEY ( CategoryId ) REFERENCES FoodCategory ( Id ));
 
-INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (1,1,'test',10.00,'test',NULL);
-INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (2,1,'test2',2.00,'test2',NULL);
+INSERT INTO `BoatHouse`.`FoodCategory` (`Id`, `Name`, `Description`) VALUES ('3', '测试分类', '测试分类');
+INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (1,3,'test',10.00,'test',NULL);
+INSERT INTO `Food` (`Id`,`CategoryId`,`Name`,`Price`,`Description`,`Picture`) VALUES (2,3,'test2',2.00,'test2',NULL);
 
 DROP TABLE IF EXISTS `join_us`;
 CREATE TABLE `join_us`
