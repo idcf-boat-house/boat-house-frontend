@@ -36,7 +36,7 @@ namespace UITest
                     case TestEnv.Group:
                         return "d-docker.southeastasia.cloudapp.azure.com";
                     case TestEnv.MainRepo:
-                        return "138.91.37.88";
+                        return "52.237.72.254";
                     default:
                         break;
                 }
