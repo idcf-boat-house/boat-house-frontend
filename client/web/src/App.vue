@@ -89,9 +89,9 @@
                     <div class="cart-items-item">
                       <div class="float-left">
                         <h5 class="mb-0">
-                          <a href="#"> <i class="fa fa-cart-arrow-down" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"></i> </a>
+                          <a href="#" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"> - </a>
                           {{item.foodName}}
-                          <a href="#"> <i class="fa fa-cart-plus" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"></i> </a>
+                          <a href="#" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"> + </a>
                         </h5>
                         <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
                         <a href="#" class="close cart-remove text-primary"> <i class="fa fa-times" v-on:click="DeleteFoodFromShopCart(item.shopCartItem.foodid)"></i> </a>
@@ -357,7 +357,7 @@ export default {
   },
   mounted () {
     this.getUserInfo();
-    //this.GetFoodList();
+    this.GetShopCartInfo();
   },
   methods: {
     getCookie: function (cname) {
@@ -534,7 +534,7 @@ export default {
       const put_data = {
         userId: userId,
         foodID: parseInt(JSON.stringify(e)),
-        reduceNum: 1
+        num: 1
       };
       this.axios.put(minus_put,put_data).then(function (result) {    
         // alert(JSON.stringify(result));
@@ -552,7 +552,7 @@ export default {
       const put_data = {
         userId: userId,
         foodID: parseInt(JSON.stringify(e)),
-        reduceNum: 1
+        num: 1
       };
       this.axios.put(add_put,put_data).then(function (result) {    
         // alert(JSON.stringify(result));
@@ -594,17 +594,16 @@ export default {
         })
         .then(function (result) {
           //alert(JSON.stringify(result));
+          console.log("结算成功！");
           console.log(result);
-        if (result.status === 200) {        
-          _this.shopCartList=[];
-          _this.DeleteFoodFromShopCart();
-          _this.GetShopCartInfo();
-          _this.$router.push('/orders');
-        }
+          if (result.status === 200) {        
+            _this.shopCartList=[];
+            _this.ClearShopCart();
+            _this.GetShopCartInfo();
+            _this.$router.push('/orders');
+          }
       })
     }
-
-
   }
 
 }

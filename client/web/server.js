@@ -137,11 +137,7 @@ app.post("/api/orders/create", function(req, res) {
 
 //购物车某个菜品数量减一
 app.put('/api/ShopCartReduceFoodNum', function (req, res) {
-  const userId=req.query.userId;
-  const foodID=req.query.foodID;
-  const reduceNum=req.query.reduceNum;
   const reduce_put = 'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCartReduceFoodNum';  
-  console.log(req.body);
   requestify
     .put(reduce_put,req.body)
     .then(function (response) {
@@ -152,11 +148,7 @@ app.put('/api/ShopCartReduceFoodNum', function (req, res) {
 
 //购物车某个菜品数量加1
 app.put('/api/ShopCartAddFoodNum', function (req, res) {
-  const userId=req.query.userId;
-  const foodID=req.query.foodID;
-  const addNum=req.query.addNum;
   const add_put = 'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCartAddFoodNum';   
-  console.log(req.body);
   requestify
     .put(add_put,req.body)
     .then(function (response) {
