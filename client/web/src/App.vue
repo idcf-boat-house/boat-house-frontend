@@ -53,19 +53,12 @@
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </a>
-
-                <!--Shopping cart dropdown -->
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
-                  <h5 class="dropdown-header mb-0">
-                    {{signusername}}，欢迎您！
-                  </h5>
-                  
-                  <!--End of Shopping cart items-->
-                  <hr class="mt-3 mb-0" />
-                  <div class="dropdown-footer text-center">
-                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="logout()">退出登录</a>
-                  </div>
-                </div>                
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#"><i class="ft-user"></i> {{signusername}}，欢迎您！</a>
+                  <a class="dropdown-item" href="#"><i class="ft-mail"></i> 我的消息</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#" v-on:click="logout()"><i class="ft-power"></i> 用户注销</a>
+                </div>
               </div>
               <!-- end of UserInfo -->
 
@@ -90,7 +83,7 @@
                       <div class="float-left">
                         <h5 class="mb-0">
                           <a href="#" v-on:click="ShopCartReduceFoodNum(item.shopCartItem.foodid)"> - </a>
-                          {{item.foodName}}
+                          &nbsp&nbsp{{item.foodName}}&nbsp&nbsp
                           <a href="#" v-on:click="ShopCartAddFoodNum(item.shopCartItem.foodid)"> + </a>
                         </h5>
                         <p class="mb-0">¥{{item.price}} / x{{item.shopCartItem.num}}</p>
