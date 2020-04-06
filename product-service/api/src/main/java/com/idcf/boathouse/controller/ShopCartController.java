@@ -1,10 +1,10 @@
 package com.idcf.boathouse.controller;
 
 import com.idcf.boathouse.models.ShopCartPost;
+import com.idcf.boathouse.models.ShopCartPut;
 import com.idcf.boathouse.services.ShopCartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,30 +37,23 @@ public class ShopCartController extends BaseController {
     @RequestMapping(value = "ShopCartAddFoodNum", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @ApiOperation("增加购物车菜品数量")
-    public Map<String, Object> addFoodNum(@ApiParam(value = "用户ID", required = true) @RequestParam(name = "userId") Integer userId,
-                                          @ApiParam(value = "菜品ID", required = true) @RequestParam(name = "foodID") Integer foodID,
-                                          @ApiParam(value = "增加数量", required = true) @RequestParam(name = "addNum") Integer addNum
-    )
-            throws IllegalStateException, IOException {
+    public Map<String, Object> addFoodNum(@RequestBody ShopCartPut shopCartPut) throws IllegalStateException, IOException {
 
         ShopCartPost shopCartPost = new ShopCartPost();
-        shopCartPost.userid = userId;
-        shopCartPost.foodid = foodID;
-        shopCartPost.num = addNum;
+        shopCartPost.userid = shopCartPut.getUserId();
+        shopCartPost.foodid = shopCartPut.getFoodID();
+        shopCartPost.num = shopCartPut.getNum();
         shopCartService.insertOrUpdateShopCart(shopCartPost);
-        return super.info(BaseController.CODE_OK, "+" + addNum.toString(), null);
+        return super.info(BaseController.CODE_OK, "+" + shopCartPut.getNum().toString(), null);
     }
 
     @RequestMapping(value = "ShopCartReduceFoodNum", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     @ApiOperation("减少购物车菜品数量")
-    public Map<String, Object> reduceFoodNum(@ApiParam(value = "用户ID", required = true) @RequestParam(name = "userId") Integer userId,
-                                             @ApiParam(value = "菜品ID", required = true) @RequestParam(name = "foodID") Integer foodID,
-                                             @ApiParam(value = "减少数量", required = true) @RequestParam(name = "reduceNum") Integer reduceNum
-    ) throws IllegalStateException, IOException {
+    public Map<String, Object> reduceFoodNum(@RequestBody ShopCartPut shopCartPut) throws IllegalStateException, IOException {
 
-        shopCartService.reduceFoodNum(userId, foodID, reduceNum);
-        return super.info(BaseController.CODE_OK, "-" + reduceNum.toString(), null);
+        shopCartService.reduceFoodNum(shopCartPut.getUserId(), shopCartPut.getFoodID(), shopCartPut.getNum());
+        return super.info(BaseController.CODE_OK, "-" + shopCartPut.getNum().toString(), null);
     }
 
     @RequestMapping(value = "ShopCart", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
