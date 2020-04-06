@@ -78,6 +78,8 @@ public class ShopCartService {
         if(userId != null){
             sql.append(" where userId = ");
             sql.append(userId.toString());
+        }else{
+            sql.append(" where userId = -1");
         }
         return BaseDao.exec(sql.toString());
     }

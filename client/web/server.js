@@ -8,7 +8,7 @@ var port = process.env.PORT || 8080
 var hostname = 'localhost'
 var http = require('http')
 var requestify = require('requestify')
-var bodyParser = require('body-parser') 
+var bodyParser = require('body-parser')
 
 // parse application/json
 app.use(bodyParser.json())
@@ -62,7 +62,7 @@ app.get('/api/shopcart', function (req, res) {
       return res.send(response.body)
     })
 })
- 
+
 //添加购物车
 app.post('/api/food/shopcart', function (req, res) {
   requestify
@@ -70,21 +70,21 @@ app.post('/api/food/shopcart', function (req, res) {
     .then(function (response) {
       console.log(response.body)
       return res.send(response.body)
-    }) 
-}) 
+    })
+})
 
 //删除购物车某个菜品
 app.put('/api/shopcart', function (req, res) {
   const userId=req.query.userId;
   const foodID=req.query.foodID;
-  const delete_put = 'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId='+userId+'&foodID='+foodID;  
+  const delete_put = 'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId='+userId+'&foodID='+foodID;
   requestify
     .put(delete_put)
     .then(function (response) {
       console.log(response.body)
       return res.send(response.body)
     })
-})  
+})
 
  //清空购物车
 app.delete('/api/shopcart', function (req, res) {
@@ -97,7 +97,7 @@ app.delete('/api/shopcart', function (req, res) {
       console.log(response.body)
       return res.send(response.body)
     })
-}) 
+})
 
 app.post('/api/login', function (req, res) {
   // console.log(req);
@@ -120,12 +120,21 @@ app.post('/api/signup',function (req, res) {
   .then(response => {
     console.log(response.body)
     return res.send(response.body)
-  }) 
+  })
 })
 
 app.post("/api/orders/create", function(req, res) {
   requestify
     .post("http://product-service-api:8080/api/v1.0/orders/create", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.get("/api/intro/intro_page", function(req, res) {
+  requestify
+    .get("http://product-service-api:8080/api/v1.0/intro/intro_page/" + req.query.page_id)
     .then(function(response) {
       console.log(response.body);
       return res.send(response.body);

@@ -18,6 +18,9 @@ spec:
       containers:
       - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/postgres:9.4
         name: statistics-service-db
+        env:
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: trust
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
       restartPolicy: Always
