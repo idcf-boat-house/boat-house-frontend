@@ -1,19 +1,30 @@
 package com.idcf.boathouse.models;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
-/**
- * Created by sunlin on 3/1/2020.
- */
-@ApiModel
+import java.util.Date;
+
+@Data
+@TableName(value = "intropage")
 public class IntroPage {
-    @ApiModelProperty(value = "介绍页ID")
-    public String page_id;
-    @ApiModelProperty(value = "介绍页title")
-    public String page_title;
-    @ApiModelProperty(value = "介绍页后台调用地址")
-    public String page_api_url;
-    @ApiModelProperty(value = "介绍页文字内容和图片地址")
-    public IntroPageValues page_values;
+    @TableId(value = "page_id")
+    private String pageId;
+    @TableField(value = "page_title", insertStrategy = FieldStrategy.DEFAULT)
+    private String pageTitle;
+    @TableField(value = "page_api_url", insertStrategy = FieldStrategy.DEFAULT)
+    private String pageApiUrl;
+    @TableField(value = "text", insertStrategy = FieldStrategy.DEFAULT)
+    private String text;
+    @TableField(value = "image", insertStrategy = FieldStrategy.DEFAULT)
+    private String image;
+    @TableField(value = "deleted", insertStrategy = FieldStrategy.DEFAULT)
+    private boolean deleted;
+    @TableField(value = "create_time", insertStrategy = FieldStrategy.DEFAULT)
+    private Date createTime;
+    @TableField(value = "update_time", insertStrategy = FieldStrategy.DEFAULT)
+    private Date updateTime;
 }

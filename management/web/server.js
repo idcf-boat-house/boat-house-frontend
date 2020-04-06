@@ -317,3 +317,29 @@ app.put("/orders/refuse", function(req, res) {
     });
 });
 
+app.get("/api/intro/intro_page", function(req, res) {
+  requestify
+    .get("http://product-service-api:8080/api/v1.0/intro/intro_page/" + req.query.page_id)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.post("/api/intro/intro_page", function(req, res) {
+  requestify
+    .put("http://product-service-api:8080/api/v1.0/intro/intro_page", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});
+
+app.put("/api/intro/intro_page", function(req, res) {
+  requestify
+    .put("http://product-service-api:8080/api/v1.0/intro/intro_page", req.body)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+});

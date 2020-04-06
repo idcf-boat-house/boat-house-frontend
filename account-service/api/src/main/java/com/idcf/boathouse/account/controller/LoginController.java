@@ -29,17 +29,22 @@ public class LoginController {
                         @ApiParam(value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password) {
         Map<String, Object> result = new HashMap<>();
         User user = userService.getOne(new QueryWrapper<User>().eq("account", username));
+        if (user == null) {
+            return new ResponseData(false, 500, "登录失败-用户名不存在", "用户名不存在");
+        }
         String token = "";
         if (user.getPassword().equals(DigestUtil.md5Hex(password))) {
             token = JwtUtil.generateToken(user.getId().toString());
+        } else {
+            return new ResponseData(false, 500, "登录失败-用户名或密码错误", "用户名或密码错误");
         }
         result.put("token", token);
         result.put("userId", user.getId());
         result.put("username", username);
-        if(!token.equals("")) {
+        if (!token.equals("")) {
             return ResponseData.success(result);
-        }else {
-            return new ResponseData(false, 500, "登录失败", null);
+        } else {
+            return new ResponseData(false, 500, "登录失败-生成用户密钥出错", "生成用户密钥出错！");
         }
     }
 
@@ -51,6 +56,10 @@ public class LoginController {
     @ResponseBody
     public Object signUp(@ApiParam(value = "用户名", required = true) @RequestParam(value = "username", required = true) String username,
                          @ApiParam(value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password) {
+        User userExists = userService.getOne(new QueryWrapper<User>().eq("account", username));
+        if (userExists != null) {
+            return new ResponseData(true, 501, "请求失败-用户已存在，请直接登录", "用户已存在，请直接登录");
+        }
         User user = new User();
         user.setAccount(username);
         user.setPassword(DigestUtil.md5Hex(password));

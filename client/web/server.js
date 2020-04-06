@@ -94,12 +94,12 @@ app.put('/api/shopcart', function (req, res) {
     })
 })
 
-//清空购物车
+ //清空购物车
 app.delete('/api/shopcart', function (req, res) {
   requestify
     .delete(
       'http://product-service-api:8080/api/v1.0/BoatHouse/ShopCart?userId=' +
-      req.query.userId
+        req.query.userId
     )
     .then(function (response) {
       console.log(response.body)
@@ -112,11 +112,11 @@ app.post('/api/login', function (req, res) {
   const { username, password} = req.body;
   const login_post = `http://account-service-api:8080/api/v1.0/login?username=${username}&password=${password}`;
   requestify
-    .post(login_post, {})
-    .then(response => {
-      console.log(response.body)
-      return res.send(response.body)
-    })
+  .post(login_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
 })
 
 app.post('/api/signup',function (req, res) {
@@ -124,11 +124,11 @@ app.post('/api/signup',function (req, res) {
   const { username, password} = req.body;
   const signup_post = `http://account-service-api:8080/api/v1.0/signUp?username=${username}&password=${password}`;
   requestify
-    .post(signup_post, {})
-    .then(response => {
-      console.log(response.body)
-      return res.send(response.body)
-    })
+  .post(signup_post, {})
+  .then(response => {
+    console.log(response.body)
+    return res.send(response.body)
+  })
 })
 
 app.post("/api/orders/create", function(req, res) {
