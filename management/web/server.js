@@ -175,13 +175,20 @@ app.post('/api/food', function (req, res) {
   var form = new multiparty.Form()
   form.parse(req, function (err, fields, files) {
     // var postForm = new FormData();
-    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}`
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food`
+    var body={
+      菜品ID:fields['菜品ID'][0],
+      菜品分类ID:fields['菜品分类ID'][0],
+      菜品名称:fields['菜品名称'][0],
+      菜品价格:fields['菜品价格'][0],
+      菜品描述:fields['菜品描述'][0],
+    }
     if (files['菜品图片'] !== undefined) {
       var dbPath=getBase64String(files['菜品图片'][0])
-      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}&菜品图片=${dbPath}`
+      body.菜品图片=dbPath
     }
     axios
-      .post(encodeURI(url))
+      .post(url,body)
       .then(function (response) {
         console.log(response.body)
         return res.send(response.body)
@@ -195,15 +202,21 @@ app.post('/api/food', function (req, res) {
 app.put('/api/food', function (req, res) {
   var form = new multiparty.Form()
   form.parse(req, function (err, fields, files) {
-    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields['菜品ID'][0]}&菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}`
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food`
+    var body={
+      菜品ID:fields['菜品ID'][0],
+      菜品分类ID:fields['菜品分类ID'][0],
+      菜品名称:fields['菜品名称'][0],
+      菜品价格:fields['菜品价格'][0],
+      菜品描述:fields['菜品描述'][0],
+    }
     if (files['菜品图片'] !== undefined) {
       var dbPath=getBase64String(files['菜品图片'][0])
-      nodeFile.pipe(outFile)
-      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields['菜品ID'][0]}&菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}&&菜品图片=${dbPath}`
+      body.菜品图片=dbPath
     }
 
     axios
-      .put(encodeURI(url))
+      .put(url,body)
       .then(function (response) {
         console.log(response.body)
         return res.send(response.body)
