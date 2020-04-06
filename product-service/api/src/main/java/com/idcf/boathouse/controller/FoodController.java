@@ -47,7 +47,7 @@ public class FoodController extends BaseController{
 	@RequestMapping(value = "Food", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品")
-	public  Map<String, Object> addFood(@RequestBody FoodPost food)
+	public  Map<String, Object> updateFood(@RequestBody FoodPost food)
 			throws IllegalStateException, IOException {
 		// FoodPost foodPost = new FoodPost();
 		// foodPost.id = id;
