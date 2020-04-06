@@ -44,7 +44,33 @@
               <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
               <div class="header-divider d-none d-lg-block"></div>
               <!-- User center -->
-              <a href="#" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="modal" data-target="#login-modal" ><i class="fa fa-user" aria-hidden="true"></i></a>
+              <a href="#" v-if="signusername === ''" class="btn btn-icon btn-link header-btn float-right order-11" data-toggle="modal" data-target="#login-modal" >
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+
+              <!--UserInfo-->
+              <div v-if="signusername !== ''" class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right order-11">
+                <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+
+                <!--Shopping cart dropdown -->
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow cart-dropdown-menu" role="menu">
+                  <h5 class="dropdown-header mb-0">
+                    {{signusername}}，欢迎您！
+                  </h5>
+                  
+                  <!--End of Shopping cart items-->
+                  <hr class="mt-3 mb-0" />
+                  <div class="dropdown-footer text-center">
+                    <a href="#" tabindex="-1" class="btn btn-outline-primary btn-sm btn-rounded mx-2" v-on:click="logout()">退出登录</a>
+                  </div>
+                </div>                
+              </div>
+              <!-- end of UserInfo -->
+
+
+
               <!--Shopping cart-->
               <div class="dropdown dropdowns-no-carets dropdown-effect-fadeup float-right">
                 <a href="#" class="btn btn-icon btn-dark btn-link float-right dropdown-toggle cart-link" data-toggle="dropdown">
@@ -214,7 +240,7 @@
                 </div>
                 <div class="form-check text-xs">
                   <label class="form-check-label op-8">
-                    <input type="checkbox" value="term" class="form-check-input mt-1">
+                    <input type="checkbox" id="contract-check" class="form-check-input mt-1" v-model="contract">
                       注册即表示同意相关协议
                   </label>
                 </div>
@@ -247,6 +273,9 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
+              <div class="alert alert-warning" v-if="message !== '' ">
+                {{message}}
+              </div>
               <div class="form-group">
                 <label class="sr-only" for="login-email">用户名</label>
                 <input type="email" id="login-username" class="form-control email" placeholder="用户名" v-model="username">
@@ -307,8 +336,10 @@ export default {
     return {
       isLoging: false,
       username: '',
+      signusername: '',
       password: '',
       password2: '', 
+      contract: false,
       message: '',      
       foodList: [],
       shopCartList:[],
@@ -347,15 +378,24 @@ export default {
     getUserInfo: function () {
       var user = this.getCookie("username");
       var userId = this.getCookie("userId");
+      var signusername = this.getCookie("username");
       if (!!user) {
         this.isLoging = true;
         this.username = user;
         this.userId=userId;
+        this.signusername = signusername;
       }
       console.log(user);
     },
     /** 注册操作 */
     signup: function() {
+
+      /** check 协议 */
+      if(!this.contract){
+          this.message = '您必须通过协议';
+          return;
+      }
+
       /** check password */
       if (this.password2 !== this.password) {
         this.message = '两次密码不一致';
@@ -369,8 +409,17 @@ export default {
 
       this.axios.post('/api/signup', postData)
         .then( result => {
-              $("#signup-modal").modal('hide');
-              $("#login-modal").modal('show');
+          if(result.data.code===200){
+            this.username = '';
+            this.signusername = '';
+            this.password = '';
+            this.password2 = '';
+            $("#signup-modal").modal('hide');
+            $("#login-modal").modal('show');
+          }else{
+            this.message = result.data.message;
+            return;
+          }
       });
     },
     /** 登录  */
@@ -383,24 +432,32 @@ export default {
       this.axios.post('/api/login', postData)
         .then( result => {
             if( result.status === 200) {
-              const {token, username, userId} = result.data.data;
-              this.username = username;
-              this.setCookie("session",token ,365);
-              this.setCookie("username",username ,365);
-              this.setCookie("userId",userId ,365);
-              $("#login-modal").modal('hide');
+              if(result.data.code===200){
+                const {token, username, userId} = result.data.data;
+                this.username = username;
+                this.signusername = username;
+                this.setCookie("session",token ,365);
+                this.setCookie("username",username ,365);
+                this.setCookie("userId",userId ,365);
+                $("#login-modal").modal('hide');
+              }else{
+                console.log(result.data.message);
+                this.message = result.data.message;
+                return;
+              }
             } else {
               this.message = result.message;
+              return;
             }
           
         });
     },
     logout: function () {
-      this.setCookie("session", "", 365);
-      this.isLoging = false;
       this.username = '';
-      this.$router.push('/login');
-
+      this.signusername = '';
+      this.setCookie("session", "", 365);
+      this.setCookie("username", "", 365);
+      this.isLoging = false;
     },
 
     GetFoodList: function () {  
