@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service-api
+  namespace: boathouse-test
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: account-service-api
+  template:
+    metadata:
+      labels:
+        app: account-service-api
+    spec:
+      containers:
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/account_service_api:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
+        name: account-service-api
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
