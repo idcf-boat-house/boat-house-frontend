@@ -96,7 +96,7 @@ public class FoodController extends BaseController{
 			"application/json;charset=UTF-8" })
 	@ResponseBody
 	@ApiOperation("菜品模糊查询")
-	public List<Map<String, Object>> GetLikeFoodCategorie(@RequestParam String name) {
+	public List<Map<String, Object>> GetFoodLike(@RequestParam String name) {
 
 		JdbcUtils jdbcUtils = new JdbcUtils();
 		jdbcUtils.getConnection();
