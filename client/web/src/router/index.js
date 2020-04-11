@@ -7,6 +7,7 @@ import Franchisee from "@/components/Franchisee";
 import Food from "@/components/Food";
 import Cart from "@/components/Order/Cart";
 import Orders from "@/components/Order/Orders";
+import SearchFood from "@/components/SearchFood";
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
       path: "/food",
       name: "Food",
       component: Food
+    },
+    {
+      path: "/searchfood",
+      name: "SearchFood",
+      component: SearchFood
     },
     {
       path: "/orders/cart",

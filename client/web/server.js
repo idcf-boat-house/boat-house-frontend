@@ -53,6 +53,14 @@ app.get('/api/foods', function (req, res) {
     })
 })
 
+app.get("/api/searchfood", function(req, res) {
+  requestify
+    .get("http://product-service-api:8080/api/v1.0/BoatHouse/GetFoodLike?name="+req.query.name)
+    .then(function(response) {
+      console.log(response.body);
+      return res.send(response.body);
+    });
+})
 //获取购物车
 app.get('/api/shopcart', function (req, res) {
   requestify
