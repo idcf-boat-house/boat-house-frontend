@@ -35,7 +35,7 @@ CREATE TABLE `intropage` (
   `update_time` datetime DEFAULT NULL,
    PRIMARY KEY (`page_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO `intropage` VALUES ('intro', 'this is page title', 'http://www.baidu.com', '[\" <div>第一段  文字</div> \",\"<html> <p>第二段文字</p></html> \"]', '  [\"http://www.baidu.com\",\"https://www.cnblogs.com\"]', '\0', '2020-03-05 12:07:18', '2020-03-05 12:07:18');
+INSERT INTO `intropage` VALUES ('intro', '船坞故事', '', '<p>18世纪90年代末的E国是一个战乱的国度，战争中，名为安德烈（Andre）的皇帝所带领的军队撤离到一个不知名的小镇，受伤的皇帝在这里遇上美丽典雅的牧场少女Aviva，Andre虽然受伤，但身为皇帝的Andre依然心系战事，希望能早日重返战场。</p><p>Aviva明白他的想法，除了细心帮他料理伤口，还每天用石头加热烹制菜肴给他吃，因为当地人认为用石头加热烹制食物可以调理身体，对伤口的复原有帮助。后来安德烈（Andre）获得了胜利，为了怀念，Aviva在小镇上开起了一家名为Boat House的小餐馆，里面的菜式全部都是以石头加热烹制的各式菜肴。从此这个小镇改名为南皇后渡口（South Queensferry）。而Boat House餐馆成为了南皇后渡口小镇的标志性建筑。</p>', '', '\0', null, '2020-04-11 11:55:37');
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
