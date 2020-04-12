@@ -27,6 +27,7 @@ public class MainActivity extends MvpActivity<MainContract.Presenter> implements
     private Button mBtnFragment;
     private WebView mWebView;
     private String webURI;
+    private Button mBtnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends MvpActivity<MainContract.Presenter> implements
 
     private void initView() {
 //        mBtnGetData = findViewById(R.id.btn_get_data);
+        mBtnLogin = findViewById(R.id.btn_login);
+        bindOnClickLister(this, mBtnLogin);
         mBtnFragment = findViewById(R.id.btn_fragment);
         bindOnClickLister(this, mBtnFragment);
     }
@@ -69,21 +72,21 @@ public class MainActivity extends MvpActivity<MainContract.Presenter> implements
         mWebView.getSettings().setAllowContentAccess(true);
         // 设置支持JavaScript
         mWebView.getSettings().setJavaScriptEnabled(true);
-        // 设置渲染效果优先级，高
+        // 设置渲染效果优先级
         mWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         // 设置缓存模式
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         // also check this line of code for appCachePath
         String cacheDirPath = APP_CACAHE_DIRNAME;
-        // 设置数据库缓存路径
+        // 设置数据库缓存路
         mWebView.getSettings().setDatabasePath(cacheDirPath);
         // 设置 应用 缓存目录
         mWebView.getSettings().setAppCachePath(cacheDirPath);
-        // 开启 DOM 存储功能
+        // 开始 DOM 存储功能
         mWebView.getSettings().setDomStorageEnabled(true);
-        // 开启 数据库 存储功能
+        // 开始 数据存储功能
         mWebView.getSettings().setDatabaseEnabled(true);
-        // 开启 应用缓存 功能
+        // 开始 应用缓存 功能
         mWebView.getSettings().setAppCacheEnabled(true);
         mWebView.loadUrl(webURI);
     }
@@ -112,6 +115,9 @@ public class MainActivity extends MvpActivity<MainContract.Presenter> implements
 //                break;
             case R.id.btn_fragment:
                 AppRouter.showFragmentActivity(this, "欢迎来到船屋餐厅！\n点餐系统正在开发中...");
+                break;
+            case R.id.btn_login:
+                AppRouter.showLoginActivity(this, "欢迎登录");
                 break;
         }
     }

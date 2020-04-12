@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">船屋餐厅</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
     <string name="title_activity_main">船屋餐厅·苏格兰风味</string>
 
-    <string name="app_uri">http://c-docker.southeastasia.cloudapp.azure.com:5000/</string>
+    <string name="app_uri" translatable="false">http://138.91.37.88:5000</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">第一页</string>

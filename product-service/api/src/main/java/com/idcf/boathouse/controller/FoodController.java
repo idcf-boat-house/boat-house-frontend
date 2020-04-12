@@ -91,4 +91,26 @@ public class FoodController extends BaseController{
 		Food food = foodService.getFood(id);
 		return super.info(BaseController.CODE_OK, "获取菜品成功", food);
 	}
+
+	@RequestMapping(value = "GetFoodLike", method = RequestMethod.GET, produces = {
+			"application/json;charset=UTF-8" })
+	@ResponseBody
+	@ApiOperation("菜品模糊查询")
+	public List<Map<String, Object>> GetFoodLike(@RequestParam String name) {
+
+		JdbcUtils jdbcUtils = new JdbcUtils();
+		jdbcUtils.getConnection();
+		String sql = "select * from Food where Name like ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add("%" + name + "%");
+		try {
+			List<Map<String, Object>> list = jdbcUtils.findModeResult(sql, params);
+			System.out.print(list);
+			jdbcUtils.releaseConn();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

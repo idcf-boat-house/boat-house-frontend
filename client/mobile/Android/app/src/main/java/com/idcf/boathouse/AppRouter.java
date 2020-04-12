@@ -3,6 +3,7 @@ package com.idcf.boathouse;
 import android.content.Context;
 
 import com.idcf.boathouse.presentation.fragment.FragmentActivity;
+import com.idcf.boathouse.presentation.login.LoginActivity;
 
 
 /**
@@ -18,5 +19,8 @@ public class AppRouter {
 
     public static void showFragmentActivity(Context context, String data) {
         context.startActivity(FragmentActivity.newIntent(context, data));
+    }
+    public static void showLoginActivity(Context context, String data) {
+        context.startActivity(LoginActivity.newIntent(context, data));
     }
 }

@@ -21,6 +21,15 @@
               <li>
                 <router-link to="/JoinUs">加盟查询</router-link>
               </li>
+              <li>
+                <router-link to="/UserMgt">用户管理</router-link>
+              </li>
+              <li>
+                <router-link to="/Orders">订单查询</router-link>
+              </li>
+              <li>
+                <router-link to="/HouseStory">船屋故事</router-link>
+              </li>
             </ul>
           </li>
         </ul>

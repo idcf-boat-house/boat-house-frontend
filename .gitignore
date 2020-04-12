@@ -16,3 +16,4 @@ selenium/dotnet-uitest/UITest/obj/
 selenium/dotnet-uitest/UITest/TestResults
 selenium/dotnet-uitest/UITest/.vs/
 .DS_Store
+.metadata

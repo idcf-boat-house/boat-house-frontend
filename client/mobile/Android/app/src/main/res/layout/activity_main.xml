@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     </android.support.design.widget.AppBarLayout>
 
 <!--    <Button-->
@@ -24,6 +25,13 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        android:text="@string/test_get_data"-->
 <!--        android:textAllCaps="false" />-->
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/btn_fragment"
