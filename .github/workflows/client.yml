@@ -12,7 +12,7 @@ jobs:
         run: env
 
       - name: docker build client
-        run: docker build -f client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci client/web
+        run: docker build -f client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-ci client/web
 
       - name: docker images 
         run: docker images
@@ -21,10 +21,10 @@ jobs:
         run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push client tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push client tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:ci
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-ci
 
   deploy-dev:
      needs: build
@@ -39,7 +39,7 @@ jobs:
          run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house|g" kompose/test/client-*.yaml
  
        - name: replace docker images tags
-         run: sed -i "s|:latest$|:ci|g" kompose/test/client-*.yaml
+         run: sed -i "s|:latest$|:action-ci|g" kompose/test/client-*.yaml
  
        - name: grep images url
          run: grep -i "image:" kompose/test/client-*.yaml
