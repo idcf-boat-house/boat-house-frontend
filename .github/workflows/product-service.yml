@@ -12,7 +12,7 @@ jobs:
         run: env
 
       - name: docker build product-service
-        run: docker build -f product-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:ci product-service/api 
+        run: docker build -f product-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:action-ci product-service/api 
 
       - name: docker images 
         run: docker images
@@ -21,10 +21,10 @@ jobs:
         run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push product_service_api tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
+        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push product_service_api tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:ci
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/product_service_api:action-ci
 
   deploy-dev:
      needs: build
@@ -39,7 +39,7 @@ jobs:
          run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house|g" kompose/test/product-service-*.yaml
 
        - name: replace docker images tags
-         run: sed -i "s|:latest$|:ci|g" kompose/test/product-service-*.yaml
+         run: sed -i "s|:latest$|:action-ci|g" kompose/test/product-service-*.yaml
 
        - name: grep images url
          run: grep -i "image:" kompose/test/product-service-*.yaml
