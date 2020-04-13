@@ -1,4 +1,4 @@
-# github action使用教程
+# github action使用教程222
 ## 背景
 
 为了改进jenkins需要搭建独立服务器，还需要专门的CI服务器进行打包的痛点。使用github action可以不用搭建专门的jenkins服务器，以及相应的CI服务器。github通过yml格式的文档就可以完成Jenkins server+CI server的所有功能。来达到减少维护量和服务器成本的目的。
