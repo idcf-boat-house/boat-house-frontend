@@ -2,7 +2,6 @@ package com.idcf.boathouse;
 
 
 import com.idcf.boathouse.untils.SpringContextHolder;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,10 +43,10 @@ public class JdbcUtils {
             }
         InputStream resource=this.getClass().getResourceAsStream(path);
         pro.load(resource);
-        URL = pro.getProperty("url");
-        USERNAME = pro.getProperty("user");
-        PASSWORD = pro.getProperty("password");
-        DRIVER = pro.getProperty("driver");
+            URL = pro.getProperty("spring.datasource.url");
+            USERNAME = pro.getProperty("spring.datasource.username");
+            PASSWORD = pro.getProperty("spring.datasource.password");
+            DRIVER = pro.getProperty("spring.datasource.driver-class-name");
         Class.forName(DRIVER);
         System.out.println("connected mysql！");
         System.out.println("connection dataSource"+URL);
@@ -75,7 +74,7 @@ public class JdbcUtils {
     /**
      * 释放数据库连接
      */
-    public void releaseConn()throws SQLException{
+    public Connection releaseConn() throws SQLException {
         if(resultSet != null){
             try{
                 resultSet.close();
@@ -94,6 +93,7 @@ public class JdbcUtils {
             }
         }
         connection.close();
+        return connection;
     }
 
     /**
@@ -114,7 +114,7 @@ public class JdbcUtils {
             }
         }
         result = pstmt.executeUpdate();
-        flag = result > 0 ? true : false;
+        flag = result > 0;
         return flag;
     }
 
