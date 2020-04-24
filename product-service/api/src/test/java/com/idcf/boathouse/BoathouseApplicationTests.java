@@ -1,4 +1,4 @@
-package com.idcf.boathouse;
+package com.idcf.boathouse.junit;
 
 import com.idcf.boathouse.controller.BoatHouseController;
 import com.idcf.boathouse.models.FoodCategoryPost;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
 
-//@ActiveProfiles(value = "dev")
 @SpringBootTest
 public class BoathouseApplicationTests {
 

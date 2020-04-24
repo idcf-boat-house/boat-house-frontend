@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
@@ -21,7 +22,8 @@ import java.util.List;
  * desc: junit4 test case for OrdersMapperTest
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ActiveProfiles(value = "dev")
+@Profile(value = "dev")
+//@ContextConfiguration()
 @SpringBootTest
 public class OrdersMapperTest {
 

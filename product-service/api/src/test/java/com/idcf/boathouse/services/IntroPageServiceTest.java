@@ -10,12 +10,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collection;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@Profile("dev")
 @SpringBootTest
 public class IntroPageServiceTest {
 
