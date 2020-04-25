@@ -328,10 +328,10 @@ public class ParameterClassTest {
 ```reStructuredText
 命名规范: 可以通过上述定义模板来自动生成
 1. 测试类名称: ClassNameTest,即在原有的类中添加Test表示要进行单元测试的测试类
-2. 方法名称:   @BeforeClass对应的方法名称为init,表示初始化操作.
-							 @AfterClass对应的方法名称为release,表示执行完所有测试用例之后要释放资源
-							 @Before对应的方法名称为setUp,@After对应方法名称为tearDown
-							 @Test对应的测试用例方法名称为testMethodName
+2. 方法名称:  @BeforeClass对应的方法名称为init,表示初始化操作.
+             @AfterClass对应的方法名称为release,表示执行完所有测试用例之后要释放资源
+             @Before对应的方法名称为setUp,@After对应方法名称为tearDown
+             @Test对应的测试用例方法名称为testMethodName
 3. 单元测试集: 存放单元测试的测试类的包命名规范与被测试的类所处的包目录结构一致,如
 java/
 	com.idcf.boathouse.mapper.OrderMapper
