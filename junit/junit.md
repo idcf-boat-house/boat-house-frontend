@@ -66,7 +66,7 @@ mvn archetype:generate -DarchetypeCatalog=local
 
 打开idea的Preferences,搜索templates,找到File And Code Templates栏目,点击该栏目找到右侧的Junit4Class的模板配置,可以根据个人情况进行配置.
 
-![image-20200417142513605](./images/junit/boathouse-structure-junit-idea-config.png)
+![image-20200417142513605](../images/junit/boathouse-structure-junit-idea-config.png)
 
 可以为本地的模板配置为一个基本SpringBoot的测试模板样例,如下模板代码:
 
@@ -111,11 +111,11 @@ public void test${NAME}() {
 
 选中被测试的类,右键Go To -> Test (同时可以把快捷键记住)
 
-![image-20200418110024221](./images/junit/boathouse-structure-junit-idea-create1.png)
+![boathouse-structure-junit-idea-create1](../images/junit/boathouse-structure-junit-idea-create1.png)
 
 这个时候弹出框构建单元测试类,选择Junit4的测试类库,同时按照上述规范命名测试类名称,最后根据实际需求情况勾选要进行单元测试的方法以及对应的setUp和tearDown方法,同时注意生成的测试类存放的包目录,一般情况下只需要勾选要进行测试的方法即可.
 
-![image-20200418110436420](./images/junit/boathouse-structure-junit-idea-create2.png)
+![boathouse-structure-junit-idea-create2](../images/junit/boathouse-structure-junit-idea-create2.png)
 
 最后就生成一个基于模板配置好的单元测试类并编写一个单元测试用例如下:
 
@@ -231,7 +231,7 @@ maven clean test
 
 执行覆盖率报告结果:
 
-![image-20200417225946654](./images/junit/boathouse-structure-junit-javacoco-report.png)
+![boathouse-structure-junit-javacoco-report](../images/junit/boathouse-structure-junit-javacoco-report.png)
 
 通过上述报告结果,说明当前进行单元测试的覆盖率只有2%,开发人员需要重新审核自身编写的测试代码情况,即是否测试全面.
 
@@ -249,7 +249,7 @@ maven clean test
 
 - 单元测试框架类图结构设计
 
-![image-20200417235510924](./images/junit/boathouse-structure-junit-Class.png)
+![boathouse-structure-junit-Class](../images/junit/boathouse-structure-junit-Class.png)
 
 ```java
 // Assert: 负责对单元测试结果进行校验
@@ -443,13 +443,13 @@ services:
 
 2. 根据maven的构建的生命周期,在进行maven打包的时候会执行当前项目下的单元测试类,直接通过docker compose up启动构建服务,至此在流水线上就可以看到Jenkins构建单元测试输出结果:
 
-![](/Users/keithl/docker/dev/data/idcf-house/boat-house/images/junit/boathouse-structure-junit-jenkins-test.jpg)
+![boathouse-structure-junit-jenkins-test](../images/junit/boathouse-structure-junit-jenkins-test.jpg)
 
 3. Jenkins安装Html Publisher输出单元测试报告
 
 打开Jenkins界面,在基于流水线的构建基础下,点击进入左侧的Manage Jenkins(系统配置),找到插件管理并点击进入,点开可选插件面板,搜索html,如下界面:
 
-![](/Users/keithl/docker/dev/data/idcf-house/boat-house/images/junit/boathouse-structure-junit-jenkins-search.jpg)
+![boathouse-structure-junit-jenkins-search](../images/junit/boathouse-structure-junit-jenkins-search.jpg)
 
 这个时候点击直接安装即可(上述已经安装过插件).
 
@@ -465,12 +465,12 @@ publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, r
 
 最后只需要在Jenkins上构建流水线,等待单元测试报告的结果输出即可,如下:
 
-![](/Users/keithl/docker/dev/data/idcf-house/boat-house/images/junit/boathouse-structure-junit-jenkins-report1.jpg)
+![boathouse-structure-junit-jenkins-report1](../images/junit/boathouse-structure-junit-jenkins-report1.jpg)
 
 然后在当前界面的右上角点击“制品”Tab,显示如下:
 
-![](/Users/keithl/docker/dev/data/idcf-house/boat-house/images/junit/boathouse-structure-junit-jenkins-report2.jpg)
+![boathouse-structure-junit-jenkins-report2](../images/junit/boathouse-structure-junit-jenkins-report2.jpg)
 
 点击上述的Junit Report即可显示单元测试输出报告,即:
 
-![](/Users/keithl/docker/dev/data/idcf-house/boat-house/images/junit/boathouse-structure-junit-jenkins-report3.jpg)
+![boathouse-structure-junit-jenkins-report3](../images/junit/boathouse-structure-junit-jenkins-report3.jpg)
