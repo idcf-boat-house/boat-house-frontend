@@ -1,21 +1,21 @@
-### 单元测试编写与自动化
+### 单元测试的编写与自动化
 
 #### 单元测试的意义
 
-> 单元测试基本属性
+> 单元测试概念
 
-单元测试可以理解为一个开发人员开发一个class类或者是新增加class类下的方法,那么这个开发人员就需要对这个class类下的方法实现的功能负责,保证方法的功能实现可以正常交付,因而需要对class类或class类下的方法进行测试,因而单元测试具备的属性如下:
+单元测试可以理解为当一个开发人员开发一个class类或者是新增加已有的class类下的功能方法时,那么这个开发人员就需要对新开发的class类或者是class类下的功能实现的方法负责,保证实现的功能可以满足需求且能够正常运行交付,因此为了达到上述的目标,我们需要对class类或class类下的方法进行单元测试,那么对于一个单元测试具备的属性主要包含如下:
 
 - **单元**是软件系统组成的一个最小单位.
-- 满足输入,计算处理,输出三个核心步骤,即我们需要定义输入的信息,通过程序的加工计算处理,最后返回处理结果,测试本身是对于返回的处理结果进行重复验证,保证其正确率不低于我们预设的一个阀值百分比.
-- 由单一的开发人员负责完成交付,实现的功能规模小,逻辑简单且相互独立, 能够更容易实现程序完整功能的集成
+- 满足输入,计算处理,输出三个核心步骤,即我们需要定义输入的信息,通过程序的加工计算处理(也就是我们实现的代码程序),最后返回处理结果,测试本身是对于返回的处理结果进行重复验证,保证其正确率不低于我们预设的一个阀值百分比.
+- 由单一的开发人员负责完成交付,实现的功能规模小,逻辑简单且相互独立, 能够更容易实现程序完整功能的集成.
 
 > 单元测试作用
 
 在极限编程的TDD流程中,驱动流程前进的开发周期称为“红灯-绿灯-重构”,其中红绿灯体现一个单元测试的失败与成功标识,红灯代表处于说明测试不通过需要被修复或者正处于编写测试状态,绿灯代表实现的功能全部测试通过.TDD流程可以根据红绿灯显示的状态结果来不断重复优化我们的程序代码,对此单元测试对于软件系统,开发人员具备有以下的意义:
 
-- 对于开发人员而言,由于测试规模小且功能独立,因而在不需要考虑外部因素引入的情况下,能够通过单元测试快速定位错误并实现程序代码不断重复优化,促使测试状态变更为绿灯状态.
-- 对于软件系统而言,由于功能独立且规模小,那么在系统功能进行集成的时候能够降低错误覆盖率,提升系统功能实现的正确率,缩小排除异常的范围,提升功能实现的交付速度.
+- 对于开发人员而言,由于测试规模小且功能独立,因而在不需要考虑外部因素引入的情况下,能够通过单元测试快速定位错误并实现程序代码不断迭代优化,促使测试状态变更为绿灯状态.
+- 对于软件系统而言,由于功能独立且规模小,那么在系统功能集成之前(尤其是大型软件系统)进行单元测试有助于提升系统功能实现的正确率,缩小排查异常的范围以及消耗的时间,提升需求功能实现的交付速度.
 
 #### 单元测试的工具使用
 
@@ -24,11 +24,11 @@
 - git在开发中的使用
 
 ```bash
-## 先在github上fork下代码
+## 先在github上fork下
 ## 拉取项目
 git clone https://github.com/yourGithubId/boat-house.git
 
-## 配置远程仓库
+## 配置同步远程仓库
 git remote -v
 git remote add upstream https://github.com/idcf-boat-house/boat-house.git
 
@@ -36,17 +36,30 @@ git remote add upstream https://github.com/idcf-boat-house/boat-house.git
 git fetch upstream && git checkout master && git pull && git merge upstream/master
 
 ## 开发需求
+## 基于小组owner成员的master
 git checkout master && git pull && git checkout -b feature-xxxx
 
 ## 完成需求的开发
 git pull && git add files && git commit -m "add feature xxx" && git push origin feature-xxxx
 
-## 完成测试提交到master
+## 完成功能之后再github提PR
+
+## 完成测试提交到小组owner的master
 git checkout master && git pull && git merge feature-xxxx
 
 ## 有冲突修复然后提交
 git pull && git add confilctfiles && git commit -m "fixing conflict" && git push origin master
 ```
+
+- git使用细节(结合idea)
+
+![](../images/junit/boathouse-structure-junit-git-use1.jpg)
+
+提交的时候上面有四个细节,一个是填写开发者名称以及邮件,一般就是name <email>, 第二个就是右边的勾选项,会对我们编写的代码做一些格式优化调整与检查,第三个就是填提交信息一般是简述自己做的事情,最后一个的话,很重要就是提交之前要review自己的代码,避免引入一些无关的代码,比如下面:
+
+![](../images/junit/boathouse-structure-junit-git-use2.jpg)
+
+很有可能自己提交之前将英文逗号给改成中文逗号,但是自己没有检查就会报错.review的好处就是避免多次提交同时减少自己在一些可避免的错误上浪费时间.
 
 - maven在开发中使用
 
@@ -226,10 +239,17 @@ public class JdbcUtilsTest {
 上述配置之后,根据maven构建的生命周期,可以直接执行test之后(包含test)命令将输出测试覆盖率报告,即
 
 ```bash
+## 执行测试
 maven clean test
+
+## 测试报告输出路径
+/path/project/target/site/jacoco-it
+
+## 比如找到下面的路径的html(这个是我本地)
+/home/idcf-house/boat-house/product-service/api/target/site/jacoco-it
 ```
 
-执行覆盖率报告结果:
+打开html查看执行覆盖率报告结果:
 
 ![boathouse-structure-junit-javacoco-report](../images/junit/boathouse-structure-junit-javacoco-report.png)
 
@@ -269,7 +289,7 @@ public class TomcatTest {
   
   @BeforeClass
   public static void init(){
-      // 在执行测试类中进行初始化操作,整个过程仅执行一次
+      // 在执行测试类中进行初始化操作,整个过程仅执行一次且声明为static
   }
   
   @Before
@@ -290,7 +310,7 @@ public class TomcatTest {
   
   @AfterClass
   public static void release(){
-    // 释放资源,在所有测试用例执行完成之后释放所有资源,整个过程只执行一次
+    // 在所有测试用例执行完成之后释放所有资源,整个过程只执行一次且声明为静态static
   }
 }
 ```
@@ -322,7 +342,7 @@ public class ParameterClassTest {
 
 在进行单元测试实践之前,我们需要先了解下单元测试的准则与规范
 
-- 单元测试准则: [参考准则]( https://petroware.no/unittesting.html)
+- 单元测试准则: [参考准则英文版]( https://petroware.no/unittesting.html)  、[参考准则中文版](https://github.com/yangyubo/zh-unit-testing-guidelines/blob/master/readme.rst)
 - 单元测试规范
 
 ```reStructuredText
@@ -341,7 +361,7 @@ test/
 
 - 基于需求的单元测试实践
 
-以订单需求为例,现在的需求是开发一个商家接单的功能,对于一个订单的基本流程有: 下单 - 支付  -  接单  -  确认订单  -  订单完成,因此对商家接单功能进行单元测试实践如下:
+以订单需求为例,现在的需求是开发一个商家接单的功能,对于一个订单的基本流程有: 下单 - 支付  -  接单  -  确认订单  -  订单完成等流程,因此对商家接单功能进行单元测试实践如下:
 
 1. 第一步是编写单元测试用例.
 
@@ -350,6 +370,8 @@ test/
 public class OrdersMapperTest {
   
    //由于mapper还没有实现,对此使用Mock框架模拟实现
+   // 1. 这个时候还没有定义OrdersMapper,显示红灯,未定义错误
+   // 2. 编写测试用例完成之后再定义OrdersMapper,定义并修复红灯
    @Mock
    private OrdersMapper ordersMapper;
    
@@ -368,8 +390,8 @@ public class OrdersMapperTest {
     @Test
     public void testConfirmOrder(){
      	// 商家接单,首先我需要有查询一个已支付的订单信息,于是在接口还没有进行完成开发之前,使用Mock进行模拟
-      int id = 17978;
-      Mockito.when(ordersMapper.selectById(id)).then(new Answer<Orders>() {
+      int orderId = 17978;
+      Mockito.when(ordersMapper.selectByOrderId(orderId)).then(new Answer<Orders>() {
         @Override
         public Orders answer(InvocationOnMock invocationOnMock) throws Throwable {
           Orders orders = new Orders();
@@ -380,8 +402,8 @@ public class OrdersMapperTest {
       });
 
         // 执行查询并验证查询结果
-        Orders orders = ordersMapper.selectById(id);
-        Assert.assertEquals(id, orders.getId());
+        Orders orders = ordersMapper.selectByOrderId(orderId);
+        Assert.assertEquals(orderId, orders.getOrderId());
         Assert.assertEquals(OrderStatusEnum.OrderWaitHandle.getValue(), orders.getOrderStatus());
 
         // 满足上述的条件之后，接下来我们需要进行商家接单操作
@@ -390,8 +412,19 @@ public class OrdersMapperTest {
       
         // 执行接单操作并验证
         int res = ordersMapper.confirmOrder(orders);
-        Assert.assertEquals(OrderStatusEnum.OrderHandling.getValue(), orders.getOrderStatus());
         Assert.assertEquals(1, res);
+      
+        // 根据orderId查询订单验证订单状态
+       Mockito.when(ordersMapper.selectByOrderId(orderId)).then(new Answer<Orders>() {
+        @Override
+        public Orders answer(InvocationOnMock invocationOnMock) throws Throwable {
+          Orders orders = new Orders();
+          orders.setId(invocationOnMock.getArgument(0, Integer.class));
+          orders.setOrderStatus(OrderStatusEnum.OrderHandling.getValue());   //已接单状态
+          return orders;
+        }
+      });
+       Assert.assertEquals(OrderStatusEnum.OrderHandling.getValue(), orders.getOrderStatus());
        
         // 再次执行接单操作,这个时候测试结果应该是失败,已经执行过一次,需要保证幂等
          Mockito.when(ordersMapper.confirmOrder(orders)).thenReturn(0);
@@ -406,13 +439,15 @@ public class OrdersMapperTest {
 ```java
 // 比如上述还没有定义接口OrdersMapper,那么这个时候就需要先定义出OrdersMapper的接口
 public interface OrdersMapper extends BaseMapper<Orders>{
+   
+   Orders selectByOrderId(String orderId);
    int confirmOrder(Orders orders);
 }
 ```
 
-3. 当接口开发完成之后,我们根据上述的单元测试用例注释掉Mock数据,基于Spring的配置启动单元测试并对接口功能进行单元测试.
+3. 当接口开发完成之后,我们根据上述的单元测试用例注释掉Mock数据,基于Spring的配置进行加载并对接口功能进行单元测试.
 
-4. 最后通过单元测试报告不断优化功能代码,驱使一个接单功能的实现能够出现单元测试的绿灯显示.
+4. 最后通过单元测试报告来优化功能代码,驱使一个接单功能的实现能够符合预期的业务需求目标.
 
 更多关于单元测试实践参考如下:
 
@@ -428,7 +463,7 @@ public interface OrdersMapper extends BaseMapper<Orders>{
 
 - 单元测试自动化
 
-1. 使用docker对项目进行构建,即docker-compse-build.yaml
+1. 使用docker-compose的方式对项目进行构建,即docker-compse-build.yaml
 
 ```yaml
 version: '3'
@@ -445,7 +480,7 @@ services:
 
 ![boathouse-structure-junit-jenkins-test](../images/junit/boathouse-structure-junit-jenkins-test.jpg)
 
-3. Jenkins安装Html Publisher输出单元测试报告
+3. Jenkins安装Html Publisher插件输出单元测试报告
 
 打开Jenkins界面,在基于流水线的构建基础下,点击进入左侧的Manage Jenkins(系统配置),找到插件管理并点击进入,点开可选插件面板,搜索html,如下界面:
 
@@ -459,7 +494,7 @@ services:
 
 ```bash
 ## product-service项目使用maven进行构建输出报告目录: ./product-service/api/target/site/jacoco-it
-## 在JenkinsFile下的build-product-service最后增加以下命令即可
+## 在JenkinsFile下的构建build-product-service的步骤最后增加以下命令即可
 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './product-service/api/target/site/jacoco-it', reportFiles: 'index.html', reportName: 'Junit Report', reportTitles: ''])
 ```
 
