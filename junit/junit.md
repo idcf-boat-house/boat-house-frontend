@@ -2,12 +2,12 @@
 
 #### 单元测试的意义
 
-> 单元测试概念
+> 单元测试属性概念
 
 单元测试可以理解为当一个开发人员开发一个class类或者是新增加已有的class类下的功能方法时,那么这个开发人员就需要对新开发的class类或者是class类下的功能实现的方法负责,保证实现的功能可以满足需求且能够正常运行交付,因此为了达到上述的目标,我们需要对class类或class类下的方法进行单元测试,那么对于一个单元测试具备的属性主要包含如下:
 
 - **单元**是软件系统组成的一个最小单位.
-- 满足输入,计算处理,输出三个核心步骤,即我们需要定义输入的信息,通过程序的加工计算处理(也就是我们实现的代码程序),最后返回处理结果,测试本身是对于返回的处理结果进行重复验证,保证其正确率不低于我们预设的一个阀值百分比.
+- 满足输入,计算处理,输出三个核心步骤,即我们需要定义输入的信息,通过程序的加工计算处理(也就是我们实现的代码程序),输出就是返回处理结果,测试本身是对于返回的处理结果进行重复验证,保证其正确率不低于我们预设的一个阀值百分比.
 - 由单一的开发人员负责完成交付,实现的功能规模小,逻辑简单且相互独立, 能够更容易实现程序完整功能的集成.
 
 > 单元测试作用
@@ -42,9 +42,9 @@ git checkout master && git pull && git checkout -b feature-xxxx
 ## 完成需求的开发
 git pull && git add files && git commit -m "add feature xxx" && git push origin feature-xxxx
 
-## 完成功能之后再github提PR
+## 完成功能验证通过之后在github提PR合并到boat-house的master分支
 
-## 完成测试提交到小组owner的master
+## 完成PR提交到小组owner的master
 git checkout master && git pull && git merge feature-xxxx
 
 ## 有冲突修复然后提交
@@ -73,6 +73,12 @@ mvn install
 
 ## 从构建的脚手架快速项目
 mvn archetype:generate -DarchetypeCatalog=local
+
+## maven的打包测试
+## -Dmaven.test.failure.ignore=true表示单元测试失败仍然不影响打包
+## -Dmaven.test.skip=true表示跳过单元测试
+## -Pdev dev表示maven传递激活的环境
+mvn clean package -Dmaven.test.failure.ignore=true
 ```
 
 - idea使用
@@ -240,7 +246,7 @@ public class JdbcUtilsTest {
 
 ```bash
 ## 执行测试
-maven clean test
+mvn clean test
 
 ## 测试报告输出路径
 /path/project/target/site/jacoco-it
@@ -249,7 +255,7 @@ maven clean test
 /home/idcf-house/boat-house/product-service/api/target/site/jacoco-it
 ```
 
-打开html查看执行覆盖率报告结果:
+打开输出目录的index.html查看执行覆盖率报告结果:
 
 ![boathouse-structure-junit-javacoco-report](../images/junit/boathouse-structure-junit-javacoco-report.png)
 
@@ -305,12 +311,12 @@ public class TomcatTest {
   
   @After
   public void tearDown(){
-     // 在每次测试用例执行完成之后释放资源
+     // 在每次测试用例执行完成之后的后续操作
   }
   
   @AfterClass
   public static void release(){
-    // 在所有测试用例执行完成之后释放所有资源,整个过程只执行一次且声明为静态static
+    // 在所有测试用例执行完成之后的后续操作,整个过程只执行一次且声明为静态static
   }
 }
 ```
@@ -366,7 +372,6 @@ test/
 1. 第一步是编写单元测试用例.
 
 ```java
-// 现在我正在进行商家的接单开发,首先要先写dao的接口模块,然后根据提供的接口我需要编写基于dao模块的接单接口的单元测试用例
 public class OrdersMapperTest {
   
    //由于mapper还没有实现,对此使用Mock框架模拟实现
