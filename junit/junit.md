@@ -430,7 +430,9 @@ public class OrdersMapperTest {
           return orders;
         }
       });
-       Assert.assertEquals(OrderStatusEnum.OrderHandling.getValue(), orders.getOrderStatus());
+      // 验证订单状态
+      Orders orders = ordersMapper.selectByOrderId(orderId);
+      Assert.assertEquals(OrderStatusEnum.OrderHandling.getValue(), orders.getOrderStatus());
        
         // 再次执行接单操作,这个时候测试结果应该是失败,已经执行过一次,需要保证幂等
          Mockito.when(ordersMapper.confirmOrder(orders)).thenReturn(0);
