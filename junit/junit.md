@@ -332,6 +332,7 @@ public class TomcatTest {
 // 单元测试之参数化
 // 声明处于参数化环境
 @RunWith(Parameterized.class)
+@FixMethodOrder(MethodSorters.DEFAULT)
 public class ParameterClassTest {
     
     // 构造参数化数据
