@@ -114,7 +114,7 @@ public class JdbcUtils {
             }
         }
         result = pstmt.executeUpdate();
-        flag = result > 0;
+        flag = result > 0 ? true : false;
         return flag;
     }
 
