@@ -40,7 +40,7 @@ public class IntroPageServiceTest {
     }
 
     @Test
-    public void inserIntroPage() {
+    public void inserIntroPage() throws Exception {
         IntroPageFront introPageFront=new IntroPageFront();
         introPageFront.page_api_url="http://www.baidu.com";
         introPageFront.page_title="网页Title";
