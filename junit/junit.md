@@ -396,7 +396,7 @@ public class OrdersMapperTest {
     @Test
     public void testConfirmOrder(){
      	// 商家接单,首先我需要有查询一个已支付的订单信息,于是在接口还没有进行完成开发之前,使用Mock进行模拟
-      int orderId = 17978;
+      String orderId = "20200429143906111";
       Mockito.when(ordersMapper.selectByOrderId(orderId)).then(new Answer<Orders>() {
         @Override
         public Orders answer(InvocationOnMock invocationOnMock) throws Throwable {
