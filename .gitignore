@@ -18,7 +18,6 @@ selenium/dotnet-uitest/UITest/.vs/
 .DS_Store
 .metadata
 
-# vscode
-.vscode/
+# C#
 **/obj
 **/Debug
