@@ -17,3 +17,5 @@ selenium/dotnet-uitest/UITest/TestResults
 selenium/dotnet-uitest/UITest/.vs/
 .DS_Store
 .metadata
+/src/statistics-service/worker/obj
+/test/selenium/dotnet-uitest/UITest/obj
