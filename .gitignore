@@ -17,3 +17,8 @@ selenium/dotnet-uitest/UITest/TestResults
 selenium/dotnet-uitest/UITest/.vs/
 .DS_Store
 .metadata
+
+# vscode
+.vscode/
+**/obj
+**/Debug
