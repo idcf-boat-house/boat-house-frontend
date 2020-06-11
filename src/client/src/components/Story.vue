@@ -7,7 +7,7 @@
           {{ pageTitle }}
         </h2>
         <div class="main">
-          <div v-html="pageBody">
+          <div v-html="pageBody"/>
         </div>
       </div>
     </div>

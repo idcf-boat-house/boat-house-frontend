@@ -21,3 +21,4 @@ selenium/dotnet-uitest/UITest/.vs/
 # C#
 **/obj
 **/Debug
+test/selenium/dotnet-uitest/UITest/obj/Debug/netcoreapp3.1/UITest.AssemblyInfo.cs

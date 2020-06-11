@@ -5,7 +5,7 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
@@ -18,9 +18,10 @@
     "element-ui": "^2.13.0",
     "express": "^4.17.1",
     "requestify": "^0.2.5",
-    "vue": "^2.5.2",
+    "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
-    "vue-router": "^3.0.1"
+    "vue-resource": "^1.5.1",
+    "vue-router": "^3.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
