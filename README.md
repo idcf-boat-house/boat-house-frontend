@@ -1,11 +1,18 @@
+
+
 # Boat House（船屋餐饮系统）—— web前端
 
 > 包含用户操作界面 和 管理员操作界面；
 
-@[TOC](文章目录)
+## 文档目录
+
++ [目录结构](#1.%20目录结构)
++ [开发/调试环境配置](#2.%20开发/调试环境配置)
+  + [MAC](#2.1.%20MAC)
+  + [Windows](#2.2.%20Windows)
 
 
-## 目录结构
+## 1. 目录结构
 ```
 ├── images                              # 代码库中饮用图片的统一存放文件夹
 ├── src                                 # 代码文件
@@ -60,12 +67,50 @@
 ```
 
 
-## 开发/调试环境配置
-### MAC
-``` mac
+## 2. 开发/调试环境配置
+### 2.1. MAC
 
+安装brew， 如果update速度慢，请 [参考](#1.解决brew安装速度慢的问题) 
+``` mac bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+brew install
 ```
-### Windows
+
+安装cnpm & node
+``` mac bash
+brew install cnpm
+cnpm install node
+```
+
+查看版本
+``` mac bash
+cnpm -v
+node -v
+```
+
+vue最新稳定版
+``` mac bash
+cnpm install vue  
+```
+
+全局安装 vue-cli
+``` mac bash
+cnpm install --global vue-cli
+```
+
+进入web 用户界面文件夹
+``` mac bash
+cd /src/client
+```
+
+安装依赖保
+``` mac bash
+cnpm install
+```
+
+
+### 2.2. Windows
 ``` windows
 
 ```
@@ -74,3 +119,19 @@
 ## 测试
 
 ## 发布
+
+## 常见问题
+### 1. 解决brew安装速度慢的问题
+
+> 使用阿里云的git库， 替换homebrew镜像源
+    
+替换brew.git:
+``` 
+cd "$(brew --repo)”
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+```
+ 替换homebrew-core.git:
+``` 
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+```
