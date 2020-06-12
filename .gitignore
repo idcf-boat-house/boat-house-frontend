@@ -19,3 +19,7 @@ selenium/dotnet-uitest/UITest/.vs/
 .metadata
 /src/statistics-service/worker/obj
 /test/selenium/dotnet-uitest/UITest/obj
+
+
+**/obj
+**/Debug
