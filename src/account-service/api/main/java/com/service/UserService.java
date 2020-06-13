@@ -1,4 +1,4 @@
-package com.idcf.boathouse.account.service;
+package com.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.idcf.boathouse.account.entity.User;

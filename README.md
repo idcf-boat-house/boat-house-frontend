@@ -52,7 +52,22 @@
 TODO
 
 ## 2. 本地环境配置
+参考：https://code.visualstudio.com/docs/java/java-spring-boot
 
+先决条件
+Java Development Kit (JDK), version 1.8. https://www.oracle.com/java/technologies/javase-jdk14-downloads.html
+Apache Maven, version 3.0 or later. 
+Java Extension Pack
+
+
+### IntelliJ IDEA
+https://www.jetbrains.com/idea/download/
+
+java
+
+spring boot
+
+mysql
 
 ## 3. 本地开发调试
 
