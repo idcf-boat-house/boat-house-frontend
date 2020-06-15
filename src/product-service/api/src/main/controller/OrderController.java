@@ -1,4 +1,4 @@
-package com.idcf.boathouse.controller;
+package com.idcf.boathouse.product-service.controller;
 
 import com.idcf.boathouse.services.OrderService;
 import com.idcf.boathouse.untils.ActionResult;

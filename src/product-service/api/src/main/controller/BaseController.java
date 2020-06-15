@@ -1,4 +1,4 @@
-package com.idcf.boathouse.controller;
+package com.idcf.boathouse.product-service.controller;
 
 import com.idcf.boathouse.models.Food;
 import com.idcf.boathouse.models.FoodPost;
