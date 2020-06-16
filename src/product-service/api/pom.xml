@@ -23,9 +23,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.idcf</groupId>
-    <artifactId>boathouse</artifactId>
+    <artifactId>product-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>boathouse</name>
+    <name>product-service</name>
     <description>Boat House Java API</description>
 
     <properties>
