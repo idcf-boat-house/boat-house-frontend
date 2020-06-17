@@ -18,7 +18,7 @@ services:
  #       networks:
  #           - backend
  #       depends_on:
- #           - statistics-service-db
+ #           - statistics-service-db 
 
     statistics-service-api:
         build: ./src/statistics-service/api
