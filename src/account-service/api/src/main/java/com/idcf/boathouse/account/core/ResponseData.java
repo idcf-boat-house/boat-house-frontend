@@ -1,4 +1,4 @@
-package com.idcf.boathouse.product.account.core;
+package com.idcf.boathouse.account.core;
 
 import lombok.Data;
 

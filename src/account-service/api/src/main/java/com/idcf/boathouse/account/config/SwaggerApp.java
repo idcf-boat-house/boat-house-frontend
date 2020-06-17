@@ -1,4 +1,4 @@
-package com.idcf.boathouse.product.account.config;
+package com.idcf.boathouse.account.config;
 
 import springfox.documentation.service.Contact;
 import org.springframework.context.annotation.Bean;

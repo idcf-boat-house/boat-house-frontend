@@ -1,4 +1,4 @@
-package com.idcf.boathouse.product.account;
+package com.idcf.boathouse.account;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

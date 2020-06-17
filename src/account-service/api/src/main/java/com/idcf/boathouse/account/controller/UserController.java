@@ -1,10 +1,10 @@
-package com.idcf.boathouse.product.account.controller;
+package com.idcf.boathouse.account.controller;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.idcf.boathouse.product.account.core.ResponseData;
-import com.idcf.boathouse.product.account.entity.User;
-import com.idcf.boathouse.product.account.service.UserService;
+import com.idcf.boathouse.account.core.ResponseData;
+import com.idcf.boathouse.account.entity.User;
+import com.idcf.boathouse.account.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

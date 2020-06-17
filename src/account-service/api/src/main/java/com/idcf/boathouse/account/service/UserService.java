@@ -1,8 +1,8 @@
-package com.idcf.boathouse.product.account.service;
+package com.idcf.boathouse.account.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.idcf.boathouse.product.account.entity.User;
-import com.idcf.boathouse.product.account.mapper.UserMapper;
+import com.idcf.boathouse.account.entity.User;
+import com.idcf.boathouse.account.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 @Service

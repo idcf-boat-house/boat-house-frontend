@@ -1,4 +1,4 @@
-package com.idcf.boathouse.product.account.entity;
+package com.idcf.boathouse.account.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,4 +1,4 @@
-package com.idcf.boathouse.product.account;
+package com.idcf.boathouse.account;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
