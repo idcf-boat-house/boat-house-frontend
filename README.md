@@ -8,12 +8,12 @@
 ![Build product-service](https://github.com/idcf-boat-house/boat-house/workflows/Build%20product-service/badge.svg)
 ![Build management](https://github.com/idcf-boat-house/boat-house/workflows/Build%20management/badge.svg)
 
-+ 架构设计
-    + 商品服务
-    + 统计服务
-    + 账户服务
-    + 订单服务（暂未实现，期待你的参与）
-    + 支付服务（暂未实现，期待你的参与）
++ [1. 架构设计](#1.%20架构设计)
+    + [1.1. Statistics service(统计服务)](#1.1.%20Statistics service(统计服务))
+    + [1.2. Product service(产品服务)](#1.2.%20Product service(产品服务))
+    + [1.3. Account service(账户服务)](#1.3.%20Account service(账户服务))
+    + 1.4. 订单服务（暂未实现，期待你的参与）
+    + 1.5. 支付服务（暂未实现，期待你的参与）
 + 目录结构
 + 本地环境配置
 + 本地开发调试
