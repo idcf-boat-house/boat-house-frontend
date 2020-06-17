@@ -12,14 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
-public class ProductApplicationTests {
+public class ProductServiceApplicationTests {
 
     private FoodCategoryService foodCategoryService=new FoodCategoryService();
 
     @Mock
     private BoatHouseController boatHouseController;  // 被测类
 
-    public ProductApplicationTests() {
+    public ProductServiceApplicationTests() {
     }
 
     @BeforeClass
