@@ -54,8 +54,8 @@ pipeline {
 */
             stage('build-statistics-service') {
               steps {
-                sh "docker build -f statistics-service/api/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:latest statistics-service/api"
-                sh "docker build -f statistics-service/worker/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:latest statistics-service/worker"
+                sh "docker build -f src/statistics-service/api/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:latest statistics-service/api"
+                sh "docker build -f src/statistics-service/worker/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_worker:latest statistics-service/worker"
 
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 echo "push service api..."

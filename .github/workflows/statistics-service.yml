@@ -11,11 +11,11 @@ jobs:
       - name: list env
         run: env
 
-      - name: docker build statistics-service/api
-        run: docker build -f statistics-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:action-ci statistics-service/api 
+      - name: docker build src/statistics-service/api
+        run: docker build -f src/statistics-service/api/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_api:action-ci src/statistics-service/api 
 
-      - name: docker build statistics-service/worker
-        run: docker build -f statistics-service/worker/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:action-ci statistics-service/worker
+      - name: docker build src/statistics-service/worker
+        run: docker build -f src/statistics-service/worker/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/statistics_service_worker:action-ci src/statistics-service/worker
 
       - name: docker images 
         run: docker images
