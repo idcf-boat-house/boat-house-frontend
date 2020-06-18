@@ -34,7 +34,7 @@ pipeline {
 
         stage('build') {
           parallel {
-            stage('build-client') {
+ /*           stage('build-client') {
               steps {
                 sh "docker build -f client/web/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest client/web"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
@@ -51,7 +51,7 @@ pipeline {
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
-
+*/
             stage('build-statistics-service') {
               steps {
                 sh "docker build -f statistics-service/api/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/statistics_service_api:latest statistics-service/api"
