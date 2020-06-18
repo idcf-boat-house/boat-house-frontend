@@ -9,9 +9,9 @@
 ![Build management](https://github.com/idcf-boat-house/boat-house/workflows/Build%20management/badge.svg)
 
 + [1. 架构设计](#1.%20架构设计)
-    + [1.1. Statistics service(统计服务)](#1.1.%20Statistics service(统计服务))
-    + [1.2. Product service(产品服务)](#1.2.%20Product service(产品服务))
-    + [1.3. Account service(账户服务)](#1.3.%20Account service(账户服务))
+    + [1.1. Statistics service 统计服务](#1.1.%20Statistics service 统计服务)
+    + [1.2. Product service 产品服务](#1.2.%20Product service 产品服务)
+    + [1.3. Account service 账户服务](#1.3.%20Account service 账户服务)
     + 1.4. 订单服务（暂未实现，期待你的参与）
     + 1.5. 支付服务（暂未实现，期待你的参与）
 + 目录结构
@@ -32,21 +32,21 @@
 | order-service  | 业务条线 - 订单服务  |spring boot + mysql |
 | payment-service  | 业务条线 - 支付服务  |spring boot + mysql |
 
-### 1.1. Statistics service(统计服务)
+### 1.1. Statistics service 统计服务
 
 统计最受欢迎的菜品，并通过图表实时展示统计结果。
 
 ![markdown](./images/boathouse-structure-stats.png "markdown")
 
 
-### 1.2. Product service(产品服务)
+### 1.2. Product service 产品服务
 
 进行菜品管理、菜品分类管理
 
 ![markdown](./images/boathouse-structure-product02.png "markdown")
 
 
-### 1.3. Account service(账户服务)
+### 1.3. Account service 账户服务
 
 TODO
 
