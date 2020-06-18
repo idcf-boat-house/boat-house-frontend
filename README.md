@@ -24,7 +24,7 @@
 ## 1. 架构设计
 船屋餐饮系统采用微服务架构设计，包含五条业务条线（统计服务、商品服务、账户服务、订单服务、支付服务），每一个业务条线可以独立的开发以及部署。
 
-![markdown](/images/boathouse-structure.png "markdown")
+![markdown](./images/boathouse-structure.png "markdown")
 
 | 服务  | 服务说明 | 技术架构 |
 | ------------ | ------------ |------------ |
@@ -37,14 +37,14 @@
 
 统计最受欢迎的菜品，并通过图表实时展示统计结果。
 
-![markdown](/images/boathouse-structure-stats.png "markdown")
+![markdown](./images/boathouse-structure-stats.png "markdown")
 
 
 ### 1.2. Product service(产品服务)
 
 进行菜品管理、菜品分类管理
 
-![markdown](/images/boathouse-structure-product02.png "markdown")
+![markdown](./images/boathouse-structure-product02.png "markdown")
 
 
 ### 1.3. Account service(账户服务)
