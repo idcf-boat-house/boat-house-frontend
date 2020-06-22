@@ -23,6 +23,7 @@ pipeline {
       def server=''
     }
 
+    // 阶段配置
     stages {
          // clean workspace
          /*
@@ -33,13 +34,14 @@ pipeline {
           }
         }*/
 
-        // 
+        // 构建准备
         stage('before-build'){
           steps {
             sh "printenv"
           }
         }
 
+        // 构建
         stage('build') {
           parallel {
             // 用户界面

@@ -12,7 +12,7 @@ jobs:
         run: env
 
       - name: docker build client
-        run: docker build -f client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-ci client/web
+        run: docker build -f src/client/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-ci src/client/web
 
       - name: docker images 
         run: docker images
