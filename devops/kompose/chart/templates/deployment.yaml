@@ -6,7 +6,7 @@ kind: Deployment
 metadata:
   name: {{ $svc.name }}
   labels:
-    rel: boat-house
+    rel: boat-house-frontend
 spec:
   replicas: {{ $svc.replicas }}
   selector: 

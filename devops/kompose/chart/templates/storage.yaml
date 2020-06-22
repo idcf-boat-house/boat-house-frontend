@@ -7,7 +7,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    rel: boat-house
+    rel: boat-house-frontend
     app: {{ $svc.name }}
 spec:
   accessModes:
