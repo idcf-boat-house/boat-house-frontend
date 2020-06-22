@@ -18,8 +18,8 @@ services:
             - 5001:4000
         networks:
             - backend
-        depends_on:
-            - statistics-service-db
+#        depends_on:
+#            - statistics-service-db
 
     
 
