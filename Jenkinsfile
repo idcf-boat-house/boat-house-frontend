@@ -47,7 +47,7 @@ pipeline {
             // 用户界面
             stage('build-client') {
               steps {
-                sh "docker build -f src/client/web/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest src/client/web"
+                sh "docker build -f src/client/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest src/client"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
@@ -57,7 +57,7 @@ pipeline {
             // 管理界面
             stage('build-management') {
               steps {
-                sh "docker build -f src/management/web/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest management/web"
+                sh "docker build -f src/management/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest src/management"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
