@@ -14,7 +14,7 @@ spec:
         app: client
     spec:
       containers:
-      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/client:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/client:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
         name: client
         ports:
         - containerPort: 8080

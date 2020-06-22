@@ -14,7 +14,7 @@ spec:
         app: management
     spec:
       containers:
-      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house/management:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
+      - image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/management:#{env.BRANCH_NAME}#-#{env.BUILD_ID}#
         name: management
         ports:
         - containerPort: 4000

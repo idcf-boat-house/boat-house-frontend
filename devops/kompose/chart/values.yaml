@@ -1,5 +1,5 @@
 
-imageRepository: docker.pkg.github.com/idcf-boat-house/boat-house
+imageRepository: docker.pkg.github.com/idcf-boat-house/boat-house-frontend
 imageNamePrefix: ''
 imageTag: master-86
 imagePullSecrets: []

@@ -42,7 +42,7 @@ pipeline {
                     {
                         git branch: "boat-house-frontend",
                         credentialsId: 'creds-github-registry',
-                        url: 'git@github.com:idcf-boat-house/boat-house.git'
+                        url: 'git@github.com:idcf-boat-house/boat-house-frontend.git'
                     }
                 }
             }
