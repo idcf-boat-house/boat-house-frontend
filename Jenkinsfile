@@ -25,14 +25,6 @@ pipeline {
 
     // 阶段配置
     stages {
-         // clean workspace
-         /*
-         stage('delete files from workspace') {
-          steps {
-            sh 'ls -l'
-            sh 'sudo rm -rf ./*'
-          }
-        }*/
 
         // 构建准备 
         stage('before-build'){
