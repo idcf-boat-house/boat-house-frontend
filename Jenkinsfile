@@ -34,7 +34,7 @@ pipeline {
           }
         }*/
 
-        // 构建准备
+        // 构建准备 
         stage('before-build'){
           steps {
             sh "printenv"
