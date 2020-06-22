@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+    client:
+        build: ./client/web
+        restart: always
+        ports:
+            - 5000:8080
+        networks:
+            - frontend
+            - backend
+
+    management:
+        build: ./management/web
+        restart: always
+        ports:
+            - 5001:4000
+        networks:
+            - backend
+        depends_on: 
+            - statistics-service-db  
+
+ 
+
+networks:
+    frontend:
+    backend:
+
+volumes:
+    db-data:

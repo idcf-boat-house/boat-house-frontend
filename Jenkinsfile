@@ -59,16 +59,18 @@ pipeline {
           }
         }
 
-  /*
+
         stage('deploy-dev') { 
             steps {
               sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' src/docker-compose-template.yaml"
               script {
                 server = getHost()
+         /*       
                 echo "copy docker-compose file to remote server...."       
                 sshPut remote: server, from: 'src/docker-compose-template.yaml', into: '.'
                 sshCommand remote: server, command: "mkdir -p src/product-service/api/scripts"
                 sshPut remote: server, from: 'src/product-service/api/scripts/init.sql', into: './src/product-service/api/scripts/init.sql'
+                */
 
                 // 下面的 docker-compose-template.yaml 已经复制到根目录下，不用再调整
                 echo "stopping previous docker containers...."       
@@ -86,7 +88,7 @@ pipeline {
         } 
     
      
-       stage('Jmeter') {
+    /*     stage('Jmeter') {
           steps {
             script{
                 echo "waitting for the sevice up...."
