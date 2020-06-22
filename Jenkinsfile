@@ -59,6 +59,7 @@ pipeline {
           }
         }
 
+        // 
         stage('deploy-dev') { 
             steps {
               sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' src/docker-compose-template.yaml"
@@ -74,13 +75,13 @@ pipeline {
                 // 下面的 docker-compose-template.yaml 已经复制到根目录下，不用再调整
                 echo "stopping previous docker containers...."       
                 sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse down"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend down"
                 
                 echo "pulling newest docker images..."
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse pull"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend pull"
                 
                 echo "restarting new docker containers...."
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse up -d"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend up -d"
                 echo "successfully started!"
               }
             }
