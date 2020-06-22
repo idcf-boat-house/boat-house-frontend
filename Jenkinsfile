@@ -65,10 +65,11 @@ pipeline {
               sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' src/docker-compose-template.yaml"
               script {
                 server = getHost()
-         /*       
-                echo "copy docker-compose file to remote server...."       
+              
+                echo "copy docker-compose file to remote server...."    
+                sshRemove remote: server, path: "./docker-compose-template.yaml"   // 先删除
                 sshPut remote: server, from: 'src/docker-compose-template.yaml', into: '.'
-                sshCommand remote: server, command: "mkdir -p src/product-service/api/scripts"
+              /*    sshCommand remote: server, command: "mkdir -p src/product-service/api/scripts"
                 sshPut remote: server, from: 'src/product-service/api/scripts/init.sql', into: './src/product-service/api/scripts/init.sql'
                 */
 
