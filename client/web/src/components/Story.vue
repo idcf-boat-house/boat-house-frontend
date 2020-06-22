@@ -10,7 +10,8 @@
           <div v-html="pageBody">
         </div>
       </div>
-    </div>
+    </div> 
+  </div> 
   </form>
 </template>
 <script>

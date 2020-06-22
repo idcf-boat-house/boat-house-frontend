@@ -17,9 +17,17 @@ server:
   tomcat:
     #编码格式
     uri-encoding: utf-8
+    max-http-post-size: 10MB  #请求参数长度
   servlet:
+    max-http-header-size: 4048576
     #Api路由前缀
     context-path: /api/v1.0
+    #上传文件大小
+  multipart:
+    enabled : true
+    file-size-threshold : 0
+    max-file-size : 10Mb
+    max-request-size : 10Mb
 
 ## 本地输出日志详情,本地需要更改日志文件中的路径配置为个人电脑下的路径
 logging:

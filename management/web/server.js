@@ -14,6 +14,7 @@ var multiparty = require('multiparty')
 const axios = require('axios')
 var fs = require('fs')
 
+const mineType = require('mime-types');
 io.set('transports', ['polling'])
 
 var port = process.env.PORT || 4000
@@ -162,24 +163,32 @@ app.get('/api/food', function (req, res) {
     })
 })
 
+
+function getBase64String(file){
+   let data = fs.readFileSync(file.path);
+  data =  Buffer.from(data).toString('base64');
+  let base64 = 'data:' + mineType.lookup(file.originalFilename) + ';base64,' + data;
+  return base64;
+}
+
 app.post('/api/food', function (req, res) {
   var form = new multiparty.Form()
   form.parse(req, function (err, fields, files) {
     // var postForm = new FormData();
-    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}`
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food`
+    var body={
+      菜品ID:fields['菜品ID'][0],
+      菜品分类ID:fields['菜品分类ID'][0],
+      菜品名称:fields['菜品名称'][0],
+      菜品价格:fields['菜品价格'][0],
+      菜品描述:fields['菜品描述'][0],
+    }
     if (files['菜品图片'] !== undefined) {
-      var tempPath = files['菜品图片'][0].path
-      var tempFileNameList = tempPath.split('/')
-      var tempFileName = tempFileNameList[tempFileNameList.length - 1]
-      let nodeFile = fs.createReadStream(tempPath)
-      let outFilePath = './dist/foods/' + tempFileName
-      let dbPath = './foods/' + tempFileName
-      let outFile = fs.createWriteStream(outFilePath)
-      nodeFile.pipe(outFile)
-      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}&菜品图片=${dbPath}`
+      var dbPath=getBase64String(files['菜品图片'][0])
+      body.菜品图片=dbPath
     }
     axios
-      .post(encodeURI(url))
+      .post(url,body)
       .then(function (response) {
         console.log(response.body)
         return res.send(response.body)
@@ -193,21 +202,21 @@ app.post('/api/food', function (req, res) {
 app.put('/api/food', function (req, res) {
   var form = new multiparty.Form()
   form.parse(req, function (err, fields, files) {
-    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields['菜品ID'][0]}&菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}`
+    let url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food`
+    var body={
+      菜品ID:fields['菜品ID'][0],
+      菜品分类ID:fields['菜品分类ID'][0],
+      菜品名称:fields['菜品名称'][0],
+      菜品价格:fields['菜品价格'][0],
+      菜品描述:fields['菜品描述'][0],
+    }
     if (files['菜品图片'] !== undefined) {
-      var tempPath = files['菜品图片'][0].path
-      var tempFileNameList = tempPath.split('/')
-      var tempFileName = tempFileNameList[tempFileNameList.length - 1]
-      let nodeFile = fs.createReadStream(tempPath)
-      let outFilePath = './dist/foods/' + tempFileName
-      let dbPath = './foods/' + tempFileName
-      let outFile = fs.createWriteStream(outFilePath)
-      nodeFile.pipe(outFile)
-      url = `http://product-service-api:8080/api/v1.0/BoatHouse/Food?菜品ID=${fields['菜品ID'][0]}&菜品分类ID=${fields['菜品分类ID'][0]}&菜品名称=${fields['菜品名称'][0]}&菜品价格=${fields['菜品价格'][0]}&菜品描述=${fields['菜品描述'][0]}&&菜品图片=${dbPath}`
+      var dbPath=getBase64String(files['菜品图片'][0])
+      body.菜品图片=dbPath
     }
 
     axios
-      .put(encodeURI(url))
+      .put(url,body)
       .then(function (response) {
         console.log(response.body)
         return res.send(response.body)
@@ -316,6 +325,8 @@ app.put("/orders/refuse", function(req, res) {
       return res.send(response.body);
     });
 });
+<<<<<<< HEAD
+=======
 
 app.get("/api/intro/intro_page", function(req, res) {
   requestify
@@ -343,3 +354,4 @@ app.put("/api/intro/intro_page", function(req, res) {
       return res.send(response.body);
     });
 });
+>>>>>>> fae16dc4cc0e4caa6a8310737372b6ff1f809676

@@ -33,38 +33,33 @@ public class FoodController extends BaseController{
 	@RequestMapping(value= "Food", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("添加菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品分类ID") Integer categoryId, @RequestParam(value = "菜品名称") String name,
-			@RequestParam(value = "菜品价格") BigDecimal price, @RequestParam(value = "菜品描述") String description,
-			@RequestParam(value = "菜品图片", required = false) String picture)  throws IllegalStateException, IOException {
-		FoodPost foodPost = new FoodPost();
-		foodPost.categoryId = categoryId;
-		foodPost.name = name;
-		foodPost.price = price;
-		foodPost.description = description;
-		foodPost.picture = picture;
-		foodService.insertOrUpdateFood(foodPost);
+	public  Map<String, Object> addFood(@RequestBody FoodPost food)  throws IllegalStateException, IOException {
+		// FoodPost foodPost = new FoodPost();
+		// foodPost.categoryId = categoryId;
+		// foodPost.name = name;
+		// foodPost.price = price;
+		// foodPost.description = description;
+		// foodPost.picture = picture;
+		foodService.insertOrUpdateFood(food);
 		return super.info(BaseController.CODE_OK,"添加菜品成功", null);
 	}
 
 	@RequestMapping(value = "Food", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	@ApiOperation("更新菜品")
-	public  Map<String, Object> addFood(@RequestParam(value = "菜品ID") Integer id, @RequestParam(value = "菜品分类ID") Integer categoryId,
-										@RequestParam(value = "菜品名称") String name, @RequestParam(value = "菜品价格") BigDecimal price,
-										@RequestParam(value = "菜品描述") String description,
-										@RequestParam(value = "菜品图片", required = false) String picture)
+	public  Map<String, Object> updateFood(@RequestBody FoodPost food)
 			throws IllegalStateException, IOException {
-		FoodPost foodPost = new FoodPost();
-		foodPost.id = id;
-		foodPost.categoryId = categoryId;
-		foodPost.name = name;
-		foodPost.price = price;
-		foodPost.description = description;
-		if(picture!=null)
-		{
-			foodPost.picture = picture;
-		}
-		foodService.insertOrUpdateFood(foodPost);
+		// FoodPost foodPost = new FoodPost();
+		// foodPost.id = id;
+		// foodPost.categoryId = categoryId;
+		// foodPost.name = name;
+		// foodPost.price = price;
+		// foodPost.description = description;
+		// if(picture!=null)
+		// {
+		// 	foodPost.picture = picture;
+		// }
+		foodService.insertOrUpdateFood(food);
 		return super.info(BaseController.CODE_OK,"更新菜品成功", null);
 	}
 
