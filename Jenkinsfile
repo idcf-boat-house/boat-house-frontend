@@ -159,12 +159,12 @@ pipeline {
 
     }
 
-    post {
+   /*   post {
       always {
-       /* 
+      
         sh "sudo rm -rf src/product-service/api/target"
         sh "sudo rm -rf src/account-service/api/target"
-        */
+        
       }
-    }
+    }*/
   }
