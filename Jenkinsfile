@@ -85,7 +85,8 @@ pipeline {
             }
         } 
     
-        stage('Jmeter') {
+     
+       stage('Jmeter') {
           steps {
             script{
                 echo "waitting for the sevice up...."
@@ -107,21 +108,7 @@ pipeline {
                 sh "docker build -f test/selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest test/selenium/dotnet-uitest"
             }
         }
-
-        // 运行UI测试
-        stage('run-uitest'){
-            steps {
-                script {
-                    // 本地执行测试
-                    sh "mkdir -p ./test/selenium/dotnet-uitest/uitest/report"
-                    sh "docker-compose -f ./test/selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub down"
-                    sh "docker-compose -f ./test/selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub pull"
-                    sh "docker-compose -f ./test/selenium/dotnet-uitest/docker-compose-hub.yml -p uitest-hub up -d"
-                    sh "docker run -v \$(pwd)/test/selenium/dotnet-uitest/uitest/report:/app/TestResults ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest"
-                    mstest testResultsFile:"test/selenium/**/*.trx", keepLongStdio: true
-                }
-            }
-        }
+        
 
         // 测试环境部署
         stage('deploy-test') {
