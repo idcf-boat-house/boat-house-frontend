@@ -59,7 +59,6 @@ pipeline {
           }
         }
 
-
         stage('deploy-dev') { 
             steps {
               sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' src/docker-compose-template.yaml"
