@@ -36,13 +36,13 @@ jobs:
          run: env && ls
  
        - name: replace project name
-         run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" kompose/test/client-*.yaml
+         run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/client-*.yaml
  
        - name: replace docker images tags
-         run: sed -i "s|:latest$|:action-ci|g" kompose/test/client-*.yaml
+         run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/client-*.yaml
  
        - name: grep images url
-         run: grep -i "image:" kompose/test/client-*.yaml
+         run: grep -i "image:" devops/kompose/test/client-*.yaml
          #run: ls kompose/test/client-*.yaml
  
        - uses: Azure/k8s-set-context@v1
@@ -61,6 +61,6 @@ jobs:
          with:
            namespace: 'boathouse-test-github'
            manifests: |
-              kompose/test/client-deployment.yaml
-              kompose/test/client-svc.yaml
+              devops/kompose/test/client-deployment.yaml
+              devops/kompose/test/client-svc.yaml
            kubectl-version: 'latest'
