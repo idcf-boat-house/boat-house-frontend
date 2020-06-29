@@ -30,7 +30,7 @@
     * 页面名：views目录下，页面命名使用连接符(kebab-case)user-info.vue，如果views下的文件件只有一个文件,命名使用index.vue 。
     * JS文件命名：名使用分隔符线resize-event.js，如果为单个单词，使用小写md5.js
 
-
+ 
 ## 2. 目录结构
 ```
 ├── images                              # 代码库中饮用图片的统一存放文件夹
