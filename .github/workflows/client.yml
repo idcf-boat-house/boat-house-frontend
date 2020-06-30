@@ -1,5 +1,9 @@
 name: Build and Deploy dev client 
-on: push
+on: 
+  push:
+    paths:
+      - 'src/client/**'
+      - '.github/workflows/client.yml'
 
 jobs:
   build:

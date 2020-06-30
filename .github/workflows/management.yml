@@ -1,5 +1,9 @@
 name: Build and Depoly dev management 
-on: push
+on: 
+  push:
+    paths:
+      - 'src/management/**'
+      - '.github/workflows/management.yml'
 
 jobs:
   build:
