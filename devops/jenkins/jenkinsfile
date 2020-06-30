@@ -10,7 +10,7 @@ def getHost() {
 }
 
 pipeline {
-    agent 
+    agent
     { 
         label 'vm-slave' 
     }
