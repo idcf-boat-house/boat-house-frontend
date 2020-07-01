@@ -89,7 +89,7 @@ pipeline {
         } 
     
      
-    /*    stage('Jmeter') {
+    /*   stage('Jmeter') {
           steps {
             script{
                 echo "waitting for the sevice up...."
