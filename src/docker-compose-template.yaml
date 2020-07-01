@@ -1,7 +1,6 @@
 version: "3"
 services:
 
-    
     client:
         image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/client:latest
         restart: always
