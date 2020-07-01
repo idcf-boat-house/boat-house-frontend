@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: management
-  namespace: boathouse-test
+  namespace: #{DEPLOY_K8S_NAMESPACE_TEST}#
 spec:
   type: LoadBalancer
   ports:

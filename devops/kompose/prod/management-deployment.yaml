@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: management
-  namespace: boathouse-prod
+  namespace: #{DEPLOY_K8S_NAMESPACE_PROD}#
 spec:
   replicas: 1
   selector: 

@@ -45,6 +45,9 @@ jobs:
        - name: replace docker images tags
          run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/management-*.yaml
 
+       - name: replace k8s namespace
+         run: sed -i "s|#{DEPLOY_K8S_NAMESPACE_TEST}#|${{ secrets.DEPLOY_K8S_NAMESPACE_TEST }}|g" devops/kompose/test/management-*.yaml
+
        - name: grep images url
          run: grep -i "image:" devops/kompose/test/management-*.yaml
          #run: ls devops/kompose/test/management-*.yaml
