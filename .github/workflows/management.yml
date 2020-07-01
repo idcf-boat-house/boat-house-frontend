@@ -16,7 +16,7 @@ jobs:
         run: env
 
       - name: docker build management
-        run: docker build -f management/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-ci management/web
+        run: docker build -f management/web/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-ci src/management
 
       - name: docker images 
         run: docker images
