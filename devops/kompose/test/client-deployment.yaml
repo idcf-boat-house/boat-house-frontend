@@ -4,7 +4,7 @@ metadata:
   name: client
   namespace: #{DEPLOY_K8S_NAMESPACE_TEST}#
 spec:
-  replicas: 3
+  replicas: 1
   selector: 
     matchLabels:
       app: client

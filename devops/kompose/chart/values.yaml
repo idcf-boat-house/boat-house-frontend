@@ -16,7 +16,7 @@ services:
 serviceProfiles:
   - name: client
     imageName: client
-    replicas: 3
+    replicas: 1
     svcType: LoadBalancer
     appPort: 8080
     svcPort: 80
