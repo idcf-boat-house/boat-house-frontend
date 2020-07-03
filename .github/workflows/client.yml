@@ -52,7 +52,7 @@ jobs:
          run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/client-*.yaml
 
        - name: replace k8s namespace
-         run: sed -i "s|#{DEPLOY_K8S_NAMESPACE_TEST}#|\${{ secrets.DEPLOY_K8S_NAMESPACE_TEST }}|g" devops/kompose/test/client-*.yaml
+         run: sed -i "s/#{DEPLOY_K8S_NAMESPACE_TEST}#/\${{ secrets.DEPLOY_K8S_NAMESPACE_TEST }}/g" devops/kompose/test/client-*.yaml
 
        - name: grep images url
          run: grep -i "image:" devops/kompose/test/client-*.yaml
