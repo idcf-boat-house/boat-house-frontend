@@ -39,14 +39,24 @@ jobs:
        - name: list env
          run: env && ls
 
-       - name: replace project name
-         run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/management-*.yaml
+       #- name: replace project name 
+       #  run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/client-*.yaml
 
-       - name: replace docker images tags
-         run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/management-*.yaml
+       - name: replace github org name
+         run: sed -i "s|#{BOATHOUSE_ORG_NAME}#|${GITHUB_REPOSITORY_OWNER}|g" devops/kompose/test/management-*.yaml
+
+       - name: replace rep branch name
+         run: sed -i "s|#{env.BRANCH_NAME}#|action-${GITHUB_REF##*/}-ci|g" devops/kompose/test/management-*.yaml
+
+       - name: replace BUILD ID
+         run: sed -i "s|#{env.BUILD_ID}#|${GITHUB_RUN_NUMBER}|g" devops/kompose/test/management-*.yaml
+
+      #  - name: replace docker images tags
+      #    run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/management-*.yaml 
 
        - name: replace k8s namespace
          run: sed -i "s|#{DEPLOY_K8S_NAMESPACE_TEST}#|${{ secrets.DEPLOY_K8S_NAMESPACE_TEST }}|g" devops/kompose/test/management-*.yaml
+
 
        - name: grep images url
          run: grep -i "image:" devops/kompose/test/management-*.yaml
