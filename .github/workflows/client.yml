@@ -39,7 +39,7 @@ jobs:
        - name: list env
          run: env && ls
  
-       #- name: replace project name
+       #- name: replace project name 
        #  run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/client-*.yaml
  
        - name: replace org name
