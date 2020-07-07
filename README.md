@@ -146,10 +146,13 @@ cd /src/client
 cnpm install
 ```
 
+## 5. 以docker容器方式在本地运行
 
-## 5. 测试
+运行命令： `docker-compose -f src/docker-compose.yml up -d`
+
+## 6. 测试
 TODO
-## 6. DevOps
+## 7. DevOps
 TODO
 
 
