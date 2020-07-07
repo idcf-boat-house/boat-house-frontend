@@ -76,35 +76,17 @@ pipeline {
                 // 下面的 docker-compose-template.yaml 已经复制到根目录下，不用再调整
                 echo "stopping previous docker containers...."       
                 sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend down"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse down"
                 
                 echo "pulling newest docker images..."
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend pull"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse pull"
                 
                 echo "restarting new docker containers...."
-                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend up -d"
+                sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boathouse up -d"
                 echo "successfully started!"
               }
             }
         } 
-    
-     
-    /*   stage('Jmeter') {
-          steps {
-            script{
-                echo "waitting for the sevice up...."
-                sleep 80
-                sh "ls -al ./test/jmeter"
-                sh "cd test/jmeter && find . -name '*.log' -delete"
-                sh "rm -R ./test/jmeter/output || exit 0"
-                sh "mkdir ./test/jmeter/output"
-                sh "docker run --interactive --rm --volume `pwd`/test/jmeter:/jmeter egaillardon/jmeter --nongui --testfile boat-house.jmx --logfile output/result.jtl -Jdomain=${BOATHOUSE_DEV_HOST} -e -o ./output"
-                sh "ls -al ./test/jmeter"
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: './test/jmeter/output', reportFiles: 'index.html', reportName: 'Jmeter Report', reportTitles: ''])
-            }
-          }
-        }
-        */
 
         stage('build-uitest'){
             steps {
