@@ -77,6 +77,10 @@ pipeline {
                 sshPut remote: server, from: 'src/product-service/api/scripts/init.sql', into: './src/product-service/api/scripts/init.sql'
                 */
 
+                echo "create network...."       
+                sshCommand remote: server, command: "docker network ls|grep backend > /dev/null || docker network create --driver bridge backend"
+                sshCommand remote: server, command: "docker network ls|grep frontend > /dev/null || docker network create --driver bridge frontend"
+
                 // 下面的 docker-compose-template.yaml 已经复制到根目录下，不用再调整
                 echo "stopping previous docker containers...."       
                 sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
@@ -87,6 +91,7 @@ pipeline {
                 
                 echo "restarting new docker containers...."
                 sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend up -d"
+
                 echo "successfully started!"
               }
             }
