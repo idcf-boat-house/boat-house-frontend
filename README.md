@@ -13,6 +13,7 @@
   + [3.2. Windows](#3.2.%20Windows)
 + [4. 调试](#4.%20调试)
 + [5. 测试](#5.%20测试)
+5. 以docker容器方式在本地运行
 + [6. DevOps](#6.%20DevOps)
 + [常见问题](#常见问题)
 
@@ -96,65 +97,58 @@ brew update
 brew install
 ```
 
-安装cnpm & node
+安装
 ``` bash
+# 安装cnpm & node
 brew install cnpm
 cnpm install node
-```
 
-查看版本
-``` bash
+# 查看版本
 cnpm -v
 node -v
-```
 
-安装Vue
-``` bash
+# 安装Vue
 cnpm install vue  
-```
 
-全局安装 vue-cli
-``` bash
+# 全局安装 vue-cli
 cnpm install --global vue-cli
 ```
 
 ### 3.2. Windows
 下载node.js安装 https://nodejs.org/en/download
 
-基于 Node.js 安装cnpm（淘宝镜像）
 ``` cmd
+# 基于 Node.js 安装cnpm（淘宝镜像）
 npm install -g cnpm --registry=https://registry.npm.taobao.org
-```
-安装Vue
-``` cmd
-cnpm install vue -g
-```
 
-安装vue命令行工具，即vue-cli 脚手架
-``` cmd
+# 安装Vue
+cnpm install vue -g
+
+# 安装vue命令行工具，即vue-cli 脚手架
 cnpm install vue-cli -g
 ```
 
 ## 4. 调试
-进入web 用户界面文件夹
 ``` bash
+# 进入web 用户界面文件夹
 cd /src/client
-```
 
-安装依赖保
-``` bash
+# 安装依赖保
 cnpm install
 ```
 
-## 5. 以docker容器方式在本地运行
+## 5. 测试
+以docker容器方式在本地运行
 
-运行命令： `docker-compose -f src/docker-compose.yml up -d`
+`docker-compose -f src/docker-compose.yml up -d`
 
-## 6. 测试
-TODO
-## 7. DevOps
-TODO
+## 6. DevOps
+### Jenkins
+[点击这里](/devops/jenkins/jenkinsfile)
+### GitHub Action
+[前台页面](/.github/workflows/client.yml)
 
+[后台页面](/.github/workflows/management.yml)
 
 ## 常见问题
 ### 1. 解决brew安装速度慢的问题
