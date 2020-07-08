@@ -133,7 +133,7 @@ cnpm install vue-cli -g
 # 进入web 用户界面文件夹
 cd /src/client
 
-# 安装依赖保
+# 安装依赖包
 cnpm install
 ```
 
