@@ -30,7 +30,7 @@ jobs:
       - name: docker push client tag latest
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/client:action-ci
 
-  deploy-dev:
+  deploy-k8s-test-github:
      needs: build
      runs-on: ubuntu-latest
      steps:
