@@ -66,6 +66,7 @@ pipeline {
         // dev
         stage('deploy-dev') { 
             steps {
+              sh "sed -i 's/#{BOATHOUSE_CONTAINER_REGISTRY}#/${BOATHOUSE_CONTAINER_REGISTRY}/g' src/docker-compose-template.yaml"
               sh "sed -i 's/#{BOATHOUSE_ORG_NAME}#/${BOATHOUSE_ORG_NAME}/g' src/docker-compose-template.yaml"
               script {
                 server = getHost()
