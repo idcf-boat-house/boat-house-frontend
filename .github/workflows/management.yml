@@ -50,10 +50,7 @@ jobs:
 
        - name: replace BUILD ID
          run: sed -i "s|#{env.BUILD_ID}#|${GITHUB_RUN_NUMBER}|g" devops/kompose/test/management-*.yaml
-
-      #  - name: replace docker images tags
-      #    run: sed -i "s|:latest$|:action-ci|g" devops/kompose/test/management-*.yaml 
-
+   
        - name: replace k8s namespace
          run: sed -i "s|#{DEPLOY_K8S_NAMESPACE_TEST}#|${{ secrets.DEPLOY_K8S_NAMESPACE_TEST }}|g" devops/kompose/test/management-*.yaml
 
@@ -68,10 +65,11 @@ jobs:
 
        - uses: Azure/k8s-create-secret@v1
          with:
+           namespace: boathouse-test-github           
            container-registry-url: ${{ secrets.BOATHOUSE_CONTAINER_REGISTRY }}
-           container-registry-username: ${ secrets.CREDS_GITHUB_REGISTRY_USR }
+           container-registry-username: ${{ secrets.CREDS_GITHUB_REGISTRY_USR }}
            container-registry-password: ${{ secrets.packages_token }}
-           secret-name: demo-k8s-secret
+           secret-name: regcred
 
        - uses: Azure/k8s-deploy@v1
          with:
