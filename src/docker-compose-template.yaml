@@ -2,7 +2,7 @@ version: "3"
 services:
 
     client:
-        image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/client:latest
+        image: #{BOATHOUSE_CONTAINER_REGISTRY}#/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/client:latest
         restart: always
         ports:
             - 5000:8080
@@ -11,7 +11,7 @@ services:
             - backend
 
     management:
-        image: docker.pkg.github.com/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/management:latest
+        image: #{BOATHOUSE_CONTAINER_REGISTRY}#/#{BOATHOUSE_ORG_NAME}#/boat-house-frontend/management:latest
         restart: always
         ports:
             - 5001:4000
