@@ -16,19 +16,19 @@ jobs:
         run: env
 
       - name: docker build management
-        run: docker build -f src/management/Dockerfile -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-ci src/management
+        run: docker build -f src/management/Dockerfile -t ${DOCKER_REG_URL}/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER} -t ${DOCKER_REG_URL}/${GITHUB_REPOSITORY}/management:action-ci src/management
 
       - name: docker images 
         run: docker images
 
       - name: docker login
-        run : docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
+        run : docker login ${DOCKER_REG_URL} -u ${GITHUB_REPOSITORY%/*} -p ${{ secrets.packages_token }}
 
       - name: docker push management tag branch number
-        run : docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
+        run : docker push ${DOCKER_REG_URL}/${GITHUB_REPOSITORY}/management:action-${GITHUB_REF##*/}-ci-${GITHUB_RUN_NUMBER}
       
       - name: docker push management tag latest
-        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/management:action-ci
+        run: docker push ${DOCKER_REG_URL}/${GITHUB_REPOSITORY}/management:action-ci
 
   deploy-k8s-test-github:
      needs: build
@@ -40,7 +40,7 @@ jobs:
          run: env && ls
 
        #- name: replace project name 
-       #  run: sed -i "s|docker.pkg.github.com\/idcf-boat-house\/boat-house-frontend|docker.pkg.github.com\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/client-*.yaml
+       #  run: sed -i "s|${DOCKER_REG_URL}\/idcf-boat-house\/boat-house-frontend|${DOCKER_REG_URL}\/${GITHUB_REPOSITORY%/*}\/boat-house-frontend|g" devops/kompose/test/client-*.yaml
 
        - name: replace github org name
          run: sed -i "s|#{BOATHOUSE_ORG_NAME}#|${GITHUB_REPOSITORY_OWNER}|g" devops/kompose/test/management-*.yaml
@@ -68,7 +68,7 @@ jobs:
 
        - uses: Azure/k8s-create-secret@v1
          with:
-           container-registry-url: docker.pkg.github.com
+           container-registry-url: ${DOCKER_REG_URL}
            container-registry-username: ${GITHUB_REPOSITORY%/*}
            container-registry-password: ${{ secrets.packages_token }}
            secret-name: demo-k8s-secret

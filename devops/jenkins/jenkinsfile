@@ -44,7 +44,7 @@ pipeline {
             stage('build-client') {
               steps {
                 sh "docker build -f src/client/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest src/client"
-                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sh "docker login ${DOCKER_REG_URL} -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
@@ -54,7 +54,7 @@ pipeline {
             stage('build-management') {
               steps {
                 sh "docker build -f src/management/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest src/management"
-                sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sh "docker login ${DOCKER_REG_URL} -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest"
                 sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
@@ -83,7 +83,7 @@ pipeline {
 
                 // 下面的 docker-compose-template.yaml 已经复制到根目录下，不用再调整
                 echo "stopping previous docker containers...."       
-                sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                sshCommand remote: server, command: "docker login ${DOCKER_REG_URL} -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sshCommand remote: server, command: "docker-compose -f docker-compose-template.yaml -p boat-house-frontend down"
                 
                 echo "pulling newest docker images..."
