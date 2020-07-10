@@ -35,7 +35,7 @@ var Globals = {
 
 // ===============================================================
 // @group: Internal worker functions
-// =============================================================== 
+// ===============================================================
 
 (function($) {
   $.extend($.fn, {
@@ -105,7 +105,7 @@ var Globals = {
     // ----------------------------------------------------------------
     // Determine if element is in viewport
     // @credit: https://coderwall.com/p/fnvjvg/jquery-test-if-element-is-in-viewport
-    // ----------------------------------------------------------------    
+    // ----------------------------------------------------------------
     elementInView: function(obj) {
       var elementTop = obj.offset().top;
       var elementBottom = elementTop + obj.outerHeight();
@@ -333,7 +333,7 @@ var Globals = {
     },
 
     // Hash from string
-    // --------------------------------    
+    // --------------------------------
     hashCode: function(str) {
       var hash = 0;
       for (var i = 0; i < str.length; i++) {
@@ -1172,7 +1172,7 @@ window.utils = utils;
         context.find('[data-toggle="tooltip"]').tooltip();
       }
 
-      // ----------------------------------------------------------------  
+      // ----------------------------------------------------------------
       // Bootstrap popover
       // @see: http://getbootstrap.com/javascript/#popovers
       // ----------------------------------------------------------------
@@ -1200,7 +1200,7 @@ window.utils = utils;
 
       // ----------------------------------------------------------------
       // simple class toggles
-      // ----------------------------------------------------------------  
+      // ----------------------------------------------------------------
       context.find('[data-toggle="class"]').each(function() {
         var $this = $(this);
         var target = $this.data('target');
@@ -1262,7 +1262,7 @@ window.utils = utils;
       // Simple class togglers
       // <div id="target"></div>
       // <a href="#target" data-target="#target" data-class="something-something">Toggle</a>
-      // ----------------------------------------------------------------      
+      // ----------------------------------------------------------------
       $("[data-toggle='toggle']").click(function() {
         var $this = $(this);
         var selector = $this.getSelector();
@@ -1451,7 +1451,7 @@ Globals.PLUGINS.themePluginBlazy = function(context) {
   // @see: http://dinbror.dk/blog/blazy/
   //
   // From AppStrap 3.0.9 data-bg-img is now loaded by BLazy too
-  // ----------------------------------------------------------------          
+  // ----------------------------------------------------------------
   var $blazys = context.find('[data-toggle="blazy"]');
   var $blazy_bgs = context.find('[data-bg-img]');
   var bLazy;
@@ -1506,7 +1506,7 @@ Globals.PLUGINS.themePluginBootstrapSelect = function(context) {
   // ----------------------------------------------------------------
   // Plugin: Bootstrap Select
   // @see: https://github.com/snapappointments/bootstrap-select
-  // ----------------------------------------------------------------          
+  // ----------------------------------------------------------------
   var $selects = context.find('[data-toggle="select"], [data-toggle="selects"] select');
   var themePluginBootstrapSelectInit = function() {
     if ($selects.length > 0) {
@@ -1547,7 +1547,8 @@ Globals.PLUGINS.themePluginBootstrapSelect = function(context) {
 
   if ($selects.length > 0) {
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/js/bootstrap-select.min.js"], ["https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/css/bootstrap-select.min.css", "plugin-css/plugin-bootstrap-select.min.css"],
+      ["https://libs.cdnjs.net/bootstrap-select/1.13.0/js/bootstrap-select.min.js"],
+      ["https://libs.cdnjs.net/bootstrap-select/1.13.0/css/bootstrap-select.min.css", "plugin-css/plugin-bootstrap-select.min.css"],
       themePluginBootstrapSelectInit
     );
   }
@@ -1600,7 +1601,7 @@ Globals.PLUGINS.themePluginClipboard = function(context) {
 
   if ($clipboards.length > 0) {
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"], [],
+      ["https://libs.cdnjs.net/clipboard.js/2.0.6/clipboard.min.js"], [],
       themePluginClipboardInit
     );
   }
@@ -1612,7 +1613,7 @@ Globals.PLUGINS.themePluginClipboard = function(context) {
 Globals.PLUGINS.themePluginCountTo = function(context) {
   // ----------------------------------------------------------------
   // Count To (counters)
-  // @see: 
+  // @see:
   // ----------------------------------------------------------------
   var $countTos = context.find('[data-toggle="count-to"]');
   if ($countTos.length > 0) {
@@ -1641,7 +1642,7 @@ Globals.PLUGINS.themePluginCountTo = function(context) {
         });
       });
     };
-    $document.themeLoadPlugin(["https://cdnjs.cloudflare.com/ajax/libs/jquery-countto/1.2.0/jquery.countTo.min.js"], [], function() {
+    $document.themeLoadPlugin(["https://libs.cdnjs.net/jquery-countto/1.2.0/jquery.countTo.min.js"], [], function() {
       $document.includeWaypoints(function() {
         $document.isPageLoaderDone(themePluginCountToInit);
       });
@@ -1687,7 +1688,7 @@ Globals.PLUGINS.themePluginCountDown = function(context) {
           });
       });
     };
-    $document.themeLoadPlugin(["https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"], [], themePluginCountdownInit);
+    $document.themeLoadPlugin(["https://libs.cdnjs.net/jquery.countdown/2.2.0/jquery.countdown.min.js"], [], themePluginCountdownInit);
   }
 };
 
@@ -1904,9 +1905,9 @@ Globals.PLUGINS.themePluginCubePortfolio = function(context) {
         $configOutput.html(JSONString);
       }
     };
-    
+
     buildConfigOutput($configOutput, buildSettings);
-    
+
     $cbpDemo.on('click', function() {
       // Build settings object
       buildSettings = {};
@@ -1922,7 +1923,8 @@ Globals.PLUGINS.themePluginCubePortfolio = function(context) {
 
   if ($cubePortfolios.length > 0) {
     $document.themeLoadPlugin(
-      ["https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js", "cubeportfolio-jquery-plugin/cubeportfolio/js/jquery.cubeportfolio.min.js"], ["plugin-css/plugin-magnific-popup.min.css", "plugin-css/plugin-cube-portfolio.min.css", "cubeportfolio-jquery-plugin/cubeportfolio/css/cubeportfolio.min.css"],
+      ["https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js", "cubeportfolio-jquery-plugin/cubeportfolio/js/jquery.cubeportfolio.min.js"],
+      ["plugin-css/plugin-magnific-popup.min.css", "plugin-css/plugin-cube-portfolio.min.css", "cubeportfolio-jquery-plugin/cubeportfolio/css/cubeportfolio.min.css"],
       themePluginCubePortfolioInit
     );
   }
@@ -2180,7 +2182,8 @@ Globals.PLUGINS.themePluginFixTo = function(context) {
       });
     };
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/fixto/0.5.0/fixto.js"], ["plugin-css/plugin-sticky-classes.min.css"],
+      ["https://libs.cdnjs.net/fixto/0.5.0/fixto.js"], ["plugin-css/plugin-sticky-classes.min.css"],
+      //https://cdnjs.cloudflare.com/ajax/libs/fixto/0.5.0/fixto.js
       themePluginFixToInit
     );
   }
@@ -2306,7 +2309,14 @@ Globals.PLUGINS.themePluginHighlightJS = function(context) {
       });
     };
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"], ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css", "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"],
+
+      /*["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"],
+      ["https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"],*/
+
+      ["https://libs.cdnjs.net/highlight.js/9.12.0/highlight.min.js"],
+      ["https://libs.cdnjs.net/highlight.js/9.12.0/styles/default.min.css", "https://libs.cdnjs.net/highlight.js/9.12.0/styles/github.min.css"],
+
       themePluginHighlightJSInit
     );
   }
@@ -2489,7 +2499,7 @@ Globals.PLUGINS.themePluginNiceScroll = function(context) {
     };
 
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"], [],
+      ["https://libs.cdnjs.net/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"], [],
       themePluginCustomScrollbarInit
     );
   }
@@ -2692,7 +2702,7 @@ Globals.PLUGINS.themePluginOwlCarousel = function(context) {
       });
     };
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"], ["plugin-css/plugin-owl-carousel.min.css", "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css", "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"],
+      ["https://libs.cdnjs.net/OwlCarousel2/2.2.1/owl.carousel.min.js"], ["plugin-css/plugin-owl-carousel.min.css", "https://libs.cdnjs.net/OwlCarousel2/2.2.1/owl.carousel.min.css", "https://libs.cdnjs.net/animate.css/3.5.2/animate.min.css"],
       themePluginOwlCarouselInit
     );
   }
@@ -2893,7 +2903,7 @@ Globals.PLUGINS.themePluginZoom = function(context) {
       });
     };
     $document.themeLoadPlugin(
-      ["https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.20/jquery.zoom.min.js"], [], themePluginZoomInit);
+      ["https://libs.cdnjs.net/jquery-zoom/1.7.20/jquery.zoom.min.js"], [], themePluginZoomInit);
   }
 };
 
