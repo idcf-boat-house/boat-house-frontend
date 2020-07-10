@@ -43,20 +43,20 @@ pipeline {
             // 用户界面
             stage('build-client') {
               steps {
-                sh "docker build -f src/client/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest src/client"
+                sh "docker build -f src/client/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/client:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/client:latest src/client"
                 sh "docker login ${BOATHOUSE_CONTAINER_REGISTRY} -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/client:latest"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/client:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
 
             // 管理界面
             stage('build-management') {
               steps {
-                sh "docker build -f src/management/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest src/management"
+                sh "docker build -f src/management/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/management:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/management:latest src/management"
                 sh "docker login ${BOATHOUSE_CONTAINER_REGISTRY} -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:latest"
-                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/management:latest"
+                sh "docker push ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/management:${env.BRANCH_NAME}-${env.BUILD_ID}"
               }
             }
 
@@ -100,15 +100,15 @@ pipeline {
 
         stage('build-uitest'){
             steps {
-                sh "docker build -f test/selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/uitest:latest test/selenium/dotnet-uitest"
+                sh "docker build -f test/selenium/dotnet-uitest/Dockerfile -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${BOATHOUSE_CONTAINER_REGISTRY}/${BOATHOUSE_ORG_NAME}/boat-house-frontend/uitest:latest test/selenium/dotnet-uitest"
             }
         }
         
 
         // 测试环境部署
-        stage('deploy-test') {
+        stage('deploy-k8s-test') {
             steps {
-                timeout(5) {
+                timeout(10) {
                     input message: '是否部署到测试环境?', ok: '是', submitter: 'admin'
                 }
                 sh "find devops/kompose/test -name *-deployment.yaml | xargs sed -i 's/#{BOATHOUSE_CONTAINER_REGISTRY}#/${BOATHOUSE_CONTAINER_REGISTRY}/g'"
@@ -122,7 +122,7 @@ pipeline {
         }
 
         // 生产环境部署
-        stage('deploy-production') { 
+        stage('deploy-k8s-production') { 
             steps {
                 timeout(5) {
                     input message: '是否部署到生产环境?', ok: '是', submitter: 'admin'

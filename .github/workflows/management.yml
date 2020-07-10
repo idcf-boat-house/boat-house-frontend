@@ -78,3 +78,5 @@ jobs:
               devops/kompose/test/management-deployment.yaml
               devops/kompose/test/management-svc.yaml
            kubectl-version: 'latest'
+
+           
