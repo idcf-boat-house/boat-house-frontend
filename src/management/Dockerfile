@@ -1,7 +1,7 @@
 
 FROM node:lts-alpine
 
-RUN npm config set registry https://repo.huaweicloud.com/repository/npm/
+RUN npm config set registry http://tools-nexus.boat-house.cn/repository/npm-proxy/
 RUN npm config set unsafe-perm true
 # install simple http server for serving static content
 RUN npm install -g http-server
