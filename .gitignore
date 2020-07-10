@@ -172,3 +172,13 @@ AutoTest.Net/
 [Ee]xpress/
 
 # Do
+
+# document
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+
+# static
+*.scss

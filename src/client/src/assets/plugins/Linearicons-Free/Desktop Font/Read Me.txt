@@ -1,0 +1,7 @@
+In this folder, you can find the Linearicons-Free font in TTF format. You can install this font so that you can use it in desktop applications.
+
+Open "Reference.html" to see a list of the icons available in this font. The text box located to the bottom right of each icon contains a character (which may be invisible). You can copy and use this character in any desktop application that allows entering text and choosing a custom font to display it. You may also type or copy the text in the "liga" field if the environment in which you're using the font supports ligatures.
+
+To get crisp results, use font sizes that are a multiple of 20px.
+
+It is not recommended to use this font on the web because it contains ligatuers and extra glyphs such as Latin letters. Refer to the "Web-Font" folder to find a font suitable for web. To make a custom font with only the glyphs that you need, use the IcoMoon app (https://icomoon.io/app).

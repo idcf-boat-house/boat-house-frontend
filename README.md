@@ -135,7 +135,12 @@ cd /src/client
 
 # 安装依赖包
 cnpm install
+
+# 启动
+cnpm start
 ```
+
+![markdown](./images/cnpm_start_success.png "markdown")
 
 ## 5. 测试
 以docker容器方式在本地运行
