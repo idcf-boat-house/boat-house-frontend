@@ -72,7 +72,7 @@ var Globals = {
     // ----------------------------------------------------------------
     includeWaypoints: function(callback) {
       if (typeof jQuery.fn.waypoint === 'undefined') {
-        $document.themeLoadPlugin(['https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js'], []);
+        $document.themeLoadPlugin(['https://libs.cdnjs.net/waypoints/4.0.1/jquery.waypoints.min.js'], []);
         var tries = 0;
         var isWaypointsDoneTimer = setInterval(function() {
           if (typeof jQuery.fn.waypoint === 'function') {
@@ -513,7 +513,7 @@ window.utils = utils;
             );
           });
         };
-        $document.themeLoadPlugin([], ["https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"], function() {
+        $document.themeLoadPlugin([], ["https://libs.cdnjs.net/animate.css/3.5.2/animate.min.css"], function() {
           $document.isPageLoaderDone(initElementsHovered);
         });
       }
@@ -629,7 +629,7 @@ window.utils = utils;
         };
 
         $document.includeWaypoints(function() {
-          $document.themeLoadPlugin([], ["https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"], function() {
+          $document.themeLoadPlugin([], ["https://libs.cdnjs.net/animate.css/3.5.2/animate.min.css"], function() {
             $document.isPageLoaderDone(initElementsAnimated);
           });
         });
