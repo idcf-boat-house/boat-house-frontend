@@ -21,3 +21,4 @@ spec:
       imagePullSecrets:
       - name: regcred
       restartPolicy: Always
+      

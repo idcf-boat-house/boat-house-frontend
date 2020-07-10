@@ -79,3 +79,4 @@ jobs:
               devops/kompose/test/client-svc.yaml
            kubectl-version: 'latest'
 
+

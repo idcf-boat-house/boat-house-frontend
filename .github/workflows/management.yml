@@ -40,7 +40,7 @@ jobs:
          run: env && ls
 
        - name: replace github container reg url(acr)
-         run: sed -i "s|#{BOATHOUSE_CONTAINER_REGISTRY}#|${{ secrets.BOATHOUSE_CONTAINER_REGISTRY }}|g" devops/kompose/test/client-*.yaml
+         run: sed -i "s|#{BOATHOUSE_CONTAINER_REGISTRY}#|${{ secrets.BOATHOUSE_CONTAINER_REGISTRY }}|g" devops/kompose/test/management-*.yaml
   
        - name: replace github org name
          run: sed -i "s|#{BOATHOUSE_ORG_NAME}#|${GITHUB_REPOSITORY_OWNER}|g" devops/kompose/test/management-*.yaml
@@ -79,4 +79,3 @@ jobs:
               devops/kompose/test/management-svc.yaml
            kubectl-version: 'latest'
 
-           
