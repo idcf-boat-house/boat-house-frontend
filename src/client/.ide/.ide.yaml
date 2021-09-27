@@ -1,0 +1,26 @@
+version: smartide/v0.2
+orchestrator:
+  type: docker-compose
+  version: 3
+workspace:
+  dev-container:
+    service-name: client-service-dev
+    webide-port: 6800
+  services:
+
+    product-service-dev:
+      image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node-ubuntu:latest
+      restart: always
+      environment:
+        POSTGRES_HOST_AUTH_METHOD: trust
+        ROOT_PASSWORD: root123
+      volumes:
+        - /Users/lu/code/leansoftx/boat-house-frontend/src/client:/home/project
+      ports:
+        - 3000
+      networks:
+        - smartide-network
+
+  networks:
+    smartide-network:
+      external: true
