@@ -16,7 +16,7 @@ workspace:
         ROOT_PASSWORD: root123
       volumes:
         - /Users/lu/code/leansoftx/boat-house-frontend/src/client:/home/project
-      ports:
+      expose:
         - 3000
       networks:
         - smartide-network
