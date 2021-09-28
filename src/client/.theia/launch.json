@@ -3,12 +3,11 @@
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
   "configurations": [
-  {
-    "type": "node",
-    "request": "launch",
-    "name": "Electron Main",
-    "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-    "program": "${workspaceFolder}/server.js"
-  }
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/server.js"
+    }
   ]
 }
