@@ -15,7 +15,7 @@ workspace:
         POSTGRES_HOST_AUTH_METHOD: trust
         ROOT_PASSWORD: root123
       volumes:
-        - /Users/lu/code/leansoftx/boat-house-frontend/src/client:/home/project
+        - .:/home/project
       expose:
         - 3000
       networks:
