@@ -182,3 +182,6 @@ AutoTest.Net/
 
 # static
 *.scss
+
+# 
+**/smartide
