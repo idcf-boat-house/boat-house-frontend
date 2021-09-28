@@ -8,7 +8,7 @@ workspace:
     webide-port: 6800
   services:
 
-    product-service-dev:
+    client-service-dev:
       image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node-ubuntu:latest
       restart: always
       environment:
