@@ -11,10 +11,14 @@
       volumes: 
         git-config: true
         ssh-key: true
+      command:
+        - cd src/client
+        - npm i
+        - npm run dev
     services:
   
       boathouse-frontend:
-        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:latest
+        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:1115
         restart: always
         environment:
           POSTGRES_HOST_AUTH_METHOD: trust
