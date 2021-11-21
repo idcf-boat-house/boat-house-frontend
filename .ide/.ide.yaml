@@ -5,23 +5,18 @@
     version: 3
   workspace:
     dev-container:
-      service-name: boathouse-frontend
+      service-name: boathouse-frontend-dev
       webide-port: 6800
-      ide-type: vscode  #vscode/theia
+      ide-type: vscode
       volumes: 
         git-config: true
         ssh-key: true
-      command:
-        - cd src/client
-        - npm i
-        - npm run dev
-    services:
-  
-      boathouse-frontend:
+    services:  
+      boathouse-frontend-dev:
+        container_name: boathouse-frontend-dev
         image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:1115
         restart: always
         environment:
-          POSTGRES_HOST_AUTH_METHOD: trust
           ROOT_PASSWORD: root123
         volumes:
           - .:/home/project
@@ -30,8 +25,7 @@
         ports:
           - 8080:8080
         networks:
-          - smartide-network
-  
+          - boathouse-dev-network  
     networks:
-      smartide-network:
+      boathouse-dev-network:
         external: true
