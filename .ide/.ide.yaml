@@ -7,7 +7,7 @@
     dev-container:
       service-name: boathouse-frontend
       webide-port: 6800
-      ide-type: vscode  #vscode/theia
+      ide-type: vscode
       volumes: 
         git-config: true
         ssh-key: true
@@ -18,13 +18,13 @@
     services:
   
       boathouse-frontend:
-        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:1115
+        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-slim:latest
         restart: always
         environment:
-          POSTGRES_HOST_AUTH_METHOD: trust
           ROOT_PASSWORD: root123
         volumes:
           - .:/home/project
+          - /var/run/docker.sock:/var/run/docker.sock
         expose:
           - 8080
         ports:
