@@ -7,6 +7,11 @@
     dev-container:
       service-name: boathouse-frontend-dev
       webide-port: 6800
+      ports:
+        webide: 6800
+        ssh: 6822
+        boathouse-client: 5000
+        boathouse-management: 5001
       ide-type: vscode
       volumes: 
         git-config: true
@@ -21,11 +26,11 @@
         volumes:
           - .:/home/project
         expose:
-          - 8080
-          - 8081
+          - 5000
+          - 5001
         ports:
-          - 8080:8080
-          - 8081:8081
+          - 5000:5000
+          - 5001:5001
         networks:
           - boathouse-dev-network  
     networks:

@@ -24,7 +24,7 @@
               <img src="assets/img/logo/logo.png" height="50" width="50" class="pull-left mr-1">
               <a class="header-brand-text" href="#" title="Home">
                 <h1 class="h2">
-                  <span class="header-brand-text-alt">船屋餐厅</span>苏格兰风味
+                  <span class="header-brand-text-alt">SmartIDE 船屋餐厅</span>苏格兰风味
                 </h1>
               </a>
             </div>
