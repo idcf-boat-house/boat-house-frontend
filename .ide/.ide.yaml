@@ -21,7 +21,7 @@
     services:  
       boathouse-frontend-dev:
         container_name: boathouse-frontend-dev
-        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:latest
+        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-node:latest
         restart: always
         environment:
           ROOT_PASSWORD: root123
