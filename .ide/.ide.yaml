@@ -1,0 +1,40 @@
+
+  version: smartide/v0.2
+  orchestrator:
+    type: docker-compose
+    version: 3
+  workspace:
+    dev-container:
+      service-name: boathouse-frontend-dev
+      webide-port: 6800
+      ports:
+        webide: 6800
+        ssh: 6822
+        boathouse-client: 5000
+        boathouse-management: 5001
+      ide-type: vscode
+      volumes: 
+        git-config: true
+        ssh-key: true
+      command:
+        - npm config set registry https://registry.npmmirror.com
+    services:  
+      boathouse-frontend-dev:
+        container_name: boathouse-frontend-dev
+        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode:latest
+        restart: always
+        environment:
+          ROOT_PASSWORD: root123
+        volumes:
+          - .:/home/project
+        expose:
+          - 5000
+          - 5001
+        ports:
+          - 5000:5000
+          - 5001:5001
+        networks:
+          - boathouse-dev-network  
+    networks:
+      boathouse-dev-network:
+        external: true
