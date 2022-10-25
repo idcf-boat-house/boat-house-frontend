@@ -8,7 +8,7 @@ def getHost() {
   remote.host = "${BOATHOUSE_DEV_HOST}"
   remote.user = "${env.CREDS_DEV_SERVER_USR}"
   remote.password = "${env.CREDS_DEV_SERVER_PSW}"
-  remote.port = 22
+  remote.port = 22008
   remote.allowAnyHosts = true
   return remote
 }
