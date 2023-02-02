@@ -20,7 +20,7 @@
     "requestify": "^0.2.5",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
-    "vue-resource": "^1.5.1",
+    "vue-resource": "^1.5.3",
     "vue-router": "^3.3.2"
   },
   "devDependencies": {
